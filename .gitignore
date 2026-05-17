@@ -1,0 +1,25 @@
+# Personal user data — never commit
+user_config.json
+my_loadouts.xlsx
+manifest_cache/
+*.env
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Build artifacts
+dist/
+build/
