@@ -1,6 +1,6 @@
 # Example loadouts
 
-`example_loadouts.json` contains **25 community-shared DIM loadouts** across all three classes (13 Warlock, 9 Hunter, 3 Titan), with notes from the build authors.
+`example_loadouts.json` contains **27 community-shared DIM loadouts** across all three classes (13 Warlock, 11 Hunter, 3 Titan), with notes from the build authors.
 
 These are public DIM share URLs collected from community Discord channels. They're meant as a demo / reference so you can see what a populated workbook looks like before adding your own.
 
@@ -35,6 +35,7 @@ python decode_dim.py
 Builds shared by community members in Discord:
 - **Stubby456#6394** — most of the Warlock + Hunter DPS builds (May 2026)
 - **StrawHat Kano#6659** — Strand Hunter, Contraverse, Swarmers, Vespers/Centrifuse (Oct 2025)
+- **MardY1786** — Prismatic Hunter + Void/Arc-staff swap (Oct 2025)
 - And others — see the `notes` field on each entry
 
 If you authored one of these builds and want to be credited differently (or pulled from this list), open an issue.
