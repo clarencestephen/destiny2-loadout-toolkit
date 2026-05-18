@@ -257,7 +257,7 @@ def run_decoder():
 
 
 def main():
-    banner("THE WAY OF THE SITH — INSTALL WIZARD")
+    banner("ORDER 66 — INSTALL WIZARD")
     print()
     print("  This will set up your personal config + workbook.")
     print("  Your Bungie API key is saved to user_config.json (gitignored — never")
