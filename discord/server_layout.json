@@ -7,12 +7,13 @@
   "_naming_convention": "Star Wars themed names. Channel topics describe the actual purpose so members don't get lost.",
 
   "roles": [
-    {"name": "Emperor",                     "color": "red",     "hoist": true,  "mentionable": true,  "_purpose": "Server owner / admin (you)"},
-    {"name": "Death Star Command",          "color": "gold",    "hoist": true,  "mentionable": true,  "_purpose": "Mods / staff"},
-    {"name": "Imperial Trooper",            "color": "blue",    "hoist": true,  "mentionable": true,  "_purpose": "Clan members — gated access to Imperial Troopers category"},
-    {"name": "Rebel Ally",                  "color": "purple",  "hoist": true,  "mentionable": false, "_purpose": "Verified non-clan members"},
-    {"name": "Padawan",                     "color": "teal",    "hoist": true,  "mentionable": false, "_purpose": "Want to join the clan"},
-    {"name": "Unverified",                  "color": "grey",    "hoist": false, "mentionable": false, "_purpose": "Default on join — sees only gateway"},
+    {"name": "Emperor",                     "color": "sith-purple", "hoist": true,  "mentionable": true,  "_purpose": "Server owner / admin (you)"},
+    {"name": "Emperor's Royal Guard",       "color": "neon-saber",  "hoist": true,  "mentionable": true,  "_purpose": "Co-admins / trusted lieutenants — elite tier between Emperor and mods"},
+    {"name": "Death Star Commander",        "color": "dark-sith",   "hoist": true,  "mentionable": true,  "_purpose": "Mods / staff"},
+    {"name": "Imperial Trooper",            "color": "holo-blue",   "hoist": true,  "mentionable": true,  "_purpose": "Clan members — gated access to Imperial Troopers category"},
+    {"name": "Rebel Ally",                  "color": "soft-sith",   "hoist": true,  "mentionable": false, "_purpose": "Verified non-clan members"},
+    {"name": "Padawan",                     "color": "teal",        "hoist": true,  "mentionable": false, "_purpose": "Want to join the clan"},
+    {"name": "Unverified",                  "color": "grey",        "hoist": false, "mentionable": false, "_purpose": "Default on join — sees only gateway"},
 
     {"name": "Clan",                        "color": "blue",    "hoist": false, "mentionable": true},
     {"name": "Non-clan members",            "color": "purple",  "hoist": false, "mentionable": false},

@@ -76,7 +76,7 @@ RULES_BODY = (
     "one week after release.\n\n"
     "➎  **Stay on-topic per channel.** Build chat in build channels, "
     "LFG in LFG channels, the Cantina is the off-topic catch-all.\n\n"
-    "➏  **Mod's word is final.** Death Star Command runs the moderation "
+    "➏  **Mod's word is final.** Death Star Commander runs the moderation "
     "queue. Disagree quietly via DM; do not litigate it in public chat.\n\n"
     "➐  **USE THE FORCE.** If a question can be answered by `/sanity` "
     "from Darth Bot, by the manifest, by light.gg, or by reading the "
@@ -226,7 +226,7 @@ GATEWAY_CATEGORIES = {
 # don't double-apply gating to these.
 ALREADY_RESTRICTED_CATEGORIES = {
     "⚔️ Imperial Troopers",
-    "💀 Death Star Command",
+    "💀 Death Star Commander",
     "🚀 The Imperial Armory",
     "📣 Imperial Declarations",
 }

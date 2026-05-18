@@ -86,7 +86,7 @@ You underestimate the power of the dark side.
     LFG channels, the Cantina is the off-topic catch-all. The Imperial
     Senate exists for everything else.
 
-➏  **Mod's word is final.** Death Star Command runs the moderation
+➏  **Mod's word is final.** Death Star Commander runs the moderation
     queue. Disagree quietly via DM; do not litigate it in public chat.
 
 ➐  **USE THE FORCE.** If a question can be answered by `/sanity` from
@@ -128,7 +128,7 @@ react, that's all there is.
    right-click → Copy Message ID).
 
 3. **Mod promotes Padawan → Imperial Trooper / Rebel Ally.** Manual.
-   Death Star Command does this when:
+   Death Star Commander does this when:
    - Imperial Trooper: clan invite has been accepted in-game
    - Rebel Ally: trusted non-clan member (e.g. raid regular, mutual
      friend) — granted at mod discretion

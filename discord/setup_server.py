@@ -46,7 +46,7 @@ import messages as msg_content  # noqa: E402
 
 LAYOUT_PATH = Path(__file__).parent / "server_layout.json"
 
-# Discord built-in color names → discord.Color
+# Discord built-in color names + DARTH_BANKAI brand palette → discord.Color
 COLOR_MAP = {
     "red":    discord.Color.red(),
     "blue":   discord.Color.blue(),
@@ -60,10 +60,25 @@ COLOR_MAP = {
     "navy":   discord.Color.dark_blue(),
     "grey":   discord.Color.light_grey(),
     "gray":   discord.Color.light_grey(),
+    # DARTH_BANKAI brand palette (see Darth_bankai - branding/darth-bankai-brand-guide.html)
+    "sith-purple":    discord.Color(0xB432FF),  # primary accent
+    "neon-saber":     discord.Color(0xFF3388),  # secondary, pink/magenta
+    "dark-sith":      discord.Color(0x4411AA),  # gradient endpoint, shadows
+    "holo-blue":      discord.Color(0x2244CC),  # AI/ML, tech elements
+    "soft-sith":      discord.Color(0x8866AA),  # muted purple
+    "star-light":     discord.Color(0xE0D0F0),  # pale, body text accent
 }
 
 
 def color_from(name):
+    """Resolve a color name or hex string (#RRGGBB) to discord.Color."""
+    if not name:
+        return discord.Color.default()
+    if name.startswith("#"):
+        try:
+            return discord.Color(int(name[1:], 16))
+        except ValueError:
+            return discord.Color.default()
     return COLOR_MAP.get(name, discord.Color.default())
 
 
@@ -151,7 +166,7 @@ async def apply_category_restrictions(guild, layout):
     """
     Apply basic permission overwrites for sensitive categories:
       - Imperial Troopers → @Imperial Trooper only
-      - Death Star Command → @Death Star Command + @Emperor only
+      - Death Star Command → @Death Star Commander + @Emperor + @Emperor's Royal Guard
       - The Imperial Armory → verified roles only
       - Imperial Declarations → everyone reads, mods write
     """
@@ -160,8 +175,9 @@ async def apply_category_restrictions(guild, layout):
     trooper = find_role(guild, "Imperial Trooper")
     rebel = find_role(guild, "Rebel Ally")
     padawan = find_role(guild, "Padawan")
-    death_star = find_role(guild, "Death Star Command")
+    death_star = find_role(guild, "Death Star Commander")
     emperor = find_role(guild, "Emperor")
+    royal_guard = find_role(guild, "Emperor's Royal Guard")
 
     restrictions = {
         "⚔️ Imperial Troopers": {
@@ -169,9 +185,10 @@ async def apply_category_restrictions(guild, layout):
             trooper:  discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
         },
         "💀 Death Star Command": {
-            everyone:    discord.PermissionOverwrite(view_channel=False),
-            death_star:  discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
-            emperor:     discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
+            everyone:     discord.PermissionOverwrite(view_channel=False),
+            death_star:   discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
+            emperor:      discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
+            royal_guard:  discord.PermissionOverwrite(view_channel=True, send_messages=True, connect=True),
         },
         "🚀 The Imperial Armory": {
             everyone: discord.PermissionOverwrite(view_channel=False),
@@ -180,9 +197,10 @@ async def apply_category_restrictions(guild, layout):
             padawan:  discord.PermissionOverwrite(view_channel=True, send_messages=True),
         },
         "📣 Imperial Declarations": {
-            everyone:   discord.PermissionOverwrite(view_channel=True, send_messages=False, add_reactions=True),
-            death_star: discord.PermissionOverwrite(view_channel=True, send_messages=True),
-            emperor:    discord.PermissionOverwrite(view_channel=True, send_messages=True),
+            everyone:    discord.PermissionOverwrite(view_channel=True, send_messages=False, add_reactions=True),
+            death_star:  discord.PermissionOverwrite(view_channel=True, send_messages=True),
+            emperor:     discord.PermissionOverwrite(view_channel=True, send_messages=True),
+            royal_guard: discord.PermissionOverwrite(view_channel=True, send_messages=True),
         },
     }
 
