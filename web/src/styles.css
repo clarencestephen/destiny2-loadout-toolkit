@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Cosmic backdrop — applied site-wide
+   ============================================================ */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html, body {
+    min-height: 100vh;
+    background: #07060B;
+    color: #E0D0F0;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 60% 50% at 25% 30%, rgba(180, 50, 255, 0.08), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 80% 75%, rgba(68, 17, 170, 0.10), transparent 65%),
+      radial-gradient(circle at 50% 50%, #1A0A2E 0%, #07060B 70%);
+    background-attachment: fixed;
+  }
+
+  /* Faint cosmic triangle texture — the brand signature */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(60deg, transparent 0 38px, rgba(180, 50, 255, 0.012) 38px 39px),
+      repeating-linear-gradient(-60deg, transparent 0 38px, rgba(255, 51, 136, 0.012) 38px 39px);
+    z-index: -1;
+  }
+
+  ::selection {
+    background: #B432FF;
+    color: #F8FAFC;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #0D0A14; }
+  ::-webkit-scrollbar-thumb { background: #2E1F4A; }
+  ::-webkit-scrollbar-thumb:hover { background: #B432FF; }
+}
+
+@layer utilities {
+  .text-signature {
+    background: linear-gradient(90deg, #B432FF 0%, #FF3388 50%, #4411AA 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .border-signature {
+    border-image: linear-gradient(90deg, #B432FF 0%, #FF3388 50%, #4411AA 100%) 1;
+  }
+  .glow-sith {
+    box-shadow: 0 0 24px rgba(180, 50, 255, 0.45);
+  }
+}

@@ -1,0 +1,38 @@
+# Cloudflare Worker config for destiny-voyager-api
+#
+# First-time setup:
+#   1. `wrangler login`
+#   2. `wrangler kv namespace create destiny-voyager`            (get the id)
+#   3. Paste the id into kv_namespaces.id below
+#   4. `wrangler secret put BUNGIE_API_KEY`
+#   5. `wrangler secret put BUNGIE_CLIENT_ID`
+#   6. `wrangler secret put BUNGIE_CLIENT_SECRET`         (only if using Confidential OAuth)
+#   7. `wrangler secret put SESSION_SECRET`                (random 32+ char string)
+#   8. `wrangler deploy`
+
+name = "destiny-voyager-api"
+main = "src/index.ts"
+compatibility_date = "2025-05-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Route the API under the same custom domain as the Pages frontend.
+# /api/* on destiny-voyager.clarencestephen.com → this Worker.
+# (Configure in Cloudflare dashboard → Workers Routes after first deploy.)
+# routes = [
+#   { pattern = "destiny-voyager.clarencestephen.com/api/*", zone_name = "clarencestephen.com" }
+# ]
+
+# KV — sessions + per-user tokens + manifest cache
+[[kv_namespaces]]
+binding = "DV_KV"
+id      = "REPLACE_AFTER_wrangler_kv_namespace_create"
+preview_id = "REPLACE_FOR_LOCAL_DEV"
+
+# Environment variables (NON-secret only — use `wrangler secret put` for secrets)
+[vars]
+ENV = "production"
+BUNGIE_OAUTH_AUTHORIZE_URL = "https://www.bungie.net/en/OAuth/Authorize"
+BUNGIE_OAUTH_TOKEN_URL     = "https://www.bungie.net/Platform/App/OAuth/Token/"
+BUNGIE_API_BASE            = "https://www.bungie.net/Platform"
+PUBLIC_BASE_URL            = "https://destiny-voyager.clarencestephen.com"
+OAUTH_REDIRECT_PATH        = "/api/auth/callback"
