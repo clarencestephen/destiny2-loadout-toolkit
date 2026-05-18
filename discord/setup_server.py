@@ -40,6 +40,10 @@ try:
 except ImportError:
     sys.exit("ERROR: discord.py not installed. Run: pip install discord.py")
 
+# Sibling module — content for posted messages
+sys.path.insert(0, str(Path(__file__).parent))
+import messages as msg_content  # noqa: E402
+
 LAYOUT_PATH = Path(__file__).parent / "server_layout.json"
 
 # Discord built-in color names → discord.Color
@@ -199,12 +203,172 @@ async def apply_category_restrictions(guild, layout):
             print(f"  ✗ failed: {cat_name} — {e}")
 
 
+async def apply_unverified_gating(guild, layout):
+    """
+    Lock every non-gateway, non-already-restricted category behind the
+    verified roles (Padawan / Rebel Ally / Imperial Trooper). Unverified
+    users keep @everyone, which is denied — so they can only see the
+    gateway category until they react to the imperial-law message.
+    """
+    print("\n[Gating] Locking non-gateway categories behind verified roles...")
+    everyone = guild.default_role
+    verified_roles = [
+        find_role(guild, name)
+        for name in ("Padawan", "Rebel Ally", "Imperial Trooper")
+    ]
+    verified_roles = [r for r in verified_roles if r is not None]
+
+    if not verified_roles:
+        print("  ✗ no verified roles found — run ensure_roles first")
+        return
+
+    for cat_def in layout["categories"]:
+        name = cat_def["name"]
+        if name in msg_content.GATEWAY_CATEGORIES:
+            print(f"  · gateway (open): {name}")
+            continue
+        if name in msg_content.ALREADY_RESTRICTED_CATEGORIES:
+            print(f"  · already restricted elsewhere: {name}")
+            continue
+        cat = find_category(guild, name)
+        if not cat:
+            print(f"  ? not found: {name}")
+            continue
+        overwrites = {everyone: discord.PermissionOverwrite(view_channel=False)}
+        for role in verified_roles:
+            overwrites[role] = discord.PermissionOverwrite(view_channel=True)
+        try:
+            await cat.edit(overwrites=overwrites, reason="setup_server.py — Unverified gating")
+            for ch in cat.channels:
+                await ch.edit(sync_permissions=True)
+            print(f"  ✓ gated: {name}")
+        except Exception as e:
+            print(f"  ✗ failed: {name} — {e}")
+
+
+async def _find_existing(channel, marker):
+    """Scan recent channel history for a bot message containing `marker`
+    (in embed footer or message body). Returns the message or None."""
+    me = channel.guild.me
+    async for m in channel.history(limit=30):
+        if m.author != me:
+            continue
+        # Plain text message
+        if marker in (m.content or ""):
+            return m
+        # Embed footer
+        for e in m.embeds:
+            footer_text = (e.footer.text or "") if e.footer else ""
+            if marker in footer_text:
+                return m
+    return None
+
+
+async def post_welcome_and_rules(guild):
+    """Post the #welcome and #imperial-law embeds, idempotently. Adds the
+    ✅ verification reaction to the imperial-law message so reaction-role
+    bots can wire it."""
+    print("\n[Posts] Welcome + Imperial Law...")
+
+    welcome_ch = discord.utils.get(guild.text_channels, name="welcome")
+    rules_ch = discord.utils.get(guild.text_channels, name="imperial-law")
+
+    if welcome_ch:
+        existing = await _find_existing(welcome_ch, msg_content.WELCOME_MARKER)
+        if existing:
+            print(f"  ✓ already posted in #welcome (msg id {existing.id})")
+        else:
+            embed = discord.Embed(
+                title=msg_content.WELCOME_TITLE,
+                description=msg_content.WELCOME_BODY,
+                color=msg_content.SITH_PURPLE,
+            )
+            embed.set_footer(text=msg_content.WELCOME_MARKER)
+            m = await welcome_ch.send(embed=embed)
+            try:
+                await m.pin(reason="setup_server.py — welcome")
+            except Exception:
+                pass
+            print(f"  + posted in #welcome (msg id {m.id})")
+    else:
+        print("  ? #welcome not found")
+
+    rules_msg = None
+    if rules_ch:
+        existing = await _find_existing(rules_ch, msg_content.RULES_MARKER)
+        if existing:
+            print(f"  ✓ already posted in #imperial-law (msg id {existing.id})")
+            rules_msg = existing
+        else:
+            embed = discord.Embed(
+                title=msg_content.RULES_TITLE,
+                description=msg_content.RULES_BODY,
+                color=msg_content.SITH_PURPLE,
+            )
+            embed.set_footer(text=msg_content.RULES_MARKER)
+            rules_msg = await rules_ch.send(embed=embed)
+            try:
+                await rules_msg.pin(reason="setup_server.py — imperial-law")
+            except Exception:
+                pass
+            print(f"  + posted in #imperial-law (msg id {rules_msg.id})")
+
+        if rules_msg:
+            try:
+                await rules_msg.add_reaction(msg_content.VERIFY_REACTION)
+                print(f"  + ensured {msg_content.VERIFY_REACTION} reaction on imperial-law")
+            except discord.errors.HTTPException as e:
+                print(f"  ✗ couldn't add ✅ reaction: {e}")
+            print(f"\n  >> WIRE THIS IN SAPPHIRE/MEE6:")
+            print(f"     message_id={rules_msg.id} emoji=✅ role=@Padawan")
+    else:
+        print("  ? #imperial-law not found")
+
+
+async def post_recruitment_messages(guild):
+    """Post the 8 reaction-role messages into #recruitment-roles and add
+    their reactions so they're pre-populated and ready to be wired in
+    Sapphire/MEE6."""
+    print("\n[Posts] Recruitment role messages...")
+    ch = discord.utils.get(guild.text_channels, name="recruitment-roles")
+    if not ch:
+        print("  ? #recruitment-roles not found")
+        return
+
+    print(f"\n  >> WIRE THESE IN SAPPHIRE/MEE6 (emoji → role mappings in")
+    print(f"     discord/pick_roles_messages.md):")
+
+    for marker, body, reactions in msg_content.RECRUITMENT_MESSAGES:
+        existing = await _find_existing(ch, marker)
+        if existing:
+            m = existing
+            print(f"  ✓ already posted: {marker} (msg id {m.id})")
+        else:
+            m = await ch.send(body)
+            try:
+                await m.pin(reason="setup_server.py — recruitment-roles")
+            except Exception:
+                pass
+            print(f"  + posted: {marker} (msg id {m.id})")
+
+        for emoji in reactions:
+            try:
+                await m.add_reaction(emoji)
+            except discord.errors.HTTPException as e:
+                print(f"    ✗ couldn't add {emoji} reaction: {e}")
+
+        if reactions:
+            print(f"     message_id={m.id}  reactions: {' '.join(reactions)}")
+
+
 class SetupClient(discord.Client):
-    def __init__(self, layout, guild_id, **kw):
+    def __init__(self, layout, guild_id, skip_posts=False, **kw):
         intents = discord.Intents.default()
+        intents.message_content = True  # needed to read existing posts for idempotency
         super().__init__(intents=intents, **kw)
         self.layout = layout
         self.guild_id = int(guild_id)
+        self.skip_posts = skip_posts
 
     async def on_ready(self):
         print(f"\n[ready] Logged in as {self.user} (id={self.user.id})")
@@ -224,13 +388,22 @@ class SetupClient(discord.Client):
             await ensure_channels(guild, cat, cat_def.get("channels", []))
 
         await apply_category_restrictions(guild, self.layout)
+        await apply_unverified_gating(guild, self.layout)
+
+        if not self.skip_posts:
+            await post_welcome_and_rules(guild)
+            await post_recruitment_messages(guild)
+        else:
+            print("\n[Posts] Skipped (--skip-posts).")
 
         print("\n[done] Server structure built. Next steps:")
         print("  1. Invite TicketTool.xyz and run /setup in #bounty-office")
-        print("  2. Invite Sapphire/MEE6 reaction-role bot, then post reaction-role messages from")
-        print("     discord/pick_roles_messages.md into #recruitment-roles and add reactions")
-        print("  3. Server Settings → Overview → set 'Inactive Channel' to '💤 Carbonite Chamber'")
-        print("  4. Server Settings → Roles → drag 'Emperor' to the top above any bot roles")
+        print("  2. Invite Sapphire (https://sapphirebot.dev) or MEE6 and wire the")
+        print("     emoji → role mappings using the message IDs printed above")
+        print("     (see discord/pick_roles_messages.md for the emoji table)")
+        print("  3. Invite Charlemagne (https://warmind.io) — Destiny 2 stats bot")
+        print("  4. Server Settings → Overview → set 'Inactive Channel' to '💤 Carbonite Chamber'")
+        print("  5. Server Settings → Roles → drag 'Emperor' to the top above any bot roles")
         print()
         await self.close()
 
@@ -246,7 +419,8 @@ def main():
     if not guild_id:
         sys.exit("ERROR: DISCORD_GUILD_ID env var not set and no _target_server_id in JSON.")
 
-    client = SetupClient(layout, guild_id)
+    skip_posts = "--skip-posts" in sys.argv
+    client = SetupClient(layout, guild_id, skip_posts=skip_posts)
     client.run(token)
 
 
