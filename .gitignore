@@ -5,6 +5,10 @@ manifest_cache/
 *.env
 .env
 
+# Darth Bot — scraped data + vector DB are large and re-buildable
+darth-bot/data/
+darth-bot/.env
+
 # Python
 __pycache__/
 *.pyc

@@ -3,53 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORDER 66 — Imperial Dossier</title>
+<title>ORDER 66 — DARTH_BANKAI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@500;700;900&family=Saira+Stencil+One&family=Sora:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Kosugi+Maru&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
-   ORDER 66 — Classified Imperial Dossier
-   Color tokens, base reset, typography
+   ORDER 66 — DARTH_BANKAI brand application
+   Palette: Void Black / Deep Space / Nebula Core / Sith Purple
+            Neon Saber / Dark Sith / Holo Blue / Star Light
+   Type:    Orbitron Black · Kosugi Maru · Rajdhani SemiBold
    ============================================================ */
 :root {
-  --imperial-red:     #DC0000;
-  --imperial-red-hot: #FF1744;
-  --imperial-red-dim: #5C0000;
-  --imperial-red-mist:rgba(220, 0, 0, 0.08);
-  --black:            #050609;
-  --carbon:           #0B0D12;
-  --steel:            #14171F;
-  --graphite:         #1E222C;
-  --concrete:         #2A2E3A;
-  --ash:              #5C6470;
-  --bone:             #C5CAD3;
-  --ivory:            #F8FAFC;
-  --imperial-gold:    #C9A227;
-  --imperial-gold-hot:#FFD700;
-  --keep-green:       #7ED321;
-  --infuse-yellow:    #F5A623;
-  --junk-red:         #FF3B30;
-  --archive-grey:     #8E8E93;
+  /* primary */
+  --void:         #07060B;
+  --deep-space:   #0D0A14;
+  --nebula-core:  #1A0A2E;
+  --sith:         #B432FF;
+  /* accent */
+  --neon-saber:   #FF3388;
+  --dark-sith:    #4411AA;
+  --holo:         #2244CC;
+  --star:         #E0D0F0;
+  /* derived */
+  --sith-mist:    rgba(180, 50, 255, 0.10);
+  --neon-mist:    rgba(255, 51, 136, 0.10);
+  --grid-line:    #221538;
+  --panel-line:   #2E1F4A;
+  --muted:        #6F5C8E;
+
+  /* tag colors */
+  --tag-fav:      #FFD24A;
+  --tag-keep:     #7AE0A8;
+  --tag-inf:      #F5A623;
+  --tag-junk:     #FF3388;
+  --tag-arch:     #8E8E93;
 
   /* class accents */
-  --hunter:  #4A8EFF;
-  --titan:   #FF4242;
-  --warlock: #A66BFF;
+  --hunter:       #4A8EFF;
+  --titan:        #FF4242;
+  --warlock:      #B432FF;
 
-  --shadow-deep:  0 24px 60px -12px rgba(0,0,0,0.8);
-  --shadow-red:   0 0 40px -8px rgba(220, 0, 0, 0.45);
-  --grid-step:    32px;
+  --shadow-cosmic: 0 24px 60px -12px rgba(0, 0, 0, 0.9);
+  --shadow-sith:   0 0 40px -8px rgba(180, 50, 255, 0.55);
+  --grad-signature: linear-gradient(90deg, var(--sith) 0%, var(--neon-saber) 50%, var(--dark-sith) 100%);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
-  background: var(--black);
-  color: var(--bone);
-  font-family: 'Sora', sans-serif;
-  font-weight: 400;
+  background: var(--void);
+  color: var(--star);
+  font-family: 'Kosugi Maru', sans-serif;
   font-size: 14px;
   line-height: 1.5;
   letter-spacing: 0.01em;
@@ -58,52 +64,50 @@ html, body {
 }
 
 /* ============================================================
-   BACKDROP — atmospheric layers
-   1. Subtle scan lines
-   2. Imperial cog watermark
-   3. Diagonal CLASSIFIED stamp
+   COSMIC BACKDROP
+   Radial nebula gradient + subtle triangle pattern overlay
    ============================================================ */
 body::before {
-  /* scanline overlay */
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image: repeating-linear-gradient(
-    180deg,
-    transparent 0,
-    transparent 2px,
-    rgba(255, 255, 255, 0.012) 2px,
-    rgba(255, 255, 255, 0.012) 3px
-  );
-  z-index: 1;
-  animation: scan 8s linear infinite;
-}
-
-body::after {
-  /* corner grain */
+  /* base radial nebula */
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at top left, rgba(220, 0, 0, 0.06), transparent 50%),
-    radial-gradient(ellipse at bottom right, rgba(220, 0, 0, 0.04), transparent 60%);
+    radial-gradient(ellipse 60% 50% at 25% 30%, rgba(180, 50, 255, 0.08), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 80% 75%, rgba(68, 17, 170, 0.10), transparent 65%),
+    radial-gradient(circle at 50% 50%, var(--nebula-core), var(--void) 70%);
   z-index: 0;
 }
 
-@keyframes scan {
-  0%   { background-position: 0 0; }
-  100% { background-position: 0 100vh; }
+body::after {
+  /* subtle triangle pattern overlay — the brand's cosmic texture */
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(60deg,
+      transparent 0,
+      transparent 38px,
+      rgba(180, 50, 255, 0.012) 38px,
+      rgba(180, 50, 255, 0.012) 39px),
+    repeating-linear-gradient(-60deg,
+      transparent 0,
+      transparent 38px,
+      rgba(255, 51, 136, 0.012) 38px,
+      rgba(255, 51, 136, 0.012) 39px);
+  z-index: 1;
 }
 
 .watermark {
   position: fixed;
   top: 18%;
   left: 12%;
-  font-family: 'Saira Stencil One', sans-serif;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
   font-size: 22vw;
-  color: rgba(220, 0, 0, 0.025);
+  color: rgba(180, 50, 255, 0.035);
   letter-spacing: -0.03em;
   z-index: 0;
   pointer-events: none;
@@ -116,17 +120,18 @@ body::after {
   position: fixed;
   top: 8px;
   right: 8px;
-  font-family: 'Big Shoulders Stencil Text', sans-serif;
-  font-weight: 900;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.4em;
-  color: var(--imperial-red);
-  border: 2px solid var(--imperial-red);
+  color: var(--sith);
+  border: 1px solid var(--sith);
   padding: 4px 12px 3px;
   transform: rotate(8deg);
   opacity: 0.85;
   z-index: 100;
   pointer-events: none;
+  background: linear-gradient(90deg, var(--sith-mist), transparent);
 }
 
 /* ============================================================
@@ -143,21 +148,23 @@ body::after {
 /* ---------- HEADER ---------- */
 header {
   display: grid;
-  grid-template-columns: 280px 1fr auto auto;
+  grid-template-columns: 320px 1fr auto auto;
   align-items: center;
   gap: 24px;
   padding: 0 24px;
-  background: linear-gradient(180deg, var(--carbon) 0%, transparent 100%);
-  border-bottom: 1px solid var(--graphite);
+  background: linear-gradient(180deg, var(--deep-space) 0%, transparent 100%);
+  border-bottom: 1px solid var(--panel-line);
   position: relative;
 }
 
 header::after {
+  /* signature gradient hairline beneath the header */
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: -1px;
   height: 1px;
-  background: linear-gradient(90deg, var(--imperial-red) 0%, transparent 8%, transparent 92%, var(--imperial-red) 100%);
+  background: var(--grad-signature);
+  opacity: 0.6;
 }
 
 .brand {
@@ -166,30 +173,42 @@ header::after {
   gap: 14px;
 }
 
+/* triangle mark — Vader-helmet-in-triangle abstraction */
 .brand-mark {
-  width: 38px;
-  height: 38px;
-  background: var(--imperial-red);
+  width: 42px;
+  height: 42px;
   position: relative;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-}
-.brand-mark::after {
-  content: '';
-  position: absolute;
-  inset: 5px;
-  background: var(--black);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-}
-.brand-mark::before {
-  content: '66';
-  position: absolute;
-  inset: 0;
   display: grid;
   place-items: center;
-  font-family: 'Saira Stencil One', sans-serif;
-  font-size: 14px;
-  color: var(--imperial-red);
+}
+.brand-mark::before {
+  /* inverted neon triangle outline */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad-signature);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+.brand-mark::after {
+  /* inner cutout — leaves a triangle outline */
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  right: 4px;
+  bottom: 6px;
+  background: var(--void);
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+}
+.brand-mark span {
+  position: relative;
   z-index: 1;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 11px;
+  color: var(--star);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
 }
 
 .brand-text {
@@ -198,19 +217,23 @@ header::after {
   line-height: 1;
 }
 .brand-text .name {
-  font-family: 'Saira Stencil One', sans-serif;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
   font-size: 22px;
-  letter-spacing: 0.04em;
-  color: var(--ivory);
+  letter-spacing: 0.12em;
+  background: var(--grad-signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.brand-text .tagline {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.35em;
-  color: var(--ash);
+.brand-text .jp {
+  font-family: 'Kosugi Maru', sans-serif;
+  font-size: 10px;
+  color: var(--muted);
   margin-top: 4px;
-  text-transform: uppercase;
+  letter-spacing: 0.15em;
 }
+.brand-text .jp span { color: var(--sith); }
 
 .search {
   position: relative;
@@ -219,24 +242,25 @@ header::after {
 }
 .search input {
   width: 100%;
-  background: var(--steel);
-  border: 1px solid var(--graphite);
-  color: var(--bone);
+  background: var(--deep-space);
+  border: 1px solid var(--panel-line);
+  color: var(--star);
   padding: 10px 16px 10px 40px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.08em;
   outline: none;
   transition: border-color 120ms, box-shadow 120ms;
 }
 .search input:focus {
-  border-color: var(--imperial-red);
-  box-shadow: 0 0 0 1px var(--imperial-red), inset 0 0 30px rgba(220, 0, 0, 0.06);
+  border-color: var(--sith);
+  box-shadow: 0 0 0 1px var(--sith), inset 0 0 30px rgba(180, 50, 255, 0.08);
 }
 .search input::placeholder {
-  color: var(--ash);
+  color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   font-size: 11px;
 }
 .search-icon {
@@ -245,7 +269,7 @@ header::after {
   top: 50%;
   transform: translateY(-50%);
   width: 14px; height: 14px;
-  border: 1.5px solid var(--ash);
+  border: 1.5px solid var(--muted);
   border-radius: 50%;
 }
 .search-icon::after {
@@ -253,7 +277,7 @@ header::after {
   position: absolute;
   bottom: -5px; right: -4px;
   width: 7px; height: 1.5px;
-  background: var(--ash);
+  background: var(--muted);
   transform: rotate(45deg);
 }
 
@@ -261,22 +285,23 @@ header::after {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
   font-size: 10px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ash);
+  color: var(--muted);
 }
 .status-dot {
   width: 8px; height: 8px;
-  background: var(--keep-green);
+  background: var(--neon-saber);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--keep-green);
+  box-shadow: 0 0 8px var(--neon-saber);
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 }
 
 .agent-badge {
@@ -284,24 +309,27 @@ header::after {
   align-items: center;
   gap: 12px;
   padding: 8px 14px;
-  background: var(--steel);
-  border-left: 3px solid var(--imperial-red);
+  background: var(--deep-space);
+  border-left: 3px solid;
+  border-image: var(--grad-signature) 1;
+  border-image-slice: 1;
 }
 .agent-badge .id {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
   font-size: 9px;
-  letter-spacing: 0.25em;
-  color: var(--ash);
+  letter-spacing: 0.3em;
+  color: var(--muted);
   text-transform: uppercase;
   line-height: 1;
 }
 .agent-badge .name {
-  font-family: 'Big Shoulders Stencil Text', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.05em;
-  color: var(--ivory);
-  margin-top: 4px;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--star);
+  margin-top: 5px;
   line-height: 1;
 }
 
@@ -310,12 +338,12 @@ header::after {
   display: grid;
   grid-template-columns: 280px 1fr 360px;
   gap: 1px;
-  background: var(--graphite);
+  background: var(--panel-line);
   overflow: hidden;
 }
 
 .panel {
-  background: var(--carbon);
+  background: var(--deep-space);
   overflow-y: auto;
 }
 
@@ -325,22 +353,24 @@ header::after {
 }
 
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.4em;
-  color: var(--ash);
+  color: var(--muted);
   text-transform: uppercase;
   margin-bottom: 14px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--graphite);
+  border-bottom: 1px solid var(--panel-line);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 .section-label::before {
   content: '';
-  width: 4px; height: 4px;
-  background: var(--imperial-red);
+  width: 5px; height: 5px;
+  background: var(--sith);
+  transform: rotate(45deg);
 }
 
 .filter-group { margin-bottom: 28px; }
@@ -352,30 +382,34 @@ header::after {
   padding: 8px 12px;
   margin-bottom: 2px;
   cursor: pointer;
-  font-family: 'Sora', sans-serif;
-  font-size: 12px;
-  color: var(--bone);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--star);
   border-left: 2px solid transparent;
   transition: all 120ms;
 }
 .filter-pill:hover {
-  background: var(--steel);
-  border-left-color: var(--graphite);
-  color: var(--ivory);
+  background: var(--nebula-core);
+  border-left-color: var(--dark-sith);
+  color: var(--star);
 }
 .filter-pill.active {
-  background: var(--steel);
-  border-left-color: var(--imperial-red);
-  color: var(--ivory);
+  background: var(--nebula-core);
+  border-left-color: var(--sith);
+  color: var(--star);
 }
 .filter-pill.active::after {
   content: '◆';
-  color: var(--imperial-red);
+  color: var(--sith);
+  font-size: 10px;
 }
 .filter-pill .count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ash);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
 }
 
 .tag-row {
@@ -387,53 +421,54 @@ header::after {
   flex: 1;
   display: grid;
   place-items: center;
-  height: 36px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
+  height: 38px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ash);
+  color: var(--muted);
   background: transparent;
-  border: 1px solid var(--graphite);
+  border: 1px solid var(--panel-line);
   cursor: pointer;
   transition: all 120ms;
 }
-.tag-chip:hover { color: var(--ivory); border-color: var(--concrete); }
-.tag-chip.fav { color: var(--imperial-gold); border-color: var(--imperial-gold); }
-.tag-chip.keep { color: var(--keep-green); border-color: var(--keep-green); }
-.tag-chip.inf { color: var(--infuse-yellow); border-color: var(--infuse-yellow); }
-.tag-chip.junk { color: var(--junk-red); border-color: var(--junk-red); }
-.tag-chip.arch { color: var(--archive-grey); border-color: var(--archive-grey); }
+.tag-chip:hover { color: var(--star); border-color: var(--sith); background: var(--sith-mist); }
+.tag-chip.fav  { color: var(--tag-fav);   border-color: rgba(255, 210, 74, 0.35); }
+.tag-chip.keep { color: var(--tag-keep);  border-color: rgba(122, 224, 168, 0.35); }
+.tag-chip.inf  { color: var(--tag-inf);   border-color: rgba(245, 166, 35, 0.35); }
+.tag-chip.junk { color: var(--neon-saber); border-color: rgba(255, 51, 136, 0.45); }
+.tag-chip.arch { color: var(--tag-arch);  border-color: rgba(142, 142, 147, 0.35); }
 
 .power-meter {
   margin-top: 12px;
   padding: 12px;
-  background: var(--steel);
-  border-left: 2px solid var(--imperial-red);
+  background: var(--nebula-core);
+  border-left: 2px solid var(--sith);
 }
 .power-meter .label {
   display: flex;
   justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  color: var(--ash);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
 .power-meter .label .value {
-  color: var(--imperial-red);
-  font-weight: 600;
+  color: var(--sith);
 }
 .power-meter .track {
   height: 4px;
-  background: var(--graphite);
+  background: var(--panel-line);
   position: relative;
 }
 .power-meter .fill {
   position: absolute;
   inset: 0 25% 0 0;
-  background: linear-gradient(90deg, var(--imperial-red-dim), var(--imperial-red));
+  background: var(--grad-signature);
 }
 
 /* ---------- CENTER: INVENTORY ---------- */
@@ -446,58 +481,61 @@ header::after {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  background: var(--graphite);
-  border-bottom: 1px solid var(--graphite);
+  background: var(--panel-line);
+  border-bottom: 1px solid var(--panel-line);
 }
 .char-card {
   padding: 16px 20px;
-  background: var(--carbon);
+  background: var(--deep-space);
   cursor: pointer;
   position: relative;
   transition: background 200ms;
 }
-.char-card:hover { background: var(--steel); }
+.char-card:hover { background: var(--nebula-core); }
 .char-card.active {
-  background: var(--steel);
-  box-shadow: inset 0 -3px 0 var(--imperial-red);
+  background: var(--nebula-core);
+  box-shadow: inset 0 -3px 0 var(--sith);
 }
 .char-card .label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  color: var(--ash);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  color: var(--muted);
   text-transform: uppercase;
   margin-bottom: 6px;
 }
 .char-card .name {
-  font-family: 'Big Shoulders Stencil Text', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 900;
-  font-size: 28px;
-  letter-spacing: 0.02em;
-  color: var(--ivory);
+  font-size: 26px;
+  letter-spacing: 0.06em;
+  color: var(--star);
   line-height: 1;
 }
 .char-card[data-class="hunter"] .name { color: var(--hunter); }
 .char-card[data-class="titan"] .name { color: var(--titan); }
 .char-card[data-class="warlock"] .name { color: var(--warlock); }
 .char-card .stats {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   gap: 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ash);
-  letter-spacing: 0.05em;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
 }
-.char-card .stats span { color: var(--bone); margin-left: 4px; }
+.char-card .stats span { color: var(--star); margin-left: 4px; }
 .char-card .power {
   position: absolute;
   top: 16px;
   right: 20px;
-  font-family: 'Saira Stencil One', sans-serif;
-  font-size: 22px;
-  color: var(--imperial-gold);
-  letter-spacing: 0.02em;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--neon-saber);
+  letter-spacing: 0.04em;
 }
 
 /* ---------- INVENTORY TABLE ---------- */
@@ -506,29 +544,40 @@ header::after {
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  border-bottom: 1px solid var(--graphite);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  border-bottom: 1px solid var(--panel-line);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ash);
+  color: var(--muted);
 }
-.inv-toolbar .meta { color: var(--bone); }
-.inv-toolbar .meta strong { color: var(--imperial-red); font-weight: 700; }
+.inv-toolbar .meta { color: var(--star); }
+.inv-toolbar .meta strong {
+  color: var(--sith);
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+}
 
 .sort-pills { display: flex; gap: 4px; }
 .sort-pill {
   padding: 6px 12px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  color: var(--ash);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
   background: transparent;
   border: 1px solid transparent;
   cursor: pointer;
 }
-.sort-pill:hover { color: var(--bone); border-color: var(--graphite); }
-.sort-pill.active { color: var(--ivory); border-color: var(--imperial-red); }
+.sort-pill:hover { color: var(--star); border-color: var(--panel-line); }
+.sort-pill.active {
+  color: var(--star);
+  border-color: var(--sith);
+  background: var(--sith-mist);
+}
 
 .items {
   flex: 1;
@@ -543,7 +592,7 @@ header::after {
   gap: 16px;
   padding: 14px 16px;
   margin-bottom: 2px;
-  background: var(--carbon);
+  background: var(--deep-space);
   border: 1px solid transparent;
   cursor: pointer;
   position: relative;
@@ -576,64 +625,75 @@ header::after {
 }
 
 .item-row::before {
-  /* sweep effect on hover */
+  /* sweep effect on hover — signature gradient */
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, var(--imperial-red-mist), transparent);
+  background: linear-gradient(90deg, transparent, var(--sith-mist), var(--neon-mist), transparent);
   transform: translateX(-100%);
   transition: transform 600ms;
   pointer-events: none;
 }
 .item-row:hover::before { transform: translateX(100%); }
 .item-row:hover {
-  border-color: var(--imperial-red);
+  border-color: var(--sith);
   transform: translateX(4px);
-  box-shadow: var(--shadow-red);
+  box-shadow: var(--shadow-sith);
 }
 .item-row.selected {
-  border-color: var(--imperial-red);
-  background: var(--steel);
+  border-color: var(--sith);
+  background: var(--nebula-core);
 }
 .item-row.selected::after {
   content: '';
   position: absolute;
   top: 6px; right: 6px;
   width: 8px; height: 8px;
-  border-top: 2px solid var(--imperial-red);
-  border-right: 2px solid var(--imperial-red);
+  border-top: 2px solid var(--sith);
+  border-right: 2px solid var(--sith);
 }
-.item-row.selected .name { color: var(--ivory); }
+.item-row.selected .name { color: var(--star); }
 
 .rarity-bar {
   align-self: stretch;
-  background: var(--ash);
+  background: var(--muted);
   border-radius: 1px;
 }
-.item-row[data-tier="exotic"] .rarity-bar { background: var(--imperial-gold); box-shadow: 0 0 12px var(--imperial-gold-hot); }
+.item-row[data-tier="exotic"] .rarity-bar {
+  background: linear-gradient(180deg, var(--neon-saber), var(--sith));
+  box-shadow: 0 0 12px var(--sith);
+}
 .item-row[data-tier="legendary"] .rarity-bar { background: var(--warlock); }
 .item-row[data-tier="rare"] .rarity-bar { background: var(--hunter); }
 
 .item-main { min-width: 0; }
 .item-main .name {
-  font-family: 'Sora', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--bone);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--star);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.04em;
 }
-.item-row[data-tier="exotic"] .item-main .name { color: var(--imperial-gold); }
+.item-row[data-tier="exotic"] .item-main .name {
+  background: var(--grad-signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 .item-main .meta {
   display: flex;
   gap: 12px;
   margin-top: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--ash);
-  letter-spacing: 0.04em;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .item-main .meta .element {
   position: relative;
@@ -646,30 +706,33 @@ header::after {
   transform: translateY(-50%);
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--ash);
+  background: var(--muted);
 }
-.item-main .meta .element[data-el="solar"]::before  { background: #F58F3D; box-shadow: 0 0 4px #F58F3D; }
-.item-main .meta .element[data-el="arc"]::before    { background: #79B6FF; box-shadow: 0 0 4px #79B6FF; }
-.item-main .meta .element[data-el="void"]::before   { background: #B58CFF; box-shadow: 0 0 4px #B58CFF; }
-.item-main .meta .element[data-el="stasis"]::before { background: #4DBFFF; box-shadow: 0 0 4px #4DBFFF; }
-.item-main .meta .element[data-el="strand"]::before { background: #4DD9A5; box-shadow: 0 0 4px #4DD9A5; }
+.item-main .meta .element[data-el="solar"]::before   { background: #F58F3D; box-shadow: 0 0 4px #F58F3D; }
+.item-main .meta .element[data-el="arc"]::before     { background: #79B6FF; box-shadow: 0 0 4px #79B6FF; }
+.item-main .meta .element[data-el="void"]::before    { background: var(--warlock); box-shadow: 0 0 4px var(--warlock); }
+.item-main .meta .element[data-el="stasis"]::before  { background: #4DBFFF; box-shadow: 0 0 4px #4DBFFF; }
+.item-main .meta .element[data-el="strand"]::before  { background: #4DD9A5; box-shadow: 0 0 4px #4DD9A5; }
 .item-main .meta .element[data-el="kinetic"]::before { background: #DEDEDE; }
 
 .location {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
   font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--ash);
+  letter-spacing: 0.14em;
+  color: var(--muted);
   text-transform: uppercase;
   text-align: right;
 }
+.location strong { color: var(--neon-saber); font-weight: 600; }
 
 .power-cell {
   text-align: right;
-  font-family: 'Saira Stencil One', sans-serif;
-  font-size: 18px;
-  color: var(--imperial-gold);
-  letter-spacing: 0.02em;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--neon-saber);
+  letter-spacing: 0.04em;
 }
 
 .perks-preview {
@@ -680,9 +743,9 @@ header::after {
 .perk-dot {
   width: 8px; height: 8px;
   border-radius: 50%;
-  background: var(--concrete);
+  background: var(--panel-line);
 }
-.perk-dot.god { background: var(--imperial-gold); box-shadow: 0 0 4px var(--imperial-gold); }
+.perk-dot.god { background: var(--sith); box-shadow: 0 0 6px var(--sith); }
 
 .tag-cell {
   display: grid;
@@ -692,21 +755,21 @@ header::after {
   width: 24px; height: 24px;
   display: grid;
   place-items: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
   font-size: 11px;
-  font-weight: 600;
-  color: var(--black);
+  color: var(--void);
   letter-spacing: 0;
 }
-.tag-cell .badge.fav  { background: var(--imperial-gold); }
-.tag-cell .badge.keep { background: var(--keep-green); }
-.tag-cell .badge.inf  { background: var(--infuse-yellow); }
-.tag-cell .badge.junk { background: var(--junk-red); }
-.tag-cell .badge.arch { background: var(--archive-grey); }
+.tag-cell .badge.fav  { background: var(--tag-fav); }
+.tag-cell .badge.keep { background: var(--tag-keep); }
+.tag-cell .badge.inf  { background: var(--tag-inf); }
+.tag-cell .badge.junk { background: var(--neon-saber); }
+.tag-cell .badge.arch { background: var(--tag-arch); }
 .tag-cell .badge.none {
   background: transparent;
-  border: 1px dashed var(--graphite);
-  color: var(--graphite);
+  border: 1px dashed var(--panel-line);
+  color: var(--panel-line);
 }
 
 /* ---------- RIGHT: DETAIL PANEL ---------- */
@@ -718,7 +781,7 @@ header::after {
 .detail-corner {
   position: absolute;
   width: 14px; height: 14px;
-  border-color: var(--imperial-red);
+  border-color: var(--sith);
   pointer-events: none;
 }
 .detail-corner.tl { top: 16px; left: 16px; border-top: 2px solid; border-left: 2px solid; }
@@ -727,28 +790,34 @@ header::after {
 .detail-corner.br { bottom: 16px; right: 16px; border-bottom: 2px solid; border-right: 2px solid; }
 
 .detail-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.4em;
-  color: var(--imperial-red);
+  color: var(--sith);
   text-transform: uppercase;
   margin-bottom: 8px;
 }
 
 .detail-name {
-  font-family: 'Saira Stencil One', sans-serif;
-  font-size: 28px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
   line-height: 1.1;
-  color: var(--imperial-gold);
+  background: var(--grad-signature);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 4px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
 }
 
 .detail-subname {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
   font-size: 11px;
-  color: var(--ash);
-  letter-spacing: 0.15em;
+  color: var(--muted);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   margin-bottom: 28px;
 }
@@ -757,64 +826,63 @@ header::after {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1px;
-  background: var(--graphite);
+  background: var(--panel-line);
   margin-bottom: 24px;
 }
 .stat-cell {
-  background: var(--carbon);
+  background: var(--deep-space);
   padding: 14px 16px;
 }
 .stat-cell .key {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.3em;
-  color: var(--ash);
+  color: var(--muted);
   text-transform: uppercase;
 }
 .stat-cell .val {
-  font-family: 'Big Shoulders Stencil Text', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-weight: 900;
   font-size: 24px;
-  color: var(--ivory);
-  margin-top: 4px;
+  color: var(--star);
+  margin-top: 6px;
   line-height: 1;
+  letter-spacing: 0.02em;
 }
-.stat-cell .val.red { color: var(--imperial-red); }
-.stat-cell .val.gold { color: var(--imperial-gold); }
+.stat-cell .val.neon { color: var(--neon-saber); }
+.stat-cell .val.sith { color: var(--sith); }
 
 .perks-list {
   margin-bottom: 24px;
 }
 .perks-list .head {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.3em;
-  color: var(--ash);
+  color: var(--muted);
   text-transform: uppercase;
   margin-bottom: 10px;
   padding-bottom: 6px;
-  border-bottom: 1px solid var(--graphite);
+  border-bottom: 1px solid var(--panel-line);
 }
 .perk-row {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 6px 0;
-  font-family: 'Sora', sans-serif;
-  font-size: 12px;
-  color: var(--bone);
+  font-family: 'Kosugi Maru', sans-serif;
+  font-size: 13px;
+  color: var(--star);
 }
 .perk-row::before {
   content: '◆';
-  color: var(--imperial-red);
+  color: var(--sith);
   font-size: 8px;
 }
-.perk-row.god {
-  color: var(--imperial-gold);
-}
-.perk-row.god::before {
-  color: var(--imperial-gold);
-}
+.perk-row.god { color: var(--neon-saber); }
+.perk-row.god::before { color: var(--neon-saber); }
 
 .actions {
   display: grid;
@@ -824,30 +892,32 @@ header::after {
 }
 .action-btn {
   padding: 12px 16px;
-  background: var(--steel);
+  background: var(--nebula-core);
   border: none;
-  border-bottom: 2px solid var(--graphite);
-  color: var(--bone);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.25em;
+  border-bottom: 2px solid var(--panel-line);
+  color: var(--star);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 120ms;
 }
 .action-btn:hover {
-  border-bottom-color: var(--imperial-red);
-  color: var(--ivory);
-  background: var(--graphite);
+  border-bottom-color: var(--sith);
+  color: var(--star);
+  background: var(--dark-sith);
 }
 .action-btn.primary {
-  background: var(--imperial-red-dim);
-  border-bottom-color: var(--imperial-red);
-  color: var(--ivory);
+  background: var(--dark-sith);
+  border-bottom: 2px solid;
+  border-image: var(--grad-signature) 1;
+  color: var(--star);
 }
 .action-btn.primary:hover {
-  background: var(--imperial-red);
-  box-shadow: var(--shadow-red);
+  background: var(--sith);
+  box-shadow: var(--shadow-sith);
 }
 
 /* ---------- FOOTER ---------- */
@@ -856,25 +926,26 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  background: var(--carbon);
-  border-top: 1px solid var(--graphite);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  background: var(--deep-space);
+  border-top: 1px solid var(--panel-line);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
   letter-spacing: 0.3em;
-  color: var(--ash);
+  color: var(--muted);
   text-transform: uppercase;
 }
 footer .right { display: flex; gap: 24px; }
-footer .blink { animation: blink 1.5s infinite; }
+footer .blink { animation: blink 1.8s infinite; color: var(--sith); }
 @keyframes blink {
   50% { opacity: 0.3; }
 }
 
 /* ---------- SCROLLBAR ---------- */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--carbon); }
-::-webkit-scrollbar-thumb { background: var(--graphite); }
-::-webkit-scrollbar-thumb:hover { background: var(--imperial-red-dim); }
+::-webkit-scrollbar-track { background: var(--deep-space); }
+::-webkit-scrollbar-thumb { background: var(--panel-line); }
+::-webkit-scrollbar-thumb:hover { background: var(--sith); }
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 1280px) {
@@ -889,23 +960,23 @@ footer .blink { animation: blink 1.5s infinite; }
 <body>
 
 <div class="watermark">66</div>
-<div class="classified-stamp">★ CLASSIFIED · IMPERIAL EYES ONLY ★</div>
+<div class="classified-stamp">★ COSMIC EYES ONLY ★</div>
 
 <div class="app">
 
   <!-- HEADER -->
   <header>
     <div class="brand">
-      <div class="brand-mark"></div>
+      <div class="brand-mark"><span>66</span></div>
       <div class="brand-text">
         <span class="name">ORDER 66</span>
-        <span class="tagline">DESTINY VOYAGER · OPTIMIZER · WISHLIST</span>
+        <span class="jp">ダースバンカイ <span>·</span> DESTINY VOYAGER OPTIMIZER</span>
       </div>
     </div>
 
     <div class="search">
       <div class="search-icon"></div>
-      <input type="text" placeholder="QUERY INVENTORY · &quot;crimson&quot; · &quot;void grenade&quot; · #favorite">
+      <input type="text" placeholder='QUERY INVENTORY  ·  "crimson"  ·  "void grenade"  ·  #favorite'>
     </div>
 
     <div class="status">
@@ -1034,7 +1105,7 @@ footer .blink { animation: blink 1.5s infinite; }
               <span>Energy</span>
             </div>
           </div>
-          <div class="location">WARLOCK<br><span style="color:var(--imperial-gold)">EQUIPPED</span></div>
+          <div class="location">WARLOCK<br><strong>EQUIPPED</strong></div>
           <div class="power-cell">1827</div>
           <div class="perks-preview">
             <div class="perk-dot god"></div>
@@ -1055,7 +1126,7 @@ footer .blink { animation: blink 1.5s infinite; }
               <span>Kinetic</span>
             </div>
           </div>
-          <div class="location">WARLOCK<br>EQUIPPED</div>
+          <div class="location">WARLOCK<br><strong>EQUIPPED</strong></div>
           <div class="power-cell">1820</div>
           <div class="perks-preview">
             <div class="perk-dot god"></div>
@@ -1181,7 +1252,7 @@ footer .blink { animation: blink 1.5s infinite; }
               <span>Helmet</span>
             </div>
           </div>
-          <div class="location">HUNTER<br>EQUIPPED</div>
+          <div class="location">HUNTER<br><strong>EQUIPPED</strong></div>
           <div class="power-cell">1820</div>
           <div class="perks-preview">
             <div class="perk-dot god"></div>
@@ -1202,7 +1273,7 @@ footer .blink { animation: blink 1.5s infinite; }
               <span>Gauntlets</span>
             </div>
           </div>
-          <div class="location">HUNTER<br>EQUIPPED</div>
+          <div class="location">HUNTER<br><strong>EQUIPPED</strong></div>
           <div class="power-cell">1820</div>
           <div class="perks-preview">
             <div class="perk-dot god"></div>
@@ -1244,7 +1315,7 @@ footer .blink { animation: blink 1.5s infinite; }
               <span>Energy</span>
             </div>
           </div>
-          <div class="location">TITAN<br>EQUIPPED</div>
+          <div class="location">TITAN<br><strong>EQUIPPED</strong></div>
           <div class="power-cell">1818</div>
           <div class="perks-preview">
             <div class="perk-dot god"></div>
@@ -1335,7 +1406,7 @@ footer .blink { animation: blink 1.5s infinite; }
       <div class="detail-stats">
         <div class="stat-cell">
           <div class="key">POWER</div>
-          <div class="val gold">1827</div>
+          <div class="val neon">1827</div>
         </div>
         <div class="stat-cell">
           <div class="key">IMPACT</div>
@@ -1386,11 +1457,11 @@ footer .blink { animation: blink 1.5s infinite; }
 
   <!-- FOOTER -->
   <footer>
-    <div>ORDER 66 · v0.3.0 · IMPERIAL EDITION</div>
+    <div>ORDER 66 · v0.3.0 · ダースバンカイ EDITION</div>
     <div class="right">
-      <span>RECORDS // <strong style="color:var(--bone)">847</strong></span>
-      <span>TAGGED // <strong style="color:var(--imperial-gold)">62</strong></span>
-      <span>LIGHT // <strong style="color:var(--imperial-red)">1825</strong></span>
+      <span>RECORDS // <strong style="color:var(--star)">847</strong></span>
+      <span>TAGGED // <strong style="color:var(--neon-saber)">62</strong></span>
+      <span>LIGHT // <strong style="color:var(--sith)">1825</strong></span>
       <span class="blink">▸ TRANSMITTING</span>
     </div>
   </footer>
@@ -1398,7 +1469,7 @@ footer .blink { animation: blink 1.5s infinite; }
 </div>
 
 <script>
-// Small interaction polish — character switch, row select, tag toggle.
+// Minimal interaction polish
 document.querySelectorAll('.char-card').forEach(card => {
   card.addEventListener('click', () => {
     document.querySelectorAll('.char-card').forEach(c => c.classList.remove('active'));
@@ -1415,13 +1486,13 @@ document.querySelectorAll('.filter-pill').forEach(pill => {
   pill.addEventListener('click', () => pill.classList.toggle('active'));
 });
 
-// Konami: type "66" anywhere → flash red
+// Type "66" anywhere → cosmic flash
 let keybuf = '';
 document.addEventListener('keydown', e => {
   keybuf = (keybuf + e.key).slice(-2);
   if (keybuf === '66') {
     document.body.style.transition = 'filter 200ms';
-    document.body.style.filter = 'hue-rotate(15deg) brightness(1.1) contrast(1.1)';
+    document.body.style.filter = 'hue-rotate(-20deg) brightness(1.15) saturate(1.3)';
     setTimeout(() => { document.body.style.filter = ''; }, 700);
   }
 });

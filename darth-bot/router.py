@@ -1,0 +1,248 @@
+"""
+darth-bot/router.py
+===================
+Classify the user question and decide which context layers to pull.
+Then assemble the LLM call.
+
+Classifier is a tiny rule-based first pass — fast, cheap, deterministic.
+Keywords-based for now; can swap to a small classifier model later.
+
+Tested against the canonical question set:
+  - "How do I get crimson catalyst?"          → quest    → KB + manifest
+  - "What is a good pvp build with my…?"      → build    → inventory + KB
+  - "What should I do next?"                  → advisory → inventory + KB
+  - "How do I raise my light level…?"         → grind    → search + KB
+  - "I need more enhanced cores…"             → grind    → search + KB
+  - "summarize Salvation's edge encounters"   → raid     → KB
+  - "Easiest solo ops map?"                   → meta     → search
+  - "How do I become better at raiding?"      → general  → KB
+  - "Why do I keep dying?"                    → diagnostic → ask follow-up
+  - "How do I learn how to jump better?"      → mechanic → KB + general
+  - "Is there an all black shader?"           → cosmetic → manifest + search
+  - "How do I get Conditional Finality?"      → quest    → KB + search
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from typing import Set
+
+
+@dataclass
+class Plan:
+    category: str
+    use_inventory: bool = False
+    inventory_focus: str = "all"
+    use_kb: bool = True
+    use_search: bool = False
+    use_manifest: bool = False
+    ask_clarifying: str | None = None
+    notes: Set[str] = field(default_factory=set)
+
+
+_KW = {
+    "build": re.compile(
+        r"\b(build|loadout|setup|equip|run with|pair with|good with|best.*for)\b", re.I),
+    "pvp":   re.compile(r"\b(pvp|crucible|trials|comp|competitive|iron banner)\b", re.I),
+    "pve":   re.compile(r"\b(pve|raid|dungeon|nightfall|gm|grandmaster|onslaught)\b", re.I),
+    "personal": re.compile(
+        r"\b(my|i have|i own|i got|my (current|gear|weapons|build))\b", re.I),
+    "quest": re.compile(
+        r"\b(how (do|to) (i )?(get|unlock|obtain|farm|complete)|catalyst|exotic mission|quest)\b",
+        re.I),
+    "meta": re.compile(
+        r"\b(current|this week|right now|right-now|weekly|nightfall this week|featured|rotation|easiest)\b",
+        re.I),
+    "raid_name": re.compile(
+        r"\b(salvation'?s edge|root of nightmares|vow of the disciple|deep stone crypt|"
+        r"garden of salvation|last wish|kings? fall|vault of glass|crota'?s end|"
+        r"desert perpetual)\b", re.I),
+    "encounter": re.compile(
+        r"\b(encounter|boss|mechanic|callout|wipe|first encounter|final boss)\b", re.I),
+    "grind": re.compile(
+        r"\b(grind|farm|level up|light level|power level|enhanced cores?|prisms?|ascendant)\b",
+        re.I),
+    "diagnostic": re.compile(r"\b(why (am|do) i|why does my|i keep)\b", re.I),
+    "mechanic": re.compile(
+        r"\b(jump|movement|aim assist|recoil|stat|stats|stat tier|tiers|how (does|do))\b",
+        re.I),
+    "cosmetic": re.compile(
+        r"\b(shader|ornament|emblem|ghost shell|sparrow|ship|fashion|transmog)\b", re.I),
+    "non_destiny": re.compile(
+        r"\b(weather|recipe|movie|stock|crypto|sports|election|coding)\b", re.I),
+}
+
+
+def classify(question: str) -> Plan:
+    """Decide which layers to pull. Cheap heuristic, no LLM call."""
+    q = question.strip()
+    is_personal = bool(_KW["personal"].search(q))
+
+    # Diagnostic — ask follow-up rather than guess
+    if _KW["diagnostic"].search(q):
+        return Plan(
+            category="diagnostic",
+            ask_clarifying=(
+                "Real quick — is this in **PvE** (Crucible/Trials) or **PvP**? "
+                "And what subclass + exotic are you running? "
+                "(I'll give you a sharper answer once I know.)"
+            ),
+        )
+
+    if _KW["non_destiny"].search(q):
+        return Plan(
+            category="off-topic",
+            use_kb=False,
+            ask_clarifying="I only do Destiny. Try one of the other channels for that.",
+        )
+
+    # Cosmetic lookup
+    if _KW["cosmetic"].search(q):
+        return Plan(
+            category="cosmetic",
+            use_manifest=True,
+            use_kb=True,
+            use_search=True,
+        )
+
+    # Quest / catalyst
+    if _KW["quest"].search(q):
+        return Plan(
+            category="quest",
+            use_kb=True,
+            use_manifest=True,
+            use_search=True,  # quest paths change with seasons
+        )
+
+    # Raid encounter
+    if _KW["raid_name"].search(q) or _KW["encounter"].search(q):
+        return Plan(
+            category="raid",
+            use_kb=True,
+            use_search=False,  # raid mechanics are stable
+        )
+
+    # Build (personalized)
+    if _KW["build"].search(q):
+        focus = "pvp" if _KW["pvp"].search(q) else ("pve" if _KW["pve"].search(q) else "all")
+        return Plan(
+            category="build",
+            use_inventory=is_personal,
+            inventory_focus=focus,
+            use_kb=True,
+            use_search=_KW["meta"].search(q) is not None,
+        )
+
+    # Grind / light level / cores
+    if _KW["grind"].search(q):
+        return Plan(
+            category="grind",
+            use_kb=True,
+            use_search=True,
+        )
+
+    # Meta / weekly
+    if _KW["meta"].search(q):
+        return Plan(
+            category="meta",
+            use_kb=True,
+            use_search=True,
+        )
+
+    # Mechanic ("jump better", "how do stats work")
+    if _KW["mechanic"].search(q):
+        return Plan(
+            category="mechanic",
+            use_kb=True,
+            use_search=False,
+        )
+
+    # "What should I do next?" — advisory, leverage inventory
+    if "next" in q.lower() or "what should i" in q.lower():
+        return Plan(
+            category="advisory",
+            use_inventory=True,
+            use_kb=True,
+            use_search=True,
+        )
+
+    # Default — general Destiny knowledge
+    return Plan(
+        category="general",
+        use_kb=True,
+        use_search=False,
+    )
+
+
+# ============================================================
+# Orchestrator — wires everything together
+# ============================================================
+
+
+async def answer(question: str) -> str:
+    """End-to-end: classify, gather context, call LLM, return response."""
+    plan = classify(question)
+
+    # Short-circuit on clarifying-needed plans
+    if plan.ask_clarifying and not (plan.use_inventory or plan.use_kb or plan.use_search):
+        return plan.ask_clarifying
+
+    # Gather context
+    inventory_ctx = ""
+    knowledge_ctx = ""
+    search_ctx = ""
+
+    if plan.use_inventory:
+        try:
+            from .inventory import build_context
+            inventory_ctx = build_context(focus=plan.inventory_focus)
+        except Exception as e:
+            print(f"[router] inventory error: {e}")
+
+    if plan.use_kb:
+        try:
+            from .kb.retrieve import format_for_context
+            knowledge_ctx = format_for_context(question)
+        except Exception as e:
+            print(f"[router] kb error: {e}")
+
+    if plan.use_manifest:
+        try:
+            from .kb.manifest import format_for_context as manifest_ctx
+            # crude — just feed the whole question as the lookup
+            m = manifest_ctx(question)
+            if m:
+                knowledge_ctx = (knowledge_ctx + "\n\n" + m) if knowledge_ctx else m
+        except Exception as e:
+            print(f"[router] manifest error: {e}")
+
+    if plan.use_search:
+        try:
+            from .search import search_context
+            search_ctx = await search_context(question)
+        except Exception as e:
+            print(f"[router] search error: {e}")
+
+    # Call LLM
+    from .llm import chat
+    response = await chat(
+        question,
+        inventory=inventory_ctx,
+        knowledge=knowledge_ctx,
+        search=search_ctx,
+    )
+
+    # If we had a clarifier AND useful context, prepend the question
+    if plan.ask_clarifying and (inventory_ctx or knowledge_ctx or search_ctx):
+        return f"{response}\n\n_{plan.ask_clarifying}_"
+    return response
+
+
+if __name__ == "__main__":
+    # CLI test mode — runs the router on a question and prints the plan
+    import sys
+    q = " ".join(sys.argv[1:]) or "How do I get Crimson catalyst?"
+    plan = classify(q)
+    print(f"Question: {q}")
+    print(f"Plan: {plan}")
