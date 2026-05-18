@@ -18,26 +18,13 @@
     {"name": "Non-clan members",            "color": "purple",  "hoist": false, "mentionable": false},
     {"name": "Want to join",                "color": "teal",    "hoist": false, "mentionable": false},
 
-    {"name": "Female",                      "color": "pink",    "hoist": false, "mentionable": false},
-    {"name": "Male",                        "color": "blue",    "hoist": false, "mentionable": false},
-
     {"name": "Xbox",                        "color": "green",   "hoist": false, "mentionable": true},
     {"name": "PlayStation",                 "color": "blue",    "hoist": false, "mentionable": true},
     {"name": "PC",                          "color": "grey",    "hoist": false, "mentionable": true},
     {"name": "Steam",                       "color": "navy",    "hoist": false, "mentionable": true},
 
     {"name": "Dungeon",                     "color": "orange",  "hoist": false, "mentionable": true},
-    {"name": "Run 10+ dungeons each",       "color": "orange",  "hoist": false, "mentionable": true},
-    {"name": "Teaching dungeons",           "color": "yellow",  "hoist": false, "mentionable": true},
-    {"name": "Learning dungeon (clan)",     "color": "yellow",  "hoist": false, "mentionable": true},
-    {"name": "Learning dungeon (non-clan)", "color": "yellow",  "hoist": false, "mentionable": true},
-
     {"name": "Raids",                       "color": "red",     "hoist": false, "mentionable": true},
-    {"name": "Teaching raids",              "color": "red",     "hoist": false, "mentionable": true},
-    {"name": "10 raids each+",              "color": "red",     "hoist": false, "mentionable": true},
-    {"name": "Learning raids (clan)",       "color": "pink",    "hoist": false, "mentionable": true},
-    {"name": "Learning raids (non-clan)",   "color": "pink",    "hoist": false, "mentionable": true},
-
     {"name": "PvP",                         "color": "red",     "hoist": false, "mentionable": true},
     {"name": "Gambit",                      "color": "green",   "hoist": false, "mentionable": true},
     {"name": "End game",                    "color": "gold",    "hoist": false, "mentionable": true},
