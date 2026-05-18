@@ -28,6 +28,35 @@ export interface Item {
   tag?: "favorite" | "keep" | "infuse" | "junk" | "archive";
 }
 
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  category?: string;
+}
+
+export interface ChatResponse {
+  answer: string;
+  category: string;
+  used_inventory: boolean;
+  used_kb: boolean;
+  used_search: boolean;
+  used_manifest: boolean;
+}
+
+export interface MetaState {
+  generated_at?: string;
+  expansion: { current: string; year: number; current_episode?: string };
+  power_levels: Record<string, unknown>;
+  current_raid: { name: string; released_with?: string };
+  recent_patches: Array<{
+    date: string;
+    title: string;
+    category: string;
+    url: string;
+    summary: string;
+  }>;
+}
+
 async function jsonFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const res = await fetch(path, {
     credentials: "include",
@@ -56,4 +85,25 @@ export const api = {
 
   logout: () =>
     jsonFetch<{ ok: true }>("/api/auth/logout", { method: "POST" }),
+
+  // Chat — proxied by the Worker to the Python backend (FastAPI /chat)
+  chat: (question: string) =>
+    jsonFetch<ChatResponse>("/api/chat", {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    }),
+
+  // Meta state — current expansion, power caps, recent patches
+  metaState: () =>
+    jsonFetch<{ state: MetaState; prompt_block: string }>("/api/meta/state"),
+
+  // Discord ↔ Bungie account link completion
+  linkComplete: (code: string, bungie_id: string, display_name?: string) =>
+    jsonFetch<{ discord_id: string; bungie_id: string; linked_at: number }>(
+      "/api/link/complete",
+      {
+        method: "POST",
+        body: JSON.stringify({ code, bungie_id, display_name }),
+      },
+    ),
 };

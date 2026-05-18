@@ -41,6 +41,8 @@ export interface Env {
   PUBLIC_BASE_URL: string;
   OAUTH_REDIRECT_PATH: string;
   SESSION_SECRET: string;
+  // Python backend (FastAPI on Hostinger VPS or local dev)
+  BACKEND_BASE_URL: string;
 }
 
 const app = new Hono<{ Bindings: Env; Variables: { user: StoredUser } }>();
@@ -217,6 +219,57 @@ app.put("/api/tags", async (c) => {
   await c.env.DV_KV.put(`user:${u.bungie_id}`, JSON.stringify(u));
   return c.json({ ok: true });
 });
+
+// ============================================================
+// Backend proxy — forwards LLM/KB/manifest calls to the Python FastAPI
+// service on the VPS. The web frontend hits /api/* on the same origin
+// (no CORS), the Worker adds session context, and the backend trusts
+// us (network-level boundary). See backend/README.md.
+// ============================================================
+async function proxyToBackend(
+  c: any,
+  path: string,
+  init: RequestInit & { method?: string } = {},
+): Promise<Response> {
+  const backend = c.env.BACKEND_BASE_URL;
+  if (!backend) {
+    return c.json({ error: "backend_not_configured" }, 503);
+  }
+  const url = backend.replace(/\/$/, "") + path;
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "X-Forwarded-By": "destiny-voyager-worker",
+  };
+  // Forward session id if the user is logged in — backend can resolve
+  // it to a bungie_id via KV lookup we'll wire later.
+  const sid = getCookie(c, "dv_session");
+  if (sid) headers["X-Session-Id"] = sid;
+  const body = init.method && init.method !== "GET" ? await c.req.text() : undefined;
+  try {
+    const r = await fetch(url, { method: init.method ?? "GET", headers, body });
+    const text = await r.text();
+    return new Response(text, {
+      status: r.status,
+      headers: { "Content-Type": r.headers.get("content-type") || "application/json" },
+    });
+  } catch (e: any) {
+    return c.json({ error: "backend_unreachable", detail: e.message }, 502);
+  }
+}
+
+// Public — no session required
+app.post("/api/chat", (c) => proxyToBackend(c, "/chat", { method: "POST" }));
+app.get("/api/meta/state", (c) => proxyToBackend(c, "/meta/state"));
+app.get("/api/meta/twab", (c) => proxyToBackend(c, "/meta/twab"));
+app.get("/api/manifest/lookup", (c) => {
+  const q = c.req.query("q") ?? "";
+  return proxyToBackend(c, `/manifest/lookup?q=${encodeURIComponent(q)}`);
+});
+
+// Session-gated — link/complete needs an authenticated user; the proxy
+// forwards X-Session-Id which the backend resolves against the KV (or
+// later, against the link DB).
+app.post("/api/link/complete", (c) => proxyToBackend(c, "/link/complete", { method: "POST" }));
 
 // ============================================================
 // 404
