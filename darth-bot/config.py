@@ -12,7 +12,8 @@ Optional:
     OLLAMA_HOST             — default http://localhost:11434
     DARTH_BOT_MODEL         — default "qwen3:8b" (matches `ollama pull qwen3:8b`)
     DARTH_BOT_KB_DIR        — where chromadb lives, default ./data/chroma
-    ORDER_66_CONFIG_PATH    — path to user_config.json from the loadout toolkit
+    DESTINY_VOYAGER_CONFIG_PATH — path to user_config.json from the Destiny Voyager toolkit
+                                  (legacy alias ORDER_66_CONFIG_PATH also accepted)
 """
 
 from __future__ import annotations
@@ -41,7 +42,7 @@ SCRAPE_DIR.mkdir(parents=True, exist_ok=True)
 DISCORD_BOT_TOKEN = os.environ.get("DARTH_BOT_DISCORD_TOKEN") or os.environ.get("DISCORD_BOT_TOKEN", "")
 DISCORD_GUILD_ID = int(os.environ.get("DISCORD_GUILD_ID", "1471072707524296767"))
 ALLOWED_CHANNEL_NAMES = {
-    "destiny-voyager", "the-way-of-the-sith", "order-66",
+    "destiny-voyager",
     "smugglers-cache", "engineering-bay", "trooper-comms",
     "the-cantina", "lfg-storyline", "lfg-raids", "lfg-dungeons",
 }
@@ -55,19 +56,27 @@ EMBED_MODEL = os.environ.get("DARTH_BOT_EMBED", "BAAI/bge-small-en-v1.5")
 BRAVE_SEARCH_API_KEY = os.environ.get("BRAVE_SEARCH_API_KEY", "")
 BRAVE_SEARCH_URL = "https://api.search.brave.com/res/v1/web/search"
 
-# Order 66 toolkit data — used for personalized "with my inventory" questions
-ORDER_66_CONFIG = Path(os.environ.get(
-    "ORDER_66_CONFIG_PATH",
+# Destiny Voyager toolkit data — used for personalized "with my inventory" questions.
+# Reads DESTINY_VOYAGER_* env vars first; falls back to legacy ORDER_66_* names.
+def _env_path(primary: str, legacy: str, default: Path) -> Path:
+    return Path(os.environ.get(primary) or os.environ.get(legacy) or default)
+
+DESTINY_VOYAGER_CONFIG = _env_path(
+    "DESTINY_VOYAGER_CONFIG_PATH", "ORDER_66_CONFIG_PATH",
     HERE.parent / "user_config.json",
-))
-ORDER_66_WORKBOOK = Path(os.environ.get(
-    "ORDER_66_WORKBOOK_PATH",
+)
+DESTINY_VOYAGER_WORKBOOK = _env_path(
+    "DESTINY_VOYAGER_WORKBOOK_PATH", "ORDER_66_WORKBOOK_PATH",
     HERE.parent / "my_loadouts.xlsx",
-))
-ORDER_66_MANIFEST = Path(os.environ.get(
-    "ORDER_66_MANIFEST_DIR",
+)
+DESTINY_VOYAGER_MANIFEST = _env_path(
+    "DESTINY_VOYAGER_MANIFEST_DIR", "ORDER_66_MANIFEST_DIR",
     HERE.parent / "manifest_cache",
-))
+)
+
+ORDER_66_CONFIG = DESTINY_VOYAGER_CONFIG
+ORDER_66_WORKBOOK = DESTINY_VOYAGER_WORKBOOK
+ORDER_66_MANIFEST = DESTINY_VOYAGER_MANIFEST
 
 # Retrieval knobs
 TOP_K = 6

@@ -11,7 +11,7 @@ A Destiny 2 chatbot for the DARTH_BANKAI Discord — answers in the brand voice,
 | Question | How it answers |
 |---|---|
 | *"How do I get Crimson catalyst?"* | KB lookup on light.gg + manifest description + live search for current quest steps. |
-| *"Good PvP build with my current weapons?"* | Pulls your **real inventory** from `order-66/user_config.json` and recommends based on what you actually own. |
+| *"Good PvP build with my current weapons?"* | Pulls your **real inventory** from `destiny-voyager/user_config.json` and recommends based on what you actually own. |
 | *"Summarize Salvation's Edge encounters."* | KB lookup on destinypedia / scraped raid guides. |
 | *"Easiest solo ops map?"* | Live Brave search — meta changes weekly. |
 | *"Why do I keep dying?"* | Asks ONE clarifying follow-up instead of guessing. |
@@ -29,8 +29,8 @@ Discord question
    ▼
 router.py        ← classifies: build / quest / raid / cosmetic / advisory / etc.
    │
-   ├── inventory.py   ←  reads order-66 user_config.json + INVENTORY sheet
-   ├── kb/manifest.py ←  Bungie manifest cached by order-66/decode_dim.py
+   ├── inventory.py   ←  reads Destiny Voyager user_config.json + INVENTORY sheet
+   ├── kb/manifest.py ←  Bungie manifest cached by destiny-voyager/decode_dim.py
    ├── kb/retrieve.py ←  chromadb top-K over scraped light.gg / reddit / destinypedia
    └── search.py      ←  Brave Search API (free 2k/mo) for current meta
    │
@@ -94,7 +94,7 @@ python3 -m darth-bot.kb.embed
 
 Both are re-runnable. The scraper is polite (1.2s between requests) — let it cook.
 
-The Bungie manifest is already cached by `order-66/decode_dim.py`, so the bot uses that directly with no extra setup.
+The Bungie manifest is already cached by `destiny-voyager/decode_dim.py`, so the bot uses that directly with no extra setup.
 
 ### 6. Run it
 
@@ -114,7 +114,7 @@ In Discord:
 
 ## Channels it answers in
 
-Restricted to: `destiny-voyager`, `the-way-of-the-sith`, `order-66`, `smugglers-cache`, `engineering-bay`, `trooper-comms`, `the-cantina`, `lfg-storyline`, `lfg-raids`, `lfg-dungeons`. Edit `ALLOWED_CHANNEL_NAMES` in `config.py` to expand.
+Restricted to: `destiny-voyager`, `smugglers-cache`, `engineering-bay`, `trooper-comms`, `the-cantina`, `lfg-storyline`, `lfg-raids`, `lfg-dungeons`. Edit `ALLOWED_CHANNEL_NAMES` in `config.py` to expand.
 
 ---
 
@@ -129,7 +129,7 @@ darth-bot/
 ├── config.py                — env vars + constants
 ├── llm.py                   — Qwen via ollama (sync + streaming)
 ├── router.py                — classifier + orchestrator
-├── inventory.py             — reads order-66 cache
+├── inventory.py             — reads Destiny Voyager cache
 ├── search.py                — Brave Search wrapper
 ├── kb/
 │   ├── __init__.py

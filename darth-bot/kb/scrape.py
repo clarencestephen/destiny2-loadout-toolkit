@@ -38,7 +38,7 @@ from bs4 import BeautifulSoup
 
 from ..config import SCRAPE_DIR
 
-USER_AGENT = "darth-bot/0.1 (https://github.com/clarencestephen/order-66 — personal Destiny 2 chatbot)"
+USER_AGENT = "darth-bot/0.1 (https://github.com/clarencestephen/destiny-voyager — personal Destiny 2 chatbot)"
 HEADERS = {"User-Agent": USER_AGENT, "Accept-Language": "en-US,en;q=0.9"}
 DELAY_SECONDS = 1.2  # be a polite scraper
 

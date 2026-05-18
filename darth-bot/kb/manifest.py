@@ -1,7 +1,7 @@
 """
 darth-bot/kb/manifest.py
 ========================
-Reads the Bungie Destiny manifest cache from the order-66 toolkit
+Reads the Bungie Destiny manifest cache from the Destiny Voyager toolkit
 (`manifest_cache/DestinyInventoryItemDefinition.json`) and exposes
 a tiny lookup function for item / perk / exotic detail.
 
@@ -21,7 +21,7 @@ import json
 from functools import lru_cache
 from typing import Optional
 
-from ..config import ORDER_66_MANIFEST
+from ..config import DESTINY_VOYAGER_MANIFEST
 
 
 _TABLE = "DestinyInventoryItemDefinition"
@@ -29,7 +29,7 @@ _TABLE = "DestinyInventoryItemDefinition"
 
 @lru_cache(maxsize=1)
 def _items() -> dict:
-    f = ORDER_66_MANIFEST / f"{_TABLE}.json"
+    f = DESTINY_VOYAGER_MANIFEST / f"{_TABLE}.json"
     if not f.exists():
         return {}
     return json.loads(f.read_text())

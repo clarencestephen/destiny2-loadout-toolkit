@@ -1,14 +1,14 @@
 """
 darth-bot/inventory.py
 ======================
-Reads inventory data from the order-66 toolkit so the bot can answer
+Reads inventory data from the Destiny Voyager toolkit so the bot can answer
 "good build with my current weapons" — the killer feature no other
 Destiny bot can offer.
 
 Two sources:
   1. user_config.json  — has saved loadouts, build_focus, item_tags
   2. my_loadouts.xlsx  — has INVENTORY + MY LOADOUTS sheets populated by
-                          order-66/fetch_inventory.py (v0.2.0 feature)
+                          destiny-voyager/fetch_inventory.py (v0.2.0 feature)
 
 Returns a compact text summary suitable for stuffing into the LLM context.
 """
@@ -19,28 +19,28 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from .config import ORDER_66_CONFIG, ORDER_66_WORKBOOK
+from .config import DESTINY_VOYAGER_CONFIG, DESTINY_VOYAGER_WORKBOOK
 
 
 def _read_config() -> dict:
-    if not ORDER_66_CONFIG.exists():
+    if not DESTINY_VOYAGER_CONFIG.exists():
         return {}
     try:
-        return json.loads(ORDER_66_CONFIG.read_text())
+        return json.loads(DESTINY_VOYAGER_CONFIG.read_text())
     except Exception:
         return {}
 
 
 def _read_workbook_inventory() -> list[dict]:
     """Extract item rows from the INVENTORY sheet, if present."""
-    if not ORDER_66_WORKBOOK.exists():
+    if not DESTINY_VOYAGER_WORKBOOK.exists():
         return []
     try:
         from openpyxl import load_workbook
     except ImportError:
         return []
     try:
-        wb = load_workbook(ORDER_66_WORKBOOK, read_only=True)
+        wb = load_workbook(DESTINY_VOYAGER_WORKBOOK, read_only=True)
         if "INVENTORY" not in wb.sheetnames:
             return []
         ws = wb["INVENTORY"]
@@ -150,4 +150,4 @@ def build_context(focus: str = "all", max_items: int = 80) -> str:
 
 
 def has_inventory() -> bool:
-    return ORDER_66_CONFIG.exists() and bool(_read_workbook_inventory())
+    return DESTINY_VOYAGER_CONFIG.exists() and bool(_read_workbook_inventory())
