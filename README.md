@@ -23,13 +23,13 @@ After running the install wizard you'll have:
 
 ---
 
-## Install — two ways
+## Install — three ways
 
 ### 1. GUI installer  (recommended, Windows-friendly)
 
 ```bash
-git clone https://github.com/clarencestephen/destiny2-loadout-toolkit
-cd destiny2-loadout-toolkit
+git clone https://github.com/clarencestephen/bleach-imperial-galactic-star-warszy
+cd bleach-imperial-galactic-star-warszy
 pip install -r requirements.txt
 python setup_gui.py
 ```
@@ -52,7 +52,7 @@ Same flow, terminal-based. Both write the same `user_config.json` and `my_loadou
 
 ### 3. Pre-built Windows .exe  (no Python required)
 
-If you don't want to install Python, grab the latest `.exe` from the [Releases page](https://github.com/clarencestephen/destiny2-loadout-toolkit/releases). Double-click and follow the wizard. The .exe is built by GitHub Actions on every tagged release — see `.github/workflows/build-windows-exe.yml`.
+If you don't want to install Python, grab the latest `.exe` from the [Releases page](https://github.com/clarencestephen/bleach-imperial-galactic-star-warszy/releases). Double-click and follow the wizard. The .exe is built by GitHub Actions on every tagged release — see `.github/workflows/build-windows-exe.yml`.
 
 ---
 
@@ -104,7 +104,7 @@ In DIM: **Settings → Spreadsheets → click `Weapons`, `Armor`, or `Ghost`** t
 ## Repo layout
 
 ```
-destiny2-loadout-toolkit/
+bleach-imperial-galactic-star-warszy/
 ├── README.md
 ├── LICENSE                  (MIT)
 ├── .gitignore               (excludes user_config.json, my_loadouts.xlsx, manifest_cache/)
@@ -119,7 +119,7 @@ destiny2-loadout-toolkit/
 │
 ├── config.example.json      ← schema reference (no real keys)
 │
-├── demo_examples.py         ← run 25 community loadouts as a demo
+├── demo_examples.py         ← run 27 community loadouts as a demo
 ├── examples/
 │   ├── README.md
 │   ├── example_loadouts.json     (27 community-shared DIM URLs)
