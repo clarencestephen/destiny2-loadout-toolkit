@@ -160,6 +160,17 @@ def format_for_prompt() -> str:
         if cr.get("master_difficulty_delta"):
             lines.append(f"  Master: {cr['master_difficulty_delta']}")
 
+    patches = s.get("recent_patches") or []
+    if patches:
+        lines.append("- Recent Bungie news (most-recent first):")
+        for p in patches[:6]:
+            label = f"[{p.get('category', 'news'):6}] {p.get('date', '?')}"
+            title = p.get("title", "")
+            lines.append(f"    {label}  {title}")
+            summary = p.get("summary", "").strip()
+            if summary:
+                lines.append(f"        {summary[:180]}")
+
     if s.get("_baseline"):
         lines.append("- ⚠ Baseline data (never refreshed) — weekly numbers may be missing.")
     elif s.get("_stale"):

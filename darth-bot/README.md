@@ -162,12 +162,19 @@ Or schedule via crontab — runs Tuesdays at 9:30pm UTC (post-reset):
 Add it with `crontab -e`. Logs land in `darth-bot/data/refresh-logs/`,
 last 4 weeks retained.
 
-**What needs manual updates** (no live scraper yet — fill in by hand
-during the weekly refresh):
+**Automatically refreshed by `refresh_weekly.sh`:**
+
+- `recent_patches` — pulled from Bungie's RSS feed
+  (https://www.bungie.net/en/Rss/News) by `darth-bot.twab_scraper`.
+  Captures TWIDs (This Week In Destiny), patch notes ("Destiny 2
+  Update 9.5.6.3"), and season launches. Each item is categorized as
+  `twid` / `patch` / `season` / `news` so the LLM can filter relevance.
+- `this_week.nightfall` — pulled from Bungie API milestones endpoint.
+
+**Still needs manual updates** during the weekly refresh:
 
 - `meta_state.json` → `pvp_meta.top_primaries/top_specials/top_heavies`
 - `meta_state.json` → `pve_meta.*`
-- `meta_state.json` → `recent_patches` (new entry when Bungie ships a TWAB / patch notes)
 
 These come from light.gg's meta page and destinytracker.com's usage
 stats. A future enhancement: build scrapers for those sources so the

@@ -50,8 +50,12 @@ ls -1t "$LOG_DIR"/refresh-*.log 2>/dev/null | tail -n +5 | xargs -r rm -f
     python3 -m darth-bot.kb.embed || echo "  ⚠ embed exited non-zero"
 
     echo
-    echo "[3/3] Refreshing meta_state.json from Bungie API"
+    echo "[3/4] Refreshing meta_state.json from Bungie API"
     python3 -m darth-bot.meta_state --refresh || echo "  ⚠ meta_state --refresh exited non-zero"
+
+    echo
+    echo "[4/4] Pulling recent TWID / patch notes from Bungie RSS"
+    python3 -m darth-bot.twab_scraper || echo "  ⚠ twab_scraper exited non-zero"
 
     echo
     echo "===== done @ $(date -u +%FT%TZ) ====="
