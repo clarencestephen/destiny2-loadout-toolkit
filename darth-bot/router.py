@@ -207,15 +207,26 @@ async def answer(question: str) -> str:
         except Exception as e:
             print(f"[router] kb error: {e}")
 
-    if plan.use_manifest:
-        try:
-            from .kb.manifest import format_for_context as manifest_ctx
-            # crude — just feed the whole question as the lookup
-            m = manifest_ctx(question)
-            if m:
-                knowledge_ctx = (knowledge_ctx + "\n\n" + m) if knowledge_ctx else m
-        except Exception as e:
-            print(f"[router] manifest error: {e}")
+    # Manifest lookup — always runs (cheap), feeds the dedicated
+    # <manifest> context slot. Extracts named items that appear in the
+    # question and resolves them to authoritative descriptions. This is
+    # the primary anti-hallucination grounding for item-specific queries.
+    manifest_ctx_str = ""
+    try:
+        from .kb.manifest import extract_named_items, _compact
+        hits = extract_named_items(question, max_results=8)
+        if hits:
+            lines = ["Authoritative item data (Bungie manifest):"]
+            for h in hits:
+                bits = [h["name"]]
+                if h.get("tier"):  bits.append(f"[{h['tier']}]")
+                if h.get("type"):  bits.append(f"({h['type']})")
+                lines.append("  " + " ".join(b for b in bits if b))
+                if h.get("description"):
+                    lines.append(f"    {h['description'][:280]}")
+            manifest_ctx_str = "\n".join(lines)
+    except Exception as e:
+        print(f"[router] manifest error: {e}")
 
     if plan.use_search:
         try:
@@ -231,7 +242,34 @@ async def answer(question: str) -> str:
         inventory=inventory_ctx,
         knowledge=knowledge_ctx,
         search=search_ctx,
+        manifest=manifest_ctx_str,
     )
+
+    # Fix 3: post-hoc fact check — scan response for title-case item
+    # phrases that don't match the manifest. Append a soft caveat
+    # rather than rewriting, so the user sees what's suspect.
+    try:
+        from .kb.manifest import verify_names
+        check = verify_names(response)
+        suspects = [s for s in check["unverified_candidates"]
+                    if 2 <= len(s.split()) <= 4
+                    and s not in ("Destiny Voyager", "Darth Bot", "Order 66",
+                                  "Bungie API", "Edge of Fate", "Witch Queen",
+                                  "Final Shape", "The Final Shape",
+                                  "Iron Banner", "Solo Operation", "Solo Operations",
+                                  "Calus Mini", "Calus Mini-Tool", "The Empire",
+                                  "Crimson Days", "Iron Lord", "Iron Lords",
+                                  "Tower", "Bungie", "Destiny", "The Witness",
+                                  "Lord Shaxx", "Banshee", "Master Rahool",
+                                  "The Speaker", "The Drifter")]
+        if suspects:
+            response += (
+                "\n\n_⚠ Possibly invented names (not found in manifest): "
+                + ", ".join(f"`{s}`" for s in suspects[:5])
+                + ". Verify on light.gg/db before relying on these._"
+            )
+    except Exception as e:
+        print(f"[router] verify_names error: {e}")
 
     # If we had a clarifier AND useful context, prepend the question
     if plan.ask_clarifying and (inventory_ctx or knowledge_ctx or search_ctx):

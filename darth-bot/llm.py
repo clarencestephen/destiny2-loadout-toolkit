@@ -30,13 +30,16 @@ def _system_prompt() -> str:
     return SYSTEM_PROMPT_PATH.read_text(encoding="utf-8")
 
 
-def _format_context(*, inventory: str = "", knowledge: str = "", search: str = "") -> str:
-    """Compose the retrieval context block. meta_state always leads —
-    it's authoritative current-state data the model must trust over KB
-    chunks (which can be months-stale Reddit guides)."""
+def _format_context(*, inventory: str = "", knowledge: str = "",
+                    search: str = "", manifest: str = "") -> str:
+    """Compose the retrieval context block. Priority order:
+    current_state → inventory → manifest (authoritative for named items)
+    → knowledge (reference) → search."""
     parts = [f"<current_state>\n{_meta_state_for_prompt()}\n</current_state>"]
     if inventory:
         parts.append(f"<inventory>\n{inventory}\n</inventory>")
+    if manifest:
+        parts.append(f"<manifest>\n{manifest}\n</manifest>")
     if knowledge:
         parts.append(f"<knowledge>\n{knowledge}\n</knowledge>")
     if search:
@@ -50,10 +53,11 @@ async def chat(
     inventory: str = "",
     knowledge: str = "",
     search: str = "",
-    temperature: float = 0.4,
+    manifest: str = "",
+    temperature: float = 0.15,
 ) -> str:
     """Single-shot chat. Returns the full assistant message."""
-    context = _format_context(inventory=inventory, knowledge=knowledge, search=search)
+    context = _format_context(inventory=inventory, knowledge=knowledge, search=search, manifest=manifest)
     user_block = f"{context}\n\nUser question:\n{user_message}"
     payload = {
         "model": MODEL,
@@ -77,10 +81,11 @@ async def chat_stream(
     inventory: str = "",
     knowledge: str = "",
     search: str = "",
-    temperature: float = 0.4,
+    manifest: str = "",
+    temperature: float = 0.15,
 ) -> AsyncIterator[str]:
     """Streaming chat. Yields chunks as they arrive — useful for live edits."""
-    context = _format_context(inventory=inventory, knowledge=knowledge, search=search)
+    context = _format_context(inventory=inventory, knowledge=knowledge, search=search, manifest=manifest)
     user_block = f"{context}\n\nUser question:\n{user_message}"
     payload = {
         "model": MODEL,
