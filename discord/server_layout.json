@@ -1,0 +1,249 @@
+{
+  "_comment": "Star Wars themed Discord layout for The Way of the Sith clan server. Target server ID: 1471072707524296767. Consumed by discord/setup_server.py or imported into Xenon. Discord channel types: 0=text, 2=voice, 4=category.",
+  "_target_server_id": "1471072707524296767",
+  "_app_name": "The Way of the Sith",
+  "_tagline": "Destiny voyager optimizer · wishlist organizer · API stat tracking",
+  "_naming_convention": "Star Wars themed names. Channel topics describe the actual purpose so members don't get lost.",
+
+  "roles": [
+    {"name": "Emperor",                     "color": "red",     "hoist": true,  "mentionable": true,  "_purpose": "Server owner / admin (you)"},
+    {"name": "Death Star Command",          "color": "gold",    "hoist": true,  "mentionable": true,  "_purpose": "Mods / staff"},
+    {"name": "Imperial Trooper",            "color": "blue",    "hoist": true,  "mentionable": true,  "_purpose": "Clan members — gated access to Imperial Troopers category"},
+    {"name": "Rebel Ally",                  "color": "purple",  "hoist": true,  "mentionable": false, "_purpose": "Verified non-clan members"},
+    {"name": "Padawan",                     "color": "teal",    "hoist": true,  "mentionable": false, "_purpose": "Want to join the clan"},
+    {"name": "Unverified",                  "color": "grey",    "hoist": false, "mentionable": false, "_purpose": "Default on join — sees only gateway"},
+
+    {"name": "Clan",                        "color": "blue",    "hoist": false, "mentionable": true},
+    {"name": "Non-clan members",            "color": "purple",  "hoist": false, "mentionable": false},
+    {"name": "Want to join",                "color": "teal",    "hoist": false, "mentionable": false},
+
+    {"name": "Female",                      "color": "pink",    "hoist": false, "mentionable": false},
+    {"name": "Male",                        "color": "blue",    "hoist": false, "mentionable": false},
+
+    {"name": "Xbox",                        "color": "green",   "hoist": false, "mentionable": true},
+    {"name": "PlayStation",                 "color": "blue",    "hoist": false, "mentionable": true},
+    {"name": "PC",                          "color": "grey",    "hoist": false, "mentionable": true},
+    {"name": "Steam",                       "color": "navy",    "hoist": false, "mentionable": true},
+
+    {"name": "Dungeon",                     "color": "orange",  "hoist": false, "mentionable": true},
+    {"name": "Run 10+ dungeons each",       "color": "orange",  "hoist": false, "mentionable": true},
+    {"name": "Teaching dungeons",           "color": "yellow",  "hoist": false, "mentionable": true},
+    {"name": "Learning dungeon (clan)",     "color": "yellow",  "hoist": false, "mentionable": true},
+    {"name": "Learning dungeon (non-clan)", "color": "yellow",  "hoist": false, "mentionable": true},
+
+    {"name": "Raids",                       "color": "red",     "hoist": false, "mentionable": true},
+    {"name": "Teaching raids",              "color": "red",     "hoist": false, "mentionable": true},
+    {"name": "10 raids each+",              "color": "red",     "hoist": false, "mentionable": true},
+    {"name": "Learning raids (clan)",       "color": "pink",    "hoist": false, "mentionable": true},
+    {"name": "Learning raids (non-clan)",   "color": "pink",    "hoist": false, "mentionable": true},
+
+    {"name": "PvP",                         "color": "red",     "hoist": false, "mentionable": true},
+    {"name": "Gambit",                      "color": "green",   "hoist": false, "mentionable": true},
+    {"name": "End game",                    "color": "gold",    "hoist": false, "mentionable": true},
+    {"name": "Making friends 🧡",           "color": "orange",  "hoist": false, "mentionable": true},
+
+    {"name": "US East",                     "color": "navy",    "hoist": false, "mentionable": true},
+    {"name": "US Central",                  "color": "navy",    "hoist": false, "mentionable": true},
+    {"name": "US Mountain",                 "color": "navy",    "hoist": false, "mentionable": true},
+    {"name": "US Pacific",                  "color": "navy",    "hoist": false, "mentionable": true},
+    {"name": "UK",                          "color": "blue",    "hoist": false, "mentionable": true},
+    {"name": "EU",                          "color": "blue",    "hoist": false, "mentionable": true},
+    {"name": "Asia",                        "color": "purple",  "hoist": false, "mentionable": true},
+    {"name": "Australia",                   "color": "teal",    "hoist": false, "mentionable": true}
+  ],
+
+  "categories": [
+    {
+      "name": "📋 In a Galaxy Far Far Away",
+      "_purpose": "Gateway / new members — visible to Unverified",
+      "channels": [
+        {"type": "text",  "name": "welcome",                       "topic": "Start here. Read the law → pick your roles → introduce yourself."},
+        {"type": "text",  "name": "imperial-law",                  "topic": "Server rules. Read before chatting. (rules)"},
+        {"type": "text",  "name": "the-council",                   "topic": "Meet the mods + active members."},
+        {"type": "text",  "name": "in-a-galaxy-far-far-away",      "topic": "Introductions. Tell us who you are, your platform, your time zone."},
+        {"type": "text",  "name": "galactic-standard-time",        "topic": "Find people in your time zone. Pick a TZ role in #recruitment-roles."}
+      ]
+    },
+    {
+      "name": "🌟 Recruitment Roles",
+      "_purpose": "Reaction-role assignment",
+      "channels": [
+        {"type": "text",  "name": "recruitment-roles",             "topic": "React to messages here to assign yourself roles — clan status, platform, dungeon/raid experience, time zone. (formerly: pick-roles)"}
+      ]
+    },
+    {
+      "name": "📣 Imperial Declarations",
+      "_purpose": "Announcements (one-way, mods only post)",
+      "_setup_note": "Set as Discord announcement channel type if available. Restrict 'send messages' to Death Star Command + Emperor only.",
+      "channels": [
+        {"type": "text",  "name": "imperial-declarations",         "topic": "Server announcements, release notes, important pings. Read-only for members."}
+      ]
+    },
+    {
+      "name": "🎫 Galactic Senate",
+      "_setup_note": "Invite TicketTool.xyz (https://tickettool.xyz/) and run /setup in #bounty-office to enable private tickets.",
+      "channels": [
+        {"type": "text",  "name": "bounty-office",                 "topic": "Open a private ticket here for mod help. Powered by TicketTool.xyz."}
+      ]
+    },
+    {
+      "name": "🚀 The Imperial Armory",
+      "_purpose": "The Way of the Sith app + toolkit support",
+      "_setup_note": "Restrict view to verified roles (Imperial Trooper / Rebel Ally / Padawan).",
+      "channels": [
+        {"type": "text",  "name": "the-way-of-the-sith",               "topic": "📌 The Way of the Sith — the app. Latest .exe pinned at top. Download, setup steps, and FAQ here."},
+        {"type": "text",  "name": "smugglers-cache",               "topic": "Older releases, DIM CSV templates, manifest backups."},
+        {"type": "text",  "name": "engineering-bay",               "topic": "The Way of the Sith support — bug reports, install help, questions."},
+        {"type": "text",  "name": "imperial-briefings",            "topic": "Release notes + version pings for The Way of the Sith."},
+        {"type": "text",  "name": "senate-polls",                  "topic": "Quick 2-day polls on builds, features, meta. (formerly: 2-day-polls)"}
+      ]
+    },
+    {
+      "name": "💬 The Cantina",
+      "channels": [
+        {"type": "text",  "name": "the-cantina",                   "topic": "General chat — like the Mos Eisley Cantina."},
+        {"type": "text",  "name": "cantina-tables",                "topic": "Find buddies, mentors, fireteam regulars."}
+      ]
+    },
+    {
+      "name": "⚔️ Imperial Troopers",
+      "_setup_note": "Restrict ALL channels here to @Imperial Trooper role only. This is your clan-private space.",
+      "channels": [
+        {"type": "text",  "name": "trooper-comms",                 "topic": "Clan-only chat. (Imperial Trooper role required)"},
+        {"type": "text",  "name": "clan-events",                   "topic": "Clan event scheduling, raid nights, GM runs."},
+        {"type": "text",  "name": "trooper-builds",                "topic": "Internal build sharing. Clan-only DIM URLs."},
+        {"type": "voice", "name": "🪖 Trooper HQ"}
+      ]
+    },
+    {
+      "name": "🛠️ Lightsaber Forge",
+      "_purpose": "Build sharing by class",
+      "channels": [
+        {"type": "text",  "name": "mandalorian-warriors",          "topic": "Titan builds — armored Mando-style. Drop DIM share URLs."},
+        {"type": "text",  "name": "the-bad-batch",                 "topic": "Hunter builds — elite specialists. Drop DIM share URLs."},
+        {"type": "text",  "name": "jedi-order",                    "topic": "Warlock builds — Force users. Drop DIM share URLs."}
+      ]
+    },
+    {
+      "name": "📜 Padawan's Journey",
+      "channels": [
+        {"type": "text",  "name": "lfg-storyline",                 "topic": "LFG — story missions, campaign coop, exotic missions."}
+      ]
+    },
+    {
+      "name": "⚔️ Outer Rim Skirmish",
+      "channels": [
+        {"type": "text",  "name": "lfg-pvp",                       "topic": "LFG — Crucible, Trials, Iron Banner, Competitive."},
+        {"type": "text",  "name": "trial-of-combat",               "topic": "Set up private matches."}
+      ]
+    },
+    {
+      "name": "🏆 The Imperial Throne",
+      "channels": [
+        {"type": "text",  "name": "lfg-endgame",                   "topic": "LFG — GM Nightfalls, Master raids, day-one races."},
+        {"type": "text",  "name": "treasure-of-the-sith",          "topic": "Where to farm each exotic. Drop tips + locations."}
+      ]
+    },
+    {
+      "name": "🏔️ Dagobah Trials",
+      "_purpose": "Dungeons",
+      "channels": [
+        {"type": "text",  "name": "lfg-dungeons",                  "topic": "LFG for any dungeon."},
+        {"type": "text",  "name": "ghosts-of-the-deep",            "topic": "Ghosts of the Deep — Ecthar / Šimumah / final boss."},
+        {"type": "text",  "name": "spire-of-the-watcher",          "topic": "Spire of the Watcher — Akelous / Persys."},
+        {"type": "text",  "name": "duality",                       "topic": "Duality — Gahlran / Caiatl / Egregore."},
+        {"type": "text",  "name": "prophecy",                      "topic": "Prophecy — Kell Echo / Phalanx Echo."},
+        {"type": "text",  "name": "pit-of-heresy",                 "topic": "Pit of Heresy — Hive shrines, Zulmak."},
+        {"type": "text",  "name": "shattered-throne",              "topic": "Shattered Throne — Vorgeth, Dûl Incaru."},
+        {"type": "text",  "name": "grasp-of-avarice",              "topic": "Grasp of Avarice — Gjallarhorn quest, Captain Avarokk."},
+        {"type": "text",  "name": "warlords-ruin",                 "topic": "Warlord's Ruin — Hefnd's Vengeance, Locus of Wailing Grief."},
+        {"type": "text",  "name": "sundered-doctrine",             "topic": "Sundered Doctrine — Drowning Labyrinth, Finality's Auger."},
+        {"type": "text",  "name": "equilibrium",                   "topic": "Equilibrium — Praxic Blade, Sullen Claw, Heirloom."},
+        {"type": "text",  "name": "padawan-training",              "topic": "Patient teachers + sherpas for newer players."}
+      ]
+    },
+    {
+      "name": "⚔️ The Death Star Awaits",
+      "_purpose": "Raids",
+      "channels": [
+        {"type": "text",  "name": "lfg-raids",                     "topic": "LFG for any raid."},
+        {"type": "text",  "name": "desert-perpetual",              "topic": "Desert Perpetual raid."},
+        {"type": "text",  "name": "salvations-edge",               "topic": "Salvation's Edge raid — Final Shape capstone."},
+        {"type": "text",  "name": "root-of-nightmares",            "topic": "Root of Nightmares raid."},
+        {"type": "text",  "name": "vow-of-the-disciple",           "topic": "Vow of the Disciple raid."},
+        {"type": "text",  "name": "deep-stone-crypt",              "topic": "Deep Stone Crypt raid."},
+        {"type": "text",  "name": "garden-of-salvation",           "topic": "Garden of Salvation raid."},
+        {"type": "text",  "name": "last-wish",                     "topic": "Last Wish raid."},
+        {"type": "text",  "name": "kings-fall",                    "topic": "King's Fall raid."},
+        {"type": "text",  "name": "vault-of-glass",                "topic": "Vault of Glass raid."},
+        {"type": "text",  "name": "crotas-end",                    "topic": "Crota's End raid."},
+        {"type": "text",  "name": "jedi-training",                 "topic": "Patient teachers + sherpas for first-clears."}
+      ]
+    },
+    {
+      "name": "📊 Galactic Holonet",
+      "channels": [
+        {"type": "text",  "name": "galactic-stats",                "topic": "Charlemagne / Raid Report links + personal stat dumps."},
+        {"type": "text",  "name": "weekly-briefing",               "topic": "Weekly reset summary: Nightfall, Trials map, vendor rotations."}
+      ]
+    },
+    {
+      "name": "🎨 Tailor of Coruscant",
+      "channels": [
+        {"type": "text",  "name": "fashion-show",                  "topic": "Fashion shots. Glow-up your guardian."},
+        {"type": "text",  "name": "galactic-ball",                 "topic": "Weekly fashion contest entries."}
+      ]
+    },
+    {
+      "name": "😎 The Holocron",
+      "channels": [
+        {"type": "text",  "name": "force-wisdom",                  "topic": "Quotes, life advice, lore drops."},
+        {"type": "text",  "name": "cantina-photos",                "topic": "IRL pics if you want."}
+      ]
+    },
+    {
+      "name": "🏆 Trials of the Jedi",
+      "channels": [
+        {"type": "text",  "name": "jedi-trials",                   "topic": "Title farms — Conqueror, Flawless, Rivensbane, etc."}
+      ]
+    },
+    {
+      "name": "🎤 Hyperspace Lanes",
+      "_purpose": "Voice channels",
+      "channels": [
+        {"type": "text",  "name": "broken-comms",                  "topic": "Text channel for voice users with broken mics."},
+        {"type": "voice", "name": "🟢 Open Hyperspace"},
+        {"type": "voice", "name": "🚀 Millennium Falcon"},
+        {"type": "voice", "name": "🚀 Slave I"},
+        {"type": "voice", "name": "🚀 Ghost"},
+        {"type": "voice", "name": "⚔️ Death Star Squad"},
+        {"type": "voice", "name": "⚔️ Star Destroyer"},
+        {"type": "voice", "name": "⚔️ Imperial Fleet"},
+        {"type": "voice", "name": "🏔️ Dagobah"},
+        {"type": "voice", "name": "🏔️ Hoth"},
+        {"type": "voice", "name": "🏔️ Endor"},
+        {"type": "voice", "name": "🎯 Outer Rim Trials"},
+        {"type": "voice", "name": "🎯 Galactic Crucible"},
+        {"type": "voice", "name": "👥 Rogue Squadron"},
+        {"type": "voice", "name": "👥 Rebel Strike Team"},
+        {"type": "voice", "name": "👥 Imperial Strike Team"},
+        {"type": "voice", "name": "🎵 Cantina Band"},
+        {"type": "voice", "name": "🎵 Jedi Temple"},
+        {"type": "voice", "name": "🎵 Sith Symphony"},
+        {"type": "voice", "name": "🎵 Mos Eisley Beats"},
+        {"type": "voice", "name": "🎵 Coruscant Nightclub"},
+        {"type": "voice", "name": "💤 Carbonite Chamber",         "_setup_note": "Set this as the server AFK channel under Server Settings → Overview → Inactive Channel."}
+      ]
+    },
+    {
+      "name": "💀 Death Star Command",
+      "_purpose": "Mods / staff only — replaces old 'Mod Only' category",
+      "_setup_note": "Restrict view to @Death Star Command + @Emperor roles only.",
+      "channels": [
+        {"type": "text",  "name": "imperial-records",              "topic": "FlaviBot / MEE6 mod actions logged here."},
+        {"type": "text",  "name": "council-chambers",              "topic": "Admin-only chat."},
+        {"type": "voice", "name": "💀 Death Star War Room"}
+      ]
+    }
+  ]
+}

@@ -257,7 +257,7 @@ def run_decoder():
 
 
 def main():
-    banner("DESTINY 2 LOADOUT TOOLKIT — INSTALL WIZARD")
+    banner("THE WAY OF THE SITH — INSTALL WIZARD")
     print()
     print("  This will set up your personal config + workbook.")
     print("  Your Bungie API key is saved to user_config.json (gitignored — never")

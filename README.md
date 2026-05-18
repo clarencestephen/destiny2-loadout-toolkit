@@ -1,4 +1,6 @@
-# Destiny 2 Loadout Toolkit
+# The Way of the Sith
+
+> **Destiny voyager optimizer · wishlist organizer · API stat tracking**
 
 A personal Destiny 2 planner — DIM share URL decoder, wishlist tracker, exotic mission queue, and build/mod recommender — all in one Excel workbook driven by a Python install wizard.
 
@@ -28,8 +30,8 @@ After running the install wizard you'll have:
 ### 1. GUI installer  (recommended, Windows-friendly)
 
 ```bash
-git clone https://github.com/clarencestephen/bleach-imperial-galactic-star-warszy
-cd bleach-imperial-galactic-star-warszy
+git clone https://github.com/clarencestephen/the-way-of-the-sith
+cd the-way-of-the-sith
 pip install -r requirements.txt
 python setup_gui.py
 ```
@@ -52,7 +54,7 @@ Same flow, terminal-based. Both write the same `user_config.json` and `my_loadou
 
 ### 3. Pre-built Windows .exe  (no Python required)
 
-If you don't want to install Python, grab the latest `.exe` from the [Releases page](https://github.com/clarencestephen/bleach-imperial-galactic-star-warszy/releases). Double-click and follow the wizard. The .exe is built by GitHub Actions on every tagged release — see `.github/workflows/build-windows-exe.yml`.
+If you don't want to install Python, grab the latest `.exe` from the [Releases page](https://github.com/clarencestephen/the-way-of-the-sith/releases). Double-click and follow the wizard. The .exe is built by GitHub Actions on every tagged release — see `.github/workflows/build-windows-exe.yml`.
 
 ---
 
@@ -104,7 +106,7 @@ In DIM: **Settings → Spreadsheets → click `Weapons`, `Armor`, or `Ghost`** t
 ## Repo layout
 
 ```
-bleach-imperial-galactic-star-warszy/
+the-way-of-the-sith/
 ├── README.md
 ├── LICENSE                  (MIT)
 ├── .gitignore               (excludes user_config.json, my_loadouts.xlsx, manifest_cache/)
