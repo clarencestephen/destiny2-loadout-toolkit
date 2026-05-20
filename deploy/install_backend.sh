@@ -89,7 +89,7 @@ User=${SERVICE_USER}
 Group=${SERVICE_USER}
 WorkingDirectory=${INSTALL_DIR}/backend
 EnvironmentFile=${ENV_FILE}
-ExecStart=${INSTALL_DIR}/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8080 --proxy-headers
+ExecStart=${INSTALL_DIR}/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8090 --proxy-headers
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal
@@ -120,7 +120,7 @@ systemctl is-active --quiet "${SERVICE_NAME}" && echo "  ✓ service active" || 
 echo "[6/6] nginx"
 NGINX_CONF="/etc/nginx/sites-available/destiny-voyager-backend"
 cat > "${NGINX_CONF}" <<'EOF'
-# Destiny Voyager backend — reverse-proxy → uvicorn @ 127.0.0.1:8080
+# Destiny Voyager backend — reverse-proxy → uvicorn @ 127.0.0.1:8090
 #
 # Listen on port 80 for now. After DNS points
 # api.destiny-voyager.clarencestephen.com → this VPS, run:
@@ -136,7 +136,7 @@ server {
     client_max_body_size 64k;
 
     location / {
-        proxy_pass http://127.0.0.1:8080;
+        proxy_pass http://127.0.0.1:8090;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -146,7 +146,7 @@ server {
 
     # Tiny health endpoint, no logs
     location = /health {
-        proxy_pass http://127.0.0.1:8080/health;
+        proxy_pass http://127.0.0.1:8090/health;
         access_log off;
     }
 }
