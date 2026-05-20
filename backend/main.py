@@ -34,7 +34,7 @@ logging.basicConfig(
 log = logging.getLogger("destiny-voyager-backend")
 
 
-from .api import chat, inventory, link, manifest, meta  # noqa: E402
+from api import chat, inventory, link, manifest, meta  # noqa: E402
 
 
 app = FastAPI(

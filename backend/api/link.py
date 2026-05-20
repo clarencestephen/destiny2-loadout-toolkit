@@ -20,7 +20,7 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from ..db import LinkStore
+from db import LinkStore
 
 router = APIRouter()
 
