@@ -1,0 +1,1028 @@
+# raids/kings-fall.yaml — Pass 1 (destinypedia baseline)
+
+slug: kings-fall
+name: King's Fall
+activity_type: raid
+released:
+  expansion: "(Original D1 The Taken King, 2015) — reprised D2 2022"
+  year: 2022  # D2 reprise during Season of Plunder
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1560
+  master: 1590
+location: "Dreadnaught (Oryx's flagship)"
+tags: [hive, taken, oryx, og-raid, exotic-scout, touch-of-malice, deepsight-puzzle]
+
+average_clear_time:
+  normal_experienced: "60-90 min"
+  normal_learning:    "2.5-4 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Bungie's flagship D1 raid, reprised in D2 (2022). Multi-encounter
+    Hive epic culminating in Oryx, the Taken King. Heavy on Brand-of-X
+    mechanics (Deathsinger's Power, Brand of the Initiate, Aura of
+    Immortality) + plate sync sequences. Source of Touch of Malice
+    (exotic scout) + Doom of Chelchis (scout) + classic legendaries.
+
+  bosses:
+    - name: "Warpriest"
+      encounter: 4
+      role: "First major boss — glyph plate sequence + Brand of the Initiate"
+    - name: "Golgoroth"
+      encounter: 5
+      role: "Hive Ogre boss — gaze swap + Pool of Reclaimed Light + Unstable Light"
+    - name: "Daughters of Oryx (Ir Anûk + Ir Halak)"
+      encounter: 7
+      role: "Twin Wizard bosses — Torn Between Dimensions + Brand Claimer"
+    - name: "Oryx, the Taken King"
+      encounter: 8
+      role: "Final boss — Light-Eater Ogres + Vessel + Aura of Immortality + corrupted Light + chest weakpoint"
+
+  recurring_mechanics:
+    - name: "Brand mechanics"
+      brief: |
+        Multiple Brands across the raid: Deathsinger's Power (Basilica),
+        Brand of the Initiate (Warpriest), Brand stealing via Brand Claimer
+        (Warpriest+Daughters), Aura of Immortality (Oryx). Each has a
+        death timer + transfer mechanic.
+
+    - name: "Brand Claimer (D2 specific)"
+      brief: |
+        Kill specific enemies (Blightguard Taken Knight, Hive Wizard) to
+        drop a Brand Claimer buff. Hold up to 30s, interact with another
+        Brand-holder to STEAL their Brand + transfer the timer reset.
+
+    - name: "Annihilator Totems"
+      brief: |
+        Pillars that consume Light if not pacified by player presence.
+        Basilica encounter only. Stand under to prevent wipe.
+
+    - name: "Oracles"
+      brief: |
+        Glowing Hive constructs in Warpriest + Daughters encounters.
+        Different rules than VoG (no musical-note order); destroy
+        via positional inputs.
+
+    - name: "Corrupted Light (Oryx fight)"
+      brief: |
+        Dropped by Light-Eater Ogres on death. Standing in Corrupted
+        Light + having Aura of Immortality = stuns Oryx + reveals chest
+        weak point.
+
+  role_archetypes:
+    - id: brand_holder
+      brief: "Carries a Brand (Deathsinger's, Initiate, Aura). Must know its rules."
+    - id: brand_claimer
+      brief: "Hunts specific enemies for Claimer buff; relieves Brand holder."
+    - id: plate_steward
+      brief: "Holds an assigned plate (Warpriest glyph, Threshold, Oryx)."
+    - id: relic_runner
+      brief: "Hall of Souls Relic carrier."
+    - id: gaze_holder
+      brief: "Golgoroth gaze taker."
+
+  sherpa_playbook:
+    - "Pre-pull: assign plates (Warpriest: L/M/R), brand claimers (Daughters/Oryx)."
+    - "Touch of Malice: exotic scout drops from Oryx (random chance). Save Spoils for re-rolls."
+    - "Deepsight puzzle: 9 runes hidden across the raid (see notes). Shoot all → bonus crafted-drop chest after Oryx."
+    - "Solo: extremely rare. Daughters + Oryx specifically require Brand mechanics — solo flawless is endgame-tier."
+
+  loadout_general:
+    weapons:
+      - "Long-range scout / sniper for Hobgoblins / Boomers."
+      - "Burst DPS for Warpriest, Golgoroth, Oryx (Whisper, Sleeper, Linear)."
+      - "Touch of Malice itself for Oryx DPS (synergistic with its perk)."
+    armor_stats:
+      - "Resilience for Hive AoE damage."
+      - "Mobility for Transept jumping puzzle."
+    common_exotics:
+      - "Hunter: Celestial Nighthawk (Oryx chest), Star-Eater (DPS)."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance (mandatory for DPS), Phoenix Protocol."
+
+  common_mistakes:
+    - "Basilica: Brand holder caught off the totem = wipe."
+    - "Warpriest: missed glyph sequence call = Oculus wipe."
+    - "Golgoroth: gaze holder dies in pool = stack of Unstable Light wasted."
+    - "Daughters: wrong daughter's Brand stolen = wrong DPS target = wipe."
+    - "Oryx: forgetting to stand in Aura of Immortality during Corrupted Light detonation = wipe."
+    - "Master: not bringing Anti-Champion mods for Barrier Knights + Overload Hobgoblins."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: hall-of-souls
+    name: "Hall of Souls (Opener)"
+    difficulty: easy
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Opener. Split 3 teams of 2. Two pickup Relics ("Tomb Husks") and
+      deposit at statues. Gunner + Relic-holder per side. 6 statues
+      total via 3 rounds of double-deposit.
+
+    setup: |
+      WHAT YOU SEE:
+      - Court of Oryx-style hall with a central blocked gate.
+      - Statues at multiple positions (6 total need activation).
+      - Tomb Husks (relics) at start.
+      - Taken Blight in center (D2: shoot to break walls blocking Relic carriers).
+
+      PLATFORM MECHANICS:
+      - Pick up Relic = Tomb Husk → carry to statue, INTERACT to slam.
+      - 2 relics must be deposited at near-same time (or first statue silences).
+      - Gunner clears path for Relic carrier.
+
+      START STATE: rally banner, pick up Relics.
+
+    callouts:
+      - when: "Statue active"
+        from: "depositor"
+        to:   "team"
+        say:  '"Statue [N] DOWN."'
+        why:  "Sync deposits."
+
+    wipe_triggers: []
+    damage_phase_triggers:
+      - "All 6 statues active → portal opens → loot chest."
+
+    parallel_timeline:
+      - phase: "Pull"
+        relic_carriers_2: "Pick up Tomb Husks."
+        gunners_2: "Lead Relic carriers."
+        center_clear_2: "Burst enemies in center to break central gate."
+      - phase: "Cycle (×3, 6 statues total)"
+        carriers: "Walk to statues, double-deposit."
+
+    permutations:
+      - name: "Standard 3-pair split"
+        learner_friendly: true
+        summary: "L/center/R 3 pairs. Each round, 2 pairs cover left+right Relic + 1 pair holds center."
+        roles:
+          - id: relic_pair
+            count: 4
+            does: "2 pairs Relic-carry + gunner."
+          - id: center_clear
+            count: 2
+            does: "Burst Court enemies."
+
+    cheese: []
+    common_mistakes:
+      - "Slow double-deposit — first statue silences if late."
+
+    rewards:
+      guaranteed:
+        - "Chest with Doom of Chelchis or class item"
+      hidden_chest: null
+      potential_drops:
+        - "Doom of Chelchis (scout)"
+      # Deepsight Rune #1 + #2 located in this area — see Overall Notes
+
+    images:
+      overview: ""
+      setup: ""
+
+    learner_path:
+      - "1st: gunner. 2nd: Relic carrier."
+
+  # ====================================================================
+
+  - order: 2
+    slug: portico-jumping
+    name: "Crux & Portico (Jumping Puzzle 1)"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Swinging platforms + ship-jumping puzzle. Two plates + 1 ship at end.
+      One person on each plate, one on ship. Door opens when plates active +
+      ship arrives. Hidden Chest 1 (secret) accessible during this section.
+
+    setup: |
+      WHAT YOU SEE:
+      - Swinging Hive platforms across a gap.
+      - Series of ships you must jump to in order.
+      - 2 plates near a ship.
+
+      PLATFORM MECHANICS:
+      - Jump from swinging platform to swinging platform when they hit apex.
+      - Ride ships across.
+      - 2 plates active + ship arriving = door opens.
+
+      HIDDEN CHEST 1: While 2 plates are held + ship is moving, the 3rd
+      player on the ship jumps off LEFT before the shield wall, onto a
+      spike-like platform, climbs to a side door = chest. Need plates
+      held while you climb.
+
+    callouts: []
+    wipe_triggers:
+      - "Falling = death (long respawn)."
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Standard"
+        learner_friendly: true
+        summary: "Sequential. Plate / plate / ship-rider for door open. 3 others jump ahead."
+
+    cheese: []
+    common_mistakes:
+      - "Mistiming swinging platform jump — fall."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 1: While 2 plates are held during the ship section,
+          the ship-rider jumps off LEFT before the shield wall onto a
+          spike platform → walk up the small walkway → through a side
+          door at the top.
+        rewards:
+          - "Random raid loot"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Follow + learn."
+
+  # ====================================================================
+
+  - order: 3
+    slug: basilica
+    name: "Basilica (Annihilator Totems)"
+    difficulty: medium
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Two side rooms with Annihilator Totems (deplete Light if unattended).
+      Two Brand-holders pick up Brand of the Weaver (L) + Brand of the
+      Unraveler (R). Build Deathsinger's Power stacks (10) via kills, deposit
+      at center plate. D2: Brand Claimer mechanic — kill Wizard + Blightguard
+      to relieve the Brand holder. 10 power required per side.
+
+    setup: |
+      WHAT YOU SEE:
+      - 3 rooms: L (Weaver), Center (deposit plate + door), R (Unraveler).
+      - Annihilator Totem in each side room.
+      - Brand pickup at L + R Brand spawn points.
+      - Hive Wizards + Blightguard Taken Knights on side balconies (Brand Claimer drops).
+      - Unstoppable Ogre spawns from pool in front of center deposit plate.
+
+      PLATFORM MECHANICS:
+      - Brand of the Weaver (L) + Brand of the Unraveler (R) picked up.
+      - Brand holder MUST stand under Totem (or it depletes → wipe).
+      - Kills while Branded = Deathsinger's Power stacks (Minor=1, Elite=2).
+      - 10 stacks → deposit at center plate. (Can't pickup Brand Claimer while holding stacks.)
+      - To transfer Brand: kill Wizard → kill Blightguard → grab Brand Claimer buff (30s timer) → return to Brand holder → interact = steal.
+      - Brand holder dies if timer expires without transfer (loses all stacks).
+
+      START STATE: rally banner. Split L/M/R 2-2-2.
+
+    callouts:
+      - when: "Brand picked up"
+        from: "holder"
+        to:   "team"
+        say:  '"BRANDED [L/R] — totem."'
+        why:  "Holder commits to totem position."
+      - when: "Wizard down"
+        from: "killer"
+        to:   "team"
+        say:  '"Wizard down — Blightguard up."'
+        why:  "Cue Claimer pipeline."
+      - when: "Blightguard down + Claimer in hand"
+        from: "claimer"
+        to:   "team"
+        say:  '"CLAIMER [L/R] — relieving."'
+        why:  "Brand holder prepares for swap."
+      - when: "Stacks transferred + deposited"
+        from: "self"
+        to:   "team"
+        say:  '"10 in — [L/R] door progress."'
+        why:  "Progress check."
+      - when: "Brand timer low"
+        from: "holder"
+        to:   "team"
+        say:  '"TIMER LOW — relieve!"'
+        why:  "Urgent swap needed."
+
+    wipe_triggers:
+      - "Annihilator Totem unattended too long = Light drained = wipe."
+      - "Brand holder dies (timer or damage) = wipe risk."
+      - "Failure to deposit 10 power each side."
+
+    damage_phase_triggers:
+      - "10 Deathsinger's Power deposited at both L + R doors → Warpriest deems team worthy = encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Split L/M/R."
+      - phase: "Per side"
+        brand_holder: "Stand totem, kill for stacks."
+        claimer: "Kill Wizard + Blightguard, get Claimer."
+        depositor: "Carry stacks to center plate, deposit."
+      - phase: "10 power per side"
+        all: "Cycle until both sides complete."
+
+    permutations:
+      - name: "Standard 2 per side"
+        learner_friendly: true
+        summary: "2 per side: 1 totem, 1 claimer. M is shared between L+R as depositors."
+        roles:
+          - id: brand_holder
+            count: 2
+            does: "Stand totem, build stacks, deposit."
+          - id: brand_claimer
+            count: 2
+            does: "Hunt Wizard + Blightguard, get Claimer, relieve holder."
+          - id: center_clear
+            count: 2
+            does: "Suppress Unstoppable Ogre + center adds; backup roles."
+
+      - name: "Master: Devious Thievery"
+        learner_friendly: false
+        summary: "Holder cannot hold Brand > 5s during transfer. Coordinate tight."
+
+    cheese: []
+
+    common_mistakes:
+      - "Forgetting to KILL Wizard BEFORE Blightguard — Claimer doesn't spawn."
+      - "Holding stacks while trying to Claimer-pickup — 'Brand Denied'."
+      - "Totem unattended during transfer chaos."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Anguish of Drystan (auto)"
+        - "Doom of Chelchis (scout)"
+        - "Elulim's Frenzy (rocket)"
+        - "King's Fall armor"
+      # Deepsight Rune #3 in this area — see Overall Notes
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: center_clear."
+      - "2nd: brand_holder."
+      - "3rd: brand_claimer."
+
+  # ====================================================================
+
+  - order: 4
+    slug: warpriest
+    name: "Warpriest"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      First major boss. 3 plates (L/M/R). After clearing adds + Hallowed
+      Knights, a GLYPH SEQUENCE starts (which plate first → glow on
+      Monolith back). Step plates in sequence → last stepper gets Brand
+      of the Initiate (DPS aura). DPS Warpriest. Brand expires after 5
+      stacks → Brand Claimer swap. End-of-DPS: hide behind a Monolith
+      from Oculus or die.
+
+    setup: |
+      WHAT YOU SEE:
+      - 3 plates (L/M/R) facing 3 Monoliths (the hide-from-Oculus pillars).
+      - Warpriest on a far balcony (Hive Boomer Knight).
+      - Adds: Blistered Wizards + Revenant Knights (Hive) then Servile Minotaurs + Boomer Knights (Taken at 50%).
+
+      PLATFORM MECHANICS:
+      - 3 plates stepped simultaneously = Warpriest spawns + immune.
+      - Adds: kill Hallowed Knights (signaled by yell when Adept Acolytes die).
+      - Glyph sequence: Monolith back GLOWS WHITE = that side first.
+        • Middle plate stepper checks L+R Monoliths — if either glowing, that side first.
+        • If neither, middle first.
+        • Sequence: 3 plates step in order.
+      - Last stepper = Brand of the Initiate (red aura). Anyone in aura = damages Warpriest.
+      - Brand reaches ~3s timer (5 stacks) → kill add or Brand transfers via Brand Claimer.
+      - Brand Claimer: kill Blightguard (during DPS phase) → grab buff → claim before Brand expires.
+      - 2 successful claims per phase → Warpriest summons Oculus → hide behind a Monolith or wipe.
+      - Each surviving Monolith gives Warpriest a Taken ability for next phase.
+      - 4 DPS phases without kill = wipe (Oculus persistent after Enrage).
+
+      START STATE: rally banner. 3 plates simultaneous to start.
+
+    callouts:
+      - when: "All 3 plates stepped"
+        from: "any"
+        to:   "team"
+        say:  '"WARPRIEST UP — clearing adds."'
+        why:  "Pre-glyph state."
+      - when: "Hallowed Knights spawning"
+        from: "spotter"
+        to:   "team"
+        say:  '"Hallowed Knights — burn 3 quick."'
+        why:  "Clears for glyph phase."
+      - when: "Glyph sequence triggered"
+        from: "middle stepper"
+        to:   "team"
+        say:  '"GLYPHS — [L/M/R] first, [direction] second, [direction] third."'
+        why:  "Critical sequence."
+      - when: "Brand acquired"
+        from: "holder"
+        to:   "team"
+        say:  '"INITIATE — stacking on me."'
+        why:  "Team converges in aura."
+      - when: "Brand low (5s)"
+        from: "holder"
+        to:   "team"
+        say:  '"5 SECONDS — Claimer!"'
+        why:  "Claimer-pickup window."
+      - when: "Oculus incoming"
+        from: "any"
+        to:   "team"
+        say:  '"OCULUS — MONOLITH!"'
+        why:  "Hide or die."
+      - when: "Final stand"
+        from: "any"
+        to:   "team"
+        say:  '"FINAL — burn!"'
+        why:  "Push through."
+
+    wipe_triggers:
+      - "Failed glyph sequence too many times."
+      - "Oculus exposure — not behind a Monolith."
+      - "Brand expires without successful Claim AND no Oculus survivors."
+      - "4 DPS phases without kill = enrage."
+
+    damage_phase_triggers:
+      - "Brand of the Initiate held by last plate stepper → red aura → ~30s damage window per phase."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "3 plates step simultaneously."
+      - phase: "Add clear"
+        all: "Burst adds + Hallowed Knights."
+      - phase: "Glyph sequence (~0:30 in)"
+        middle_stepper: "Check Monoliths, call order."
+        steppers_2: "Step on call."
+        last_stepper: "Step last → Brand."
+      - phase: "DPS (~30s)"
+        brand_holder: "Aura center. Burst Warpriest with team in red zone."
+        claimers_2: "Kill Blightguard, prep Claimer buff."
+      - phase: "Brand swap"
+        claimer_1: "Take Brand from holder at ~5s."
+      - phase: "Reset / Oculus"
+        all: "Hide behind Monolith. Cycle."
+
+    permutations:
+      - name: "Standard 3-plate / 2-claimer"
+        learner_friendly: true
+        summary: "3 dedicated plate steppers; 2 dedicated Claimers; 1 floater."
+        roles:
+          - id: plate_stepper
+            count: 3
+            does: "Always on a specific plate (L/M/R). Step on glyph call. Last stepper = Brand."
+          - id: brand_claimer
+            count: 2
+            does: "Hunt Blightguard, get Claimer, relieve Brand holder."
+          - id: floater
+            count: 1
+            does: "Add-clear + backup Claimer."
+
+      - name: "Master: Devious Thievery"
+        learner_friendly: false
+        summary: "Brand Claimer cannot be held > 5s. Holder MOVES toward Claimer."
+
+    cheese: []
+
+    common_mistakes:
+      - "Middle stepper fails to identify glowing Monolith — sequence wrong."
+      - "Brand holder runs out of aura — team loses DPS window."
+      - "Claimer holds buff too long — Brand expires."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Defiance of Yasmin (sniper)"
+        - "Midha's Reckoning (fusion)"
+        - "King's Fall armor"
+      # Deepsight Rune #4 in this area
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: plate_stepper (specific side)."
+      - "2nd: floater / Claimer."
+      - "3rd: middle plate (calls glyph sequence)."
+
+  # ====================================================================
+
+  - order: 5
+    slug: golgoroth
+    name: "Golgoroth"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Hive Ogre boss in a cellar. Mechanics: capture Gaze (shoot back),
+      shoot down Pool of Reclaimed Light orbs from ceiling, stand in pool
+      while another player captures Gaze, burst Golgoroth's chest. Unstable
+      Light explosions detonate near Golgoroth for huge damage. 6 orbs total.
+
+    setup: |
+      WHAT YOU SEE:
+      - Cavern arena with Golgoroth (massive Hive Ogre) in the back.
+      - 6 orbs hanging from ceiling (Pool of Reclaimed Light sources).
+      - Tablet of Ruin (Soulsiphon Plinth) at front — fills on lost gaze or death.
+      - Upper platform near front.
+      - Lower level with Taken Phalanxes that push.
+
+      PLATFORM MECHANICS:
+      - Start: shoot starting orb above Golgoroth.
+      - Capture Gaze: shoot Golgoroth in the BACK enough = Gaze captured (3-min duration).
+        Gaze holder takes Golgoroth's aggro + stomach reveals weak point.
+      - Shoot a ceiling orb to spawn Pool of Reclaimed Light below.
+      - Stand in Pool = massive damage buff.
+      - Fireteam in pool shoots Golgoroth's chest.
+      - Pool spawning pattern (D2): L → R → L → R → L → R, toward Tablet of Ruin.
+      - Unstable Light debuff: random player in pool gets it. Timer expires → explosion. Run toward Golgoroth + detonate near him = huge damage.
+      - Lose gaze = +1 glyph on Tablet of Ruin. 6 glyphs = wipe.
+      - 6 orbs exhausted = Golgoroth "grows tired" → add wave → cycle repeats.
+
+      START STATE: shoot the starting orb to start.
+
+    callouts:
+      - when: "Gaze captured"
+        from: "holder"
+        to:   "team"
+        say:  '"GAZE — orb [L/R]."'
+        why:  "Team shoots indicated ceiling orb."
+      - when: "Pool active"
+        from: "any"
+        to:   "team"
+        say:  '"POOL [L/R] — in!"'
+        why:  "Team enters pool for DPS."
+      - when: "Gaze timer low"
+        from: "current holder"
+        to:   "team"
+        say:  '"GAZE LOW — back swap!"'
+        why:  "Backup player captures Gaze from opposite position."
+      - when: "Unstable Light"
+        from: "self"
+        to:   "team"
+        say:  '"UNSTABLE — Golgoroth bomb!"'
+        why:  "Move toward Golgoroth, detonate close."
+
+    wipe_triggers:
+      - "Tablet of Ruin fills (6 lost-gaze glyphs)."
+      - "Golgoroth enrage."
+      - "Unstable Light detonation in team cluster."
+
+    damage_phase_triggers:
+      - "Pool active + Gaze captured + chest visible → DPS window (per gaze cycle)."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Shoot starting orb. Engage Hive adds."
+      - phase: "First gaze"
+        gaze_holder_1: "Shoot Golgoroth's back, capture Gaze."
+        pool_shooters: "Shoot ceiling orb #1."
+      - phase: "DPS cycle"
+        gaze_holder: "Hold position behind team (opposite side from pool)."
+        team: "Stand in pool, shoot chest."
+      - phase: "Gaze swap"
+        gaze_holder_2: "Stand diagonally opposite, capture next gaze."
+      - phase: "Repeat ×6 orbs"
+        all: "Cycle until Golgoroth dies or grows tired."
+
+    permutations:
+      - name: "Standard 2-gaze swap"
+        learner_friendly: true
+        summary: "Two designated gaze holders alternate. 4 DPS in pool."
+        roles:
+          - id: gaze_holder
+            count: 2
+            does: "Alternate capturing Gaze. Stand opposite the pool."
+          - id: pool_dps
+            count: 4
+            does: "Stand in pool, shoot chest. Detonate Unstable Light at Golgoroth."
+
+      - name: "Master: Gaze Amaze"
+        learner_friendly: false
+        summary: "Current gaze holder must be IN the pool when partner relieves."
+
+    cheese: []
+
+    common_mistakes:
+      - "Standing in pool when gaze swap happens — Unstable Light wipes team."
+      - "Forgetting to shoot ceiling orb in correct sequence (L/R/L/R/L/R)."
+      - "Unstable Light detonation on team = wipe."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Qullim's Terminus (LMG)"
+        - "Defiance of Yasmin (sniper)"
+        - "King's Fall armor"
+      # Deepsight Rune #5 in Golgoroth's Cellar exit
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: pool_dps."
+      - "2nd: gaze_holder."
+
+  # ====================================================================
+
+  - order: 6
+    slug: transept
+    name: "Transept (Jumping Puzzle 2 + Exotic Chest)"
+    difficulty: medium
+    estimated_time: "5-15 min"
+
+    abstract: |
+      Vertical jumping puzzle with wall-pillars that push you off ledges.
+      End: 3 plates stood on simultaneously = invisible platforms become
+      permanent → door opens to Threshold. Exotic Chest hidden in upper
+      area.
+
+    setup: |
+      WHAT YOU SEE:
+      - Tall chamber, ledges and platforms upward.
+      - Wall pillars that periodically extend, pushing players off.
+      - 3 plates at top.
+
+      PLATFORM MECHANICS:
+      - Jump platform → platform, dodging extending wall pillars.
+      - 3 plates at top must be stood on SIMULTANEOUSLY → invisible platforms become permanent.
+
+      EXOTIC CHEST: Turn RIGHT after entering area, jump onto a side pillar
+      platform, continue up to a large doorway → loop around → exotic chest.
+
+    callouts: []
+    wipe_triggers:
+      - "Wall pillar push = fall = death."
+    damage_phase_triggers:
+      - "3 plates simultaneously stood = door opens."
+    parallel_timeline: []
+
+    permutations:
+      - name: "Standard ascent"
+        learner_friendly: true
+        summary: "Take turns. Lead player calls pillar timing."
+
+    cheese: []
+    common_mistakes:
+      - "Standing too close to wall when pillar fires."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          EXOTIC CHEST (Transept): On entering, turn RIGHT. Jump onto a
+          side-pillar platform. Continue upward. Find a large doorway,
+          loop around to chest. Last jump has a delayed pillar — watch
+          for it.
+        rewards:
+          - "Random exotic engram chance + raid loot"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Follow + learn."
+
+  # ====================================================================
+
+  - order: 7
+    slug: daughters-of-oryx
+    name: "Daughters of Oryx (Ir Anûk + Ir Halak)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Two Wizard sisters. One sings deathsong (wipe in ~2 min), other
+      actively shoots. Plate sequence + Torn Between Dimensions player
+      collects Blightguard pieces via jumping platforms only they see.
+      3 cycles → Brand Claimer steals the active daughter's Brand → DPS
+      that daughter. Once one daughter dies, MUST kill the other in next
+      phase or wipe.
+
+    setup: |
+      WHAT YOU SEE:
+      - 4 corner plates in the Threshold arena.
+      - 2 Wizard bosses (Ir Anûk + Ir Halak) — one sleeping, one active.
+      - Knights on plates initially.
+      - Sleeping daughter sings deathsong (2-min timer).
+
+      PLATFORM MECHANICS:
+      - Kill Knights on plates → step on dimly-glowing plate.
+      - 1 random player becomes Torn Between Dimensions (can't shoot, sees special platforms).
+      - Torn player must walk path of invisible-to-others platforms, made physical by 2 other players on separate plates.
+      - At end of path: orb pickup ("a piece of the Blightguard has been found").
+      - Repeat 3 times. On 3rd run, the Torn player picks up Brand Claimer.
+      - Brand Claimer: STEAL the ACTIVE daughter's Brand (the one shooting, NOT the singing one). After steal → DPS the daughter you stole from.
+      - Kill one daughter = must kill the other next phase or WIPE.
+      - 2-min deathsong timer — if not stolen by ~1:30, wipe at 2:00.
+
+      START STATE: rally banner. Walk in to start. Deathsong begins.
+
+    callouts:
+      - when: "Torn Between Dimensions"
+        from: "torn player"
+        to:   "team"
+        say:  '"TORN — going [direction] path."'
+        why:  "Plate-holders sync to enable path."
+      - when: "Plate stepped"
+        from: "stepper"
+        to:   "team"
+        say:  '"Plate [N] up — second plate now."'
+        why:  "Coordinated activation."
+      - when: "Blightguard piece found"
+        from: "any"
+        to:   "team"
+        say:  '"PIECE [N/3] — back to plates."'
+        why:  "Cycle restart."
+      - when: "Brand Claimer ready (3rd cycle)"
+        from: "torn"
+        to:   "team"
+        say:  '"CLAIMER — stealing [active daughter]."'
+        why:  "DPS target."
+      - when: "Brand stolen, DPS"
+        from: "claimer"
+        to:   "team"
+        say:  '"STOLEN — burn [Ir Anûk/Ir Halak]!"'
+        why:  "All burst target daughter."
+
+    wipe_triggers:
+      - "Deathsong completes without Brand steal = wipe."
+      - "Killing one daughter without killing the other in next phase = wipe."
+      - "Torn player fails to claim Blightguard pieces in time."
+
+    damage_phase_triggers:
+      - "Brand stolen via Claimer → DPS window on that daughter."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Knights on plates."
+      - phase: "Plate cycle (3 times)"
+        torn: "Walk invisible platforms to orb."
+        plate_holders_2: "Stand plates to enable platforms."
+        add_clear: "Suppress add waves."
+      - phase: "Claimer + DPS"
+        torn: "Pick up Brand Claimer. Steal active daughter's Brand."
+        team: "Burst that daughter."
+      - phase: "Phase 2"
+        all: "Repeat for second daughter. Same singer/active swap."
+
+    permutations:
+      - name: "Standard 1-torn / 2-plate / 3-clear"
+        learner_friendly: true
+        summary: "Torn is RANDOM. 2 plates per cycle; 3 clear adds + watch."
+        roles:
+          - id: torn_runner
+            count: 1
+            does: "Random pick. Walk invisible path, grab pieces."
+          - id: plate_holder
+            count: 2
+            does: "Enable platforms during torn run."
+          - id: add_clear
+            count: 3
+            does: "Burst Knights + adds. Backup plates."
+
+      - name: "Master: Under Construction"
+        learner_friendly: false
+        summary: "Plate cannot be stepped > 1× per Brand cycle. Use middle ledges instead."
+
+    cheese: []
+
+    common_mistakes:
+      - "Stealing wrong daughter's Brand — DPS wrong target = wipe."
+      - "Plate stepped too early — platforms not synced for Torn player."
+      - "Trying to fight while Torn — can't attack."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Smite of Merain (HC)"
+        - "Zaouli's Bane (HC)"
+        - "King's Fall armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: add_clear."
+      - "2nd: plate_holder."
+      - "3rd: torn_runner (volunteer-rotation)."
+
+  # ====================================================================
+
+  - order: 8
+    slug: oryx
+    name: "Oryx, the Taken King (final boss)"
+    difficulty: hard
+    estimated_time: "30-45 min"
+
+    abstract: |
+      Final boss. 5 platform rotations (Light-Eater Ogres spawn in spawn
+      order = platform order). Kill Ogres (+ Light-Eater Knights eat orbs
+      if alive!) → Vessel of Oryx with Aura of Immortality spawns. Torn
+      player gets Aura. Detonate Corrupted Light in Aura = stun Oryx +
+      chest weak point. 4 detonations = max stun. Then burst chest. Final
+      stand at low HP.
+
+    setup: |
+      WHAT YOU SEE:
+      - Throne room of Oryx. 4 corner platforms + center area.
+      - Oryx (massive Taken Hive King) far back.
+      - Black orb at end — approach to start.
+
+      PLATFORM MECHANICS:
+      - 5 platform rotations per phase (rotation = which 4 corners spawn).
+        • Phase 1: Front Right or Front Left
+        • Phase 2: Back Left or Back Right
+        • Phase 3: Front Left or Front Right
+        • Phase 4: Front Left or Front Right
+        • Phase 5: Back Left or Back Right
+      - Light-Eater Ogres spawn at 4 corner platforms in order.
+      - 2 players on platforms (one becomes Torn).
+      - Add-clear team kills Ogres in spawn order. KILL Light-Eater Knights too — they EAT Corrupted Light orbs if not killed.
+      - Killed Ogre drops Corrupted Light orb at platform.
+      - Torn player picks up Relic at center → steals Aura of Immortality from Vessel of Oryx (special Knight) → kill Vessel.
+      - Vessel down: platform players stand in Aura. Then run to Corrupted Light orbs at their platforms → DETONATE.
+      - 4 detonations max = max stun. Failure = wipe.
+      - Stun reveals Oryx's CHEST weak point — burst all weapons.
+      - After 5 platform phases, 50% HP → Blight phase: Oryx sucks players into Shade-Blight. Hammer Shade. Health doesn't replenish. Once Shade dies = phase over.
+      - Final stand: Oryx walks to front, chest exposed. All-in DPS.
+
+      START STATE: rally banner. Walk to black orb to start.
+
+    callouts:
+      - when: "Ogre spawn"
+        from: "spotter"
+        to:   "team"
+        say:  '"OGRE [Front-L/F-R/B-L/B-R] — burn!"'
+        why:  "Spawn order tells platform sequence."
+      - when: "Vessel up"
+        from: "spotter"
+        to:   "team"
+        say:  '"VESSEL [direction] — Aura steal."'
+        why:  "Torn player goes to Vessel."
+      - when: "Light-Eater Knight"
+        from: "spotter"
+        to:   "team"
+        say:  '"LIGHT-EATER KNIGHT [direction] — KILL IT (eats orbs)."'
+        why:  "Knight will eat Corrupted Light if alive."
+      - when: "Aura stolen"
+        from: "torn"
+        to:   "team"
+        say:  '"AURA — stay center."'
+        why:  "Aura player STATIC at center. Others detonate around."
+      - when: "Detonating"
+        from: "platform player"
+        to:   "team"
+        say:  '"[name] DETONATING [direction]."'
+        why:  "Stagger detonations or sync for max stun."
+      - when: "Oryx stunned, chest weak point"
+        from: "any"
+        to:   "team"
+        say:  '"CHEST OPEN — burn!"'
+        why:  "DPS window. Whisper / Sleeper / Linear / Celestial."
+      - when: "Blight phase"
+        from: "any"
+        to:   "team"
+        say:  '"BLIGHT — Shade!"'
+        why:  "Burst Shade of Oryx in Blight realm."
+
+    wipe_triggers:
+      - "Failure to detonate Corrupted Light in Aura = wipe."
+      - "Light-Eater Knight eats orb = wasted detonation."
+      - "Shade of Oryx not killed in Blight phase."
+      - "Oryx enrages (5 platform phases without sufficient damage)."
+
+    damage_phase_triggers:
+      - "Oryx stunned by Corrupted Light detonations (in Aura) → chest weak point exposed → DPS."
+      - "Final stand: chest exposed continuously."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Approach black orb. Oryx spawns. 2 on first platform corner."
+      - phase: "Ogre phase (~0:30-1:30)"
+        platform_players_2: "Stand on platforms in spawn order."
+        add_clear_2: "Kill Ogres + Light-Eater Knights."
+        torn: "Steal Aura from Vessel of Oryx."
+      - phase: "Detonate Corrupted Light (~1:30-2:00)"
+        platform_players: "Walk to platform orbs, detonate. Stagger or sync."
+        aura_holder: "Stay center, all team in Aura range."
+      - phase: "DPS (~2:00-2:20)"
+        all: "Burst Oryx's chest."
+      - phase: "Reset / Next platform rotation"
+        all: "Cycle 5 platform rotations total before 50%."
+      - phase: "Blight phase (~3:00)"
+        all: "Pulled into Blight. Burst Shade of Oryx. Watch for adds."
+      - phase: "Final stand"
+        all: "Oryx at front. All-in DPS."
+
+    permutations:
+      - name: "Standard 4-platform / 2-clear"
+        learner_friendly: true
+        summary: "4 dedicated platform players (1 per corner); 2 add-clear (Ogres + Knights)."
+        roles:
+          - id: platform_player
+            count: 4
+            does: "Stand on assigned corner platform. Detonate Corrupted Light."
+          - id: add_clear
+            count: 2
+            does: "Kill Ogres in order. KILL Light-Eater Knights ASAP."
+          # torn player = randomly chosen from platform_player + add_clear
+
+      - name: "Speed: Celestial Nighthawk chest one-shot"
+        learner_friendly: false
+        summary: |
+          Hunter with Celestial Nighthawk + Star-Eater Scales fires Super
+          into Oryx's chest = massive damage. Touch of Malice helps too.
+          1-2 phase clears.
+        best_for: "Endgame teams + Touch of Malice farmers."
+
+      - name: "Master: Hands Off"
+        learner_friendly: false
+        summary: "Each Light-Eater Ogre/Knight can only be killed by a given player ONCE. Rotate killers."
+
+    cheese: []
+
+    common_mistakes:
+      - "Letting Light-Eater Knight eat Corrupted Light = detonation lost."
+      - "Detonating outside Aura range = wipe (Corrupted Light kills detonator)."
+      - "Wrong platform order = Oryx tantrum."
+      - "Blight phase: Shade health regenerates if you don't burst."
+      - "Final stand: not bursting chest = Oryx reattacks."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (extra roll)"
+        - "Deepsight chest (if all 9 runes shot — see Overall Notes)"
+      hidden_chest: null
+      potential_drops:
+        - "Touch of Malice (exotic scout — random chance)"
+        - "Anguish of Drystan (auto)"
+        - "Doom of Chelchis (scout)"
+        - "Defiance of Yasmin (sniper)"
+        - "Elulim's Frenzy (rocket)"
+        - "Midha's Reckoning (fusion)"
+        - "Qullim's Terminus (LMG)"
+        - "Smite of Merain (HC)"
+        - "Zaouli's Bane (HC)"
+        - "King's Fall armor (full set)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear (study Ogre + Knight spawn pattern)."
+      - "2nd: platform_player."
+      - "3rd: torn / Aura holder."
+
+# ========================================================================
+overall_notes:
+  - "Touch of Malice exotic scout: ~5% chance from Oryx, can re-roll via Spoils of Conquest. Catalyst from raid challenges."
+  - "Deepsight Puzzle: 9 runes hidden across the raid. Shoot all in a single run → bonus chest with guaranteed Deepsight Resonant (craftable) raid weapon after Oryx kill."
+  - "Rune locations:"
+  - "  1. Under platform at start, before first portal."
+  - "  2. On top of threshold leading to Hidden Chest 1 (Portico)."
+  - "  3. Wall behind LEFT Annihilator Totem (Basilica)."
+  - "  4. Platform above rally flag in Warpriest room (jumping pre-encounter)."
+  - "  5. Inside the hole at end of Golgoroth's Cellar."
+  - "  6. Under rally flag in Daughters room."
+  - "  7. Next to Hidden Chest 2 (Transept), on its left."
+  - "  8. Looking up at threshold after the wall-pillar section."
+  - "  9. After entering doorway to final 2 encounters, turn around from where rally flag would spawn."
+  - "Master: Champions (Barrier Knights, Overload Hobgoblins, Unstoppable Ogres/Phalanxes)."
+  - "Challenges (master mode): The Grass is Always Greener (Basilica), Devious Thievery (Warpriest), Gaze Amaze (Golgoroth), Under Construction (Daughters), Hands Off (Oryx)."
+  - "Soloing: Daughters + Oryx require Brand mechanics that aren't bypassable. Solo flawless = endgame-tier achievement."

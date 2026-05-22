@@ -1,0 +1,574 @@
+# raids/dungeons/duality.yaml — Pass 1 (destinypedia baseline)
+
+slug: duality
+name: Duality
+activity_type: dungeon
+released:
+  expansion: Season of the Haunted
+  year: 2022
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: 1840
+location: "Mindscape of Calus (via Derelict Leviathan)"
+tags: [cabal, calus, nightmare, bell-mechanic, dual-realm, exotic-quest, heartshadow, soloable]
+
+average_clear_time:
+  normal_experienced: "45-60 min"
+  normal_learning:    "1.5-2.5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Two-realm dungeon. Bells shift you between Waking + Nightmare;
+    Nightmare side has a 60s collapse timer (death). Mechanics revolve
+    around hunting Standard Bearer Psions in Nightmare for 4 Leviathan
+    Standards (Sun / Chalice / War Beast / Axe) → deposit in Waking to
+    advance. Master version exists. Heartshadow exotic sword source.
+
+  bosses:
+    - name: "Nightmare of Gahlran, Sorrow Bearer"
+      encounter: 1
+      role: "First boss — Hive Wizard; Standard deposit + Vision-of-Gahlran kill"
+    - name: "Nightmare of Emonut / Ka'hok / Uroa"
+      encounter: 3
+      role: "Unlock the Vault trio — 3 sequential mini-bosses"
+    - name: "Nightmare of Caiatl, Princess-Imperial"
+      encounter: 4
+      role: "Final boss — 4 Standards + bell-stun + Waking Resonance DPS"
+
+  recurring_mechanics:
+    - name: "Bells (realm shift)"
+      brief: |
+        Shoot a bell to shift between Waking realm (normal) and Nightmare
+        realm (red, hostile). Standing OUTSIDE the bell's circle when
+        shifting back FROM Nightmare = death (Collapsing Nightmare).
+
+    - name: "Nightmare Collapsing timer"
+      brief: |
+        60s when you enter Nightmare. +15s per Standard Bearer Psion
+        killed. +5s per Vision of Gahlran killed. 0s = entire team in
+        Nightmare DIES. Track loudly.
+
+    - name: "Bellkeepers"
+      brief: |
+        Spawn after a bell is rung. Bell cannot be re-rung until they're
+        dead. Always spawn at the OPPOSITE bell from the one just rung.
+        Two of them, easy kills.
+
+    - name: "Standards (4 Leviathan symbols)"
+      brief: |
+        Sun, Chalice, War Beast, Axe. Each has a Standard Bearer Psion
+        in a specific room in Nightmare; killing drops the matching
+        Standard. Carry up to 2 at once. Dying = drop all carried.
+
+    - name: "Deposit + Visions of Gahlran (encounter 1)"
+      brief: |
+        Deposit Standard at matching projection → room opens in Waking.
+        Re-enter Nightmare with bell + walk into newly opened room →
+        kill Visions of Gahlran → boss-damage window opens.
+
+  role_archetypes:
+    - id: standard_runner
+      brief: "Goes into Nightmare. Kills Bearer Psions. Carries Standards."
+    - id: bellkeeper_killer
+      brief: "Owns Bellkeeper cleanup at every shift."
+    - id: dps_setup
+      brief: "Pre-positions for boss damage windows."
+
+  sherpa_playbook:
+    - "1st-timer: bellkeeper_killer + add-clear. Lowest cognitive load."
+    - "Sherpa: standard_runner — Standard-symbol literacy matters."
+    - "Solo: feasible. Heartshadow quest takes multiple full runs."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS for Gahlran + Caiatl windows."
+      - "Heartshadow itself once obtained (Void invisibility + tracking spectres)."
+      - "Strong ad-clear primary for Bellkeepers + Cabal."
+    armor_stats:
+      - "Mobility for cross-realm jumping puzzles."
+      - "Resilience for Nightmare-realm Cabal fire."
+    common_exotics:
+      - "Hunter: Gyrfalcon's Hauberk (Void uptime), Aeon Swift (super spam)."
+      - "Titan: Ursa Furiosa, Cuirass of the Falling Star (DPS)."
+      - "Warlock: Well of Radiance, Phoenix Protocol."
+
+  common_mistakes:
+    - "Killing the WRONG Standard Bearer Psion — SUBTRACTS time from Nightmare collapse."
+    - "Standing outside bell circle on shift = die in Collapse."
+    - "Not killing Bellkeepers before next shift — bell locked, team trapped in Waking/Nightmare."
+    - "Dying with Standards = drop ALL. Reset the Standard pipeline."
+    - "Symbol confusion — Sun + Chalice live at lower bell; War Beast + Axe at upper bell."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: gahlran
+    name: "Nightmare of Gahlran, Sorrow Bearer"
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      First boss. Symmetrical arena, bell at each end. Shift to Nightmare
+      → hunt Standard Bearer Psion in one of 4 rooms → return + deposit →
+      room in Waking opens with Visions of Gahlran → re-enter Nightmare,
+      kill Visions → DPS Gahlran in Nightmare.
+
+    setup: |
+      WHAT YOU SEE:
+      - Symmetrical arena, bell + closed doorway at each end.
+      - Leviathan symbol projections in front of each door (Sun, Chalice
+        near lower bell; War Beast, Axe near upper bell).
+      - Banners on walls = symbol identification (visible in both realms).
+      - Rally flag spot at center.
+
+      PLATFORM MECHANICS:
+      - Shoot bell to enter Nightmare. Gahlran becomes visible + immune; he chases.
+      - In Nightmare: locate Standard Bearer Psion (use radar; 1 of 4 rooms).
+        Kill = +15s + Standard drops.
+      - Carry Standard, kill Bellkeepers at OPPOSITE bell, re-shift Waking.
+      - Deposit Standard at matching projection → Cabal Colossus + War Beasts spawn in newly opened room → kill them.
+      - From inside the opened Waking room, shoot bell → in Nightmare you're now in that previously inaccessible room → kill all Visions of Gahlran (+5s each) → drop Nightmare Essence.
+      - With Nightmare Essence: damage Gahlran in Nightmare realm.
+
+      START STATE: rally banner, land in arena. Bell + adds present.
+
+    callouts:
+      - when: "Standard Bearer spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Bearer in [Sun/Chalice/War Beast/Axe] room."'
+        why:  "Tells runner where to go. Saves 30s of searching."
+      - when: "Bell rung"
+        from: "ringer"
+        to:   "team"
+        say:  '"BELL — Nightmare."' # or "Waking"
+        why:  "Cues team to either enter or be ready for shift."
+      - when: "Nightmare timer ≤ 15s"
+        from: "any"
+        to:   "team"
+        say:  '"15 seconds — BELL CHECK."'
+        why:  "Triggers Bellkeeper sweep + bell prep."
+      - when: "DPS open (Nightmare Essence acquired, Gahlran damageable)"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE — Gahlran."'
+        why:  "Coordinated burst; window expires with collapse timer."
+
+    wipe_triggers:
+      - "Nightmare Collapse timer = 0 in Nightmare = team death."
+      - "Standing outside bell circle on Waking shift = solo death."
+      - "Gahlran melee at close range."
+
+    damage_phase_triggers:
+      - "Visions of Gahlran killed in Nightmare → Nightmare Essence picked up → Gahlran vulnerable in Nightmare."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage. Identify which Standard symbol the room wants first."
+      - phase: "Nightmare entry"
+        runner: "Hunt Standard Bearer. Read symbols."
+        bellkeeper: "Stay near OPPOSITE bell, kill Bellkeepers when they spawn."
+        add_clear: "Suppress Cabal."
+      - phase: "Deposit + room opens"
+        runner: "Return Waking, deposit Standard."
+        all: "Clear Colossus + War Beasts inside opened room."
+      - phase: "Visions in Nightmare"
+        all: "Re-enter Nightmare from opened room. Kill Visions of Gahlran. Grab Essence."
+      - phase: "DPS"
+        all: "Damage Gahlran. Watch collapse timer."
+
+    permutations:
+      - name: "Standard 1-runner / 1-bellkeeper / 1-add-clear"
+        learner_friendly: true
+        summary: "Specialized roles. Reduces calls, communication-light."
+        roles:
+          - id: standard_runner
+            count: 1
+            does: "Owns Standard pipeline."
+          - id: bellkeeper_killer
+            count: 1
+            does: "Always near opposite bell. Kills Bellkeepers."
+          - id: add_clear
+            count: 1
+            does: "Cabal + Vision support."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Self-pace. 2-3 cycles per side typically."
+        roles:
+          - id: solo
+            count: 1
+            does: "All roles. Heartshadow itself trivializes this when acquired."
+
+    cheese: []
+
+    common_mistakes:
+      - "Picking up 2 Standards then dying = drop both. Don't carry 2 if you're not safe."
+      - "Killing wrong Bearer Psion = -15s. Identify before pulling trigger."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Lingering Dread (GL)"
+        - "New Purpose (pulse)"
+        - "Unforgiven (SMG)"
+        - "Calus-themed armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+
+    learner_path:
+      - "1st: bellkeeper_killer."
+      - "2nd: standard_runner."
+
+  # ====================================================================
+
+  - order: 2
+    slug: statue-puzzle
+    name: "Statue Puzzle (4 gladiator statues)"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Mid-dungeon platforming + puzzle. 4 gladiator statues around a
+      central bell. All must point to the middle to unlock the next door.
+      Use switches at the base of each (visible only in Nightmare) to
+      rotate 90° each press. Hidden chest 1 is here.
+
+    setup: |
+      WHAT YOU SEE:
+      - Wide circular room with central bell.
+      - 4 gladiator statues facing different directions.
+      - One statue already correctly aligned (facing center).
+      - Switches at the base of statues (Nightmare-visible only).
+
+      PLATFORM MECHANICS:
+      - Shift Nightmare → switches glow.
+      - Press switch = statue rotates 90°. Each statue needs:
+        • 1 statue: already correct (0 turns)
+        • 2 statues: 2 turns each
+        • 1 statue: 3 turns
+        (exact rotation count varies per attempt — verify in Waking after each turn)
+      - Once all 4 facing center → bell area unlocks in Waking.
+
+    callouts:
+      - when: "Statue alignment confirmed in Waking"
+        from: "checker"
+        to:   "team"
+        say:  '"Statue [N/S/E/W] correct."'
+        why:  "Tracks alignment progress."
+
+    wipe_triggers: []
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Divide-and-conquer"
+        learner_friendly: true
+        summary: "Each player owns 1-2 statues. Press switch on call."
+        roles:
+          - id: statue_owner
+            count: 3
+            does: "Press assigned switch on Waking-check confirmation."
+
+    cheese: []
+    common_mistakes:
+      - "Pressing a switch on the already-correct statue = misaligns it. Confirm before pressing."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 1: After statue puzzle resolved, look for a slightly
+          ajar door in the Waking realm (alcove off the main puzzle room).
+          Walk in. Chest contains a random roll of an already-collected
+          dungeon item.
+        rewards:
+          - "Random roll of any dungeon weapon already obtained"
+      potential_drops: []
+
+    images:
+      overview:     ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Just play."
+
+  # ====================================================================
+
+  - order: 3
+    slug: unlock-the-vault
+    name: "Unlock the Vault (3 Nightmares)"
+    difficulty: medium
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Three sequential mini-bosses (Emonut, Ka'hok, Uroa). Same Standard-
+      deposit loop as Gahlran but condensed: deposit 2 Standards per
+      Nightmare → it becomes vulnerable → kill → next Nightmare spawns.
+
+    setup: |
+      WHAT YOU SEE:
+      - Wide circular room. 6 Standard deposit points (circular dais).
+      - 2 bells (upper, lower). Each side has 2 deposit points around it.
+      - Symbol layout per Standard:
+        • Lower bell: Sun (left) + Chalice (right)
+        • Upper bell: War Beast (left) + Axe (right)
+      - Bellkeeper spawn ledges just below each bell.
+      - Wall reliefs in each corner indicate symbol-to-location pairing.
+
+      PLATFORM MECHANICS:
+      - Step off dais = encounter begins.
+      - Projections at center indicate the 2 Standard targets per cycle.
+      - Bell can ONLY be used once until "The Waking Bells may ring once more…" text shows.
+
+      START STATE: rally near lower bell. Step off dais to start.
+
+    callouts:
+      - when: "Target symbols projected"
+        from: "spotter"
+        to:   "team"
+        say:  '"Need [Sun + Axe], [Chalice + War Beast], etc."'
+        why:  "Coordinates parallel runs to 2 different rooms."
+      - when: "Bellkeeper down"
+        from: "killer"
+        to:   "team"
+        say:  '"[upper/lower] bell open."'
+        why:  "Bell ready to ring."
+      - when: "Standards deposited"
+        from: "depositor"
+        to:   "team"
+        say:  '"2 in — Nightmare vulnerable."'
+        why:  "DPS call on mini-boss."
+
+    wipe_triggers:
+      - "Nightmare Collapse timer to 0."
+      - "Bellkeepers ignored — soft-lock on the cycle."
+      - "Mini-Nightmare attacks (each one varies)."
+
+    damage_phase_triggers:
+      - "2 Standards deposited per cycle → current Nightmare vulnerable."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Identify first 2 Standards. Plan routes."
+      - phase: "Cycle 1 (Emonut)"
+        runners_2: "Hunt 2 Standards (different rooms in Nightmare)."
+        bellkeeper: "Cleanup."
+      - phase: "Deposit + DPS Emonut"
+        all: "Drop Standards, burst Emonut."
+      - phase: "Cycle 2 + 3 (Ka'hok, Uroa)"
+        all: "Repeat with rotating Standard targets."
+
+    permutations:
+      - name: "Standard 2-runner / 1-bellkeeper"
+        learner_friendly: true
+        summary: "Two runners take parallel Standard rooms in Nightmare."
+        roles:
+          - id: standard_runner
+            count: 2
+            does: "Parallel runs in Nightmare. Each grabs one Standard per cycle."
+          - id: bellkeeper_killer
+            count: 1
+            does: "Bellkeeper cleanup + add support."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Sequential. 2 Standards per cycle, sometimes 1 per shift."
+        roles:
+          - id: solo
+            count: 1
+            does: "Methodical Standard hunt."
+
+    cheese: []
+
+    common_mistakes:
+      - "Both runners going to the SAME Standard room — second arrives empty."
+      - "Missing a Bellkeeper spawn — bell locks, team trapped."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 2: After Vault unlocks, descend to the long room
+          with the shrouded central object. The chest is in a CRAMPED
+          PASSAGEWAY directly BELOW the shrouded object — drop down + crawl.
+        rewards:
+          - "Random roll of already-obtained dungeon weapon"
+          - "Calus Memory collectable (lore)"
+      potential_drops:
+        - "Fixed Odds (LMG)"
+        - "Stormchaser (LFR)"
+        - "The Epicurean (FR)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: bellkeeper_killer."
+      - "2nd: standard_runner."
+
+  # ====================================================================
+
+  - order: 4
+    slug: caiatl
+    name: "Nightmare of Caiatl (final boss)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Final boss. Standard mechanic + new bell-stun + Waking Resonance
+      DPS buff. 4 Standards (one per side) → chains glow → shoot to ring
+      the immense bell → drag into Nightmare → Caiatl heads to a bell to
+      escape → kill Bellkeepers + ring bell yourself → Caiatl stuns →
+      DPS with Waking Resonance buff. Repeat 3 bells.
+
+    setup: |
+      WHAT YOU SEE:
+      - Larger arena. 4 elevated ledges (2 per side) with symbol reliefs.
+      - 3 bells: left, middle, right.
+      - 4 chains next to Standard deposit projections.
+      - Immense bell in background.
+
+      PLATFORM MECHANICS:
+      - Hunt Standard Bearers in Nightmare (same loop).
+      - Deposit all 4 Standards → chains glow → shoot chains → immense bell rings.
+      - You're dragged into Nightmare with Caiatl (immune).
+      - Caiatl walks to a bell to escape.
+      - Kill Bellkeepers at that bell. Ring bell yourself = Caiatl STUNNED.
+      - If Caiatl is CLOSE to a rung bell when stun fires → players get Waking Resonance buff (increased damage to her).
+      - 3 bells must be exhausted (rung at her) per phase. Cycle ends, returns to Waking.
+
+      START STATE: rally on stairs. Step down to start.
+
+    callouts:
+      - when: "4 Standards needed"
+        from: "spotter"
+        to:   "team"
+        say:  '"Standards: [list 4]"'
+        why:  "Plan all 4 routes."
+      - when: "Chains glowing"
+        from: "any"
+        to:   "team"
+        say:  '"CHAINS — shoot."'
+        why:  "Triggers immense bell + DPS phase."
+      - when: "Caiatl heading to [direction] bell"
+        from: "tracker"
+        to:   "team"
+        say:  '"Caiatl going [L/M/R] — Bellkeepers there."'
+        why:  "Bellkeeper crew gets to that bell ahead of her."
+      - when: "Stun fired"
+        from: "ringer"
+        to:   "team"
+        say:  '"STUNNED — DPS."'
+        why:  "Waking Resonance active, burst window."
+      - when: "Stun ending, Caiatl moving"
+        from: "tracker"
+        to:   "team"
+        say:  '"Moving to [next bell]."'
+        why:  "Cycle next bell prep."
+
+    wipe_triggers:
+      - "Nightmare Collapse timer to 0."
+      - "Caiatl reaches a bell unrung by you = phase ends (waste — repeat 4-Standard cycle)."
+      - "Caiatl's slam + melee at close range."
+
+    damage_phase_triggers:
+      - "Chains shot → dragged into Nightmare with Caiatl → bell stun = Waking Resonance buff = damage window."
+      - "3 bells exhausted = phase ends, return to Waking."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Identify all 4 Standards."
+      - phase: "Standard runs (parallel)"
+        runners_2: "Hunt 2 + 2 Standards across Nightmare."
+        bellkeeper: "Coverage on all 3 bells alternately."
+      - phase: "Chains + shift"
+        all: "Deposit 4, shoot chains, dragged into Nightmare."
+      - phase: "DPS phase (3 bells)"
+        bellkeeper_killer: "Sprint to Caiatl's target bell. Clear Bellkeepers."
+        ringer: "Ring bell when Caiatl is CLOSE = Waking Resonance."
+        dps: "Burst Caiatl with Waking Resonance buff."
+      - phase: "Reset"
+        all: "Return to Waking. Repeat 4-Standard cycle."
+
+    permutations:
+      - name: "Standard 2-runner / 1-anchor"
+        learner_friendly: true
+        summary: "Two parallel Standard runners; one stays for bell + add coordination."
+        roles:
+          - id: standard_runner
+            count: 2
+            does: "Parallel Standards (Sun+War Beast / Chalice+Axe per cycle)."
+          - id: anchor
+            count: 1
+            does: "Tracks Caiatl, calls bells, leads stuns."
+
+      - name: "Speed: Linear Fusion / Stormchaser DPS"
+        learner_friendly: false
+        summary: "All 3 use Stormchaser (LFR from this dungeon) for stun-DPS bursts."
+        best_for: "Speed clears with Waking Resonance optimization."
+        roles:
+          - id: dps_anchor
+            count: 3
+            does: "Burst Caiatl on each stun. Sync Supers on final bell."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          4 Standards alone, 3 bell stuns alone. Bring Heartshadow (this
+          dungeon's exotic) for self-cleave + invis. Expect 3-4 cycles.
+        roles:
+          - id: solo
+            count: 1
+            does: "Self-pace. Don't engage Caiatl outside bell stuns."
+
+    cheese: []
+
+    common_mistakes:
+      - "Ringing bell when Caiatl is FAR from it = stun without Waking Resonance = minimal damage."
+      - "Forgetting Bellkeepers at her target bell = can't ring = she escapes."
+      - "All 3 going for Standards in same Nightmare zone = clutter, slower."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (extra roll)"
+      hidden_chest: null
+      potential_drops:
+        - "Heartshadow (exotic sword — quest, not random)"
+        - "Fixed Odds (LMG)"
+        - "Lingering Dread (GL)"
+        - "New Purpose (pulse)"
+        - "Stormchaser (LFR)"
+        - "The Epicurean (FR)"
+        - "Unforgiven (SMG)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: anchor (lowest mechanic load, learn the bell-stun rhythm)."
+      - "2nd: standard_runner."
+      - "Solo: only after team clear; Heartshadow makes it much easier."
+
+# ========================================================================
+overall_notes:
+  - "Heartshadow exotic sword: quest dungeon-side (3 Failed Assassin Nightmares hidden across the dungeon — Hou'dal, Ka'nok, Regor)."
+  - "Master version exists (Barrier Colossus champions; increased difficulty)."
+  - "Soloing: viable but Caiatl is the wall. Heartshadow itself trivializes it."
+  - "Stormchaser (LFR from this dungeon) is god-tier — farm encounter 3 specifically."

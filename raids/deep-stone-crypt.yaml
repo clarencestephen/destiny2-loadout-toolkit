@@ -1,0 +1,761 @@
+# raids/deep-stone-crypt.yaml — Pass 1 (destinypedia baseline)
+
+slug: deep-stone-crypt
+name: Deep Stone Crypt
+activity_type: raid
+released:
+  expansion: Beyond Light
+  year: 2020
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1810
+  master: ""           # no Master version
+location: "Eventide Ruins → Deep Stone Crypt → Morning Star, Europa"
+tags: [fallen, house-of-salvation, exo, taniks, atraks, eyes-of-tomorrow, augment-mechanics]
+
+average_clear_time:
+  normal_experienced: "45-60 min"
+  normal_learning:    "2-3 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Beyond Light raid. AUGMENT-driven design — Operator, Scanner, Suppressor
+    roles passed via augment terminals throughout. Three boss encounters
+    (Crypt Security, Atraks-1, Taniks) all share the augment paradigm
+    but use it differently. Source of Eyes of Tomorrow (exotic rocket
+    launcher) + Heritage / Succession / Posterity (top-tier legendaries).
+
+  bosses:
+    - name: "Crypt Security"
+      encounter: 2
+      role: "First encounter — 6-fuse mechanism, Operator-shoots-panels + Scanner-guides"
+    - name: "Atraks-1, Fallen Exo"
+      encounter: 3
+      role: "Mid-boss — duplicate clones; Scanner finds correct, Operator handles Replication"
+    - name: "Taniks, the Abomination"
+      encounter: 5
+      role: "Final boss — nuclear cores + Suppressor stun + Shock Field DPS"
+
+  recurring_mechanics:
+    - name: "Augment system (Operator / Scanner / Suppressor)"
+      brief: |
+        Three colored augments drop from specific Vandals:
+          • OPERATOR (red): shoots panels, removes replications, free trapped allies.
+          • SCANNER (yellow): identifies highlighted targets (fuses, duplicates, deposit bins).
+          • SUPPRESSOR (blue): stuns Taniks via security drones.
+        Transferred via Augment Terminals (one augment per terminal at a time).
+        Sentinel Servitors disable terminals — kill priority.
+
+    - name: "Frostbite (opening blizzard)"
+      brief: |
+        10 stacks = death. Removed by Shelter From The Storm bubbles
+        (heat domes set up by Fallen).
+
+    - name: "Radiation"
+      brief: |
+        Encounters 4 + 5. Stacks from holding nuclear cores. 10 = death.
+        Pass cores to teammates via interact button to redistribute.
+
+    - name: "Atraks-1 Replication"
+      brief: |
+        Purple orb dropped by killed duplicate. 45s timer (extendable via
+        Operator shooting). MUST be carried to an airlock + ejected or
+        Atraks-1 spawn-kills the team.
+
+  role_archetypes:
+    - id: operator
+      brief: "Holds Operator augment. Panels, replication-clearance, ally rescue."
+    - id: scanner
+      brief: "Holds Scanner augment. ID glowing-yellow targets."
+    - id: suppressor
+      brief: "Taniks-fight specific. Routes through security drones to stun boss."
+    - id: nuke_carrier
+      brief: "Carries radiation-stacking nuclear cores in Taniks fights."
+
+  sherpa_playbook:
+    - "Pre-pull: assign initial augment roles (1 Op, 1 Scanner per team)."
+    - "Eyes of Tomorrow: ~5% drop from Taniks, can re-roll with Spoils."
+    - "Solo flawless: difficult — augment juggling requires teamwork. Some bosses cheese-soloable."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS: Whisper, Sleeper, Linear, Eyes of Tomorrow itself."
+      - "The Lament sword for Atraks-1 (high single-target DPS in tight spaces)."
+      - "Anti-Champion mods for Overload Captains, Brigs."
+    armor_stats:
+      - "Mobility for orbital space walk."
+      - "Resilience for Brig damage."
+    common_exotics:
+      - "Hunter: Stompees (space walk), Celestial Nighthawk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance, Phoenix Protocol."
+
+  common_mistakes:
+    - "Augment transferred to wrong room — encounter stalls."
+    - "Sentinel Servitor ignored — terminals disabled."
+    - "Atraks-1: Replication orb not thrown into airlock = mass wipe."
+    - "Taniks: wrong deposit bin = instant death."
+    - "Taniks final stand: 5 teleports without kill = instant team death."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: surviving-blizzard
+    name: "Surviving the Blizzard (Desolation)"
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      Opening blizzard traversal. 6 Shelter from the Storm bubbles to
+      sprint between. Frostbite stacks outside (10 = death). Clear adds
+      at each bubble to checkpoint. Final shelter has Brigs.
+
+    setup: |
+      WHAT YOU SEE:
+      - Blizzard arena with 6 heat-bubble shelters (chain through the storm).
+      - 6 Fallen Pikes in the first shelter (triumph: transport all to last).
+      - Lamps + Web Mines mark the route.
+      - Final shelter: Brigs + Dark Council Guards.
+
+      PLATFORM MECHANICS:
+      - Outside bubble = Frostbite stacks. 10 = death.
+      - Bubble entry = Shelter From The Storm + clears Frostbite.
+      - Clear shelter adds = checkpoint (respawn there).
+      - Sparrows speed traversal.
+
+      START STATE: rally banner at start. Begin sprint between bubbles.
+
+    callouts:
+      - when: "Bubble cleared"
+        from: "any"
+        to:   "team"
+        say:  '"Bubble [N/6] CLEAR."'
+        why:  "Progress + checkpoint."
+      - when: "Frostbite high"
+        from: "self"
+        to:   "team"
+        say:  '"FROST 8 — bubble!"'
+        why:  "Find shelter."
+
+    wipe_triggers:
+      - "Frostbite 10 = death."
+      - "Brigs at end can wipe."
+
+    damage_phase_triggers: []
+
+    parallel_timeline: []
+    permutations:
+      - name: "Standard sprint"
+        learner_friendly: true
+        summary: "Sparrow between bubbles, clear together."
+
+    cheese: []
+    common_mistakes:
+      - "Stopping mid-storm to fight = Frostbite cascades."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 1: At final shelter near the entrance to next
+          encounter, look around for an off-path crate. Walk around
+          before pushing forward.
+        rewards:
+          - "Random raid loot"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Just play."
+
+  # ====================================================================
+
+  - order: 2
+    slug: crypt-security
+    name: "Crypt Security"
+    difficulty: medium
+    estimated_time: "15-25 min"
+
+    abstract: |
+      First boss encounter. 3 cylindrical fuses × 2 sides (6 fuses total).
+      Split 3/3: light room + dark room. Operator goes to basement, shoots
+      4 panels (2 per side) guided by Scanner. After 4 panels = damage
+      phase, shoot the indicated upstairs fuse. 6 fuses = encounter done.
+
+    setup: |
+      WHAT YOU SEE:
+      - Two rooms: LIGHT (white-lit) + DARK (dimmed), separated by closing doors.
+      - 3 cylindrical fuses each side (left/middle/right).
+      - 4 columns per room with plexiglass bottoms — view into basement.
+      - Augment Terminals: 1 each side, plus 1 in basement.
+      - Basement: panels on walls (red-glowing). 3 indicator lights per side glow yellow during damage phase.
+
+      PLATFORM MECHANICS:
+      - Initial split: 3 LIGHT, 3 DARK.
+      - One player picks Operator augment from terminal → goes to basement (shoot red glowing wall panel to drop in).
+      - Hacker Vandal spawns → drops Scanner augment.
+      - Scanner upstairs uses column glass to view basement panels — sees ONE glowing YELLOW. Calls position.
+      - Operator (basement) shoots that yellow panel. Needs 4 panel hits total (2 dark + 2 light).
+      - Operator has 1-min timer before Crypt fires kill.
+      - Transfer Scanner between dark + light sides via terminal (only 1 augment per terminal).
+      - Sentinel Servitor spawns periodically — disables terminals. Kill on sight.
+      - 4 panels done → damage phase. Indicator lights on basement pillar show which fuse to shoot upstairs.
+      - Scanner (basement) calls fuse to upstairs team. Wrong fuse = wipe.
+      - 6 fuses = encounter ends.
+
+      START STATE: rally banner. Operator pickup starts.
+
+    callouts:
+      - when: "Operator picked up"
+        from: "operator"
+        to:   "team"
+        say:  '"OP — basement [DARK/LIGHT]."'
+        why:  "Side identification."
+      - when: "Scanner sees panel"
+        from: "scanner"
+        to:   "team"
+        say:  '"Panel [N] glowing — [DARK/LIGHT]."'
+        why:  "Operator shoots that panel."
+      - when: "Panel shot"
+        from: "operator"
+        to:   "team"
+        say:  '"Panel [N] HIT — [count]/4."'
+        why:  "Progress."
+      - when: "Damage phase + fuse indicator"
+        from: "scanner"
+        to:   "team"
+        say:  '"Fuse [L/M/R] — [DARK/LIGHT] side!"'
+        why:  "Upstairs team shoots correct fuse."
+      - when: "Sentinel Servitor"
+        from: "spotter"
+        to:   "team"
+        say:  '"SENTINEL — burn!"'
+        why:  "Terminal restore."
+
+    wipe_triggers:
+      - "Operator 1-min timer = death."
+      - "Wrong fuse shot during damage phase = wipe."
+      - "Sacrifices at terminals (not really applicable — Sentinel just disables)."
+
+    damage_phase_triggers:
+      - "4 panels shot (2 dark + 2 light) → damage phase opens → indicator lights show fuses."
+
+    parallel_timeline:
+      - phase: "Pull"
+        light_team_3: "Push to light room."
+        dark_team_3: "Push to dark room."
+      - phase: "Operator + panel phase"
+        operator: "Basement, shoot 4 panels."
+        scanners_2: "Guide via column view."
+      - phase: "Augment transfer"
+        scanner: "Pass between sides via terminal."
+      - phase: "Damage phase"
+        upstairs_teams: "Shoot indicated fuse cylinder."
+      - phase: "Cycle (×6 fuses)"
+        all: "Repeat panel + fuse cycle."
+
+    permutations:
+      - name: "Standard 1 Op / 1 Scanner per side"
+        learner_friendly: true
+        summary: "One Operator (basement) + 2 Scanners (one per side upstairs)."
+        roles:
+          - id: operator
+            count: 1
+            does: "Basement, panel shots."
+          - id: scanner
+            count: 2
+            does: "Upstairs, column-view guidance + fuse calls."
+          - id: add_clear
+            count: 3
+            does: "Suppress Overload Captains + Sentinel Servitor + ambient."
+
+    cheese: []
+
+    common_mistakes:
+      - "Operator overstays 1-min timer."
+      - "Wrong fuse shot during damage phase."
+      - "Sentinel disables terminal mid-augment-transfer."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Heritage (shotgun)"
+        - "Trustee (scout)"
+        - "Legacy's Oath armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: add_clear."
+      - "2nd: scanner."
+      - "3rd: operator."
+
+  # ====================================================================
+
+  - order: 3
+    slug: atraks-1
+    name: "Atraks-1, Fallen Exo"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Atraks-1 spawns 8 duplicate clones (4 in lab, 4 in orbital space
+      station). Scanner finds correct duplicate to attack. Operator
+      handles space-pod elevators + Replication orb cleanup (eject via
+      airlock or wipe). 4 damage phases + final stand. Sword DPS (Lament)
+      recommended.
+
+    setup: |
+      WHAT YOU SEE:
+      - Laboratory (Clarity Control): 4 space pods to orbital station.
+      - Orbital Station (Morning Star): 4 airlocks for Replication ejection.
+      - Atraks-1 duplicates: 4 per room (lab: middle pods, red room, yellow room upper+lower; orbital: middle front+back, left, right).
+      - Augment Terminals: 3 in lab, 4 in orbital (extra one by space pods).
+
+      PLATFORM MECHANICS:
+      - Approach purple orb near space pods → encounter starts.
+      - Split 3/3: lab + orbital.
+      - Kill 6 Sentinel Servitors (3 per room) to start damage phase.
+      - Damage phase: Atraks-1 initiates Extinction Protocol. Scanner sees correct duplicate glowing YELLOW.
+      - Kill duplicate → drops Atraks-1 Replication purple orb. 45s timer.
+      - Take orb to airlock → Operator shoots red panel to OPEN → walk in → door closes → ejected to space (orb destroyed).
+      - Damage phases alternate orbital ↔ lab. 4 phases total before final stand.
+      - Scanner augment must be juggled lab/orbital via terminals.
+      - Operator can extend orb timer by shooting it overhead (45s reset).
+      - Final stand: all 6 in orbital. 8 duplicates spawn at once. Burst correct sequence.
+
+      START STATE: rally banner. Touch purple orb to start.
+
+    callouts:
+      - when: "Sentinel Servitor down"
+        from: "killer"
+        to:   "team"
+        say:  '"Sentinel [N/6] down."'
+        why:  "Progress to DPS."
+      - when: "Atraks duplicate spotted"
+        from: "scanner"
+        to:   "team"
+        say:  '"Atraks [position] — lab/orbital."'
+        why:  "Sword team converges."
+      - when: "Replication orb dropped"
+        from: "killer"
+        to:   "team"
+        say:  '"REPLICATION — airlock [N]!"'
+        why:  "45s timer to eject."
+      - when: "Operator opening airlock"
+        from: "operator"
+        to:   "team"
+        say:  '"Airlock [N] OPEN — go!"'
+        why:  "Carrier walks in."
+      - when: "Augment swap needed"
+        from: "self"
+        to:   "team"
+        say:  '"Scanner to [lab/orbital] — terminal."'
+        why:  "Side transfer."
+      - when: "Final stand"
+        from: "any"
+        to:   "team"
+        say:  '"FINAL — all 8 duplicates."'
+        why:  "Burst correct sequence."
+
+    wipe_triggers:
+      - "Replication orb timer to 0 = Atraks spawn-kills team."
+      - "Wrong duplicate damaged = no progress, time wasted."
+      - "Operator misses augment transfer = no airlock = wipe."
+      - "Player stuck in closed airlock = ejected into space."
+
+    damage_phase_triggers:
+      - "6 Sentinels destroyed → Extinction Protocol → Scanner-guided duplicate kills."
+
+    parallel_timeline:
+      - phase: "Pull"
+        lab_team_3: "Push lab."
+        orbital_team_3: "Take space pod up."
+      - phase: "Sentinel clear"
+        all: "Burst 6 Sentinels (3 per room)."
+      - phase: "Damage phase 1 (orbital)"
+        scanner_orbital: "ID correct duplicate."
+        sword_users: "Kill duplicate."
+        operator: "Open airlock, eject orb."
+      - phase: "Damage phase 2 (lab)"
+        scanner_lab: "ID correct duplicate."
+        sword_users: "Kill, eject."
+      - phase: "Phases 3-4"
+        all: "Cycle orbital + lab."
+      - phase: "Final stand"
+        all: "Stack orbital. Burst 8 duplicates."
+
+    permutations:
+      - name: "Standard 3-lab / 3-orbital"
+        learner_friendly: true
+        summary: "Pre-assigned split with Operator + Scanner roles."
+        roles:
+          - id: scanner
+            count: 2
+            does: "One per side. Identify duplicates."
+          - id: operator
+            count: 2
+            does: "One per side. Replication airlock control."
+          - id: sword_user
+            count: 2
+            does: "Lament DPS on correct duplicate."
+
+      - name: "Speed: 2-Lament parallel"
+        learner_friendly: false
+        summary: "Both teams use Lament + Operator/Scanner roles cycled fast. 2-3 phases."
+
+    cheese:
+      - title: "Sniper from across room"
+        detail: |
+          Some duplicates can be Whisper'd from across the room without
+          sword approach. Faster damage if Scanner calls position quickly.
+
+    common_mistakes:
+      - "Failing to throw Replication orb in airlock = wipe."
+      - "Wrong duplicate damaged = no progress."
+      - "Scanner / Operator transfer failure during damage phase."
+      - "Standing in airlock when door closes too long = ejected (also a wipe)."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 2 (Orbital Space Walk): During the platforming
+          section after Atraks-1, collect from a platform off the
+          standard path. Also: Exo Stranger logs.
+        rewards:
+          - "Random raid loot"
+          - "Exo Stranger lore logs"
+      potential_drops:
+        - "Heritage (shotgun)"
+        - "Posterity (HC)"
+        - "Trustee (scout)"
+        - "Legacy's Oath armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: sword_user."
+      - "2nd: scanner."
+      - "3rd: operator."
+
+  # ====================================================================
+
+  - order: 4
+    slug: descent
+    name: "Surviving the Descent (Rapture)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Pre-Taniks encounter. Taniks Reborn looms. Deposit 6 nuclear cores
+      in correct deposit bins (Scanner-guided). Operator shoots red
+      panels for cores. Suppressor stuns Taniks at security drones.
+      Failure = nuclear detonation. Then escape pod sprint.
+
+    setup: |
+      WHAT YOU SEE:
+      - Command deck of Rapture (orbital station crashing).
+      - 4 nuclear core terminals (far L+R walls + L+R upper catwalks).
+      - 3 deposit boxes spread around the room.
+      - 3 security drones (1 mid floor + 2 elevated L+R).
+      - Taniks looming, immune.
+
+      PLATFORM MECHANICS:
+      - Approach Taniks to start.
+      - Operator picks Operator augment, alarm sounds → shoot red panel near nuclear core terminal to spawn cores (2 normally; 3 if missed).
+      - Cores: Radiation debuff on carrier. 10 = death. Pass via Interact to redistribute.
+      - Scanner identifies WHICH deposit boxes glow yellow.
+      - Carriers deposit cores at correct boxes (wrong = nuclear detonation = wipe).
+      - Taniks turns deposit boxes OFFLINE periodically.
+      - Suppressor (from Suppressor Vandal) → stand under one of 3 security drones → shoot Taniks → STUN.
+      - 6 deposit cycles → Crypt AI deactivates protocol → hatch opens.
+      - Sprint to escape pod via lower hallways. Taniks chases with Molten Welder.
+      - Escape pod doors close → encounter ends.
+
+      START STATE: rally banner. Approach or shoot Taniks to start.
+
+    callouts:
+      - when: "Alarm + core panel shot"
+        from: "operator"
+        to:   "team"
+        say:  '"Panel HIT — cores spawning [N]."'
+        why:  "Cores ready for pickup."
+      - when: "Scanner identifies bins"
+        from: "scanner"
+        to:   "team"
+        say:  '"Bins [N1] + [N2] — deposit there."'
+        why:  "Pre-assign carriers."
+      - when: "Carrying core"
+        from: "self"
+        to:   "team"
+        say:  '"Core — rad [N]."'
+        why:  "Pass cores to teammates if stacking."
+      - when: "Boxes offline"
+        from: "spotter"
+        to:   "team"
+        say:  '"OFFLINE — Suppressor stun!"'
+        why:  "Triggers stun phase."
+      - when: "Drone stun done"
+        from: "suppressor"
+        to:   "team"
+        say:  '"STUNNED — deposit now!"'
+        why:  "Carriers deposit."
+      - when: "Boxes deposited"
+        from: "carrier"
+        to:   "team"
+        say:  '"[N/6] deposited."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Radiation 10 = death."
+      - "Wrong deposit box = nuclear detonation."
+      - "Cores not deposited in time = explode = wipe."
+      - "Operator missing panel shot = 3 cores spawn (worse spread)."
+
+    damage_phase_triggers: []  # no DPS phase — puzzle encounter
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Approach Taniks. Augments distributed."
+      - phase: "Per cycle"
+        operator: "Shoot red panel for cores."
+        scanner: "ID correct deposit bins."
+        carriers_2: "Pick up cores, manage radiation."
+        suppressor: "Stand drone, stun Taniks when boxes go offline."
+        depositor: "Drop cores in correct bins."
+      - phase: "6 deposits"
+        all: "Cycle 6 times."
+      - phase: "Escape pod sprint"
+        all: "Run lower hallways. Avoid Taniks Molten Welder."
+
+    permutations:
+      - name: "Standard 3-role with floaters"
+        learner_friendly: true
+        summary: "Op + Scanner + Suppressor as dedicated; 3 carriers/floaters."
+        roles:
+          - id: operator
+            count: 1
+            does: "Panel shots."
+          - id: scanner
+            count: 1
+            does: "Deposit bin ID."
+          - id: suppressor
+            count: 1
+            does: "Drone routing + Taniks stun."
+          - id: carrier
+            count: 3
+            does: "Core management + deposits."
+
+    cheese: []
+    common_mistakes:
+      - "Wrong deposit bin = full team death."
+      - "Radiation cascading because nobody passes cores."
+      - "Suppressor without drone position = no stun."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Heritage, Succession, Trustee, Posterity"
+        - "Legacy's Oath armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: carrier."
+      - "2nd: operator / scanner."
+      - "3rd: suppressor."
+
+  # ====================================================================
+
+  - order: 5
+    slug: taniks-abomination
+    name: "Taniks, the Abomination (final boss)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Final boss. 3 areas (spawn / blue / orange). Per cycle: Taniks at
+      one area → shoot 2-4 nuclear cores from his booster jets (before
+      Turbulent Detonation wipe). Scanner finds correct deposit bins
+      (6 total across 3 areas, 2 each). Suppressor stuns via security
+      drones (3 per area). 4 cores deposited → Shock Field DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - 3 areas: spawn, blue, orange.
+      - 6 deposit bins (2 per area).
+      - 9 security drones (3 per area).
+      - Augment Terminals: 3 (one per area).
+
+      PLATFORM MECHANICS:
+      - Approach wreckage to start.
+      - Taniks flies between 3 areas.
+      - At each area, his booster jets become vulnerable. Shoot for 2-4 nuclear cores.
+      - Turbulent Barrage (purple light columns from above) — preview of Turbulent Detonation wipe attack.
+      - 2-4 cores collected → stops Turbulent Detonation.
+      - Taniks detains players in spheres. Operator (red augment) shoots sphere to free.
+      - Scanner (yellow) identifies which 2 deposit bins glow yellow this cycle.
+      - Carriers deposit cores at correct bins (Radiation 10 = death).
+      - Suppressor walks through 3 drones in any area to charge, shoots Taniks (glows blue) to STUN.
+      - Suppressor recommendation: wait for Taniks to encase players TWICE before stunning third.
+      - 4 cores deposited → Shock Field appears. Position between 2 spheres in field.
+      - DPS Taniks while staying in field (too close = Arc damage; too far = rotating debris death).
+      - Field push-out: re-enter carefully.
+      - 3 damage phases until enrage.
+      - Final stand: Taniks teleports between spawn/blue/orange. 5 teleports without kill = instant team death.
+
+      START STATE: rally banner. Approach Taniks wreckage to start.
+
+    callouts:
+      - when: "Taniks at area"
+        from: "tracker"
+        to:   "team"
+        say:  '"Taniks [SPAWN/BLUE/ORANGE]."'
+        why:  "Converge for booster shoot."
+      - when: "Cores dropped"
+        from: "any"
+        to:   "team"
+        say:  '"4 CORES — pick + go."'
+        why:  "Pickup cue."
+      - when: "Scanner bins"
+        from: "scanner"
+        to:   "team"
+        say:  '"Bins [N1] + [N2] — [area]."'
+        why:  "Deposit targets."
+      - when: "Player detained"
+        from: "detained"
+        to:   "team"
+        say:  '"DETAINED [direction] — Operator!"'
+        why:  "Operator free with shoot."
+      - when: "Suppressor drone progress"
+        from: "suppressor"
+        to:   "team"
+        say:  '"Drones [N/3] — third when ready."'
+        why:  "Pacing for stun."
+      - when: "Stun done"
+        from: "suppressor"
+        to:   "team"
+        say:  '"STUNNED — deposit!"'
+        why:  "Carriers go."
+      - when: "Shock Field DPS open"
+        from: "any"
+        to:   "team"
+        say:  '"FIELD — between spheres!"'
+        why:  "Stand correct position."
+      - when: "Final stand teleports"
+        from: "tracker"
+        to:   "team"
+        say:  '"Taniks [SPAWN/BLUE/ORANGE] — [N/5] teleports!"'
+        why:  "5 teleports = instant team death."
+
+    wipe_triggers:
+      - "Turbulent Detonation (not enough cores collected)."
+      - "Radiation 10 = death."
+      - "Wrong deposit bin = death."
+      - "5 final-stand teleports without kill = instant team death."
+      - "Too close to Shock Field spheres = Arc damage."
+      - "Too far from field center = rotating debris death."
+
+    damage_phase_triggers:
+      - "4 cores deposited correctly → Shock Field opens → DPS until field times out / Taniks resists."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Taniks at spawn."
+      - phase: "Cycle (per area)"
+        booster_shooters: "Shoot Taniks's jets for cores."
+        operator: "Free detained players."
+        scanner: "ID deposit bins."
+        suppressor: "Walk drones (wait for 2nd encase, then stun)."
+        carriers: "Deposit cores."
+      - phase: "DPS (Shock Field)"
+        all: "Position between spheres in field. Burst Taniks."
+      - phase: "Cycle / Final stand"
+        all: "3 damage phases until enrage. Final stand = teleport tracking."
+
+    permutations:
+      - name: "Standard 1-Op / 1-Scanner / 1-Supp / 3-carriers"
+        learner_friendly: true
+        summary: "Pre-assigned augment roles. Floaters carry cores."
+        roles:
+          - id: operator
+            count: 1
+            does: "Sphere-free rescues."
+          - id: scanner
+            count: 1
+            does: "Deposit bin calls."
+          - id: suppressor
+            count: 1
+            does: "Drone routing + stun."
+          - id: carrier
+            count: 3
+            does: "Cores + boosters + deposits."
+
+      - name: "Speed: Eyes of Tomorrow DPS"
+        learner_friendly: false
+        summary: "Multiple Eyes of Tomorrow + Well = 1-2 phase Taniks. Spawn-side DPS."
+
+    cheese: []
+
+    common_mistakes:
+      - "Wrong bin deposit."
+      - "Suppressor stunning too fast → augment deactivation cascade."
+      - "Standing in Turbulent Barrage columns = damage."
+      - "Final stand: not tracking teleports = 5-teleport instant death."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest"
+      hidden_chest: null
+      potential_drops:
+        - "Eyes of Tomorrow (exotic rocket launcher — random chance, re-rollable)"
+        - "Heritage (shotgun)"
+        - "Succession (sniper)"
+        - "Posterity (HC)"
+        - "Trustee (scout)"
+        - "Bequest (sword)"
+        - "Commemoration (LMG)"
+        - "Legacy's Oath armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: carrier."
+      - "2nd: operator or scanner."
+      - "3rd: suppressor (most complex routing)."
+
+# ========================================================================
+overall_notes:
+  - "Eyes of Tomorrow exotic rocket: ~5% drop from Taniks, re-rollable via Spoils. Catalyst via DSC challenges."
+  - "Augment armor mods: Enhanced Operator/Scanner/Suppressor + Herd Thinner. Strong builds outside the raid too."
+  - "Master version: NOT available."
+  - "Soloing: Atraks-1 + Taniks require multi-role coordination. Solo flawless = endgame achievement."
+  - "Triumphs: Crypt Reawakened, Long Slow Whisper (24h), Cryptic Legacy (no deaths), Cryptic Insignia (all hidden chests)."

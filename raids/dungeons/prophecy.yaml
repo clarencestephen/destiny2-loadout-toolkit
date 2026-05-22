@@ -1,0 +1,588 @@
+# raids/dungeons/prophecy.yaml — Pass 1 (destinypedia baseline)
+
+slug: prophecy
+name: Prophecy
+activity_type: dungeon
+released:
+  expansion: Season of Arrivals
+  year: 2020
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: ""           # no master version
+
+location: "IX Realms, Unknown Space"
+tags: [taken, the-nine, motes, soloable, sparrow-race, classic]
+
+average_clear_time:
+  normal_experienced: "40-55 min"
+  normal_learning:    "1.5-2.5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    The Nine's answer to "What is the Darkness?" Dual-mote dungeon: every
+    encounter routes through the same Light/Dark mote-deposit loop, just
+    in different geometries. Soloable. Source of Trustee + Judgment +
+    Apex Predator (only Spike-Grenade rocket re-farmable in the game).
+
+  bosses:
+    - name: "Phalanx Echo"
+      encounter: 1
+      role: "First boss — mote tutorial; Taken Phalanx with mote-shield"
+    - name: "Hexahedron Centurions (×2)"
+      encounter: 3
+      role: "Sub-boss — final adds of the cube-room encounter"
+    - name: "Kell Echo"
+      encounter: 5
+      role: "Final boss — 3 clones + final DPS hallway with Dark Entropy debuff"
+
+  recurring_mechanics:
+    - name: "Light + Dark Motes"
+      brief: |
+        Kill a Taken Knight Echo while standing in LIGHT (sunbeam) →
+        drops Light Motes. Kill in SHADOW → drops Dark Motes. Motes
+        disappear in 30s. Collecting a different type REPLACES your
+        current motes (you can't mix). Match: Light → white pillar,
+        Dark → black pillar.
+
+    - name: "Mote Carrier (5-mote handoff)"
+      brief: |
+        Collecting exactly 5 of one type triggers carry mode: third-
+        person, no weapons, 30s timer. Walk to the matching pillar +
+        press shoot to disperse it. Drop the mote (die / drop) = wasted.
+
+    - name: "Realm Responds (room rotation)"
+      brief: |
+        Hexahedron + Kell Echo phase 1. Dispersing a pillar tilts the
+        room — the floor becomes a wall, your gravity flips. Tracks
+        a Taken probe to find next pillar position.
+
+    - name: "Dark Entropy (Kell Echo final phase)"
+      brief: |
+        Stacking debuff. 10 stacks = instant death. Only the Kell Echo's
+        protective aura prevents stacks. STAY in the aura between damage
+        windows. His Darkness Bolt knocks you out of the aura.
+
+  role_archetypes:
+    - id: light_carrier
+      brief: "Hunts Knight Echoes in sunbeams. Carries Light Motes."
+    - id: dark_carrier
+      brief: "Hunts Knight Echoes in shadow. Carries Dark Motes."
+    - id: add_clear
+      brief: "Suppresses Taken Psions/Goblins/Hobgoblins."
+
+  sherpa_playbook:
+    - "1st-timer: dark_carrier. Easier to spot shadow zones."
+    - "Sherpa: take Kell Echo final phase lead. Dark Entropy positioning matters most."
+    - "Solo: feasible all encounters. Final phase requires sustain + range."
+
+  loadout_general:
+    weapons:
+      - "Long-range primary for Knight Echoes (often elevated/far)."
+      - "Burst DPS for Phalanx + Kell Echo."
+      - "Anti-Champion mods on Master rotators."
+    armor_stats:
+      - "Mobility for Singularity sparrow race + room-flip Hexahedron movement."
+      - "Resilience for Hobgoblin damage in final phase."
+    common_exotics:
+      - "Hunter: Stompees (sparrow speed), Celestial Nighthawk (DPS)."
+      - "Titan: Heart of Inmost Light, Cuirass of the Falling Star."
+      - "Warlock: Well of Radiance, Phoenix Protocol."
+
+  common_mistakes:
+    - "Killing a Knight in WRONG zone — drops opposite mote type."
+    - "Collecting 5 of one type while holding 3 of the other — original type is wiped + replaced. Track which type you're at."
+    - "Carrying mote past the 30s timer — wasted. Run efficiently."
+    - "Standing out of the Kell Echo's aura in final phase — Dark Entropy stacks 1/sec."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: phalanx-echo
+    name: "Phalanx Echo"
+    difficulty: easy
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Tutorial fight. Tunnel section teaches the motes mechanic, then a
+      bowl arena: kill Knights in light/shadow → 5 motes → carry to
+      matching pillar → 2 pillars per side → Phalanx exposed → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Half-spherical arena, Phalanx Echo center with shield.
+      - 2 white pillars (left side) + 2 black pillars (right side) — vary placement per cycle.
+      - Light zones (sunbeams) + shadow zones in arena.
+      - Knight Echo spawns alternate per zone.
+
+      PLATFORM MECHANICS:
+      - Stand IN sunbeam to make a Knight Echo drop Light Motes.
+      - Stand IN shadow to make a Knight Echo drop Dark Motes.
+      - 5 motes = carry mode (third-person, 30s timer, no weapons).
+      - Walk to matching pillar → shoot to disperse.
+      - All 4 pillars dispersed → Phalanx shield down → 50s DPS window.
+
+      START STATE: tunnel approach (mote tutorial). Phalanx engages after walking past the probe.
+
+    callouts:
+      - when: "Knight Echo spotted in [light/shadow]"
+        from: "spotter"
+        to:   "team"
+        say:  '"[Light/Dark] Knight [direction]."'
+        why:  "Coordinates light/dark carrier."
+      - when: "5 motes, carrying"
+        from: "carrier"
+        to:   "team"
+        say:  '"5 [Light/Dark] — pillar [N/S/E/W]."'
+        why:  "Tells team to stop spawning more motes of that type."
+      - when: "Pillar dispersed"
+        from: "carrier"
+        to:   "team"
+        say:  '"Pillar [type] DOWN — [N/N more] to go."'
+        why:  "Progress check."
+      - when: "Phalanx shield down (DPS)"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — burn."'
+        why:  "50s window. Stack + Super."
+
+    wipe_triggers:
+      - "Phalanx shield blast at point-blank."
+      - "Knight Echo Slug Rifle from elevation."
+      - "Mote carry timer to 0 = mote lost (waste, not wipe)."
+
+    damage_phase_triggers:
+      - "All 4 pillars dispersed (2 Light + 2 Dark) → Phalanx exposed for 50s."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Approach probe, Phalanx + reinforcements spawn."
+      - phase: "Cycle 1 (~0:30-1:30)"
+        light_carrier: "Stand sunbeam, kill Knight, 5 motes, deposit white pillar."
+        dark_carrier:  "Stand shadow, kill Knight, 5 motes, deposit black pillar."
+        add_clear:     "Suppress Psions, distract Phalanx."
+      - phase: "Cycle 2 — alternate pair"
+        all: "Pillars relocate. Repeat with second white + second black."
+      - phase: "DPS (~50s window)"
+        all: "Stack center. Super dump. Kill the Ravenous Goblin spawns."
+      - phase: "Reset (if not 1-phased)"
+        all: "Pillars respawn, cycle resumes."
+
+    permutations:
+      - name: "Standard 1L / 1D / 1 add-clear"
+        learner_friendly: true
+        summary: "Pre-assigned carriers; one floater for adds."
+        roles:
+          - id: light_carrier
+            count: 1
+            does: "Stand light, drop Knights for Light Motes, deposit white pillars."
+          - id: dark_carrier
+            count: 1
+            does: "Stand shadow, drop Knights for Dark Motes, deposit black pillars."
+          - id: add_clear
+            count: 1
+            does: "Psions + cover. Backup carrier if one dies."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Sequential. Light → deposit → switch shadow → deposit."
+        roles:
+          - id: solo
+            count: 1
+            does: "Alternate light/shadow. Witherhoard Phalanx during runs."
+
+    cheese: []
+
+    common_mistakes:
+      - "Crossing zones with motes in your inventory — picking up opposite type WIPES current."
+      - "Killing the wrong Knight (one not in your zone) — drops opposite motes you wanted."
+      - "Phalanx shield bash at close range — keep distance."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Trustee (scout)"
+        - "Judgment (hand cannon)"
+        - "Prophecy armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+
+    learner_path:
+      - "1st: add_clear. Watch the carrier loop."
+      - "2nd: dark_carrier (easier zone-reads)."
+
+  # ====================================================================
+
+  - order: 2
+    slug: wasteland
+    name: "Wasteland (transition — sparrow + blights)"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Sparrow across a wasteland made of Io, Titan, Mercury, Mars fragments.
+      Destroy 3 Blight clusters, each guarded by Taken. Follow the probe
+      between clusters. Avoid patrolling Ultra Taken Minotaurs.
+
+    setup: |
+      WHAT YOU SEE:
+      - Open dunes with fragmented planet terrain.
+      - 3 Blight clusters (distinct orbs in flat areas).
+      - Patrolling Ultra Taken Minotaurs (huge, easy to spot — RUN past).
+      - A Taken probe that leads between Blight clusters.
+
+      PLATFORM MECHANICS:
+      - Destroy all Blights in cluster → probe spawns + dashes to next cluster.
+      - Follow probe via sparrow.
+      - 3rd cluster done → "The Way is Open" → next area opens.
+
+    callouts: []
+    wipe_triggers:
+      - "Ultra Minotaur melee/slam = sparrow + Guardian dead."
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Standard sparrow"
+        learner_friendly: true
+        summary: "Group up, destroy clusters together, follow probe."
+        roles:
+          - id: all
+            count: 3
+            does: "Burst Blights, follow probe."
+
+    cheese: []
+    common_mistakes:
+      - "Engaging Minotaurs — just ride past."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview:     ""
+
+    learner_path:
+      - "Just play."
+
+  # ====================================================================
+
+  - order: 3
+    slug: hexahedron
+    name: "Hexahedron"
+    difficulty: medium
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Cube-room mote mechanic with gravity rotation. Find a floating Taken
+      probe → it indicates which wall to deposit your mote on → disperse
+      pillar → room rotates so that wall becomes the floor → new probe
+      position → repeat ~6 times. Finishes with 2 Centurion Echoes.
+
+    setup: |
+      WHAT YOU SEE:
+      - Cubic room with pillars on each face.
+      - A floating Taken probe (orb) that hovers near one face.
+      - Symbols of the Nine engrave on walls as the room reorients.
+      - Knight Echoes spawn in light/shadow as usual.
+      - 2 Centurion Echoes appear at finale on corner platforms.
+
+      PLATFORM MECHANICS:
+      - Probe indicates which face = where to deposit mote.
+      - Disperse pillar on probe-face → room rotates so that face becomes floor.
+      - Repeat until all 6 cycles done.
+      - Finale: 2 Centurion Echoes spawn on platforms. Kill both = exit.
+
+      START STATE: walk to probe to start. Pillars + adds appear.
+
+    callouts:
+      - when: "Probe position spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Probe on [ceiling/floor/N wall]."'
+        why:  "Tells team which face to disperse on."
+      - when: "Carrier with 5 motes"
+        from: "carrier"
+        to:   "team"
+        say:  '"5 [type] — depositing [face]."'
+        why:  "Confirms target before commit."
+      - when: "Room rotated"
+        from: "any"
+        to:   "team"
+        say:  '"Floor [direction] now."'
+        why:  "Cue to reorient + find next probe."
+
+    wipe_triggers:
+      - "Hobgoblin snipes during gravity transition."
+      - "Carry timer to 0 (waste, not wipe)."
+      - "Falling off platforms in finale."
+
+    damage_phase_triggers:
+      - "2 Centurion Echoes die (finale) → exit opens."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Walk in. Probe + pillars + Knights spawn."
+      - phase: "Mote cycle (×6 face rotations)"
+        carriers_2: "Light + Dark. Match to probe-indicated face."
+        add_clear:  "Lock down Acolytes + Hobgoblins."
+      - phase: "Finale Centurions"
+        all: "Burst both Centurions on corner platforms."
+
+    permutations:
+      - name: "Standard 1L / 1D / 1 add-clear"
+        learner_friendly: true
+        summary: "Same role split as Phalanx. Communicate probe positions loudly."
+        roles:
+          - id: light_carrier
+            count: 1
+            does: "Light Motes per probe-face."
+          - id: dark_carrier
+            count: 1
+            does: "Dark Motes per probe-face."
+          - id: add_clear
+            count: 1
+            does: "Hobgoblin priority + cover."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Alternate light/shadow per probe. Slow but doable."
+        roles:
+          - id: solo
+            count: 1
+            does: "All cycles. Witherhoard Centurions."
+
+    cheese: []
+
+    common_mistakes:
+      - "Depositing on the WRONG face — pillar shatters but room doesn't rotate properly. Always face-check probe."
+      - "Standing under a falling pillar during rotation — minor damage but disorienting."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Trustee, Judgment, Adjudicator (SMG)"
+        - "Apex Predator (rocket — Spike Grenades farmable)"
+
+    images:
+      overview:     ""
+      setup:        ""
+
+    learner_path:
+      - "1st: light_carrier. Visualize the cube as 6 'faces of a die'."
+
+  # ====================================================================
+
+  - order: 4
+    slug: singularity
+    name: "Singularity (sparrow race)"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Sparrow race down a fabric-like road to a massive octahedron. Watch
+      for crossing/twisting roads + Taken Vandals/Knights. End of road
+      pulls you into the next chamber.
+
+    setup: |
+      WHAT YOU SEE:
+      - Long fabric/cloth road through a starry void.
+      - Massive octahedron destination at the end.
+      - Crossing roads + twisting sections.
+      - Taken Vandals + Ravenous Knights on platforms.
+
+    callouts: []
+    wipe_triggers:
+      - "Falling off the road = death (long fall, full reset of section)."
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Sparrow + strafe"
+        learner_friendly: true
+        summary: "Sparrow fast, strafe to dodge enemy fire, mind crossing roads."
+        roles:
+          - id: all
+            count: 3
+            does: "Race + strafe."
+
+    cheese: []
+    common_mistakes:
+      - "Trying to fight enemies — keep moving."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview:     ""
+
+    learner_path:
+      - "Just play. Stompees help."
+
+  # ====================================================================
+
+  - order: 5
+    slug: kell-echo
+    name: "Kell Echo (final boss)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Two-phase final boss. Phase 1: tetrahedral room with 3 Kell Echo
+      clones each in front of a pillar — disperse all 3 pillars to force
+      retreat. Phase 2: linear hallway DPS race with Dark Entropy debuff
+      (stay in boss aura or you stack to death).
+
+    setup: |
+      PHASE 1 — Tetrahedral room:
+      - 3 Kell Echo clones, each at a pillar (Light or Dark depending on cycle).
+      - 2 Taken Psion groups (left + right at pull).
+      - 2 Knight Echoes per cycle.
+      - A Devoured Ogre spawns after each clone retreats.
+      - Cleanse pedestal (purple) at the room entry.
+
+      PHASE 2 — Final hallway:
+      - Linear set of fragmented platforms heading away from boss.
+      - Kell Echo at far end with a Shrapnel Launcher + Taken Hobgoblin support.
+      - Protective aura SURROUNDS the Kell Echo (~10m radius).
+      - Dark Entropy stacks 1/sec OUTSIDE the aura. 10 stacks = death.
+      - Darkness Bolt ability TELEPORTS you back several platforms — outside aura, stacking begins.
+
+      START STATE: tetrahedral pull → walk to probe to engage.
+
+    callouts:
+      - when: "Clone retreating (pillar dispersed)"
+        from: "carrier"
+        to:   "team"
+        say:  '"Clone [N] retreating — Ogre incoming."'
+        why:  "Cue add-clear to focus the Devoured Ogre."
+      - when: "Phase 2 — aura visible"
+        from: "any"
+        to:   "team"
+        say:  '"IN AURA — burning."'
+        why:  "Tells team where to stack."
+      - when: "Darkness Bolt cast"
+        from: "any"
+        to:   "team"
+        say:  '"BOLT — DODGE."'
+        why:  "Avoid getting teleported back. Out-of-aura = Dark Entropy."
+      - when: "Dark Entropy ≥ 7 stacks"
+        from: "self"
+        to:   "team"
+        say:  '"7 stacks — back in aura."'
+        why:  "Self-call: sprint back."
+
+    wipe_triggers:
+      - "Dark Entropy 10 stacks = death."
+      - "Devoured Ogre rapid attacks on stationary players (phase 1)."
+      - "Kell Echo Shrapnel Launcher direct hit (phase 2)."
+      - "Falling off platforms in phase 2."
+
+    damage_phase_triggers:
+      - "Phase 1: all 3 clones forced to retreat (3 pillars dispersed × correct types) → portal to phase 2."
+      - "Phase 2: damage Kell Echo continuously while in aura. Once Echo retreats to next platform → continue chase."
+
+    parallel_timeline:
+      - phase: "Phase 1 — Pull"
+        all: "Engage. Burst 2 Psion groups first."
+      - phase: "Phase 1 — Cycle 1"
+        carriers_2: "Light + Dark per clone-pillar."
+        add_clear:  "Devoured Ogre + cover."
+      - phase: "Phase 1 — Cycle 2 + 3"
+        all: "Repeat for 2nd + 3rd clone."
+      - phase: "Phase 1 — convergence"
+        all: "Meet center triangle. Get pulled into Phase 2 tube."
+      - phase: "Phase 2 — DPS chase"
+        all: "Stay in aura. Burst Kell Echo. Move forward as he retreats."
+      - phase: "Phase 2 — final"
+        all: "Burst to 0 before Phase 2 ends + room resets to phase 1."
+
+    permutations:
+      - name: "Standard 1L / 1D / 1 add-clear (Phase 1) → stack DPS (Phase 2)"
+        learner_friendly: true
+        summary: "Same mote roles in phase 1. All collapse to single-target burst in phase 2."
+        roles:
+          - id: light_carrier
+            count: 1
+            does: "Phase 1 light pillars."
+          - id: dark_carrier
+            count: 1
+            does: "Phase 1 dark pillars."
+          - id: dps_anchor
+            count: 1
+            does: "Phase 1 add-clear; phase 2 burst lead."
+
+      - name: "Speed: Well + Linear / Sniper DPS (Phase 2)"
+        learner_friendly: false
+        summary: "Whisper of the Worm / Sleeper Simulant / Linear Fusion for sustained phase-2 chase. Well anchors aura overlap."
+        best_for: "1-phase Phase 2 attempts."
+        roles:
+          - id: well_warlock
+            count: 1
+            does: "Drop Well in aura overlap. Stays put."
+          - id: sustained_dps
+            count: 2
+            does: "Linear / sniper / Whisper. Don't reload mid-chase."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          Phase 1: 3 clones one-at-a-time, alternating light/shadow. Phase 2:
+          stay AGGRESSIVE — out of aura = death. Bring sustain (Devour /
+          Restoration). Multiple Phase 2 attempts expected.
+        roles:
+          - id: solo
+            count: 1
+            does: "All cycles. Don't panic."
+
+    cheese: []
+
+    common_mistakes:
+      - "Phase 2: getting teleported by Darkness Bolt + freezing in panic — sprint immediately back to aura, don't try to fight from outside."
+      - "Phase 1: forgetting to clear the Devoured Ogre — it stacks damage fast on a stationary carrier."
+      - "Phase 2: hugging Kell Echo too close = Shrapnel Launcher one-shot. Stay aura-edge."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest from the Emissary"
+      hidden_chest: null
+      potential_drops:
+        - "Trustee (scout)"
+        - "Judgment (hand cannon)"
+        - "Adjudicator (SMG)"
+        - "Darkest Before (pulse)"
+        - "Apex Predator (rocket — Spike Grenades farm)"
+        - "A Sudden Death (shotgun)"
+        - "Prophecy armor (all classes)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear (Phase 1 first to see mechanic without mote pressure)."
+      - "2nd: carrier role."
+      - "3rd: solo for Dark Entropy mastery."
+
+# ========================================================================
+overall_notes:
+  - "Prophecy weapons re-rolled in 2022 with adept perks — Apex Predator (Spike Grenades) is a major reason to farm."
+  - "Soloing: very feasible all encounters. Kell Echo Phase 2 is the wall — sustain + aura discipline."
+  - "Master version: not available for this dungeon."
+  - "Hidden chests: none in this dungeon (no exotic-quest chest mechanic like newer dungeons)."

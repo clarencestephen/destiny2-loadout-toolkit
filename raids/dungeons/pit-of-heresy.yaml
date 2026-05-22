@@ -1,0 +1,656 @@
+# raids/dungeons/pit-of-heresy.yaml — Pass 1 (destinypedia baseline)
+
+slug: pit-of-heresy
+name: Pit of Heresy
+activity_type: dungeon
+released:
+  expansion: Shadowkeep
+  year: 2019
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: ""           # no master version
+
+location: "Beneath Scarlet Keep, The Moon"
+tags: [hive, sword-relic, rune-matching, soloable, exotic-quest, xenophage]
+
+average_clear_time:
+  normal_experienced: "30-45 min"
+  normal_learning:    "1-2 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Hive ritual dungeon under the Scarlet Keep. Mostly rune-matching +
+    relic sword combat — a Hive Cleaver lets you trade gunfire for melee
+    one-shots on specific Disciples. Easy mechanically, punishing in
+    spots that demand sword discipline (block-then-swing rhythm).
+
+  bosses:
+    - name: "Disciples of the Broken Blade (Might, Omen, Oracle)"
+      encounter: 1
+      role: "Mini-boss trio — each killed with a specific Cleaver input"
+    - name: "Zulmak, Instrument of Torment"
+      encounter: 5
+      role: "Final boss — Hive Knight; same Disciple loop + DPS in green aura"
+
+  recurring_mechanics:
+    - name: "Hive Cleaver (relic sword)"
+      brief: |
+        Dropped by Accursed Swordbearers. Carries unique inputs PER disciple:
+          • Light attack (R1/R2) → kills Might of the Broken Blade (Knight)
+          • Heavy attack (projectile) → kills Omen of the Broken Blade (Wizard)
+          • Block + deflect → kills Oracle of the Broken Blade (Shrieker)
+        Swordbearer respawns if you linger near them.
+
+    - name: "Hive Rune matching"
+      brief: |
+        Towers in encounters 1 + 4 display Hive runes. You're told which 3
+        runes are 'correct' from a relic-drop room. Screenshot them. Visit
+        only the matching towers, ignore mismatches.
+
+    - name: "Void Orb dunking"
+      brief: |
+        Heretical Knights drop Void Orbs on death. Carry to a marked vessel
+        (door / totem base) and dunk. Used in encounters 2, 3, and the
+        Zulmak DPS-trigger.
+
+    - name: "Annihilator Totem (Curse of Suffering)"
+      brief: |
+        Encounter 3 only. Stacking debuff applies to ALL players. Standing
+        under the totem clears the totem fire. Depositing orbs clears YOUR
+        stacks. Wipe at max stacks.
+
+  role_archetypes:
+    - id: swordbearer
+      brief: "Carries the Cleaver. Knows which input per disciple."
+    - id: runner
+      brief: "Carries Void Orbs to dunk vessels (encounters 2/3/5)."
+    - id: add_clear
+      brief: "Clears ambient Hive + Boomers; covers swordbearer's flanks."
+
+  sherpa_playbook:
+    - "1st-timer: runner. Lowest cognitive load."
+    - "Sherpa: swordbearer. Memorize input-per-disciple (M=Light, O=Heavy, Or=Block)."
+    - "Solo viable for everything. Final boss is the wall — practice Disciple inputs first."
+
+  loadout_general:
+    weapons:
+      - "Strong primary for Boomer Knights (long-range)."
+      - "Linear Fusion / Sniper for picking Knights from cover."
+      - "Burst DPS option for Zulmak (Lament, Falling Guillotine still work)."
+    armor_stats:
+      - "Mobility for Harrow jumping puzzle."
+      - "Resilience for Curse of Suffering window."
+    common_exotics:
+      - "Hunter: Gyrfalcon's Hauberk (void uptime), Star-Eater (DPS)."
+      - "Titan: Heart of Inmost Light (ability uptime)."
+      - "Warlock: Well of Radiance (Zulmak DPS), Phoenix Protocol."
+
+  common_mistakes:
+    - "Wrong sword input on a Disciple — Light on a Wizard does ~5% damage. Memorize: Might=Light, Omen=Heavy, Oracle=Block."
+    - "Leaving the totem unattended in Curse of Suffering → wipe even with orb dunks."
+    - "Brute-forcing the Might without blocking his swings — he 2-shots through swords."
+    - "Standing in the green aura when Zulmak charges his slam (one-shots ALL aura standers)."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: necropolis
+    name: "Necropolis (Disciples of the Broken Blade)"
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      Cliffside arena with multiple Hive towers. Find the Accursed
+      Swordbearer in the first tower, read the 3 displayed runes, then
+      visit the matching 3 towers and kill the Disciple inside each
+      with the correct sword input.
+
+    setup: |
+      WHAT YOU SEE:
+      - Cliffside vista with multiple Hive towers (small Hive structures with rune-symbols on top).
+      - A drop-down point that leads to the FIRST tower (rune-reveal room).
+      - Brigde, broken in one spot — that gap exits to Tunnels of Despair (later).
+
+      PLATFORM MECHANICS:
+      - First tower: enter → kill Accursed Swordbearer → relic Hive Cleaver drops + 3 runes display.
+      - Other towers: walk in to identify the rune on top. Match to your 3.
+      - In each matched tower: kill ambient adds, then the Disciple inside.
+      - Sword DESPAWNS if you take too long — pull from the next Swordbearer.
+
+      START STATE: rally banner at the cliff top. Drop down to start.
+
+    callouts:
+      - when: "3 runes revealed"
+        from: "first-in"
+        to:   "team"
+        say:  '"Runes: [name/icon 1], [name/icon 2], [name/icon 3]."' # screenshot is faster
+        why:  "Team needs them all to scout towers in parallel."
+      - when: "Tower scouted, matches a needed rune"
+        from: "scout"
+        to:   "team"
+        say:  '"[direction] tower = [rune] — [Disciple type] inside."'
+        why:  "Tells swordbearer the next input + where."
+      - when: "Disciple killed"
+        from: "killer"
+        to:   "team"
+        say:  '"Disciple 1/3 down."'
+        why:  "Progress check."
+
+    wipe_triggers:
+      - "No specific wipe. Just slow if you screw up sword inputs (sword breaks / despawns; refresh)."
+      - "Falling off cliffs during navigation."
+
+    damage_phase_triggers: []
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Drop down. Push to first tower."
+      - phase: "Read runes (~0:30)"
+        swordbearer: "Kill Accursed Swordbearer, read 3 runes."
+        scouts_2:    "Identify rune-tops at other towers."
+      - phase: "Disciple clears (~1:00-4:00)"
+        swordbearer: "Move tower → tower with correct sword input. Light for Might, Heavy for Omen, Block for Oracle."
+        add_clear:   "Clear ambient Hive + Revenant Wizards/Ogres in Disciple rooms."
+      - phase: "Wrap"
+        all: "Loot chest at exit, look for hole-in-wall to right of broken bridge."
+
+    permutations:
+      - name: "Standard 1-sword / 2-scout"
+        learner_friendly: true
+        summary: "One sword carrier; two scout + add-clear the Disciple rooms ahead of time."
+        roles:
+          - id: swordbearer
+            count: 1
+            does: "Carry Cleaver. Execute correct input per Disciple."
+          - id: scout_add_clear
+            count: 2
+            does: "Identify towers + clear adds before swordbearer arrives."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Do everything sequentially. Take the picture, scout, sword, kill."
+        roles:
+          - id: solo
+            count: 1
+            does: "Self-paced. Bring strong primary for ambient adds."
+
+    cheese: []
+
+    common_mistakes:
+      - "Forgetting which rune matched which Disciple type — screenshot the rune room AND each tower top."
+      - "Letting Revenant Wizards/Ogres hit you while sword-swinging — kill them with primary FIRST."
+      - "Light attack on Omen (Wizard) wastes seconds. Confirm input before swinging."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Premonition (pulse)"
+        - "Loud Lullaby (hand cannon)"
+        - "Dreambane armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+
+    learner_path:
+      - "1st: scout/add-clear. Watch the swordbearer to learn inputs."
+      - "2nd: swordbearer."
+
+  # ====================================================================
+
+  - order: 2
+    slug: tunnels-of-despair
+    name: "Tunnels of Despair"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Maze of small tunnels + 3 unkillable Harrowing Pariah Ogres patrolling
+      wider tunnels. Kill 3 Heretical Knights for Void Orbs, dunk one at
+      each of 3 doors. Avoid Ogre line-of-sight.
+
+    setup: |
+      WHAT YOU SEE:
+      - Dimly lit cavern, tall ceilings.
+      - Small wall tunnels (crawl-height) hidden behind Hive membranes (purple veiny barriers — destroy with shots).
+      - 3 unkillable Ogres patrolling the wide tunnels.
+      - 3 sealed doors with vessels (orb dunk points) outside each.
+
+      PLATFORM MECHANICS:
+      - Shoot membranes to reveal crawl tunnels.
+      - Kill Heretical Knight in small tunnel → Void Orb drops.
+      - Carry orb → dunk at any of the 3 vessels outside the doors.
+      - Ogres patrol on a set route — time movement around them.
+
+      START STATE: drop into the dim room. Ogres already patrolling.
+
+    callouts:
+      - when: "Ogre in your path"
+        from: "self"
+        to:   "team"
+        say:  '"Ogre [direction], hold."'
+        why:  "Prevents teammates from sprinting into one-shot LoS."
+      - when: "Knight killed, orb in hand"
+        from: "self"
+        to:   "team"
+        say:  '"Got orb, dunking [N/S/E]."'
+        why:  "Tells team which door is being progressed."
+
+    wipe_triggers:
+      - "Ogre LoS at close range (one-shot)."
+      - "Slow play — Knights respawn, manageable but tedious."
+
+    damage_phase_triggers: []
+
+    parallel_timeline:
+      - phase: "Pull + scout"
+        all: "Drop in. Identify Ogre patrol routes."
+      - phase: "Knight kill loop"
+        runner: "Crawl tunnel → kill Knight → orb → dunk."
+        watchers_2: "Spot Ogre movements + call them out."
+      - phase: "3rd dunk"
+        all: "Path forward opens."
+
+    permutations:
+      - name: "Standard 1-runner / 2-watch"
+        learner_friendly: true
+        summary: "One player handles orbs; two flank to call Ogres."
+        roles:
+          - id: runner
+            count: 1
+            does: "Kill Knights, dunk orbs."
+          - id: ogre_watcher
+            count: 2
+            does: "Call Ogre LoS. Don't engage — they're unkillable."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All 3 yourself. Use cover and tunnel paths to avoid Ogres."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient routing."
+
+    cheese: []
+
+    common_mistakes:
+      - "Trying to shoot the Ogres — they don't die. Wastes ammo."
+      - "Dunking the orb at the WRONG door — has to be at the door for an unkilled-Knight-section."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+
+    learner_path:
+      - "Just play. Mechanic is self-teaching."
+
+  # ====================================================================
+
+  - order: 3
+    slug: chamber-of-suffering
+    name: "Chamber of Suffering"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Wave defense + orb dunks under a Curse of Suffering debuff. 6 runes
+      on a central wall need destroying. Kill Knights for orbs, dunk to
+      clear YOUR debuff stacks. Someone MUST stand under the Annihilator
+      Totem to extinguish its fire or the team wipes.
+
+    setup: |
+      WHAT YOU SEE:
+      - Large chamber. Central plate with the Annihilator Totem (above) + 6 Hive runes on the wall.
+      - 6 sealed doors around the perimeter.
+      - Boomer-wielding Knights on high ledges (deadly long-range).
+      - Heretical Knights spawn around the room periodically.
+
+      PLATFORM MECHANICS:
+      - Annihilator Totem: stand under to extinguish its fire. If left unattended → wipe.
+      - Curse of Suffering: stacking debuff on ALL players. Each orb dunk clears YOUR stacks. Max stacks = team wipe.
+      - Boomer Knights on ledges: snipe targets, weak themselves.
+      - Heretical Knight orbs: dunk at one of the 6 doors (each door = 1 rune destroyed).
+
+      START STATE: walk to central plate to begin.
+
+    callouts:
+      - when: "Curse stacks ≥ 7"
+        from: "self"
+        to:   "team"
+        say:  '"7 stacks — I need an orb."'
+        why:  "Cue runner to prioritize that player's next dunk."
+      - when: "Totem fire visible"
+        from: "any"
+        to:   "team"
+        say:  '"Totem hot — [name] cover."'
+        why:  "Wipe-prevention. Always have someone under it."
+      - when: "Knight spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Knight [direction] — got it."' # or "need help"
+        why:  "Coordinates kill. Long-range weapon best."
+      - when: "Orb dunked"
+        from: "self"
+        to:   "team"
+        say:  '"[N] dunked. [N] runes left."'
+        why:  "Progress check + reminds team of stack-clear cycle."
+
+    wipe_triggers:
+      - "Curse of Suffering reaches max stacks (team-wide)."
+      - "Totem fire left unattended too long."
+      - "Boomer Knight headshot on a stationary player."
+
+    damage_phase_triggers:
+      - "All 6 runes destroyed (= 6 orbs dunked total) → encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        plate_holder: "Stand on plate. Engagement starts."
+        runner: "Engage first Heretical Knight."
+        add_clear: "Lock down Boomers + ambient."
+      - phase: "Steady-state loop"
+        runner: "Kill Knight → orb → dunk → repeat."
+        plate_holder: "Stay under Totem, clear adds + Boomers around it."
+        add_clear: "Pick Knights from range, support runner."
+      - phase: "Final dunks"
+        all: "Push last 1-2 runes, monitor stacks."
+
+    permutations:
+      - name: "Standard 1-runner / 1-plate / 1-clear"
+        learner_friendly: true
+        summary: "One runner, one totem-sitter, one floater for Boomers/Knights."
+        roles:
+          - id: runner
+            count: 1
+            does: "Owns orb pipeline. Calls own stacks."
+          - id: plate_holder
+            count: 1
+            does: "Stays under totem. Clears nearby adds."
+          - id: add_clear
+            count: 1
+            does: "Boomer hunter. Backup orb runs if runner stacks high."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          Long-range Knight kill (rocket / sniper) from totem position →
+          run to orb → dunk → back to totem. Loud Lullaby + Gjallarhorn
+          remain popular for this.
+        roles:
+          - id: solo
+            count: 1
+            does: "All roles in sequence. Don't leave totem long."
+            notes:
+              - "Use Witherhoard on far-spawn Knights — does work while you sprint."
+
+    cheese: []
+
+    common_mistakes:
+      - "All 3 going for orbs simultaneously → totem fires → wipe."
+      - "Ignoring Boomer Knights — they erase totem-sitters from across the room."
+      - "Hoarding an orb 'until safe to dunk' — stacks keep climbing."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "A Fine Memorial (LMG)"
+        - "Arc Logic (auto)"
+        - "Tranquility (sniper)"
+        - "Dreambane armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+
+    learner_path:
+      - "1st: plate_holder. Lowest movement + watches the rhythm."
+      - "2nd: runner."
+      - "3rd: floater."
+
+  # ====================================================================
+
+  - order: 4
+    slug: harrow
+    name: "The Harrow (jumping puzzle + Wizard runes)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Verticality test. Jump across ledges in a vast abyss. Find towers
+      with runes matching a sealed door. Each tower contains a Hive Wizard
+      + adds — kill them all → rune disappears. All 3 done → door opens.
+
+    setup: |
+      WHAT YOU SEE:
+      - Massive vertical cavern with floating platforms + tower structures.
+      - A sealed door at one end with 3 rune symbols displayed.
+      - Towers scattered through the verticality — each with a rune on top.
+
+      PLATFORM MECHANICS:
+      - Jump platform → platform. Falls = death (long respawn).
+      - Match runes on towers to the 3 on the door.
+      - In each correct tower: kill Wizard + all ambient enemies → rune extinguishes.
+
+      START STATE: walk in, identify the 3 door runes, start scouting.
+
+    callouts:
+      - when: "Tower rune scouted"
+        from: "scout"
+        to:   "team"
+        say:  '"Tower at [landmark] = [rune], correct/incorrect."'
+        why:  "Coordinates pathing — no wasted jumps."
+      - when: "Wizard killed in correct tower"
+        from: "killer"
+        to:   "team"
+        say:  '"Tower 1/3 cleared."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Falling into the abyss = death."
+      - "Wizard tomb-ship adds overwhelming a solo killer."
+
+    damage_phase_triggers:
+      - "All 3 correct towers cleared → door opens."
+
+    parallel_timeline:
+      - phase: "Identify door runes"
+        all: "Read door runes. Screenshot."
+      - phase: "Split + scout"
+        scouts_3: "Spread out. Identify tower rune-tops."
+      - phase: "Convergence + clears"
+        all: "Meet at correct tower → clear Wizard + adds."
+      - phase: "Wrap"
+        all: "Repeat for tower 2 + 3, then door."
+
+    permutations:
+      - name: "Standard 3-scout-then-clear"
+        learner_friendly: true
+        summary: "Split for scouting; reconverge per tower for clears."
+        roles:
+          - id: scout_clear
+            count: 3
+            does: "Scout + help clear."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Slower. Sword from Necropolis is gone — bring high-mobility kit."
+        roles:
+          - id: solo
+            count: 1
+            does: "All scouts + clears. Bring Bottom-tree Dawnblade / Stompees."
+
+    cheese:
+      - title: "Stompees + Hunter triple-jump"
+        detail: |
+          Long Hunter triple-jumps skip several intended platforms entirely.
+          Speedruns route directly tower-to-tower.
+
+    common_mistakes:
+      - "Killing Wizard in a WRONG tower — wasted time, rune doesn't go away."
+      - "Trying to fight Wizard before clearing ambient enemies — they kite you off a platform."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+
+    learner_path:
+      - "1st: bring stompees, don't pioneer routes."
+      - "2nd: lead routing."
+
+  # ====================================================================
+
+  - order: 5
+    slug: cradle-of-damnation
+    name: "Cradle of Damnation (Zulmak, Instrument of Torment)"
+    difficulty: hard
+    estimated_time: "10-20 min"
+
+    abstract: |
+      Final boss. Same Cleaver + Disciple loop, then dunk 3 Void Orbs at
+      central crystal → DPS phase in a green aura. Zulmak's charged slam
+      one-shots the aura — GTFO when he kneels.
+
+    setup: |
+      WHAT YOU SEE:
+      - Round arena. Central crystal (large jagged Hive structure).
+      - 3 alcoves around the perimeter, each housing a Disciple of the Broken Blade.
+      - Zulmak (Hive Knight, oversized) kneeling at the crystal on pull.
+      - Accursed Swordbearers spawn for each Disciple cycle.
+
+      PLATFORM MECHANICS:
+      - Get a Cleaver → execute correct input per Disciple → orb drops → dunk at central crystal.
+      - 3 orbs dunked = Zulmak vulnerable + green aura appears around crystal.
+      - STAND IN green aura to deal damage to Zulmak.
+      - When Zulmak KNEELS (charging) → instant exit aura. Slam = one-shot.
+
+      START STATE: rally banner at the entry. Walk to crystal to engage.
+
+    callouts:
+      - when: "Disciple identified"
+        from: "spotter"
+        to:   "team"
+        say:  '"[direction] alcove = [Might/Omen/Oracle]."'
+        why:  "Tells swordbearer input order."
+      - when: "Disciple down + orb in hand"
+        from: "killer"
+        to:   "team"
+        say:  '"Got orb, dunking."'
+        why:  "Tells team to converge on crystal for incoming DPS aura."
+      - when: "Third orb dunked"
+        from: "self"
+        to:   "team"
+        say:  '"AURA UP — damage."'
+        why:  "Signal to drop Well/Bubble + open fire."
+      - when: "Zulmak kneels (charging slam)"
+        from: "first to see"
+        to:   "team"
+        say:  '"KNEEL — OUT OUT OUT."'
+        why:  "Aura-stand = one-shot. Hard exit required."
+
+    wipe_triggers:
+      - "Standing in aura when Zulmak's slam fires = one-shot."
+      - "Brute-forcing Might without blocking = sword broken, you die."
+      - "Disciples cleaning you up in alcoves — bring add-clear backup."
+
+    damage_phase_triggers:
+      - "3 Void Orbs dunked at the central crystal → green aura + Zulmak vulnerable."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Walk to crystal. Disciples + Swordbearers spawn."
+      - phase: "Sword cycle 1 (Omen first — hardest)"
+        swordbearer: "Get cleaver, kill Omen (Heavy attack). Take orb."
+        add_clear_2: "Hold Zulmak's attention. Kill ambient Hive."
+      - phase: "Dunk 1 + cycle 2 (Might)"
+        swordbearer: "Dunk orb at crystal. Next cleaver → Might (Light, block-swing rhythm)."
+      - phase: "Dunk 2 + cycle 3 (Oracle)"
+        swordbearer: "Block-deflect Oracle. Take orb."
+      - phase: "DPS (~3rd dunk → 20s window)"
+        all: "Stack in aura. Well/Bubble. Burst Zulmak. WATCH for kneel."
+      - phase: "Reset"
+        all: "Aura ends. Disciples respawn. Cycle."
+
+    permutations:
+      - name: "Standard 1-sword / 2-clear"
+        learner_friendly: true
+        summary: "One dedicated swordbearer all 3 Disciples; others clear adds + cover."
+        roles:
+          - id: swordbearer
+            count: 1
+            does: "Owns all 3 Disciple kills. Memorize input order."
+          - id: add_clear
+            count: 2
+            does: "Lock down ambient adds + keep Zulmak's aggro off swordbearer."
+
+      - name: "Speed: 3-sword (parallel)"
+        learner_friendly: false
+        summary: "Each player takes a Disciple simultaneously. All 3 swords pulled at once."
+        best_for: "Experienced teams, 1-phase attempts."
+        roles:
+          - id: swordbearer
+            count: 3
+            does: "Each owns one Disciple. Sync dunks at crystal."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All 3 Disciples + DPS yourself. Bring sword for DPS (Lament / Falling Guillotine)."
+        roles:
+          - id: solo
+            count: 1
+            does: "Methodical. Don't rush input order. Witherhoard the Disciples for chip."
+
+    cheese: []
+
+    common_mistakes:
+      - "Standing in aura when Zulmak kneels = instant death."
+      - "Wrong input on a Disciple = wasted cycle, more adds spawn."
+      - "Not getting clear of the central crystal between phases — Zulmak's basic attacks still hit."
+      - "Trying to DPS from OUTSIDE the aura — damage doesn't register."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (Dreambane high-stat armor)"
+      hidden_chest: null
+      potential_drops:
+        - "Xenophage (exotic LMG — separate quest, NOT a random drop here)"
+        - "Premonition / Apostate / Blasphemer / Heretic (latter 3 from Hymn of Desecration quest)"
+        - "Dreambane armor (all classes)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear (study the swordbearer + aura rhythm)."
+      - "2nd: swordbearer (input mastery)."
+      - "Solo: viable but requires confident sword discipline."
+
+# ========================================================================
+overall_notes:
+  - "Xenophage exotic quest: NOT obtained directly from this dungeon — chain begins separately ('What's This, What's This?'). Pit of Heresy is a step in the quest."
+  - "Dungeon was the first to feature Hive prominently."
+  - "Master version: not available."
+  - "Soloing: very doable. Cradle of Damnation is the wall — sword discipline matters."

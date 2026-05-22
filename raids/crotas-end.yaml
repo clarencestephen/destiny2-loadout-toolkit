@@ -1,0 +1,678 @@
+# raids/crotas-end.yaml — Pass 1 (destinypedia baseline)
+
+slug: crotas-end
+name: Crota's End
+activity_type: raid
+released:
+  expansion: "(Original D1 The Dark Below, 2014) — reprised D2 2023"
+  year: 2023  # D2 reprise
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1790
+  master: 1840
+location: "Hellmouth / Oversoul Throne, Moon"
+tags: [hive, crota, oryx-son, chalice, enlightened, exotic-auto, necrochasm, deepsight-puzzle, og-raid]
+
+average_clear_time:
+  normal_experienced: "30-45 min"
+  normal_learning:    "1.5-2.5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Original 2014 raid, reprised in D2 (2023). Mechanically simpler than
+    King's Fall but the D2 reprise added the CHALICE OF LIGHT mechanic
+    threaded throughout every encounter (juggling Enlightened buff via
+    Chalice handoffs). Quick-clearing once learned. Source of Necrochasm
+    (exotic auto rifle) + classic Hive scout/HC/pulse weapons.
+
+  bosses:
+    - name: "Ir Yût, the Deathsinger"
+      encounter: 3
+      role: "Wizard sub-boss — Deathsong (3-min wipe timer), kill via Shield Singer Wizards"
+    - name: "Crota, Son of Oryx"
+      encounter: 4
+      role: "Final boss — God Knight; Swordbearer + sword DPS + Oversoul wipe timer"
+
+  recurring_mechanics:
+    - name: "Chalice of Light (overarching D2 mechanic)"
+      brief: |
+        Hovering relic at the start of every encounter. Pick up = charging
+        meter (bottom left). Pass to another player within 10s of full
+        charge or you die. Passing = both players get Enlightened buff.
+        Used in EVERY encounter.
+
+    - name: "Enlightened buff"
+      brief: |
+        Granted to a player who hands off the Chalice. Stack-able passes.
+        Used to dunk on plates (Abyss/Bridge), pass through green barriers
+        (Shrieker hallway/Ir Yût), Expunge bosses for damage, destroy
+        Oversoul (Crota DPS).
+
+    - name: "Engulfed in Darkness"
+      brief: |
+        Abyss encounter only. 1-min wipe timer applied when picking up
+        Chalice in Hellmouth. Reset via Chalice preservation at lit lamps.
+
+    - name: "Weight of Darkness"
+      brief: |
+        Stacking slow debuff. Abyss encounter. Removed by standing near
+        an active (Enlightened) lamp. Max stacks = stuck in place.
+
+    - name: "Sword"
+      brief: |
+        Dropped by Swordbearer (Hive Knight). 45s timer. Only weapon
+        that damages Bridge Gatekeepers + Crota.
+
+    - name: "Annihilation Totems"
+      brief: |
+        Bridge encounter. Wipe team if not pacified. Stand under to
+        prevent.
+
+    - name: "Oversoul"
+      brief: |
+        Large green orb behind Crota during DPS. Destroyed by an
+        Enlightened player. Wipe timer ~20s if not destroyed. Destroying
+        ends DPS — coordinate timing.
+
+  role_archetypes:
+    - id: chalice_runner
+      brief: "Holds Chalice + manages pass-cycle for Enlightened distribution."
+    - id: swordbearer
+      brief: "Hunts Hive Swordbearer Knights for the sword."
+    - id: sword_user
+      brief: "Wields sword to kill Bridge Gatekeepers / Crota."
+    - id: enlightened_scout
+      brief: "Stays Enlightened, scouts hidden Wizards (Ir Yût) / dunks Oversoul (Crota)."
+
+  sherpa_playbook:
+    - "Pre-pull: assign Chalice 1 (starts), Chalice 2-6 in pass order."
+    - "Necrochasm exotic: requires Bottomless Pit quest from completion drops. Catalyst from challenges."
+    - "Solo flawless: viable but Chalice is required EVERY encounter — must master self-cycling."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS for Ir Yût (3-min timer) + Crota (Oversoul timer)."
+      - "Tractor Cannon for Crota shield-break amplification."
+      - "Gjallarhorn meta-relevant on Crota (D2 reprise of Crota = D1 callback meme)."
+      - "Wish-Ender for Truesight on hidden Ir Yût Wizards."
+    armor_stats:
+      - "Resilience for Crota's swings."
+      - "Mobility for Abyss lantern-juggle pace."
+    common_exotics:
+      - "Hunter: Stompees (Abyss), Celestial Nighthawk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance (multiple Wells for Crota), Phoenix Protocol."
+
+  common_mistakes:
+    - "Holding Chalice past full charge = death. Pass at full."
+    - "Killing Swordbearer before sword-runner is ready — 45s timer wastes."
+    - "Bridge: Annihilation Totem unattended = wipe."
+    - "Crota: dropping Oversoul too early = DPS cut short."
+    - "Crota: forgetting Presence debuff = no healing without Chalice swap."
+    - "Ir Yût: missing hidden Wizard = Shield doesn't drop."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: abyss
+    name: "Enter the Abyss (Hellmouth maze)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Pitch-black Hellmouth maze. Chalice tutorial. Weight of Darkness +
+      Engulfed in Darkness debuffs build. Light lamps via Enlightened to
+      preserve Chalice + cleanse stacks. Reach end plate, dunk Chalice
+      to form final bridge.
+
+    setup: |
+      WHAT YOU SEE:
+      - Top of Hellmouth (rally area) with Chalice on a small altar.
+      - Drop down: pitch-black maze with abyssal lamps (some lit, some not).
+      - Thralls, Cursed Thralls, Knights, Ogres swarm.
+      - Final plate at end of maze.
+
+      PLATFORM MECHANICS:
+      - Pick up Chalice at start: charges → pass before 10s or die.
+      - First plate: dunk Enlightened to form initial bridge.
+      - In Hellmouth: lamps. Lit lamps have preservation nodes (refresh Chalice).
+        Enlightened can also activate UNLIT lamps to make them safe.
+      - Lamp lit ~30s, then EXPLODES (kills nearby).
+      - Stick to lit lamps, move lamp-to-lamp.
+      - Final plate: Enlighten + dunk = bridge starts forming. 90s default;
+        faster with more Enlightened dunks.
+
+      START STATE: rally banner. Pick up Chalice to start.
+
+    callouts:
+      - when: "Chalice handoff ready"
+        from: "holder"
+        to:   "team"
+        say:  '"FULL — [name] take."'
+        why:  "Avoid death timer."
+      - when: "Engulfed timer low"
+        from: "self"
+        to:   "team"
+        say:  '"PRESERVE NOW — lamp [direction]."'
+        why:  "Wipe timer threat."
+      - when: "Lamp about to explode"
+        from: "spotter"
+        to:   "team"
+        say:  '"Lamp [direction] BLOWING — move!"'
+        why:  "Save player who's stationary."
+
+    wipe_triggers:
+      - "Engulfed in Darkness timer to 0."
+      - "Standing near lamp on explosion = death."
+      - "Holding Chalice past full charge = death."
+
+    damage_phase_triggers:
+      - "Final bridge forms → cross to next encounter."
+
+    parallel_timeline:
+      - phase: "Top of Hellmouth"
+        chalice_holder_1: "Pick up Chalice, pass."
+        plate_steppers: "Dunk Enlightened on first plate."
+      - phase: "Hellmouth maze"
+        chalice_passer: "Cycle Chalice through team via lit lamps."
+        lamp_lighter: "Use Enlightened to light unlit lamps."
+      - phase: "Final plate"
+        all: "Reach end. Enlighten + dunk to form final bridge."
+
+    permutations:
+      - name: "Standard Chalice cycle"
+        learner_friendly: true
+        summary: "Chalice rotates fixed order through 6 players, lit lamps as relay points."
+        roles:
+          - id: chalice_runner
+            count: 6
+            does: "Hot-potato Chalice in fixed order. Cover via Enlightened lamp lighting."
+
+      - name: "Master: Conservation Of Energy"
+        learner_friendly: false
+        summary: "Only 1 lamp per Chalice deposit. Must move tight, accept Weight stacks."
+
+    cheese: []
+
+    common_mistakes:
+      - "Holding Chalice too long — death timer."
+      - "Bunching near a lamp about to explode."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          SECRET CHEST 1 (Abyss/Maze): From start of Abyss, run LEFT and hug
+          wall. Lit-up doors appear periodically. Keep following doors until
+          you can turn LEFT — turn. One door on left + one ahead. Chest is
+          BEHIND the door directly ahead.
+        rewards:
+          - "Random raid loot"
+      potential_drops: []
+      # Deepsight rune relevant per the secret puzzle
+
+    images:
+      overview: ""
+      setup: ""
+
+    learner_path:
+      - "1st: chalice_runner with sherpa guidance."
+
+  # ====================================================================
+
+  - order: 2
+    slug: bridge
+    name: "Cross the Bridge"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Bridge requires sword + Chalice to cross. Swordbearer + Gatekeeper
+      mechanic. Annihilation Totems at sides — keep pacified or wipe. D2:
+      Chalice carrier can cross bridge safely (only exception). 5
+      Gatekeepers per side. Then 5 swords back for the side that crossed.
+
+    setup: |
+      WHAT YOU SEE:
+      - Wide gap with 2 sync plates (L+R, build bridge).
+      - 2 Annihilation Totems (must be pacified).
+      - Swordbearer Hive Knight on starting side.
+      - Gatekeeper Hive Knight on far side (immune except to sword).
+      - 5 sword-preservation points on far side.
+
+      PLATFORM MECHANICS:
+      - 2 on each plate, 1 swordbearer hunter, 1 Chalice holder.
+      - Chalice cycle to get everyone Enlightened.
+      - 1st person across = sword wielder. Kill Gatekeeper.
+      - Chalice holder is 2nd across (only person who can cross safely without sword).
+      - Preserve sword at preservation point + Chalice in front.
+      - Repeat for 5 Gatekeepers / 5 sword preservations.
+      - All 6 across → Enlighten 5 → pick up 5 preserved swords → kill 5 final Gatekeepers.
+      - Preserve Chalice = encounter ends.
+
+      START STATE: rally banner at bridge gap. Engage by picking Chalice.
+
+    callouts:
+      - when: "Swordbearer ready"
+        from: "spotter"
+        to:   "team"
+        say:  '"SWORDBEARER — Enlightened ready?"'
+        why:  "Sync sword pickup + cross."
+      - when: "Sword in hand, crossing"
+        from: "sword_user"
+        to:   "team"
+        say:  '"CROSSING — Chalice on me."'
+        why:  "Chalice + sword pair."
+      - when: "Gatekeeper down"
+        from: "killer"
+        to:   "team"
+        say:  '"Gate [N] DOWN — sword preserved."'
+        why:  "Progress."
+      - when: "Totem hot"
+        from: "any"
+        to:   "team"
+        say:  '"TOTEM [L/R] — cover!"'
+        why:  "Annihilation wipe risk."
+
+    wipe_triggers:
+      - "Annihilation Totem unattended."
+      - "Chalice death (full charge + no pass)."
+      - "Falling into bridge gap."
+
+    damage_phase_triggers:
+      - "All Gatekeepers dead + 5 swords preserved + 6 across + Chalice preserved = encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        plate_holders_2x2: "L+R plates, 2 each."
+        sword_hunter: "Drop Swordbearer."
+        chalice_holder: "Initial Chalice."
+      - phase: "First cross"
+        sword_user: "Take sword, cross."
+        chalice_holder: "Cross with sword user (immune)."
+      - phase: "Preserve + repeat"
+        far_side: "Kill Gatekeeper + preserve sword + Chalice."
+        near_side: "Cycle Chalice for next sword run."
+      - phase: "All across"
+        all: "5 Enlightened, 5 preserved swords picked up, 5 Gatekeepers down."
+      - phase: "End"
+        chalice_holder: "Preserve Chalice → encounter ends."
+
+    permutations:
+      - name: "Standard 2-plate + cycle"
+        learner_friendly: true
+        summary: "2 per plate; cycle Chalice + Swordbearer runs."
+        roles:
+          - id: plate_holder
+            count: 4
+            does: "Hold plates; cycle sword pickups."
+          - id: chalice_runner
+            count: 2
+            does: "Manage Chalice + sword pairs."
+
+      - name: "Master: Precarious Balance"
+        learner_friendly: false
+        summary: "Cross bridge with NO ONE on plate. Bridge deforms — jump small gap."
+
+    cheese: []
+
+    common_mistakes:
+      - "Crossing without sword AND without Chalice = die."
+      - "Killing Swordbearer too early — sword expires before crossing."
+      - "Totem unattended = wipe."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest:
+        location: |
+          SECRET CHEST 2 (Shrieker Hallway): After Bridge, in the Shrieker
+          hallway. When the second green field drops, sprint Chalice
+          forward and DUNK at the preservation node at the front of the
+          hole BEFORE the door closes. Door mostly closes but chest
+          spawns + door reopens.
+        rewards:
+          - "Random raid loot"
+      potential_drops:
+        - "Oversoul Edict (pulse)"
+        - "Abyss Defiant (auto)"
+        - "Word of Crota (HC)"
+        - "Fang of Ir Yût (scout)"
+        - "Crota's End armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: plate_holder."
+      - "2nd: chalice_runner / sword_user."
+
+  # ====================================================================
+
+  - order: 3
+    slug: ir-yut
+    name: "Ir Yût, the Deathsinger"
+    difficulty: medium
+    estimated_time: "15-20 min"
+
+    abstract: |
+      Sub-boss. 3 phases of Wizard kills (3/4/5 hidden Shield Singer
+      Wizards). Pass Chalice for Enlightened buffs equal to wizard count.
+      Walk through green barriers (require Enlightened) to find + kill
+      Wizards SIMULTANEOUSLY. Shield drops → DPS Ir Yût before her death
+      song (Dark Liturgy) wipes the team.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central chamber with Ir Yût in a crystal room.
+      - 6 yellow-bar Knights guarding initially (left/right paths).
+      - 2 Shriekers (one each side) protecting middle access.
+      - Around the crystal: 7 possible Wizard spawn spots (hidden — need Truesight or scout).
+      - Green-wall barriers (Enlightened pass through).
+
+      PLATFORM MECHANICS:
+      - Split L/R 3-3. Path up + around to center.
+      - Kill 6 yellow Knights → 2 Shriekers open (one each side) → kill → green barrier drops → meet center.
+      - 3 phases:
+        • Phase 1: 3 Wizards
+        • Phase 2: 4 Wizards
+        • Phase 3: 5 Wizards
+      - Get Enlightened count equal to Wizard count (via Chalice cycle).
+      - Designate Enlightened 6 as scout (Wish-Ender Truesight ideal).
+      - Walk through green barrier (Enlightened consumed) → kill Wizard.
+      - SIMULTANEOUS finish across all Wizards — otherwise 45s wipe timer starts.
+      - Shield drops → DPS Ir Yût. Must remove HIGHLIGHTED SECTION of her HP per phase or wipe by Dark Procession.
+      - Spare Enlightened? Use Expunge interaction = significant damage + damage-amp buff during DPS.
+      - "The Deathsinger's Liturgy ebbs away..." = phase survived.
+
+      START STATE: rally banner. Fire at any enemy to start. 3-min timer begins.
+
+    callouts:
+      - when: "Knights phase done"
+        from: "any"
+        to:   "team"
+        say:  '"Knights down — Shriekers open."'
+        why:  "Phase transition."
+      - when: "Wizard spotted"
+        from: "scout"
+        to:   "team"
+        say:  '"Wizard [position 1-7]."'
+        why:  "Coordinated barrier-walk."
+      - when: "Enlightened ready"
+        from: "self"
+        to:   "team"
+        say:  '"[name] ENL — Wizard [position]."'
+        why:  "Assignment per Wizard."
+      - when: "All in position"
+        from: "any"
+        to:   "team"
+        say:  '"3, 2, 1 — KILL."'
+        why:  "Simultaneous Wizard kill."
+      - when: "Shield down (DPS)"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — Expunge first."'
+        why:  "Spare Enlightened uses Expunge first for damage amp."
+
+    wipe_triggers:
+      - "3-min Dark Liturgy timer."
+      - "45s timer after killing first Wizard (not all dead)."
+      - "Wizard solo'd too early — others not ready, cascading wipe risk."
+      - "Chalice death."
+
+    damage_phase_triggers:
+      - "All Wizards dead simultaneously → Ir Yût Shield drops → DPS window (~30-45s, varies)."
+
+    parallel_timeline:
+      - phase: "Pull"
+        teams_3x2: "Split L+R. Push up + around to center."
+      - phase: "Wizard hunt (~1:00-2:00)"
+        scout: "Locate hidden Wizards. Truesight ideal."
+        chalice_cycle: "Get N Enlightened where N = Wizard count."
+      - phase: "Simultaneous kill"
+        all: "Walk barriers, kill Wizards in unison."
+      - phase: "DPS (~30-45s)"
+        expunger: "Expunge first."
+        all: "Burst Ir Yût. Remove highlighted HP section."
+      - phase: "Phase 2 / 3"
+        all: "Repeat with 4 → 5 Wizards."
+
+    permutations:
+      - name: "Standard 1-scout / 5-Wizard"
+        learner_friendly: true
+        summary: "1 scout calls Wizards; 5 Enlightened on Wizards (Phase 3)."
+        roles:
+          - id: scout
+            count: 1
+            does: "Wish-Ender Truesight. Calls Wizard positions."
+          - id: wizard_killer
+            count: 5
+            does: "Walk barriers, simultaneous Wizard kill."
+
+      - name: "Master: Equal Vessels"
+        learner_friendly: false
+        summary: "Every player must receive Chalice before same person can hold again. Rotate."
+
+      - name: "Master: Communal Rites"
+        learner_friendly: false
+        summary: "Every DPS phase requires 1 Expunge per phase."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing Wizard before others ready — 45s timer."
+      - "Not bringing Wish-Ender / Truesight = scout can't find hidden Wizards."
+      - "Wasting all Enlightened on Wizards — leave 1 for Expunge."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Oversoul Edict (pulse)"
+        - "Abyss Defiant (auto)"
+        - "Word of Crota (HC)"
+        - "Fang of Ir Yût (scout)"
+        - "Crota's End armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: wizard_killer."
+      - "2nd: scout (Wish-Ender required)."
+
+  # ====================================================================
+
+  - order: 4
+    slug: crota
+    name: "Crota, Son of Oryx (final boss)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Final boss. Crystal-entry chamber → split L+R, clear adds → 4 boomer
+      Knights + 2 Ogres + Swordbearer → sword pickup by Enlightened. 3
+      swords per DPS phase typically. Tractor Cannon for shield-amp. 1
+      Enlightened destroys Oversoul (DPS-end). Crota's final stand at low HP.
+
+    setup: |
+      WHAT YOU SEE:
+      - Crystal chamber on a raised platform. Two towers L+R (boomer Knight spawn).
+      - Open arena around the chamber.
+      - Crota (massive Hive Knight) spawns in front of chamber after activation.
+      - Swordbearer + sword in middle.
+      - 5 possible "small circles of light" for safe Chalice swap (D2 Presence debuff blocks normal swaps).
+
+      PLATFORM MECHANICS:
+      - "Kiss the crystal" — all 6 touch crystal to start.
+      - Green barriers seal team in ~5s. Crota spawns in front (stand behind crystal).
+      - Cycle:
+        • Kill 4 boomer Knights (L+R towers, 2 each).
+        • 2 Ogres + Swordbearer spawn in middle.
+        • Kill Swordbearer → sword on ground (45s pickup window).
+        • Cycle repeats (Knights respawn).
+      - 3 swords per DPS phase (or 2 + Tractor Cannon).
+      - Presence of Crota debuff: no healing. Chalice swap ONLY in safe-circle spots.
+      - Enlightened cycle: 4-6 players. Spare Enlightened can Expunge Crota for damage.
+      - Sword shield-break:
+        • Option 1 (challenge): all sword users attack simultaneously.
+        • Option 2: sword as each one arrives.
+      - Tractor Cannon: hit Crota before swords → damage amp, swords more effective.
+      - DPS opens after shield break.
+      - Oversoul: large green orb summoned at DPS start. 20s timer. Enlightened destroys.
+        Destroying ENDS DPS. Coordinate timing — drop at 3-4s left.
+      - Multiple Wells of Radiance recommended (Crota destroys them fast).
+      - Final stand: ~30% HP, Crota stands up, immune briefly, then shield drops + Oversoul again with 20s. Extend DPS by 10s if Oversoul destroyed.
+
+      START STATE: rally outside. "Kiss the crystal" to start.
+
+    callouts:
+      - when: "Boomer Knights down"
+        from: "killer"
+        to:   "team"
+        say:  '"KNIGHTS DOWN — Ogres + Sword incoming."'
+        why:  "Sword pickup prep."
+      - when: "Swordbearer ready"
+        from: "spotter"
+        to:   "team"
+        say:  '"SWORDBEARER — [name] take."'
+        why:  "Designate sword wielder."
+      - when: "Sword in hand"
+        from: "wielder"
+        to:   "team"
+        say:  '"[N/3] swords ready."'
+        why:  "Count to DPS trigger."
+      - when: "3 swords ready"
+        from: "any"
+        to:   "team"
+        say:  '"TRACTOR + SWORDS — SHIELD."'
+        why:  "Tractor Cannon hit → all swords swing simultaneously."
+      - when: "Shield down (DPS)"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — WELL!"'
+        why:  "Stack on Well. Multiple Wells for sustain."
+      - when: "Oversoul up (20s timer)"
+        from: "scout"
+        to:   "team"
+        say:  '"OVERSOUL — 20s, drop at 3."'
+        why:  "Time Enlightened destruction for max DPS."
+      - when: "Final stand"
+        from: "any"
+        to:   "team"
+        say:  '"FINAL — burn!"'
+        why:  "Push through."
+
+    wipe_triggers:
+      - "Oversoul not destroyed at 20s = wipe."
+      - "Falling into chamber pit."
+      - "Presence of Crota + no healing + no Chalice swap = death cascade."
+      - "Chalice death."
+
+    damage_phase_triggers:
+      - "Crota's shield broken (3 sword swings, or 2 + Tractor) → DPS window (until Oversoul timer expires)."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Kiss crystal. Barriers seal."
+      - phase: "Split + clear"
+        team_l_3: "Push L tower, clear adds."
+        team_r_3: "Push R tower, clear adds."
+      - phase: "Sword cycle (×3)"
+        sword_users: "Pick up sword on call."
+        chalice_runners: "Cycle Enlightened buffs in safe-circles."
+      - phase: "Shield break"
+        tractor_user: "Hit Crota with Tractor Cannon."
+        swords_3: "Simultaneous swing → shield drops."
+      - phase: "DPS"
+        all: "Burst Crota. Track Oversoul timer."
+      - phase: "Oversoul destruction"
+        scout: "Destroy Oversoul at 3-4s left."
+      - phase: "Reset / Final stand"
+        all: "Cycle or push final stand."
+
+    permutations:
+      - name: "Standard 3-sword + Tractor"
+        learner_friendly: true
+        summary: "3 designated sword users + 1 Tractor user. Chalice cycle to keep 4-5 Enlightened."
+        roles:
+          - id: sword_user
+            count: 3
+            does: "Pre-assigned. Pick up sword on call."
+          - id: tractor_user
+            count: 1
+            does: "Hits Crota with Tractor Cannon before sword swings."
+          - id: chalice_runner
+            count: 1
+            does: "Manages Enlightened pipeline + safe-circle swaps."
+          - id: oversoul_dunker
+            count: 1
+            does: "Stays Enlightened, destroys Oversoul on call."
+
+      - name: "Speed: 2-sword + Tractor"
+        learner_friendly: false
+        summary: "Skip 3rd sword. Tractor Cannon doubles sword damage. Faster cycle."
+        best_for: "Experienced teams."
+
+      - name: "Master: All For One"
+        learner_friendly: false
+        summary: "Crota's shield must be FULLY broken within seconds of first damage. Sync sword swings precisely."
+
+      - name: "Master: Singular Sensation"
+        learner_friendly: false
+        summary: "Only 1 Enlightened at a time. Hot-potato strict."
+
+    cheese: []
+
+    common_mistakes:
+      - "Oversoul ignored = 20s wipe."
+      - "Trying to swap Chalice without safe-circle = death."
+      - "Killing Crota during Oversoul = team wipes but loot still drops (grace period)."
+      - "Solo Well = Crota destroys it. Multiple Wells needed."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (extra roll)"
+        - "Deepsight chest (if all 3 statue puzzle activations correct — see Overall Notes)"
+      hidden_chest: null
+      potential_drops:
+        - "Necrochasm (exotic auto rifle — Bottomless Pit quest)"
+        - "Oversoul Edict (pulse)"
+        - "Abyss Defiant (auto)"
+        - "Word of Crota (HC)"
+        - "Fang of Ir Yût (scout)"
+        - "Crota's End armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: chalice_runner OR sword_user with sherpa guidance."
+      - "2nd: sword_user."
+      - "3rd: oversoul_dunker."
+
+# ========================================================================
+overall_notes:
+  - "Necrochasm exotic auto rifle: quest 'Bottomless Pit' from completion drops."
+  - "Deepsight Puzzle: After forming bridge but before jumping down, zoom in on statue pairs at the start to note which one emits soulfire (L/M/R pair). Then activate matching statues at 3 locations:"
+  - "  • After Encounter 1, before Encounter 2: face the bridge, enter a room with a statue. Activate the one matching the LEFT pair from start."
+  - "  • After Encounter 2: don't enter the door yet — go to end of corridor where adds spawn, activate matching MIDDLE statue."
+  - "  • After Encounter 3: adjacent to top middle doorway where Wizard/Shrieker spawns. Activate matching RIGHT statue."
+  - "  • 'A balance is reached. To the victor go the final spoils.' = correct. Chest spawns post-Crota with guaranteed Deepsight Resonant weapon."
+  - "Master: Champions (Barrier Knights, Overload Wizards/Hobgoblins, Unstoppable Ogres)."
+  - "Challenges (Master mode): Conservation Of Energy + Feather-Light (Abyss), Precarious Balance + Threatening Reach (Bridge), Equal Vessels + Communal Rites (Ir Yût), All For One + Singular Sensation (Crota)."
+  - "Soloing: Chalice mechanic in every encounter. Solo requires self-cycling Chalice via safe-circles. Crota solo flawless extremely difficult."

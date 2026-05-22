@@ -1,0 +1,524 @@
+# raids/dungeons/ghosts-of-the-deep.yaml — Pass 1 (destinypedia baseline)
+
+slug: ghosts-of-the-deep
+name: Ghosts of the Deep
+activity_type: dungeon
+released:
+  expansion: Season of the Deep
+  year: 2023
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1790
+  master: ""           # no master version
+location: "Beneath the Arcology, Titan (Lucent Hive ship wreckage)"
+tags: [lucent-hive, taken-king, ahsa, oryx, vestige-of-light, deepsight, soloable, exotic-quest, no-time-to-explain-precursor]
+
+average_clear_time:
+  normal_experienced: "50-70 min"
+  normal_learning:    "2-3 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Underwater Hive dungeon under Titan's seas. Two-phase Vestige-of-Light
+    mechanic: kill a Lightbearer Hive → crush its Ghost → carry the
+    Vestige → deposit at a matching rune. Underwater traversal with
+    oxygen bubbles. Long encounters with brutal solo timers. Source of
+    Wicked Implement (exotic stasis scout — separate quest, not random).
+
+  bosses:
+    - name: "Ecthar, the Shield of Savathûn"
+      encounter: 2
+      role: "First boss — Lightbearer Knight; underwater rune mechanic + shield break"
+    - name: "Šimmumah ur-Nokru, Lucent Necromancer"
+      encounter: 3
+      role: "Final boss — Hive Wizard; lures via killed Vorlog at Oryx body parts"
+
+  recurring_mechanics:
+    - name: "Vestige of Light"
+      brief: |
+        Kill a Lightbearer Hive enemy (Knight / Acolyte / Wizard with
+        Ghost) → CRUSH ghost (interact) → player who crushes gets the
+        Vestige + rune marker overhead. Carry to matching rune statue
+        or deposit point.
+
+    - name: "Deepsight reveal"
+      brief: |
+        Kill a Veilweaver Wizard / Keeper of the Deep / Vorlog → drops a
+        deepsight illusion at a fixed spot. Use Deepsight (interact) to
+        reveal hidden runes / orbs / depositions points.
+
+    - name: "Wrong rune = death"
+      brief: |
+        Depositing a Vestige at the WRONG matching rune kills you instantly.
+        Always confirm rune match before depositing.
+
+    - name: "Underwater pressure"
+      brief: |
+        Oxygen bubbles exist in pockets — SHARED across teammates (one
+        bubble = all 3 refresh, unlike Salvage activity). Pressure gauge
+        depletes underwater; Ecthar's attacks drain it significantly.
+
+    - name: "Wellkeeper Knight (Piercing Light)"
+      brief: |
+        Ecthar fight only. Wellkeeper drops a Piercing Light well — stand
+        in it to break Ecthar's shield + open the damage window.
+
+  role_archetypes:
+    - id: vestige_runner
+      brief: "Crushes Lightbearer Ghosts; carries Vestiges to rune statues."
+    - id: deepsight_caller
+      brief: "Triggers Deepsight at marked spots; calls out revealed runes."
+    - id: add_clear
+      brief: "Suppresses ambient Hive + Vorlog (in final)."
+
+  sherpa_playbook:
+    - "1st-timer: vestige_runner. Most engagement."
+    - "Sherpa: Šimmumah ur-Nokru orientation calls — lining up rings + symbols is finicky."
+    - "Solo: doable but slow. Ecthar is the wall — Vestige timer pressure is real solo."
+
+  loadout_general:
+    weapons:
+      - "Long-range primary for above-water Lightbearers."
+      - "Underwater: sustained DPS struggles — bring builds with auto-loading or large mags."
+      - "Burst DPS for Ecthar + Šimmumah windows (Whisper, Sleeper, Linear)."
+    armor_stats:
+      - "Resilience priority — Hive Knight damage is brutal."
+      - "Recovery for sustain between Vestige runs."
+    common_exotics:
+      - "Hunter: Aeon Swift (super spam), Gyrfalcon's Hauberk."
+      - "Titan: Heart of Inmost Light, Cuirass of the Falling Star."
+      - "Warlock: Well of Radiance, Phoenix Protocol."
+
+  common_mistakes:
+    - "Depositing Vestige at wrong rune = instant death."
+    - "Killing Lightbearer Hive but not crushing the Ghost — no Vestige spawns. Always finish the ghost."
+    - "Triggering the Hive Ritual mob (encounter 1) before clearing path — ambush from multiple sides."
+    - "Šimmumah: standing under the wrong Oryx body part with Vestige — wrong orb = wasted."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: hive-ritual
+    name: "Hive Ritual (break the seal)"
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      First encounter. Forest area with a sealed Hive ritual circle.
+      4 cycles: kill a Soulfire Binder Ogre → follow glowing path to
+      Hive squad → kill them → next path → final cycle has a Lightbearer
+      → crush Ghost → carry Vestige back to a rune statue at the ritual.
+      4 cycles = 4 statues = seal breaks.
+
+    setup: |
+      WHAT YOU SEE:
+      - Forested area at the Arcology edge, hive ritual circle at center.
+      - 4 Thrall statues around the ritual (await charging).
+      - Soulfire Binder Ogre wandering near the ritual site.
+      - Reddened pockets indicating Hive activity.
+
+      PLATFORM MECHANICS:
+      - Kill Ogre → glow trail appears → follow to Hive squad → kill them → glow trail again.
+      - Final wave (3rd group) has a Lightbearer. Crush its Ghost = Vestige + rune marker overhead.
+      - Return to ritual: Veilweaver Wizard now spawns near ritual.
+      - Kill Veilweaver → drops Deepsight illusion → use Deepsight → reveals runes on the 4 Thrall statues.
+      - Deposit Vestige at the statue matching the rune you saw with the Lightbearer.
+      - Repeat 4 cycles total = all statues charged = seal opens.
+
+      START STATE: rally banner. Walk in to start. Ogre spawns ambient.
+
+    callouts:
+      - when: "Ogre down + trail revealed"
+        from: "killer"
+        to:   "team"
+        say:  '"TRAIL [direction]."'
+        why:  "Whole team follows."
+      - when: "Lightbearer down + Ghost crushed"
+        from: "crusher"
+        to:   "team"
+        say:  '"Vestige — rune [shape]."'
+        why:  "Carrier announces target rune for deposit-side teammates."
+      - when: "Veilweaver dropped + Deepsight ready"
+        from: "any"
+        to:   "team"
+        say:  '"DEEPSIGHT at ritual — runes reveal."'
+        why:  "Cues confirmation of rune match."
+      - when: "Deposited"
+        from: "carrier"
+        to:   "team"
+        say:  '"1/4 statues."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Wrong-rune deposit = death."
+      - "Soulfire Binder Ogre + Knight reinforcements overwhelming a kited carrier."
+      - "Dying with Vestige = no death of teammate, but Vestige resets (need new Lightbearer)."
+
+    damage_phase_triggers:
+      - "All 4 statues charged = seal breaks → next area."
+
+    parallel_timeline:
+      - phase: "Per cycle (×4)"
+        ogre_killer: "Drop Ogre."
+        trail_follower: "Follow trail, kill squads."
+        crusher: "Final squad has Lightbearer — crush Ghost for Vestige."
+        veilweaver_killer: "Back at ritual, drop Veilweaver."
+        deepsight_user: "Trigger Deepsight, ID runes."
+        depositor: "Match Vestige rune to statue, deposit."
+
+    permutations:
+      - name: "Standard rotating"
+        learner_friendly: true
+        summary: "All 3 rotate roles. Communicate rune + deposit explicitly."
+        roles:
+          - id: cycle_runner
+            count: 3
+            does: "Follow trail, crush Ghost, deposit."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All cycles yourself. ~12-15 min per cycle."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Bring sustained sustain (Devour / Resto)."
+
+    cheese: []
+
+    common_mistakes:
+      - "Forgetting to crush Ghost — no Vestige, restart cycle."
+      - "Wrong statue deposit — instant death."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "No Survivors (SMG)"
+        - "New Pacific Epitaph (GL)"
+        - "Greasy Luck (sidearm)"
+        - "Titan-themed armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: cycle_runner. Watch the trail follow + Vestige flow."
+
+  # ====================================================================
+
+  - order: 2
+    slug: ecthar
+    name: "Ecthar, the Shield of Savathûn"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      First boss. Underwater. 3 cycles: kill Hive → Keeper of the Deep
+      → Deepsight reveals 3 symbols on wall → dive underwater + activate
+      3 matching runes (pursued by Ecthar) → above-water Lightbearer
+      Wizards spawn → kill 3 + crush Ghosts → 3 Vestiges deposit into any
+      statue → Ecthar + Wellkeeper Knight spawn → kill Wellkeeper for
+      Piercing Light → break Ecthar's shield → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Underwater wreckage area. Oxygen bubble pockets along the route.
+      - 3 thrall statues (left/right/middle) above water near entry.
+      - Ecthar (large Hive Knight, Void shield) lurking underwater.
+      - Acolytes near entry (don't engage until ready — they trigger encounter).
+
+      PLATFORM MECHANICS:
+      - Acolyte engagement = encounter start.
+      - Kill ambient Hive + spawned Keeper of the Deep (Ogre-class) → Deepsight illusion drops.
+      - Deepsight reveals 3 symbols on the entry wall.
+      - DIVE: locate underwater Hive runes, activate the 3 matching symbols (in any order). Wrong rune = death.
+      - 3 correct = above-water spawns 3 Lightbearer Wizards.
+      - Kill each Wizard + crush Ghost = 3 Vestiges across 3 players.
+      - Deposit each Vestige at ANY statue (not rune-matched here — only 3 statues, all valid until charged).
+      - 3 statues charged = Ecthar arrives + Wellkeeper Knight.
+      - Kill Wellkeeper = Piercing Light well drops.
+      - Stand in well = break Ecthar's shield = ~15-20s damage window.
+
+      START STATE: rally banner at entry. Engage Acolytes to trigger.
+
+    callouts:
+      - when: "Keeper of the Deep down + Deepsight ready"
+        from: "killer"
+        to:   "team"
+        say:  '"DEEPSIGHT at wall."'
+        why:  "Reveals the 3 target symbols."
+      - when: "3 symbols ID'd"
+        from: "deepsight_user"
+        to:   "team"
+        say:  '"Symbols: [list 3]"'
+        why:  "Coordinated underwater dive targets."
+      - when: "Rune activated underwater"
+        from: "diver"
+        to:   "team"
+        say:  '"[symbol] activated, [N]/3."'
+        why:  "Track underwater progress."
+      - when: "Lightbearer Wizard spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Lightbearer [direction]."'
+        why:  "Focus fire. 3 spawn over time."
+      - when: "Vestige in hand"
+        from: "self"
+        to:   "team"
+        say:  '"Vestige — depositing [L/M/R statue]."'
+        why:  "Avoids 2 depositors on same statue."
+      - when: "Ecthar phase — Wellkeeper down"
+        from: "killer"
+        to:   "team"
+        say:  '"WELL DOWN — stand on it."'
+        why:  "Shield-break window. Stack on well, DPS opens."
+
+    wipe_triggers:
+      - "Wrong underwater rune = instant death."
+      - "Oxygen run-out underwater (pressure gauge to 0)."
+      - "Ecthar's underwater attacks drain pressure faster than O2 refills."
+      - "Not crushing Lightbearer Ghost = no Vestige, can't progress."
+
+    damage_phase_triggers:
+      - "3 Vestiges deposited → Ecthar + Wellkeeper spawn."
+      - "Wellkeeper killed + standing in Piercing Light well → shield breaks → ~15-20s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Acolytes. Burst ambient Hive."
+      - phase: "Deepsight + dive (~1:00)"
+        deepsight_user: "Drop Keeper, trigger Deepsight, call symbols."
+        divers_2: "Underwater, activate 2 of 3 runes."
+        last_runner: "Sync activation of last rune."
+      - phase: "Lightbearer kills + Vestige (~2:00-3:30)"
+        crushers: "Each player handles 1 Lightbearer. Crush Ghost. Deposit."
+      - phase: "Ecthar + Wellkeeper + DPS (~3:30)"
+        wellkeeper_killer: "Drop Wellkeeper instantly."
+        all: "Stand in Piercing Light, burst Ecthar."
+      - phase: "Reset (if not killed)"
+        all: "Ecthar re-shields. Cycle repeats."
+
+    permutations:
+      - name: "Standard 1-deepsight / 2-divers"
+        learner_friendly: true
+        summary: "One leads Deepsight; two dive for runes; all 3 take a Vestige."
+        roles:
+          - id: deepsight_caller
+            count: 1
+            does: "Owns rune-ID call. Suppresses ambient on dive."
+          - id: diver
+            count: 2
+            does: "Underwater rune activation + Lightbearer kill."
+
+      - name: "Speed: Whisper / Linear / Well DPS"
+        learner_friendly: false
+        summary: "1-phase Ecthar with sustained-DPS exotics. Well + Whisper combo."
+        roles:
+          - id: well_warlock
+            count: 1
+            does: "Drop Well on Piercing Light spot. Stays."
+          - id: dps
+            count: 2
+            does: "Whisper / Sleeper / Linear from Well."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          All mechanics yourself. Expect 2-3 phases. Use Witherhoard for
+          Ecthar chip + sustain (Devour / Resto). Bring Heart of Inmost
+          Light / Phoenix Protocol for ability spam.
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Oxygen management is the wall."
+
+    cheese: []
+
+    common_mistakes:
+      - "Diving to wrong underwater rune = death + reset."
+      - "Lingering near oxygen pockets while teammates dive — share refresh."
+      - "Wellkeeper not killed before Ecthar moves out of LoS = wasted shield-break window."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "No Survivors (SMG)"
+        - "New Pacific Epitaph (GL)"
+        - "Greasy Luck (sidearm)"
+        - "The Navigator (exotic trace rifle — quest, not random)"
+        - "Titan armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: deepsight_caller (no diving stress)."
+      - "2nd: diver."
+      - "Solo: only after 3-player clear."
+
+  # ====================================================================
+
+  - order: 3
+    slug: simmumah
+    name: "Šimmumah ur-Nokru, Lucent Necromancer"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Final boss. Open cove with Oryx's half-buried corpse. Šimmumah floats
+      above. Crush an unclaimed Ghost to start. 3 cycles: Deepsight reveals
+      3 small orbs above Oryx body parts; kill Vorlog UNDER an orb to lure
+      Šimmumah; align ring + symbol when she lands; reveals rune; kill a
+      Lightbearer (knight/acolyte/wizard) in methane pocket → crush Ghost
+      → Vestige with that rune → deposit at matching orb. 3 done = Šimmumah
+      vulnerable → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Massive cove, Oryx (Taken King) corpse half-buried.
+      - Šimmumah floats above Oryx.
+      - 3 methane pockets concealing rooms with Lightbearer Hive (knight / acolyte / wizard).
+      - Vorlog, Risen in Heresy roams + respawns on kill.
+
+      PLATFORM MECHANICS:
+      - Crush the unclaimed Ghost above Oryx to start.
+      - Kill ambient Hive → Deepsight illusion spawns mid-arena.
+      - Use Deepsight → 3 orbs revealed above Oryx body parts (head, hand-left, hand-right, foot-left, foot-right).
+      - Kill Vorlog (he respawns) — BUT kill him while you're STANDING UNDER one of the revealed orbs = lures Šimmumah to that part.
+      - When Šimmumah lands → a ring + symbol appears. Align them from a ground perspective (move until ring overlaps symbol).
+      - Aligned = reveals a rune above Oryx body part.
+      - Enter the matching methane pocket → fight Lightbearer (knight / acolyte / wizard) → crush Ghost → Vestige with the rune.
+      - Deposit Vestige at matching orb (must be Deepsight-revealed).
+      - 3 orbs deposited = Šimmumah's shield drops = DPS window.
+
+      START STATE: rally banner at entry. Crush Ghost above Oryx to begin.
+
+    callouts:
+      - when: "Deepsight ready"
+        from: "any"
+        to:   "team"
+        say:  '"DEEPSIGHT — orbs."'
+        why:  "Reveals orb positions."
+      - when: "Vorlog spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Vorlog [direction] — kill under [head/hand/foot] orb."'
+        why:  "Designates lure position."
+      - when: "Šimmumah landed (alignment phase)"
+        from: "first to see"
+        to:   "team"
+        say:  '"ALIGN — ring + symbol."'
+        why:  "Cues someone to align ground perspective."
+      - when: "Rune revealed"
+        from: "aligner"
+        to:   "team"
+        say:  '"Rune [shape] — [direction] pocket."'
+        why:  "Lightbearer hunter goes to matching methane pocket."
+      - when: "Vestige in hand"
+        from: "crusher"
+        to:   "team"
+        say:  '"Vestige — depositing [head/hand/foot]."'
+        why:  "Confirms deposit target."
+      - when: "3rd deposited"
+        from: "any"
+        to:   "team"
+        say:  '"SHIELD DOWN — DPS."'
+        why:  "Burst Šimmumah."
+
+    wipe_triggers:
+      - "Vorlog rapid-attacks on stationary aligners."
+      - "Wrong-orb deposit = death."
+      - "Šimmumah's Necrocharger explosions at close range."
+      - "Methane pocket Lightbearer overwhelming a solo hunter."
+
+    damage_phase_triggers:
+      - "3 Vestiges deposited at correct orbs → Šimmumah's shield drops → ~20-25s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Crush Ghost above Oryx. Vorlog + Hive spawn."
+      - phase: "Deepsight + orb reveal (~0:30)"
+        deepsight_user: "Trigger illusion."
+        spotters: "ID orb locations."
+      - phase: "Lure cycle 1 (~0:45-1:30)"
+        vorlog_killer: "Kill Vorlog UNDER chosen orb position."
+        aligner: "Move ground perspective until ring + symbol overlap → rune reveals."
+        crusher: "Methane pocket → kill Lightbearer → crush Ghost → Vestige."
+        depositor: "Deposit at correct orb."
+      - phase: "Cycle 2 + 3"
+        all: "Repeat for 2 more orbs."
+      - phase: "DPS (~3:30)"
+        all: "Stack mid. Well/Bubble. Burst Šimmumah."
+      - phase: "Reset"
+        all: "Šimmumah re-shields. Cycle repeats."
+
+    permutations:
+      - name: "Standard rotating with assignments"
+        learner_friendly: true
+        summary: "All 3 rotate roles per cycle. Pre-assign body-part orb per player."
+        roles:
+          - id: orb_owner
+            count: 3
+            does: "Each owns one body-part orb. Vorlog-kill + align + Vestige for that orb."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          All 3 cycles + DPS yourself. 3-5 phases expected. Bring sustain
+          (Devour) + a Lightbearer-shredder primary (Hand Cannon + Lucky
+          Pants, or trace rifle).
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Don't rush the alignment."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing Vorlog away from any orb = wasted, Šimmumah doesn't lure."
+      - "Alignment confusion — you must view from a SPECIFIC ground angle for ring + symbol overlap."
+      - "Methane pocket fights — Lightbearer is in a tight room, easy to die from acolyte adds."
+      - "DPS phase short — don't waste 5s reloading at the start."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (extra roll)"
+      hidden_chest: null
+      potential_drops:
+        - "No Survivors (SMG)"
+        - "New Pacific Epitaph (GL)"
+        - "Greasy Luck (sidearm)"
+        - "The Navigator (exotic trace rifle — quest reward)"
+        - "Wicked Implement (exotic stasis scout — separate quest, not random)"
+        - "Titan armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: orb_owner with sherpa walkthrough on first alignment."
+      - "2nd: lead the alignment phase."
+      - "Solo: hardest dungeon boss currently. Practice cycles."
+
+# ========================================================================
+overall_notes:
+  - "The Navigator (exotic trace rifle): quest reward from completing this dungeon (Whetstone quest)."
+  - "Wicked Implement (stasis scout) is a SEPARATE exotic quest — kill specific Stasis Knights across the dungeon to spawn an extra encounter."
+  - "Master version: not available."
+  - "Soloing: technically possible but mechanically punishing. Šimmumah is the wall — alignment + ghost-crushing under timer."
+  - "Underwater pressure: SHARED bubbles between teammates (unlike Salvage). Plan oxygen-pocket positioning."

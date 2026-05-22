@@ -1,0 +1,614 @@
+# raids/garden-of-salvation.yaml — Pass 1 (destinypedia baseline)
+
+slug: garden-of-salvation
+name: Garden of Salvation
+activity_type: raid
+released:
+  expansion: Shadowkeep
+  year: 2019
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1810
+  master: ""           # no Master version
+location: "Black Garden (Embrace → Undergrowth → Sanctum of Force → Boundless Horizon)"
+tags: [vex, sol-divisive, divinity, tether, voltaic, exotic-trace-rifle, divinity-quest]
+
+average_clear_time:
+  normal_experienced: "45-60 min"
+  normal_learning:    "2-3 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Shadowkeep raid. Vex-themed, tether-based mechanics throughout.
+    Famous as the source of DIVINITY (exotic trace rifle, ~30% boss
+    damage debuff + creates a precision-locked weak point). Divinity is
+    a separate quest, NOT a random drop.
+
+  bosses:
+    - name: "Consecrated Mind, Sol Inherent"
+      encounter: 3
+      role: "First boss — Vex Mind; tether chain + Voltaic Motes + eye-shoot"
+    - name: "Sanctified Mind, Sol Inherent"
+      encounter: 4
+      role: "Final boss — Vex Mind; portal-based mote collection + tether chain damage"
+
+  recurring_mechanics:
+    - name: "Tether (Vex Lens)"
+      brief: |
+        Shoot a Vex Lens (floating box) → projects tether to nearest
+        player. Tether CHAINS to nearby players. Goal: lead chain to
+        barriers / confluxes / cross targets. Standing in chain =
+        Enlightenment buff (45s).
+
+    - name: "Enlightenment buff"
+      brief: |
+        45s buff from being in a tether chain to a relay/conflux. ONLY
+        Enlightened players can damage immune-shielded Vex. Critical for
+        encounters 2-4.
+
+    - name: "Voltaic Overflow"
+      brief: |
+        2:30 debuff from collecting Voltaic Charge. Stacking = death.
+        Split among team members so no one stacks twice.
+
+    - name: "Voltaic Motes"
+      brief: |
+        Mote of Light variant dropped by Major Minotaurs / killed Vex.
+        Max 10/player. Banked at confluxes for Enlightenment + progress.
+        Encounter 3 + 4.
+
+    - name: "Angelic (Vex Hydra mini-boss)"
+      brief: |
+        Unique Hydra. Spawn-blockers — kill to unlock barriers, relays,
+        or to spawn tether boxes.
+
+  role_archetypes:
+    - id: tether_runner
+      brief: "Shoots Vex Lens + leads tether chain to barrier/conflux."
+    - id: mote_carrier
+      brief: "Picks up Voltaic Motes, banks them at confluxes."
+    - id: voltaic_holder
+      brief: "Takes Voltaic Overflow detonation (rotates per phase)."
+
+  sherpa_playbook:
+    - "Pre-pull: assign 3 voltaic holders (rotate) + 3 movers."
+    - "Divinity: quest separate from raid clear. ~5-10hr quest, mostly outside the raid."
+    - "Solo flawless: very difficult. Tether mechanics + 6-person mote banking inherently team-based."
+
+  loadout_general:
+    weapons:
+      - "Divinity (this raid's exotic) — once obtained, mandatory pull."
+      - "Burst DPS for Consecrated + Sanctified Mind windows."
+      - "Anti-Barrier mods for Barrier Hobgoblins (encounter 2)."
+    armor_stats:
+      - "Mobility for navigation."
+      - "Resilience for Vex slap-rifle barrages."
+    common_exotics:
+      - "Hunter: Celestial Nighthawk + Divinity combo, Star-Eater."
+      - "Titan: Heart of Inmost Light, Cuirass of the Falling Star."
+      - "Warlock: Well of Radiance (Divinity-debuffed boss → max DPS), Phoenix Protocol."
+
+  common_mistakes:
+    - "Voltaic Overflow not picked up = wipe."
+    - "Same player collects Voltaic Overflow twice in a phase = death."
+    - "Tether chain broken (player moves too far) → Enlightenment lost = can't damage shielded Vex."
+    - "Sanctified Mind: wrong portal target → wrong zone → wasted motes."
+    - "Mote drops on death = lost progress."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: evade-consecrated
+    name: "Evade The Consecrated Mind (Embrace)"
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      First encounter. Boss is invulnerable — must EVADE by progressing
+      through barriers via tether chains. Split 3/3: one team holds boss
+      area (collects Voltaic Overflow), other pushes forward (kills
+      Angelic Hydra → tether box → next barrier). Swap roles after each
+      barrier. End: 3-tether barrier + final room with Cyclopses.
+
+    setup: |
+      WHAT YOU SEE:
+      - Multi-room corridor of the Embrace, Black Garden.
+      - Consecrated Mind (Ultra Harpy) at start, hovering.
+      - Vex Lens boxes (tether sources) at various spawn points.
+      - Barriers blocking forward progress.
+      - Voltaic Overflow charges drop from boss periodically.
+
+      PLATFORM MECHANICS:
+      - Shoot Vex Lens → tether to nearest player → chain through team to barrier in back-right.
+      - Barrier opens → split 3/3.
+      - Team 1 (boss room): hold boss area, kill Voltaic Overflow charges as they spawn (distribute among 3 — never 2+ stacks on one player; explodes if uncollected).
+      - Team 2 (forward room): clear ambient + Angelic Hydra → new tether box → next barrier.
+      - Once team 2 unlocks next barrier, boss teleports to team 2. SWAP roles.
+      - Repeat through 4-5 rooms.
+      - Penultimate room: 3 tether boxes to chain → 1 barrier.
+      - Final room: boss appears + Cyclopses. Sprint forward while collecting Voltaic Charges. End reached = chest spawns.
+
+      START STATE: enter arena. Tether first lens to first barrier to start.
+
+    callouts:
+      - when: "Tether chain forming"
+        from: "shooter"
+        to:   "team"
+        say:  '"Tether on [name] — chain to [direction]."'
+        why:  "Tells team to align for chain."
+      - when: "Voltaic Overflow charge"
+        from: "spotter"
+        to:   "team"
+        say:  '"VOLTAIC [direction] — [name] take it."'
+        why:  "Designate collector to avoid stacking."
+      - when: "Angelic spawned (forward room)"
+        from: "team 2"
+        to:   "team"
+        say:  '"Angelic [direction] — burn."'
+        why:  "Required for tether box."
+      - when: "Barrier opens, swap"
+        from: "team 2"
+        to:   "team"
+        say:  '"SWAP — boss to us."'
+        why:  "Boss teleports to new team."
+
+    wipe_triggers:
+      - "Voltaic Overflow uncollected = explosion."
+      - "Two Overflows on one player = death."
+      - "Forward team failure (Angelic alive too long) = boss enrages."
+
+    damage_phase_triggers: []  # boss is invulnerable; encounter is a chase
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "First tether to first barrier."
+      - phase: "Split + cycle"
+        boss_team_3: "Hold area, collect Voltaic, distribute."
+        forward_team_3: "Push, kill Angelic, tether next barrier."
+      - phase: "Swap"
+        all: "Boss teleports. Swap roles."
+      - phase: "Final 3-tether barrier"
+        all: "Chain 3 tether boxes to final barrier."
+      - phase: "Sprint to end"
+        all: "Race past Cyclopses + Voltaic Charges. Chest at end."
+
+    permutations:
+      - name: "Standard 3/3 rotate"
+        learner_friendly: true
+        summary: "Rotate boss/forward team per barrier."
+        roles:
+          - id: voltaic_holder
+            count: 3
+            does: "Per phase: assigned to take Voltaic. Rotate so no one doubles."
+          - id: forward_pusher
+            count: 3
+            does: "Per phase: kill Angelic, tether barrier, advance."
+
+    cheese: []
+
+    common_mistakes:
+      - "Same player takes 2 Voltaics in same phase = death."
+      - "Tether chain not aligned = chain breaks before barrier."
+      - "Forward team too slow on Angelic = boss enrage."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Accrued Redemption (bow)"
+        - "Reckless Oracle (auto)"
+        - "Garden armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: voltaic_holder."
+      - "2nd: forward_pusher."
+
+  # ====================================================================
+
+  - order: 2
+    slug: summon-consecrated
+    name: "Summon The Consecrated Mind (Undergrowth — 5 relays)"
+    difficulty: medium
+    estimated_time: "15-20 min"
+
+    abstract: |
+      Diamond-shaped map with 5 relays (S center, N center, E, W, +
+      central). Each relay has a Vex Conflux + tether box (shielded
+      until Angelic dies). Tether to conflux = Enlightenment. Defend
+      confluxes from Vex sacrifices using Enlightened buffs (Vex are
+      immune-shielded — only Enlightened can damage). 3 Angelics per
+      relay over time → central relay tether finale.
+
+    setup: |
+      WHAT YOU SEE:
+      - Diamond-shaped arena. Relays at S (Alcove), W (Hedges), E (Pavilion), N (top), plus central.
+      - Vex Confluxes at each relay.
+      - Tether boxes near each conflux (shielded initially).
+      - Warp Gates flanking each relay (activate when tether to conflux).
+
+      PLATFORM MECHANICS:
+      - Split 3/3/2 (or 2/2/2) per relay area initially. Push to first 3 relays (S, W, E).
+      - Kill Angelic at each relay → shield drops on tether box → shoot Lens → tether to Conflux → 45s Enlightenment.
+      - Defend Conflux from Vex sacrifices.
+      - Use Enlightenment to break Vex immune shields.
+      - After 3 relays clear: 4 players defend ONE chosen relay, 2 cycle between relays refreshing buffs.
+      - 3 Angelics will eventually spawn at each relay (cycle, kill them all).
+      - All Angelics dead → regroup at CENTER relay.
+      - Central relay: tether box + Angelic + waves. Defend until done → chest.
+
+      START STATE: rally banner at S spawn. Push relays.
+
+    callouts:
+      - when: "Angelic spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Angelic [relay] — burn."'
+        why:  "Need to drop for tether shield."
+      - when: "Tether to Conflux done"
+        from: "tetherer"
+        to:   "team"
+        say:  '"[relay] LIVE — Enlightened."'
+        why:  "Team can now break shields."
+      - when: "Buff timer low"
+        from: "self"
+        to:   "team"
+        say:  '"Enl LOW — refreshing [relay]."'
+        why:  "Cycle re-tether."
+      - when: "Sacrifice approaching"
+        from: "defender"
+        to:   "team"
+        say:  '"Conflux [relay] — sacrifice!"'
+        why:  "Burst Vex before tribute."
+
+    wipe_triggers:
+      - "Conflux fully sacrificed."
+      - "Failure to break Vex shields → cascading sacrifices."
+      - "Enlightenment expires + no refresh."
+
+    damage_phase_triggers:
+      - "All Angelics + central encounter completed → chest spawns."
+
+    parallel_timeline:
+      - phase: "Pull"
+        teams_3x2: "Push to S, W, E relays. 2 per relay."
+      - phase: "Per relay cycle"
+        angelic_killer: "Drop Angelic."
+        tetherer: "Tether box to Conflux."
+        defenders: "Hold Conflux with Enlightenment shields-break."
+      - phase: "Convergence"
+        all: "Meet at central relay."
+      - phase: "Central finale"
+        all: "Tether central, defend, kill Angelics + waves."
+
+    permutations:
+      - name: "Standard 2 per relay"
+        learner_friendly: true
+        summary: "Spread to 3 outer relays; collapse on central."
+        roles:
+          - id: relay_holder
+            count: 6
+            does: "Pair to a relay. Kill Angelic, tether, defend Conflux."
+
+      - name: "Speed: parallel tethers"
+        learner_friendly: false
+        summary: "Tether all 4 outer relays in parallel cycles. Faster but coordination-heavy."
+
+    cheese: []
+
+    common_mistakes:
+      - "Barrier Hobgoblins at E + W — bring Anti-Barrier mods."
+      - "Trying to damage Vex without Enlightenment = no damage."
+      - "Slow Conflux defense = sacrifices stack."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Sacred Provenance (pulse)"
+        - "Zealot's Reward (fusion)"
+        - "Garden armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: relay_holder (defensive role first)."
+
+  # ====================================================================
+
+  - order: 3
+    slug: consecrated-mind
+    name: "Defeat The Consecrated Mind"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      First boss for damage. Split 3/3: one team chases boss (collects
+      Voltaic Charges → DETAINED → calls inner/outer eye circle to other
+      team), other team defends a relay (Major Minotaur drops Voltaic
+      Motes → bank 30+ at Conflux). Boss visits 4 platforms (N/S/E/W).
+      After 30 motes banked → boss to overloaded conflux → eye-burst → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Same diamond arena as encounter 2.
+      - Consecrated Mind hovers center, then moves to 4 platforms.
+      - Voltaic Charges on platforms (Detain trigger).
+      - 4 relays + Confluxes (1 designated with light beam each phase).
+      - Major Minotaur spawns at active relay = mote drop.
+
+      PLATFORM MECHANICS:
+      - Tether starts encounter.
+      - Split 3/3:
+        • Boss team: follows Consecrated Mind to platforms. One player steps in Voltaic Charge = Detained.
+          Boss opens up → 6 red eyes on fins (2 per fin × 3 fins).
+          Detained player sees only INNER or OUTER circle lit → CALLS that to non-Detained.
+          Non-Detained players shoot called circle. Wrong = Detained player dies.
+        • Relay team: defends the LIT relay. Major Minotaur drops 5 Voltaic Motes per kill. One player collects all 5, banks at Conflux.
+      - 30+ motes total → boss drawn to overloaded Conflux.
+      - All 6 eyes visible. Shoot all 6 → DPS phase.
+      - Boss retreats to center. Stay distance — too close = wipe attack.
+      - Cycle.
+
+      START STATE: rally banner. Tether to initial Conflux.
+
+    callouts:
+      - when: "Boss heading to platform"
+        from: "tracker"
+        to:   "team"
+        say:  '"Boss [N/S/E/W] platform."'
+        why:  "Boss team converges."
+      - when: "Detained in Voltaic Charge"
+        from: "detained"
+        to:   "team"
+        say:  '"INNER!"' # or "OUTER" — call by what you see lit
+        why:  "Tells non-Detained which eye circle to shoot."
+      - when: "Minotaur spawning at relay"
+        from: "relay defender"
+        to:   "team"
+        say:  '"Minotaur [relay] — collecting motes."'
+        why:  "Designate mote runner."
+      - when: "30 motes banked"
+        from: "banker"
+        to:   "team"
+        say:  '"30 IN — boss to conflux."'
+        why:  "DPS prep."
+      - when: "6 eyes lit (DPS prep)"
+        from: "any"
+        to:   "team"
+        say:  '"BURN EYES — DPS soon."'
+        why:  "Coordinate eye burst."
+
+    wipe_triggers:
+      - "Wrong eye circle shot during Detain = Detained player dies."
+      - "Sacrifices at Conflux."
+      - "Standing too close to boss during DPS retreat = wipe attack."
+      - "Voltaic Overflow uncollected = mass damage."
+
+    damage_phase_triggers:
+      - "30 motes banked → boss to Conflux → 6 eyes burst → ~25-30s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Tether start. Split 3/3."
+      - phase: "Phase loop"
+        boss_team_3: "Follow boss. Voltaic Charge → Detain → eye call → burst."
+        relay_team_3: "Kill Minotaur, collect motes, bank."
+      - phase: "30 motes + eye burst"
+        all: "Burst all 6 eyes."
+      - phase: "DPS"
+        all: "Burst Consecrated Mind. Stay distance."
+
+    permutations:
+      - name: "Standard 3-boss / 3-relay"
+        learner_friendly: true
+        summary: "Pre-assigned 3+3. Within boss team, one designated Detained per Voltaic Charge (rotate)."
+        roles:
+          - id: boss_team
+            count: 3
+            does: "Chase boss, Detain rotation, eye-burst."
+          - id: relay_team
+            count: 3
+            does: "Defend lit relay, kill Minotaur, bank motes."
+
+      - name: "Speed: Divinity + Whisper"
+        learner_friendly: false
+        summary: "Divinity creates a precision crit on Mind. Whisper / Sleeper burst the crit during DPS."
+
+    cheese: []
+
+    common_mistakes:
+      - "Wrong eye call = teammate dies."
+      - "Trying to shoot eyes from wrong angle = miss (eyes are on fins)."
+      - "Standing too close on DPS = wipe attack."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Prophet of Doom (shotgun)"
+        - "Omniscient Eye (sniper)"
+        - "Garden armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: relay_team (mote collection less stressful)."
+      - "2nd: boss_team."
+
+  # ====================================================================
+
+  - order: 4
+    slug: sanctified-mind
+    name: "Conquer The Sanctified Mind (final boss)"
+    difficulty: hard
+    estimated_time: "30-40 min"
+
+    abstract: |
+      Final boss. Split 3 teams of 2. Shoot boss's LEFT SHOULDER for
+      RED portal, RIGHT KNEE for BLUE portal. Team enters portal, kills
+      Vex (Goblin/Harpy/Minotaur) for Tainted (red) or normal (blue)
+      Voltaic Motes. 15 per zone (max 10/player). Call non-portal team
+      to shoot SAME body part = teleport back. Bank red motes at red
+      conflux, blue at blue. Both banks full → tether chain on boss's
+      glowing cross → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Sanctified Mind (large Vex Mind) center of large arena.
+      - 2 Vex Confluxes ("banks"): blue (L) + red (R).
+      - Boss's body: left shoulder (red portal trigger), right knee (blue portal trigger).
+      - Portals open via shooting → teleport to Tainted (red) or normal (blue) zone.
+      - Cyclopses on pillars (one-shot if not killed).
+
+      PLATFORM MECHANICS:
+      - Split 3 teams of 2.
+      - Team A: shoot left shoulder → red portal opens. Team A jumps in → red zone.
+      - In red zone: kill Vex → Tainted Voltaic Motes (15 total, max 10/player).
+      - Team B at start: shoots left shoulder AGAIN to teleport Team A back.
+      - Team A banks Tainted motes at RED conflux. Gets Enlightenment.
+      - Same flow for blue (right knee, blue zone, blue conflux). Team B goes.
+      - Both banks full → boss spawns a giant CROSS in the arena. Angelic spawns.
+      - Kill Angelic → start tether chain (color of cross) from a bank to the cross.
+      - Tether chain links 3-4 players from bank to cross = boss's core vulnerable.
+      - DPS phase. Boss core shootable.
+      - Cycle.
+
+      START STATE: rally banner. Tether starts encounter.
+
+    callouts:
+      - when: "Color zone target"
+        from: "caller"
+        to:   "team"
+        say:  '"Team [A/B/C] — [RED/BLUE] zone."'
+        why:  "Pre-portal assignment."
+      - when: "Portal needs opening"
+        from: "ground team"
+        to:   "team"
+        say:  '"[Shoulder/Knee] — portal!"'
+        why:  "Triggers portal shot."
+      - when: "Mote collection done"
+        from: "in-zone team"
+        to:   "team"
+        say:  '"15 — teleport us back!"'
+        why:  "Ground team shoots same body part."
+      - when: "Banked at conflux"
+        from: "banker"
+        to:   "team"
+        say:  '"[RED/BLUE] BANKED — Enlightened."'
+        why:  "Defend confluxes."
+      - when: "Cross spawned + Angelic"
+        from: "any"
+        to:   "team"
+        say:  '"CROSS — Angelic up, then tether!"'
+        why:  "Tether chain prep."
+      - when: "Tether chain to cross"
+        from: "lead"
+        to:   "team"
+        say:  '"CHAIN — line up on cross!"'
+        why:  "Players align to form chain."
+      - when: "Core vulnerable"
+        from: "any"
+        to:   "team"
+        say:  '"DPS!"'
+        why:  "Burst core."
+
+    wipe_triggers:
+      - "Cyclops one-shot from pillar."
+      - "Sacrifices at unguarded conflux."
+      - "Failure to form tether chain in time."
+      - "Mixing red + blue motes incorrectly."
+
+    damage_phase_triggers:
+      - "Both banks full + Angelic killed + tether chain on cross → core vulnerable → DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Tether to start. Split 3 teams of 2."
+      - phase: "Portal 1 (red)"
+        team_a_2: "Enter red zone, collect 15 Tainted motes."
+        ground_team_4: "Shoot shoulder twice to portal A in + out."
+      - phase: "Bank + portal 2 (blue)"
+        team_a: "Bank red at red conflux."
+        team_b_2: "Enter blue zone (knee portal), collect 15 motes."
+      - phase: "Second cycle"
+        team_a_or_c: "Returns to red zone for 2nd 15."
+        team_b_or_c: "Returns to blue zone for 2nd 15."
+      - phase: "Cross + tether + DPS"
+        all: "Kill Angelic, tether chain to cross, burst core."
+      - phase: "Reset"
+        all: "Cycle."
+
+    permutations:
+      - name: "Standard 2+2+2 portal rotation"
+        learner_friendly: true
+        summary: "3 teams of 2. Each handles a portal entry per phase. Refresh confluxes between."
+        roles:
+          - id: portal_team
+            count: 2
+            does: "Enter zone, collect 15 motes, bank."
+          - id: ground_support
+            count: 4
+            does: "Shoot portals, defend confluxes, kill Cyclopses."
+
+      - name: "Speed: Divinity-locked core"
+        learner_friendly: false
+        summary: "Divinity locks the core during DPS. All burst weapons fire same spot."
+
+    cheese: []
+
+    common_mistakes:
+      - "Banking RED motes at BLUE conflux = wasted."
+      - "Cyclops on pillar one-shots you = forgotten target."
+      - "Missing the tether chain = no DPS phase."
+      - "Standing in cross color wrong = no chain."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest"
+      hidden_chest: null
+      potential_drops:
+        - "Divinity (exotic trace rifle — quest, not random)"
+        - "Reckless Oracle (auto)"
+        - "Accrued Redemption (bow)"
+        - "Sacred Provenance (pulse)"
+        - "Prophet of Doom (shotgun)"
+        - "Omniscient Eye (sniper)"
+        - "Zealot's Reward (fusion)"
+        - "Garden armor (full set)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: ground_support."
+      - "2nd: portal_team."
+
+# ========================================================================
+overall_notes:
+  - "Divinity exotic trace rifle: quest 'Divinity Pursuit' (separate from raid clear). Multi-step quest involving the raid + secret puzzles + lore tablets. Most teams clear the raid solo for Divinity."
+  - "Master version: not available."
+  - "Soloing: extremely difficult due to 6-person tether + mote-bank requirements. Solo flawless ~0 known."
+  - "Garden weapons: most have unique perks. Reckless Oracle + Accrued Redemption + Prophet of Doom + Omniscient Eye all worth farming."
+  - "Triumphs: Garden Visionary (no deaths), Encounter Challenges (varies)."

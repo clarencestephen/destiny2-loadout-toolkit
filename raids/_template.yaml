@@ -1,0 +1,129 @@
+# raids/_template.yaml — v2
+# Copy to raids/<slug>.yaml (or raids/dungeons/<slug>.yaml) and fill.
+# See raids/SCHEMA.md for field-by-field reference.
+# Rule: BREVITY. Lazy adult gamer wants to scan, not read.
+# Leave any field "" if unsure — DO NOT guess. User fills via review.
+
+slug:
+name:
+activity_type:        # raid | dungeon
+released:
+  expansion:
+  year:
+roster_status: current
+fireteam_size:        # raids = 6, dungeons = 1-3
+power_floor:
+  normal:
+  master:             # delete if not applicable
+
+location: ""
+tags: []
+
+average_clear_time:
+  normal_experienced: ""
+  normal_learning:    ""
+
+# ========================================================================
+# Raid-level overview — read this first
+# ========================================================================
+overview:
+  abstract: |        # 2-3 sentence pitch: theme, mechanic feel, difficulty.
+
+  bosses:
+    - name: ""
+      encounter:     # number
+      role: ""       # 1-line role/significance
+
+  recurring_mechanics:
+    - name: ""
+      brief: |       # what it is + when it shows up
+
+  role_archetypes:
+    - id: ""         # short id used in role assignments
+      brief: ""      # 1-line description
+
+  sherpa_playbook:
+    - ""             # bullets — assign-this-newbie-here rules
+
+  loadout_general:
+    weapons:
+      - ""           # mandatory perks, common picks, useful exotics
+    armor_stats:
+      - ""           # which stats matter for which role
+    common_exotics:
+      - ""           # by class: "Hunter: Stompees / ..."
+
+  common_mistakes:
+    - ""             # the things that wipe runs
+
+# ========================================================================
+# ENCOUNTERS
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: ""
+    name: ""
+    difficulty: easy   # easy | medium | hard
+    estimated_time: ""
+
+    abstract: |        # 1-2 sentence summary — what the team is doing.
+
+    wipe_triggers:
+      - ""             # bullet list, no nuance — just "X = death"
+
+    damage_phase_triggers:
+      - ""
+
+    # The narrative timeline — what each role is doing AT THE SAME TIME.
+    # Group roles into 2-6 phases. Use ROLE NAMES as keys.
+    parallel_timeline:
+      - phase: "Pull"
+        runner_1:    ""
+        runner_2:    ""
+        add_clear_4: ""
+      - phase: ""
+        runner_1:    ""
+
+    permutations:
+      - name: ""                  # e.g. "Standard 2 Runners / 4 Add-Clear"
+        learner_friendly: false
+        summary: ""
+        best_for: ""              # delete if not applicable
+        roles:
+          - id: ""
+            count: 1
+            does: ""              # 1-sentence — what they're doing
+            loadout: ""            # blank if unsure
+            notes:                 # delete if not applicable
+              - ""
+
+    # Cheese — known shortcuts / exploits, only document what's confirmed
+    cheese:
+      - title: ""
+        detail: ""                # 2-4 sentences max
+
+    # Common mistakes specific to THIS encounter (raid-level mistakes
+    # belong in overview.common_mistakes)
+    common_mistakes:
+      - ""
+
+    # Per-encounter loot
+    rewards:
+      guaranteed:
+        - ""                       # e.g. "1× raid armor or weapon"
+      hidden_chest:                # null if none in this encounter
+        location: ""               # how to find it, brief landmarks
+        rewards:
+          - ""
+      potential_drops:
+        - ""                       # specific weapon/armor names if known
+
+    # Suggested learner pathway through this encounter's roles
+    learner_path:
+      - ""
+
+  # duplicate the encounter block for each encounter
+
+overall_notes:
+  - ""

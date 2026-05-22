@@ -1,0 +1,615 @@
+# raids/dungeons/shattered-throne.yaml — Pass 1 (destinypedia baseline via WebFetch)
+
+slug: shattered-throne
+name: The Shattered Throne
+activity_type: dungeon
+released:
+  expansion: Forsaken
+  year: 2018
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: ""           # no master version
+
+location: "Eleusinia, Ascendant Realm (via Dreaming City)"
+tags: [taken, hive, awoken, dreaming-city, exotic-quest, wish-ender, soloable, og-dungeon]
+
+average_clear_time:
+  normal_experienced: "35-50 min"
+  normal_learning:    "1-2 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    The original Destiny 2 dungeon. Awoken/Taken theme set inside
+    Savathûn's ascendant labyrinth. Mechanic-light but punishing on
+    movement — labyrinth, catwalks over death-drops, jumping-puzzle
+    sections. Source of Wish-Ender (exotic bow) via the Hunter's
+    Remembrance quest.
+
+  bosses:
+    - name: "Labyrinth Architects + Asterion, Set Apart"
+      encounter: 1
+      role: "Encounter-gate enemies in the labyrinth section"
+    - name: "Vorgeth, the Boundless Hunger"
+      encounter: 3
+      role: "Taken Ogre — Wizard/orb deposit mechanic"
+    - name: "Dûl Incaru, the Eternal Return"
+      encounter: 4
+      role: "Final boss — Hive Wizard; 3-knight orb mechanic + DPS window"
+
+  recurring_mechanics:
+    - name: "Symbol-follow navigation"
+      brief: |
+        After killing a Labyrinth Architect, a Hive symbol reveals on a
+        wall pointing to your next destination. Memorize/screenshot.
+        Each cleared section reveals the next symbol. Repeat until
+        looping back to start.
+
+    - name: "Petitioner's Mark / Burden"
+      brief: |
+        Encounter 3 only. Picking up a Wizard orb = Petitioner's Mark
+        (45s timer, stacks 3x). Picking up a 4TH orb = Petitioner's
+        Burden (timer reaches 0 = you DIE). Deposit all stacks at the
+        central pillars to trigger DPS.
+
+    - name: "Darkblade orb + crystal shield"
+      brief: |
+        Encounter 4 only. 3 Darkblade Knights spawn; each drops an orb
+        on death. Pick up = 45s damage phase. Dûl Incaru summons a
+        crystal that makes any living Knight immune — destroy crystal
+        to KILL it (but crystal also REVIVES any dead Knight at full HP).
+
+    - name: "Cleanse pedestals"
+      brief: |
+        Purple pedestals in encounters 3+4. Stand on to clear the
+        Petitioner's Burden / encounter-ending debuff. Always know
+        where your nearest pedestal is.
+
+  role_archetypes:
+    - id: pathfinder
+      brief: "Reads symbols / orb runner / scouts."
+    - id: add_clear
+      brief: "Kills Knights/Wizards/Psions on schedule."
+    - id: dps_setup
+      brief: "Pre-positions for boss DPS windows (Super timing)."
+
+  sherpa_playbook:
+    - "1st-timer: stick to the sherpa in Erebus (labyrinth). Easy to get lost."
+    - "Sherpa: lead Vorgeth orb routing — orb timing is the hardest mechanic."
+    - "Wish-Ender quest: announce BEFORE pull. Routes branch from main flow."
+
+  loadout_general:
+    weapons:
+      - "Long-range scout/sniper for catwalks (one-shot threats from elevation)."
+      - "Anti-Champion mods for Master-tier rotators (Knights = Unstoppable)."
+      - "Burst DPS for Vorgeth + Dûl Incaru damage windows."
+    armor_stats:
+      - "Mobility for jumping puzzles + Vorgeth orb runs."
+      - "Resilience for catwalk Hobgoblin damage."
+    common_exotics:
+      - "Hunter: Celestial Nighthawk + Star-Eater Scales (Dûl Incaru one-shot setup)."
+      - "Titan: Cuirass of the Falling Star (Thundercrash for Dûl Incaru)."
+      - "Warlock: Well of Radiance (stationary DPS windows)."
+
+  common_mistakes:
+    - "Picking up a 4th Vorgeth orb 'just because' — Burden timer = death. Drop excess by walking past, don't pickup."
+    - "Killing all 3 Darkblade Knights at once before stacking buffs in Dûl Incaru — you wasted the synergy window."
+    - "Not destroying Dûl Incaru's crystal — Knights stay immune forever."
+    - "Falling off catwalks — long respawn or death (varies by section)."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: erebus
+    name: "Erebus (Labyrinth)"
+    difficulty: easy
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Maze of Taken-infested corridors. Find Labyrinth Architects (Taken
+      Knights), kill them to reveal a symbol pointing to the next area.
+      Loop the labyrinth ~4 times until the final encounter Architect
+      (Taken Captain variant) drops, opening exit.
+
+    setup: |
+      WHAT YOU SEE:
+      - Broken-bridge starting area, mist + ascendant geometry.
+      - Multiple branching corridors, Taken enemies scattered.
+      - Walls with Hive symbols (initially dormant).
+
+      PLATFORM MECHANICS:
+      - Drop down past starting bridge → engage Labyrinth Architect (Taken Knight) + Taken Acolytes.
+      - Acolytes spawn endless Eyes until parent Acolyte is killed.
+      - On Architect kill → symbol illuminates on a wall = navigation cue.
+      - Follow symbol to next chamber. Repeat ~4 rotations.
+      - Final loop: Asterion, Set Apart spawns as the Architect variant.
+
+      START STATE: pull = walk across bridge, drop into first labyrinth chamber.
+
+    callouts:
+      - when: "Architect down"
+        from: "killer"
+        to:   "team"
+        say:  '"Symbol [shape/description] — [direction]."'
+        why:  "Coordinates pathing. Symbols are easy to miss in mist."
+      - when: "Hobgoblin spotted (sniper from elevation)"
+        from: "spotter"
+        to:   "team"
+        say:  '"Hobgoblin [direction] — cover."'
+        why:  "Catwalks have line-of-sight from above. One-shots are real."
+
+    wipe_triggers:
+      - "Catwalk fall damage = death."
+      - "Hobgoblin from elevation on a stationary player."
+
+    damage_phase_triggers: []
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Cross bridge, drop into first chamber. Engage Taken."
+      - phase: "Architect cycle (×4)"
+        all: "Kill Architect → read symbol → navigate → repeat."
+      - phase: "Asterion (final Architect)"
+        all: "Same loop, with Captain variant. Drops, exit opens."
+
+    permutations:
+      - name: "Standard team-flow"
+        learner_friendly: true
+        summary: "Stick together. One leads, others kill adds."
+        roles:
+          - id: pathfinder
+            count: 1
+            does: "Reads symbols, leads movement."
+          - id: add_clear
+            count: 2
+            does: "Lock down Acolytes + Acolyte Eyes. Pick Hobgoblins."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Take it slow. Read every symbol before moving."
+        roles:
+          - id: solo
+            count: 1
+            does: "All roles. Watch for Hobgoblins on elevation."
+
+    cheese:
+      - title: "Snipe Hobgoblins from start"
+        detail: |
+          Many Hobgoblins spawn on visible elevation from initial chambers.
+          Snipe before approach to avoid getting caught in their LoS while
+          orienting on a new symbol.
+
+    common_mistakes:
+      - "Missing a symbol — backtrack to last Architect spawn to find it."
+      - "Killing Acolytes before their Eyes — Eyes keep spawning, wastes time."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          WISH-ENDER quest Boss 1 (Querim, the Waking): Find a blue orb
+          in the Tower of the Deep area. Place on the statue rooftop.
+          Triggers Theratos, Archersbane (Taken Minotaur) + Querim spawn.
+          Kill both. Required for Hunter's Remembrance quest.
+        rewards:
+          - "Wish-Ender quest token 1"
+      potential_drops:
+        - "Tigerspite (auto rifle)"
+        - "Vouchsafe (scout)"
+        - "Reverie Dawn armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: add_clear. Watch the pathfinder."
+      - "2nd: pathfinder."
+
+  # ====================================================================
+
+  - order: 2
+    slug: descent
+    name: "The Descent (catwalks + jumping puzzle)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Long catwalk hallway + jumping puzzle. Taken Ogres on platforms
+      one-shot you off ledges with eye blasts. A Thrallway barrier
+      cancels your jump — use the orb on a side pedestal to bypass.
+
+    setup: |
+      WHAT YOU SEE:
+      - Long open hallway with pillars + catwalks at multiple elevations.
+      - Taken Ogres on elevated platforms (eye blast = knockback).
+      - Hobgoblins, Phalanxes, Knights as ambient pressure.
+      - A "barrier zone" mid-section that disables jumping + spawns endless Shadow Thrall.
+      - Orb pedestal to the right of the barrier entry.
+
+      PLATFORM MECHANICS:
+      - Snipe/burst Ogres on platforms before they line up an eye blast — Jötunn 2-shots, sniper headshots work.
+      - Barrier zone: pick up orb from pedestal → walk through with orb → jump restored.
+      - Endless Thrall in barrier — don't linger, melee + walk through.
+
+      START STATE: post-Erebus, walk into the descending corridor.
+
+    callouts:
+      - when: "Ogre on platform [direction]"
+        from: "spotter"
+        to:   "team"
+        say:  '"Ogre [direction] — burning."'
+        why:  "Designates Ogre target. They one-shot from above."
+      - when: "Barrier entered, jump disabled"
+        from: "self"
+        to:   "team"
+        say:  '"In barrier — orb at pedestal."'
+        why:  "Heads-up; orb route handles bypass."
+
+    wipe_triggers:
+      - "Ogre eye blast knockback off a catwalk = death."
+      - "Catwalk fall = death."
+      - "Hobgoblin headshot on a stationary player."
+
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Standard lead-follow"
+        learner_friendly: true
+        summary: "Lead clears Ogres + Hobgoblins; team follows on cleared catwalks."
+        roles:
+          - id: lead
+            count: 1
+            does: "Snipes Ogres + Hobgoblins. Calls movement windows."
+          - id: follow
+            count: 2
+            does: "Cross catwalks after clear. Pick remaining adds."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Hold sniper. Take Ogres from cover, then move."
+        roles:
+          - id: solo
+            count: 1
+            does: "Methodical. Orb route through barrier."
+
+    cheese: []
+
+    common_mistakes:
+      - "Sprinting catwalks — Ogre eye blasts catch sprinters mid-jump."
+      - "Trying to fight in the barrier — Shadow Thrall are infinite. Just walk through."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          WISH-ENDER quest Boss 2 (Eriviks, the Waking): Need 2 orbs.
+          (a) Behind first pillar in Ogre catwalk section.
+          (b) From the Thrallway barrier zone.
+          Place both orbs at statues without orbs → hidden door opens →
+          arena with Eriviks + Taken Psions.
+        rewards:
+          - "Wish-Ender quest token 2"
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Follow + watch. Don't pioneer the orb routing your first time."
+
+  # ====================================================================
+
+  - order: 3
+    slug: vorgeth
+    name: "Vorgeth, the Boundless Hunger"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Taken Ogre boss. Kill 4 Keeper of Petitions Wizards → grab their
+      orbs → deposit at central pillars. 4th orb = Petitioner's Burden
+      (death timer). Deposit before timer ends → DPS window opens.
+
+    setup: |
+      WHAT YOU SEE:
+      - Round arena, Vorgeth in center, immune.
+      - Central deposit pillars (a small set of 3-4 short pillars near Vorgeth).
+      - 4 Keeper of Petitions Wizards in alcoves around the perimeter (visible cast animations).
+      - Purple cleanse pedestal at the room edge (clears Burden if needed).
+      - Axion Dart swarms from Vorgeth periodically.
+
+      PLATFORM MECHANICS:
+      - Kill a Wizard → orb drops at their feet.
+      - Pick up orb = Petitioner's Mark (45s timer, stacks 3x).
+      - 4TH orb pickup = Petitioner's Burden (timer dropping; 0 = death).
+      - Deposit at central pillars to clear stacks + advance toward DPS.
+      - Need all 4 Wizard orbs deposited for DPS phase.
+
+      START STATE: rally banner, walk in. Wizards engage immediately.
+
+    callouts:
+      - when: "Wizard [N/S/E/W] down"
+        from: "killer"
+        to:   "team"
+        say:  '"Wizard [direction] down — orb."'
+        why:  "Pairs runner with orb."
+      - when: "Picking up orb"
+        from: "runner"
+        to:   "team"
+        say:  '"Orb [N/N-of-3 stacks]."'
+        why:  "Stack count = how close to Burden."
+      - when: "Burden timer < 10s"
+        from: "self"
+        to:   "team"
+        say:  '"BURDEN — depositing NOW."'
+        why:  "Team backs off, gives runner clear path to pillars."
+      - when: "DPS open (all 4 deposited)"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — well center."'
+        why:  "Stack + Well/Bubble call."
+
+    wipe_triggers:
+      - "Petitioner's Burden timer to 0 = death."
+      - "Vorgeth's eye blast at exposed sightline."
+      - "Axion Dart swarm not shot down — they chase + cluster-hit."
+
+    damage_phase_triggers:
+      - "All 4 Wizard orbs deposited → Vorgeth becomes vulnerable + Axion Darts intensify."
+
+    parallel_timeline:
+      - phase: "Pull"
+        wizard_killers_2: "Pick first 2 Wizards (N + S, or as positioned)."
+        runner: "Ready to collect first orbs."
+      - phase: "Orb cycle (~1:00-2:00)"
+        runner: "Walk between Wizard kills, pick orb, deposit."
+        wizard_killers: "Continue burning Wizards as they cast."
+      - phase: "Burden run (if needed)"
+        runner: "Sprint deposit. Cleanse if timer red."
+      - phase: "DPS"
+        all: "Stack center. Burst Vorgeth. Shoot incoming Axion Darts."
+      - phase: "Reset"
+        all: "Wizards respawn. Cycle."
+
+    permutations:
+      - name: "Standard 1-runner / 2-killers"
+        learner_friendly: true
+        summary: "One dedicated orb runner; two on Wizards. Runner self-manages Mark/Burden."
+        roles:
+          - id: runner
+            count: 1
+            does: "Owns orb pipeline. Track own stacks loudly."
+          - id: wizard_killer
+            count: 2
+            does: "Burst Wizards before/as runner arrives."
+
+      - name: "Speed: 4-orb 1-Burden run"
+        learner_friendly: false
+        summary: "Runner collects ALL 4 orbs (3 Mark + 1 Burden), sprints deposit all at once."
+        best_for: "Practiced teams, faster reset."
+        roles:
+          - id: runner
+            count: 1
+            does: "Sprint orb-to-orb to deposit in one trip."
+          - id: wizard_killer
+            count: 2
+            does: "Burst all 4 Wizards in rapid succession."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Wizards + orbs yourself. Take 2-3 cycles."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Use sustain (Devour, Restoration)."
+
+    cheese: []
+
+    common_mistakes:
+      - "4th orb pickup forgetting it's Burden — call your stack count BEFORE picking up."
+      - "Standing exposed during Wizard kill phase — Vorgeth's eye blast still hits."
+      - "Not shooting Axion Darts during DPS — they cluster + spike damage."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          WISH-ENDER quest Boss 3 (Xavoth, the Waking): MUST NOT kill
+          Vorgeth first. Find a Vorgeth sigil in the arena → cleanse it
+          → Fleeting Shade (Taken Minotaur) spawns. Drop orb at marked
+          statue. Xavoth spawns. Defeat Xavoth BEFORE killing Vorgeth.
+          Killing Vorgeth voids the quest.
+        rewards:
+          - "Wish-Ender quest token 3 (final)"
+      potential_drops:
+        - "Twilight Oath (sniper)"
+        - "Waking Vigil (hand cannon)"
+        - "Retold Tale (shotgun)"
+        - "Reverie Dawn armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: wizard_killer (no Mark management to learn)."
+      - "2nd: runner."
+      - "Quest run: do separately from a clear run."
+
+  # ====================================================================
+
+  - order: 4
+    slug: dul-incaru
+    name: "Dûl Incaru, the Eternal Return"
+    difficulty: hard
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Final boss. Hive Wizard with 3 Darkblade Knights as the damage gate.
+      Drop all 3 Knights → grab orbs (45s DPS window) → burst Dûl Incaru.
+      Knights have a crystal-shield mechanic — destroy crystals BUT crystals
+      also revive dead Knights.
+
+    setup: |
+      WHAT YOU SEE:
+      - Round chamber, Dûl Incaru floating center.
+      - 3 Darkblade Knight spawn alcoves (cardinal points).
+      - 2 Taken Psion groups spawn left + right at pull.
+      - Purple cleanse pedestal at the entry.
+      - Crystal shields may appear mid-encounter — large jagged structures.
+
+      PLATFORM MECHANICS:
+      - Kill the 2 Psion groups first (they'll murder you mid-orb-run otherwise).
+      - 3 Darkblade Knights spawn. Each kill drops an orb.
+      - Picking up orb = 45s damage-phase buff stacks (more buffs = more DPS).
+      - Dûl Incaru summons a crystal that makes living Knights IMMUNE.
+        Destroying crystal REVIVES dead Knights at full HP.
+      - Optimal: drop ALL 3 Knights low + simultaneously kill → grab all 3 orbs → max DPS.
+
+      START STATE: rally banner outside. Walk to crystal to engage.
+
+    callouts:
+      - when: "Psion group spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"[L/R] Psions — burn."'
+        why:  "Focus fire. Psion blast + adds = death."
+      - when: "Knights spawned"
+        from: "first to see"
+        to:   "team"
+        say:  '"3 Knights — pair up [N/S/E]."'
+        why:  "Assigns one Knight per player."
+      - when: "Knight low (~20% HP)"
+        from: "self"
+        to:   "team"
+        say:  '"My Knight LOW — holding."'
+        why:  "Sync the simultaneous kill."
+      - when: "Crystal summoned (Knights immune)"
+        from: "any"
+        to:   "team"
+        say:  '"CRYSTAL — break it now."'
+        why:  "Living Knights immune until crystal dies."
+      - when: "Sync kill"
+        from: "leader"
+        to:   "team"
+        say:  '"3, 2, 1, KILL."'
+        why:  "Synchronizes kill = 3 orbs in fast succession = max buff stacks."
+      - when: "Buffs stacked + ready"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — supers."'
+        why:  "Coordinated Super dump."
+
+    wipe_triggers:
+      - "Psion blast at point-blank."
+      - "Crystal-shield resurrect cycle — if you never break the crystal, Knights stay immune indefinitely."
+      - "Standing on cleanse pedestal too long (loses positioning)."
+      - "Holding 4 stacks of buff past expiry without DPS — wasted phase, encounter drags."
+
+    damage_phase_triggers:
+      - "3 Darkblade orbs picked up → 45s DPS window. Stacking 3 buffs = max damage multiplier."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Walk to crystal. Engage. Psion groups spawn L+R."
+      - phase: "Psion clear (~0:15)"
+        all: "Burst both Psion groups quickly."
+      - phase: "Knight chase (~0:30-1:30)"
+        all: "Assigned Knight per player. Burn to ~20%."
+      - phase: "Sync kill"
+        all: "Leader counts down. All 3 die together. Grab orbs in sequence."
+      - phase: "DPS (~1:35-2:20)"
+        all: "Drop Super (Thundercrash/Golden Gun + exotic for one-shot setup)."
+      - phase: "Reset"
+        all: "Psions + Knights respawn. Cycle."
+
+    permutations:
+      - name: "Standard 3-Knight 1-shot setup"
+        learner_friendly: true
+        summary: "Each player owns 1 Knight. Synchronize kill for orb stacks. Burst with Supers."
+        roles:
+          - id: knight_owner
+            count: 3
+            does: "Pre-assigned Knight. Burn to low, hold, sync kill."
+
+      - name: "Speed: Thundercrash / Celestial one-shot"
+        learner_friendly: false
+        summary: |
+          Build for max single-target damage: Titan (Thundercrash + Cuirass
+          of the Falling Star) OR Hunter (Golden Gun + Celestial Nighthawk
+          + Star-Eater Scales). 3 stacks of orb buff → Super into Dûl
+          Incaru's face → one-shot kill.
+        best_for: "Fast farming."
+        roles:
+          - id: one_shot_dps
+            count: 1
+            does: "Stays uninvolved in Knight kills; lines up Super for crystal phase."
+          - id: knight_killer
+            count: 2
+            does: "Drop all 3 Knights. Hand orbs to one_shot_dps."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          Take Knights one at a time. Use Devour/Resto sustain. Multiple
+          DPS phases. Bring Lament or Whisper/Sleeper for boss damage.
+        roles:
+          - id: solo
+            count: 1
+            does: "All mechanics in sequence. Patient."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing one Knight then chasing the others 'while orb is active' — Knight respawns via crystal, you waste buff."
+      - "Ignoring the crystal — Knights stay immune, no orbs."
+      - "Stepping on cleanse pedestal preemptively — only needed if you're carrying a Burden-style debuff (not standard here)."
+      - "Spreading Supers across phases instead of synchronizing — kills DPS efficiency."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (Dreaming City roll)"
+      hidden_chest: null
+      potential_drops:
+        - "Wish-Ender (exotic kinetic bow — from Hunter's Remembrance quest, not a random drop)"
+        - "Sleepless (rocket)"
+        - "Abide the Return (sword)"
+        - "Tigerspite (auto)"
+        - "Twilight Oath (sniper)"
+        - "Waking Vigil (HC)"
+        - "Reverie Dawn armor"
+        - "Dreaming City Ship (Cursebreaker seal)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: knight_owner with simple kit."
+      - "2nd: build for Super one-shot."
+      - "Solo: viable; expect 2-3 phases."
+
+# ========================================================================
+overall_notes:
+  - "Wish-Ender exotic bow: requires Hunter's Remembrance quest (3 hidden bosses across the dungeon — see encounter notes for each)."
+  - "Quest CANNOT be completed in same run as a normal clear if you kill Vorgeth before Xavoth — plan ahead."
+  - "Originally only available during Curse Week 3 in Dreaming City; post-Shadowkeep available any week."
+  - "Master version: not available."
+  - "Soloing: very doable. Dûl Incaru is the wall — Super one-shot strategies are the standard."

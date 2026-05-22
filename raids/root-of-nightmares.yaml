@@ -1,0 +1,1024 @@
+# raids/root-of-nightmares.yaml
+# Format v3 — adds per-encounter `setup` (what you see + platform mechanics)
+# and `callouts` (explicit who-says-what-to-whom protocol). Game-name
+# terminology throughout. No assumed knowledge — start from the beginning.
+# All loadout fields blank — to be filled via review.
+#
+# PASS 2 (multi-source synthesis, 2026-05): mechanics verified against
+# paracausality.com + screenrant + sportskeeda + mobalytics. Refuge rule
+# confirmed (shoot INACTIVE opposite-color node). Note that some guides
+# call inactive nodes "completed" — same thing, but the wording
+# confuses learners; see Nezarec common_mistakes.
+# Added: image slots per encounter (reserved for tomorrow's Discord upload).
+
+slug: root-of-nightmares
+name: Root of Nightmares
+activity_type: raid
+released:
+  expansion: Lightfall
+  year: 2023
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1810
+  master: 2020
+
+location: Essence — the Witness's terraformed Pyramid
+tags: [light, darkness, cabal, neomuna, nezarec]
+
+average_clear_time:
+  normal_experienced: "25-40 min"
+  normal_learning: "60-90 min"
+  master: "45-75 min"
+
+# =========================================================================
+overview:
+# =========================================================================
+  abstract: |
+    Cabal-themed raid in the Witness's command Pyramid. Built around two
+    paracausal buffs — Field of Light (white seeds) and Flux of Darkness
+    (dark seeds) — that you chain across the arena to gate boss damage.
+    Lots of nodes, lots of trails, simple mechanics. Often called "the
+    Crota's End of D2" because of how forgiving it is for first-clears.
+
+  bosses:
+    - name: "Cavum of Nezarec"
+      encounter: 1 (Cataclysm)
+      role: "Tormentor mini-boss. Killing it resets the wipe timer."
+    - name: "Zo'aurc, Explicator of Planets"
+      encounter: 3 (Macrocosm)
+      role: "Phase boss. Align planets, then damage him on matching-aura plate."
+    - name: "Nezarec, Final God of Pain"
+      encounter: 4 (final)
+      role: "Endboss. Chains + refuges + chest-aggro management."
+
+  recurring_mechanics:
+    - name: "Node of Splendor (white seed)"
+      brief: |
+        A small floating WHITE seed above a white-rippled patch of
+        floor. If it has a visible aura RING around it, it is ACTIVE.
+        Without a ring, it is INACTIVE. Walk INTO the aura ring of an
+        active node and shoot the seed (one shot, any weapon) to gain
+        the Field of Light buff (20s). The aura disappears immediately;
+        the next inactive node lights up with a faint white trail.
+
+    - name: "Node of Decay (dark seed)"
+      brief: |
+        Same as Node of Splendor but DARK seed above an orange-rippled
+        floor patch. Walk into the aura, shoot, gain Flux of Darkness
+        (20s). Used in encounters 2 and 4 only.
+
+    - name: "Linking a chain"
+      brief: |
+        Once you have Field of Light (or Flux of Darkness), find the
+        next INACTIVE seed of the matching colour — a faint trail
+        points to it from the spot you just lit. Shoot that inactive
+        seed (from anywhere — you don't need to stand on it). It
+        lights up as the new active node; the chain has advanced by
+        one. Your buff DROPS after linking. Refresh from the newly-
+        active node and continue.
+
+    - name: "Refuge mechanic"
+      brief: |
+        Encounter-4 only. To make Light's Refuge: while holding Flux
+        of Darkness, shoot an INACTIVE Node of Splendor. To make
+        Darkness's Refuge: while holding Field of Light, shoot an
+        INACTIVE Node of Decay. The refuge spawns at your feet as a
+        protective aura; standing in it blocks Nezarec's wipe pulse.
+        14-second buff. **Shooting an ACTIVE node gives you the
+        regular buff, NOT a refuge.** This is the #1 wipe cause in
+        encounter 4.
+
+    - name: "Wipe timer"
+      brief: |
+        Encounters 1, 2, and 4 each have a hidden completion timer.
+        Cataclysm = Sweeping Terror debuff. Scission = Imminent
+        Expulsion timer. Nezarec = Overwhelming Light / Resonance
+        pulses. Each is reset or paused by completing a sub-objective.
+
+  role_archetypes:
+    - id: runner
+      brief: "Moves between nodes; gains buff; links next node. High mobility."
+    - id: add-clear
+      brief: "Mid-arena anchor. Kills Cabal, Aspirants, Tormentors, Colossi."
+    - id: refuge-maker
+      brief: "Encounter 4 only. Reads Nezarec's shoulder-break tattoo; makes matching refuge before wipe pulse."
+    - id: hunted
+      brief: "Encounter 4 only. Breaks Nezarec's chest to absorb his aggro."
+    - id: planet-caller
+      brief: "Encounter 3 only. Kills Terrestrial Lieutenant for Planetary Insight; calls swaps."
+
+  sherpa_playbook:
+    - "1st-timer? **Add-clear in Cataclysm**. Lowest stakes; learn buff visuals."
+    - "2nd-timer? **Runner in Cataclysm** or **add-clear in Scission**. Builds movement."
+    - "3rd+? **Runner in Scission** (launchers) or **Planet-caller in Macrocosm**."
+    - "Save Nezarec hunted/refuge for run #4+. Stick newbies on add-clear there."
+    - "Pre-pull rule: name every role out loud EVERY encounter. Don't assume the prior encounter's assignments carry over."
+
+  loadout_general:
+    weapons:
+      - "**Anti-Barrier** (artifact or weapon perk). Barrier Colossi spawn in encounters 1, 2, 4. Mandatory."
+      - "**Add-clear primary** — Witherhoard, wave-frame GLs, or trace rifles clear Aspirant Psions before they split."
+      - "**Burst-DPS heavy** — short damage windows on Zo'aurc and Nezarec reward Two-Tailed Fox, Sleeper, linear fusions, sword swap."
+    armor_stats:
+      - "Runners: Mobility + Recovery."
+      - "Hunted (Nezarec): Resilience + Recovery. Restoration / Devour / Woven Mail all viable."
+      - "Refuge-makers: Discipline if your build leans grenade for emergency add-clear."
+    common_exotics:
+      - "Hunter: Stompees / Star-Eaters / Celestial Nighthawk / Athrys's Embrace."
+      - "Warlock: Heat Rises + Icarus Dash / Phoenix Protocol / Star-Eaters."
+      - "Titan: Lift jump / Synthoceps / Helm of Saint-14 / Cuirass of the Falling Star."
+
+  common_mistakes:
+    - "**Shooting an active node to make refuge.** Encounter 4 — refuge requires INACTIVE node + OPPOSITE buff."
+    - "**Forgetting to stand on the launcher before shooting the switch.** Encounter 2 — under-throw = death."
+    - "**Ignoring the Cavum of Nezarec.** Encounter 1 — the Tormentor extends the wipe timer. Drop everything to kill it."
+    - "**Not communicating Planet Swaps.** Encounter 3 — planets only move if BOTH halves of the swap interact within Planetary Shift."
+    - "**Re-breaking Nezarec's shoulders too early.** Wait for Overwhelming Energy windup; otherwise refuge-makers don't see the tattoo."
+
+# =========================================================================
+encounters:
+# =========================================================================
+
+  - order: 1
+    slug: cataclysm
+    name: Cataclysm
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      Build 4 Field of Light chains around the arena. Kill the Cavum of
+      Nezarec when it spawns to reset the Sweeping Terror wipe timer.
+
+    setup: |
+      WHAT YOU SEE
+      - Centre: a floating SARCOPHAGUS (it holds Nezarec's head).
+        Don't shoot it. It's the wipe-pulse source.
+      - Perimeter: 6-8 patches of WHITE-RIPPLED FLOOR. Above each
+        patch floats a small WHITE SEED — these are Nodes of
+        Splendor. One starts ACTIVE (visible aura ring); the rest are
+        INACTIVE (seed only).
+      - Side stairs and elevated platforms ring the arena. Safe to
+        post up on.
+
+      PLATFORM MECHANICS
+      - To gain Field of Light: walk INTO the aura ring of an active
+        node, then shoot the seed. You do NOT need to stay inside
+        afterward — the 20-second buff is on you regardless of
+        position. Just leave the aura and run to the next node.
+      - To LINK: aim at the next inactive seed (look for the faint
+        white trail from the last lit one) and shoot it. You can
+        shoot from any distance — no need to walk to it. The buff
+        drops when you successfully link.
+      - Multiple players can ALL gain Field of Light from the same
+        node-shot if they're inside the aura ring at the same time.
+        Useful when ferrying buff to add-clear for buffed-add cleanup
+        (Cataclysm has no buffed adds; relevant in Scission).
+
+      START STATE
+      - Encounter does NOT begin until the first active node is shot.
+        Use this to set positions and confirm roles before pulling.
+
+    callouts:
+      - when: "About to shoot the first active node"
+        from: runner-1
+        to:   team
+        say:  '"Pulling — first node going up."'
+        why:  "Encounter starts the moment that node is shot; everyone wants to be in position."
+
+      - when: "Two Aspirants of Nezarec (bubble Psions) spawn"
+        from: add-clear
+        to:   team
+        say:  '"Aspirants up — left and right!"'
+        why:  "Tells runners that a Cavum + Barrier Colossus is coming. Refresh buff now so add-clear can grab Field of Light to assist if needed."
+
+      - when: "Cavum of Nezarec (Tormentor) appears"
+        from: any
+        to:   team
+        say:  '"Cavum spawned — drop it!"'
+        why:  "Top priority kill. Resets Sweeping Terror. Everyone else can pause add-clear briefly to help."
+
+      - when: "Cavum dies"
+        from: any
+        to:   team
+        say:  '"Cavum down — timer reset."'
+        why:  "Tells runners they can continue the chain at pace, not rush."
+
+      - when: "A Field of Light chain completes"
+        from: runner who completed it
+        to:   team
+        say:  '"Chain 1 done. 3 to go."'
+        why:  "Keeps everyone aware of progress. After chain 4, encounter ends."
+
+    wipe_triggers:
+      - "Sweeping Terror timer expires → sarcophagus pulse kills team."
+      - "Standing in front of Cavum of Nezarec's grab attack."
+
+    damage_phase_triggers:
+      - "Completing the 4th chain ends the encounter. No separate damage phase."
+
+    parallel_timeline:
+      - phase: "Pull (0:00)"
+        runner_1:    "Walk to first active node's aura ring → shoot seed → get Field of Light → look for the faint white trail → run toward the next inactive node."
+        runner_2:    "Same. Pick the second active node, opposite side of the room from runner_1."
+        add_clear_4: "Hold centre. Kill Legionaries and Phalanxes as they spawn from the perimeter doors."
+
+      - phase: "First Aspirant wave (~0:45)"
+        runner_1:    "Link the inactive node you've been running to → buff drops → refresh from the newly-lit node → move on."
+        runner_2:    "Same."
+        add_clear_4: "Two BUBBLE-SHIELDED PSIONS (Aspirants of Nezarec) spawn at the perimeter. Kill BOTH — a Cavum + Barrier Colossus then spawn together."
+
+      - phase: "Cavum spawn (~1:15)"
+        runner_1:    "Keep chaining. Don't engage Cavum unless you're already buff-less and nearby."
+        runner_2:    "Same."
+        add_clear_4: "**Drop the Cavum FIRST** (resets the timer). Then the Barrier Colossus. Then back to ads."
+
+      - phase: "Chains complete (varies)"
+        all:         "Sarcophagus opens. Loot chest. Walk toward the next area (Scission)."
+
+    permutations:
+      - name: "Standard 2 Runners / 4 Add-Clear"
+        learner_friendly: true
+        summary: "Default split. Two runners share node load; four hold centre + drop Cavum + Colossi."
+        roles:
+          - id: runner
+            count: 2
+            does: "Pick up Field of Light, link next inactive node, refresh, repeat. Split arena front/back or left/right with the other runner so you don't double up."
+            loadout: ""
+          - id: add-clear
+            count: 4
+            does: "Hold centre. Kill ads. Priority chain when Aspirants appear: Aspirants → Cavum → Barrier Colossus → back to ads."
+            loadout: ""
+
+      - name: "4 Runners / 2 Add-Clear (Mechanics-Heavy)"
+        summary: "Each runner handles 1-2 links per chain. Two players are dedicated Cavum killers. Slower DPS but lighter individual mechanic load."
+        best_for: "Master / Contest, low-power teams."
+        roles:
+          - id: runner
+            count: 4
+            does: "Zone-assigned (front-left / front-right / back-left / back-right). Take only your zone's links."
+            loadout: ""
+          - id: cavum-killer
+            count: 2
+            does: "Aspirants → Cavum → Barrier Colossus. Nothing else."
+            loadout: ""
+
+      - name: "Jump-Minimizer (fixed-path runners)"
+        summary: "Each runner pre-walks a fixed 3-4 node loop. Less platforming. Lower mobility builds welcome."
+        roles:
+          - id: fixed-path-runner
+            count: 2
+            does: "Stay on your pre-walked path. Team coordinates chain order to match your route."
+            loadout: ""
+          - id: add-clear
+            count: 4
+            does: "Same as Standard."
+            loadout: ""
+
+    cheese:
+      - title: "Side-perch holdout for add-clear"
+        detail: |
+          Add-clear can post up on the side stairs / elevated perches
+          around the arena perimeter. Most ads path to the centre, so
+          a high side position avoids melee/grab range. Cost: slightly
+          worse line of sight on the Cavum spawn — designate one
+          player to call its spawn position out loud.
+
+    common_mistakes:
+      - "Killing one Aspirant of Nezarec but not the other → Cavum doesn't spawn → Sweeping Terror expires."
+      - "Range-killing Aspirants — they split into 2 weaker Psions if shot at range; close-range or melee kills don't split."
+      - "Runner shoots the WRONG seed → the trail breaks → chain has to be restarted from the last lit node."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon (encounter-specific drop pool)."
+      hidden_chest: null
+      potential_drops:
+        - "Rufus's Fury (auto rifle)"
+        - "Mykel's Reverence (sidearm)"
+        - "Nessa's Oblation (shotgun)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: add-clear. Just kill stuff and watch the buff flow."
+      - "2nd: runner."
+      - "3rd+: Jump-Minimizer fixed-path runner, or move on."
+
+# -------------------------------------------------------------------------
+
+  - order: 2
+    slug: scission
+    name: Scission
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Climb 3 vertical floors split by an un-jumpable chasm. Per floor:
+      complete one Field of Light chain AND one Flux of Darkness chain
+      before Imminent Expulsion expires. Use launchers to cross the
+      chasm and ascend. Floor 3 chains complete = encounter done.
+
+    setup: |
+      WHAT YOU SEE
+      - Arena divided down the middle by a deep CHASM. Left side and
+        right side each have their own nodes.
+      - 3 floors stacked vertically. You start on floor 1. The chasm
+        and floors are visible above you.
+      - On floor 1: 2 active Nodes of Splendor (one per side) and 2
+        active Nodes of Decay (one per side). Inactive nodes (no aura)
+        are scattered further down the floor.
+      - At the far end of each side floor: a LAUNCHER — a small
+        Pyramid platform with a glowing arrow. In front of each
+        launcher: a small PYRAMID SWITCH (a button you shoot).
+
+      PLATFORM MECHANICS
+      - Launchers DO NOT shoot you across automatically. You must:
+          1. SPRINT onto the launcher and STAND on it.
+          2. WHILE STANDING ON IT, shoot the small switch in front
+             of it.
+          3. The launcher fires you across the chasm to the
+             corresponding spot on the other side.
+        If you shoot the switch while floating ABOVE the launcher (mid-
+        jump), or NEXT to it, the launcher under-throws and you die in
+        the chasm.
+      - Buffs CAN be shared. If a runner refreshes Field of Light from
+        an active node, anyone INSIDE THE AURA at the same moment also
+        gets the buff. Use this to ferry buffs to add-clear for
+        Redolence cleanup without an extra launcher trip.
+      - The Imminent Expulsion timer pauses ONLY when BOTH chains on
+        the current floor complete — not just one. Both colours must
+        finish before the timer resets.
+
+      START STATE
+      - Encounter starts the moment anyone shoots the first active
+        node on floor 1. Position both runners and the floaters
+        before pulling.
+
+    callouts:
+      - when: "Pre-pull, before anyone shoots an active node"
+        from: lead
+        to:   team
+        say:  '"Light runner on [left|right], Dark runner on [opposite side]. Floaters mid."'
+        why:  "Establishes sides so runners don't collide and floaters know who to back up."
+
+      - when: "About to shoot first active node"
+        from: light-runner-side
+        to:   team
+        say:  '"Pulling — Light chain starting."'
+        why:  "Timer starts; everyone wants to be in position."
+
+      - when: "A Redolence of Splendor (Light-aura Cabal) appears"
+        from: floater
+        to:   light-runner-side
+        say:  '"Redolence Light at [position] — need Field of Light over here."'
+        why:  "Redolence of Splendor can only be damaged by Field of Light. Tells runner to refresh buff in your aura on their next pass."
+
+      - when: "A Redolence of Decay (Dark-aura Cabal) appears"
+        from: floater
+        to:   dark-runner-side
+        say:  '"Redolence Dark at [position] — need Flux of Darkness."'
+        why:  "Mirror — Redolence of Decay requires Flux of Darkness to damage."
+
+      - when: "Barrier Colossus appears near end of chain"
+        from: any
+        to:   floater
+        say:  '"Barrier up at [side]!"'
+        why:  "Anti-Barrier required. Floater swaps to Anti-Barrier weapon and drops it."
+
+      - when: "Light chain on current floor completes"
+        from: light-runner-side
+        to:   team
+        say:  '"Light done [floor #]."'
+        why:  "Half the floor is clear. Track progress toward Imminent Expulsion reset."
+
+      - when: "Dark chain completes"
+        from: dark-runner-side
+        to:   team
+        say:  '"Dark done [floor #]. Timer should pause."'
+        why:  "If timer doesn't pause, a node was mis-linked and the chain isn't actually complete — verify before launcher."
+
+      - when: "Aura-Cabal wave spawns after both chains"
+        from: any
+        to:   team
+        say:  '"Aura wave — grab buffs and clear."'
+        why:  "Reminder to pick up matching buffs from your runner's aura before engaging."
+
+      - when: "Launcher switch lights up at the far end"
+        from: any
+        to:   team
+        say:  '"Switch is up — going up."'
+        why:  "Everyone moves to launchers. One at a time per launcher (you can clip into each other and ruin the jump if you stack)."
+
+    wipe_triggers:
+      - "Imminent Expulsion expires → Pyramid walls push everyone into the chasm."
+      - "Shooting the launcher switch while NOT standing on the launcher → under-throw → death in chasm."
+      - "Nezarec wipe pulse during the post-encounter traversal — need Darkness's Refuge to survive."
+
+    damage_phase_triggers:
+      - "Floor 3 chains complete → encounter ends. No separate damage phase."
+
+    parallel_timeline:
+      - phase: "Floor 1 pull"
+        light_runner:  "Walk to your side's active Node of Splendor (white seed). Shoot → Field of Light. Follow trail to inactive Node of Splendor → shoot to link → refresh → continue."
+        dark_runner:   "Walk to your side's active Node of Decay (dark seed). Shoot → Flux of Darkness. Same flow with Nodes of Decay."
+        add_clear_4:   "Hold mid-floor on each side. Kill Cabal waves. Save Anti-Barrier ammo — Colossus comes at end of chain."
+
+      - phase: "Mid-floor (~0:30)"
+        light_runner:  "Mid-chain. Refresh, link, repeat."
+        dark_runner:   "Mid-chain."
+        add_clear_4:   "Redolence-shielded Cabal start spawning. Call out colours; grab matching buff from runner's aura on their next pass."
+
+      - phase: "Both chains complete on current floor"
+        all:           "Imminent Expulsion halts. Aura-Cabal wave spawns — kill with matching buffs (Light buff kills Decay-shielded, Dark buff kills Splendor-shielded)."
+
+      - phase: "Launcher switch active"
+        all:           "Run to far-end launcher on your side. STAND ON IT. Shoot the switch. Get launched up to floor 2."
+
+      - phase: "Floors 2 + 3"
+        all:           "Identical to floor 1 except node layout is more vertical. Faster pacing because everyone knows the flow now."
+
+      - phase: "Post-encounter traversal (Cataclysm overgrown)"
+        all:           "Open the Tree of Silver Wings root using one of each buff. Then **Nezarec starts wipe pulses**: make Darkness's Refuge (get Field of Light → shoot INACTIVE Node of Decay) to survive. All 6 must reach the door."
+
+    permutations:
+      - name: "Standard 1 Light + 1 Dark Runner per side, 2 Floaters"
+        learner_friendly: true
+        summary: "Split 3-and-3 across sides. Each side has its own Light runner + Dark runner. Two floaters handle anti-Barrier and Redolence cleanup."
+        roles:
+          - id: light-runner-side
+            count: 2
+            does: "Build the Light chain on your side. Stay on side as much as possible."
+            loadout: ""
+          - id: dark-runner-side
+            count: 2
+            does: "Build the Dark chain on your side."
+            loadout: ""
+          - id: floater
+            count: 2
+            does: "Anti-Barrier for Colossus + Redolence cleanup + Refuge backup."
+            loadout: ""
+
+      - name: "Jump-Minimizer (no chasm crossings during chains)"
+        summary: "Pre-assigned no-crossing rule. One dedicated launcher player handles all chasm trips. Other 5 stay on their side."
+        roles:
+          - id: side-locked-runner
+            count: 4
+            does: "Light + Dark runners. Never cross the chasm during chains — work only your assigned side."
+            loadout: ""
+          - id: launcher-jumper
+            count: 1
+            does: "Only player who uses launchers between sides. Removes failure points."
+            loadout: ""
+          - id: floater
+            count: 1
+            does: "Anti-Barrier + Redolence cleanup."
+            loadout: ""
+
+      - name: "Underman (4-Person Variant)"
+        summary: "Doable with 2-4 players. With 4: one Light + one Dark runner per side, each also doing add-clear."
+        best_for: "Underman challenge runs, low-roster nights."
+        roles:
+          - id: hybrid-runner
+            count: 4
+            does: "Build chain + clear ads between buff refreshes."
+            loadout: ""
+
+    cheese:
+      - title: "Launcher pre-positioning"
+        detail: |
+          Sprint onto the launcher BEFORE the switch is shootable. The
+          moment it lights up, fire and go. Cuts ~1s per crossing —
+          adds up across 3 floors.
+
+    common_mistakes:
+      - "Shooting the launcher switch while floating above it → under-throw → fall."
+      - "Letting a Redolence-shielded enemy live → it tanks damage and runs the clock."
+      - "Refuge confusion during post-encounter traversal — shooting an ACTIVE Light node instead of inactive."
+      - "Both runners pushing the same chain side → other side never finishes."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest:
+        location: |
+          Post-encounter-1 traversal. Look for a side path off the
+          main route. Past the first staircase, head DOWN instead of
+          through the rectangular hole leading into encounter 2. The
+          chest contains the first Deepsight puzzle seed (see
+          overall_notes for the full puzzle).
+        rewards:
+          - "Spoils of Conquest (×1)"
+          - "First of 3 Deepsight puzzle seeds"
+      potential_drops:
+        - "Acasia's Dejection (trace rifle)"
+        - "Koraxis's Distress (heavy GL)"
+        - "Briar's Contempt (linear fusion)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: floater. Lowest mechanic load."
+      - "2nd: light-runner-side or dark-runner-side."
+      - "3rd+: launcher-jumper in Jump-Minimizer."
+
+# -------------------------------------------------------------------------
+
+  - order: 3
+    slug: macrocosm
+    name: Macrocosm
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      Fight Zo'aurc by aligning planets. Three phases: (1) swap
+      mismatched planets between paired triangular platforms; (2) move
+      correct-coloured planets to 3 central plates; (3) damage Zo'aurc
+      by touching the plate matching his shield aura. Loop until dead.
+
+    setup: |
+      WHAT YOU SEE
+      - Large planetarium room. Floating planet models hang around the
+        perimeter and in the centre.
+      - 4 large TRIANGULAR PLATFORMS — two UPPER (left + right), two
+        LOWER (left + right). Each platform has a few planet models
+        suspended above it.
+      - On each triangular platform: a TERRESTRIAL LIEUTENANT (Cabal
+        Colossus) spawns when the encounter triggers.
+      - Centre of the room: a raised pedestal where Zo'aurc, Explicator
+        of Planets, stands.
+      - Lower floor centre: 3 PLATES that will reveal themselves during
+        the central alignment phase.
+      - Near each planet model: a small ORB on the platform's floor
+        beneath it (interaction point for swapping).
+
+      PLATFORM MECHANICS
+      - Triangular platforms: stand ON them to access their planets and
+        the Lieutenant kill. You don't have to stay — once you have
+        Planetary Insight and Planetary Affinity from the Lieutenant
+        kill, the buffs travel with you for ~30s.
+      - Damage plates (centre): you only need to TOUCH a plate once to
+        get the matching buff (Field of Light or Flux of Darkness).
+        You do NOT need to stand on it during DPS — move freely.
+      - When you INTERACT with a planet's orb, a Planetary Shift timer
+        appears on your HUD. The planet moves when the timer expires.
+        Both halves of a mutual swap must interact within their
+        respective Planetary Shift windows; otherwise the planet
+        returns to its original spot.
+
+      START STATE
+      - Two Solar-shielded Centurions spawn near Zo'aurc at the encounter
+        start. Killing both triggers the rest of the encounter (Lieutenant
+        spawns).
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"Corners: upper-left = [name], upper-right = [name], lower-left = [name], lower-right = [name]. Floaters = [names]."'
+        why:  "Each triangular platform needs a designated caller. Pair structure is fixed: upper-left coordinates with upper-right ONLY; lower-left with lower-right ONLY. Don't mix."
+
+      - when: "Encounter starts (Centurions spawn near Zo'aurc)"
+        from: any
+        to:   team
+        say:  '"Centurions up — burn them."'
+        why:  "Killing both spawns the four Terrestrial Lieutenants."
+
+      - when: "Terrestrial Lieutenants spawn on the 4 triangular platforms"
+        from: each corner-caller
+        to:   their pair partner
+        say:  '"Lieutenant down [position] — Insight up."'
+        why:  "Confirms you have Planetary Insight and can read planet colours on your platform."
+
+      - when: "Caller identifies a mismatched planet"
+        from: corner-caller (e.g. upper-left)
+        to:   pair partner ONLY (upper-right)
+        say:  '"Upper-left — third planet from the front, LIGHT. Swap with you."'
+        why:  "Tells partner to look for THEIR third-from-front planet (or whichever needs to swap). Both partners must interact with their respective orbs within Planetary Shift."
+
+      - when: "Pair partner confirms swap"
+        from: pair partner (e.g. upper-right)
+        to:   the original caller
+        say:  '"Got it — interacting now."'
+        why:  "Confirms the mutual swap is happening. Both planets move when both timers expire."
+
+      - when: "Side alignment complete (all swaps done)"
+        from: lead
+        to:   team
+        say:  '"Side phase clear — central plates revealing."'
+        why:  "Re-kill respawning Lieutenants for fresh Planetary Insight. Phase 2 begins."
+
+      - when: "Central plates revealed"
+        from: any with Planetary Insight
+        to:   swappers
+        say:  '"Left plate = LIGHT, middle = DARK, right = LIGHT."'
+        why:  "Tells swappers which colour of planet to move to which central plate. Mismatched colour = planetary collision wipe."
+
+      - when: "Zo'aurc drops to lower level with Light or Dark aura"
+        from: any
+        to:   team
+        say:  "\"Zo'aurc down — LIGHT aura. Touch left plate.\""
+        why:  "Everyone needs to know which damage plate to touch to enable damage on Zo'aurc."
+
+      - when: "Flame twister telegraph (Zo'aurc winds up the aura flip)"
+        from: any
+        to:   team
+        say:  '"Flip incoming — switch to DARK plate."'
+        why:  "Pre-empt the flip so DPS doesn't drop during the transition."
+
+      - when: "Damage phase ending / Zo'aurc re-immunes"
+        from: any
+        to:   team
+        say:  '"Re-immune. Back to corners."'
+        why:  "Loop reset. Lieutenants will respawn."
+
+    wipe_triggers:
+      - "Side alignment too slow → Zo'aurc mis-aligns planets → planetary collision wipes team."
+      - "Wrong-coloured planet placed on a centre plate → planetary collision wipe."
+      - "Final Stand timer expires."
+
+    damage_phase_triggers:
+      - "Both side AND central alignments complete → Zo'aurc drops to lower level with a Light or Dark aura → damage opens."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all:                "Two Solar-shielded Centurions spawn near Zo'aurc. Floaters burn them."
+
+      - phase: "Lieutenants spawn (~0:15)"
+        upper_callers_2:    "Kill Terrestrial Lieutenant on your platform → Planetary Insight + Planetary Affinity."
+        lower_callers_2:    "Same on your platform."
+        floaters_2:         "Add-clear (Psions everywhere; bubble Aspirants split if shot at range)."
+
+      - phase: "Phase 1 — side alignment"
+        upper_callers_2:    "Compare upper-left vs upper-right ONLY. Call out mismatched planet positions to your pair partner. Interact with your orb within Planetary Shift; partner does the same."
+        lower_callers_2:    "Same — lower pair only coordinates with the other lower platform, NOT with upper."
+        floaters_2:         "Continue add-clear. Prep for phase 2."
+
+      - phase: "Phase 2 — central alignment"
+        all:                "Centre plates appear. Re-kill respawning Lieutenants for fresh Insight + Affinity. Move correct-coloured planets to matching plates. WRONG colour = wipe."
+
+      - phase: "Damage phase"
+        all:                "Zo'aurc drops with aura. Touch matching plate → buff → damage Zo'aurc. Aura FLIPS mid-DPS (flame twister telegraph) → switch to opposite plate."
+
+      - phase: "Cycle"
+        all:                "After 3 plate-cycles he re-immunes. Loop back to Lieutenants."
+
+      - phase: "Final Stand"
+        all:                "Nonstop damage with rotating shield matching. Race the planet-collision timer."
+
+    permutations:
+      - name: "Standard 4-Corners + 2 Floaters"
+        learner_friendly: true
+        summary: "One player on each of the 4 triangular platforms. Top pair coordinates, bottom pair coordinates. Two floaters for Centurions + adds + DPS."
+        roles:
+          - id: corner-caller
+            count: 4
+            does: "Lieutenant kill → Planetary Insight → callout to pair partner ONLY → swap planets via your orb within Planetary Shift."
+            loadout: ""
+          - id: floater
+            count: 2
+            does: "Burn Centurions at start. Continuous add-clear. During DPS, touch matching plate and damage."
+            loadout: ""
+
+      - name: "2-Caller (only 2 read planets)"
+        summary: "Just upper-caller + lower-caller take Planetary Insight. The other 4 swap on command — anyone with Planetary Affinity can swap, so the callers grant Affinity by hitting the Lieutenants but call from a single platform per tier."
+        best_for: "Mixed-experience teams, teaching first-timers."
+        roles:
+          - id: upper-caller
+            count: 1
+            does: "Take both upper Terrestrial Lieutenants. Read upper planet colours. Call upper-pair swaps."
+            loadout: ""
+          - id: lower-caller
+            count: 1
+            does: "Take both lower Terrestrial Lieutenants. Read lower planet colours. Call lower-pair swaps."
+            loadout: ""
+          - id: swapper
+            count: 2
+            does: "Listen for callout. Sprint to named platform. Interact with orb within Planetary Shift window."
+            loadout: ""
+          - id: floater
+            count: 2
+            does: "Centurions + add-clear + DPS."
+            loadout: ""
+
+      - name: "Paired-Side Permanent"
+        summary: "Each player owns one platform for the whole encounter. Two central DPS handle Centurions, ads, central-phase planet moves, and damage phase."
+        roles:
+          - id: platform-permanent
+            count: 4
+            does: "Stay on your assigned triangular platform. Lieutenant + Insight + swap on call from your pair partner."
+            loadout: ""
+          - id: central-dps
+            count: 2
+            does: "Centurions, ads, central-phase planet moves, damage phase."
+            loadout: ""
+
+    cheese:
+      - title: "Burst-DPS over sustained"
+        detail: |
+          Damage windows are short (~10-15s per plate before the
+          aura flip). Burst-heavy loadouts hit harder than sustained
+          DPS. Two-Tailed Fox + heavy ammo, Sleeper Simulant, linear
+          fusion rifles all top the charts here. Be ready to burst,
+          reposition for the flip, burst again.
+
+    common_mistakes:
+      - "Upper player calling out to a lower player (or vice versa). Pair structure is strict: upper-left ↔ upper-right ONLY; lower-left ↔ lower-right ONLY."
+      - "Interacting with an orb that has no mutual swap partner → planet returns → wasted Planetary Shift."
+      - "Standing on the damage plate trying to maintain the buff. You only need to TOUCH once; then move freely."
+      - "Not communicating planet POSITION specifically. 'The light one' isn't enough — say 'third from front, light'."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest:
+        location: |
+          During post-Scission traversal (the section with Darkness's
+          Refuge wipes). Instead of turning RIGHT into the temple-like
+          complex, turn LEFT toward a floating platform. The chest sits
+          on the floating platform. Contains the 2nd of 3 Deepsight
+          puzzle seeds (see overall_notes).
+        rewards:
+          - "Spoils of Conquest (×1)"
+          - "Second of 3 Deepsight puzzle seeds"
+      potential_drops:
+        - "Nessa's Oblation (shotgun) — emphasized at this encounter."
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: floater in Standard. No Planetary Insight pressure."
+      - "2nd: swapper in 2-Caller. Learn the swap timing without callouts."
+      - "3rd+: corner-caller in Standard."
+
+# -------------------------------------------------------------------------
+
+  - order: 4
+    slug: nezarec
+    name: "Nezarec, Final God of Pain"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Two-side arena. Build a Field of Light chain on one side AND a
+      Flux of Darkness chain on the other. Survive Overwhelming Energy
+      wipes with Light's Refuge or Darkness's Refuge (cued by Nezarec's
+      shoulder-break tattoo). One player breaks his chest to absorb
+      aggro. Both chains complete → DPS phase. Loop until Final Stand.
+
+    setup: |
+      WHAT YOU SEE
+      - Arena is split into two halves by Nezarec's central perch.
+        LEFT SIDE has Nodes of Splendor (white). RIGHT SIDE has Nodes
+        of Decay (dark). (Or reversed — confirm with team's callout
+        convention at pull.)
+      - Nezarec stands on a central RAISED PLATFORM. He starts in his
+        sarcophagus; approaching it triggers him to break out and
+        start the encounter.
+      - Final seed spots are at the FAR END of each side. These are
+        the "stack here for DPS" locations.
+
+      PLATFORM MECHANICS
+      - Refuge bubbles spawn AT YOUR FEET when you successfully create
+        one. Stand IN the bubble to survive the wipe. The bubble
+        persists; the buff on you lasts 14s. Re-approaching the
+        bubble re-applies the buff.
+      - During DPS phase, do NOT stand on the central raised platform.
+        Nezarec teleport-slams there. Move to the final seed spot of
+        whichever chain side completed last and stack.
+      - Hunted's chest break works at any range — line of sight is
+        what matters. Aggro pulls instantly once chest breaks.
+
+      START STATE
+      - Encounter doesn't start until anyone approaches Nezarec's
+        sarcophagus. Use the buffer time to confirm role assignments,
+        side conventions, and refuge-side responsibility.
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"Hunted = [name]. Light runner = [name] on LEFT. Dark runner = [name] on RIGHT. Refuge-makers: left = [name], right = [name]. Floater = [name]. Side names: LEFT is LIGHT, RIGHT is DARK."'
+        why:  "Locks side conventions so future callouts (Refuge LEFT, Chain RIGHT, etc.) are unambiguous. Side mixing is a wipe."
+
+      - when: "Hunted breaks Nezarec's chest for first time"
+        from: hunted
+        to:   team
+        say:  '"Aggroed — chest broken."'
+        why:  "Tells refuge-makers and runners that Nezarec is focused on hunted, so they're safer to mechanic."
+
+      - when: "Nezarec begins Overwhelming Energy windup (back glows)"
+        from: any
+        to:   team
+        say:  '"Windup — shoulders coming."'
+        why:  "Refuge-makers prep to read the tattoo. Runners pause to refresh buffs that may convert to refuge."
+
+      - when: "Both Nezarec shoulders broken; tattoo appears"
+        from: shoulder-breaker (usually hunted or designated)
+        to:   refuge-makers
+        say:  '"[LIGHT|DARK] tattoo — need [DARK|LIGHT] refuge!"'
+        why:  "Tattoo colour tells refuge-makers which refuge to build. NOTE: Light tattoo means Overwhelming Light is coming, so you need DARKNESS''s Refuge. Always opposite."
+
+      - when: "Refuge created on a side"
+        from: refuge-maker
+        to:   team
+        say:  '"[LEFT|RIGHT] refuge up."'
+        why:  "Tells teammates where to run for safety. If only one side gets a refuge, everyone collapses there."
+
+      - when: "Nezarec's Hatred targets a player (psionic blast under feet)"
+        from: targeted player
+        to:   team
+        say:  '"Hatred on me — moving!"'
+        why:  "Targeted player must move; hunted re-breaks chest to pull aggro back."
+
+      - when: "Light chain complete"
+        from: light-runner
+        to:   team
+        say:  '"Light done. Stacking final seed left."'
+        why:  "Confirms one chain is done; tells team where to stack for DPS."
+
+      - when: "Dark chain complete"
+        from: dark-runner
+        to:   team
+        say:  '"Dark done. Vulnerable incoming."'
+        why:  "Both chains complete → orange beam → Nezarec vulnerable. Everyone collapses to final seed spot of last-completed side."
+
+      - when: "Damage phase ending (Nezarec preparing suppression slam)"
+        from: any
+        to:   team
+        say:  '"Re-immune incoming — return to start positions."'
+        why:  "Loop reset. Reposition before the suppression slam catches anyone."
+
+    wipe_triggers:
+      - "Caught without correct refuge when Overwhelming Light or Overwhelming Darkness fires."
+      - "Final Stand timer expires."
+      - "Nezarec's Hatred psionic blast launches you off the map (rare, but possible from bad spawn)."
+
+    damage_phase_triggers:
+      - "Both Light + Dark chains completed → orange beam from sarcophagus → Nezarec vulnerable for ~15s."
+
+    parallel_timeline:
+      - phase: "Pull (encounter triggers when sarcophagus approached)"
+        hunted:           "Walk into Nezarec's view → break his chest weak point → aggro pulls onto you."
+        light_runner:     "Move to LEFT side's first active Node of Splendor. Start chain."
+        dark_runner:      "Move to RIGHT side's first active Node of Decay. Start chain."
+        refuge_makers_2:  "Stay loose. Position near INACTIVE nodes on your assigned side."
+        floater:          "Add-clear. Colossi, War Beasts, Legionaries spawning."
+
+      - phase: "First Nezarec's Hatred + add wave (~0:30)"
+        hunted:           "Keep breaking chest. If aggro drops to another player (Hatred psionic blast under their feet), re-break to pull back."
+        light_runner:     "Continue Light chain."
+        dark_runner:      "Continue Dark chain."
+        refuge_makers_2:  "Pre-position by inactive nodes. Watch Nezarec's back for glow."
+        floater:          "Continuous add-clear."
+
+      - phase: "Overwhelming Energy windup (Nezarec's back glows white)"
+        hunted:           "Stay aggroed; break shoulders WHEN runners give the signal — too early hides the tattoo."
+        light_runner:     "Pause chain at next refresh; your active buff can convert to a refuge."
+        dark_runner:      "Same."
+        refuge_makers_2:  "Move to your inactive node. Wait for tattoo read."
+
+      - phase: "Shoulders broken — tattoo visible"
+        all:              "Read the tattoo colour. LIGHT tattoo → make DARKNESS's Refuge. DARK tattoo → make LIGHT's Refuge. Refuge-makers shoot inactive node with OPPOSITE buff in hand."
+
+      - phase: "Refuge created; wipe fires; survived"
+        all:              "Stand in refuge bubble. Re-approach the refuge seed if buff expires before wipe."
+
+      - phase: "Both chains complete → vulnerability"
+        all:              "Orange beam from sarcophagus. Stack on final seed spot of the LAST-completed side. Nezarec can't teleport behind you there. DPS for ~15s."
+
+      - phase: "Loop / Final Stand"
+        all:              "Nezarec re-immunes with a suppression slam → return to start positions. Final Stand: Nezarec turns black with Resonant energy; race his timer."
+
+    permutations:
+      - name: "Standard 1 Hunted / 2 Runners / 2 Refuge / 1 Floater"
+        learner_friendly: false
+        summary: "Default. One chest-breaker; two side-runners; two refuge-makers (one per side); one floater for ads + backup."
+        roles:
+          - id: hunted
+            count: 1
+            does: "Break Nezarec's chest. Take aggro. Stay alive. Re-break if Nezarec retargets."
+            loadout: ""
+          - id: light-runner
+            count: 1
+            does: "Left side. Build Field of Light chain."
+            loadout: ""
+          - id: dark-runner
+            count: 1
+            does: "Right side. Build Flux of Darkness chain."
+            loadout: ""
+          - id: refuge-maker
+            count: 2
+            does: "One per side. Read shoulder-break tattoo. Make matching refuge with OPPOSITE buff + INACTIVE node."
+            loadout: ""
+          - id: floater
+            count: 1
+            does: "Ad-clear. Refuge backup if a refuge-maker dies before wipe."
+            loadout: ""
+
+      - name: "2 Hunted Tag-Team"
+        summary: "Two players alternate chest-breaks so aggro never fully drops. Lighter individual mechanic load."
+        best_for: "Master / Contest where Nezarec's Hatred is more punishing."
+        roles:
+          - id: primary-hunted
+            count: 1
+          - id: secondary-hunted
+            count: 1
+            does: "Break chest when primary dies or disengages."
+            loadout: ""
+          - id: light-runner
+            count: 1
+          - id: dark-runner
+            count: 1
+          - id: refuge-maker
+            count: 2
+
+      - name: "Stack-DPS Variant"
+        summary: "All 6 collapse onto final seed spot of last-completed chain side during vulnerability. Removes Nezarec's teleport-behind threat."
+        best_for: "Faster damage phases, fewer cycles."
+        roles:
+          - id: standard-positions
+            count: 6
+            does: "Standard mechanics during chain-building. All collapse to final seed location for DPS."
+            loadout: ""
+
+    cheese:
+      - title: "Back-wall corner DPS"
+        detail: |
+          During the vulnerability window, hide against the FAR WALL
+          off the main platform Nezarec stands on. At that range he's
+          limited to projectile attacks — all dodgeable, and the wall
+          / terrain blocks most of them. Spam DPS from cover. Trades
+          some uptime for near-zero death risk. Best with linear
+          fusions, Sleeper, 1000 Voices, or a sword swap.
+      - title: "Refuge buff stacking"
+        detail: |
+          Approach your refuge seed BEFORE the wipe pulse fires to
+          extend the 14s buff. You can re-tap the refuge bubble
+          multiple times before the pulse arrives if you started
+          early enough.
+
+    common_mistakes:
+      - "**Shooting an active node for refuge** — biggest wipe cause. Refuge requires INACTIVE node + OPPOSITE buff in hand. Active node = regular buff only."
+      - "**Terminology trap**: some guides say 'completed node' (= already chained, now INACTIVE). Other guides say 'inactive node'. Same thing. Active node = has visible aura RING; inactive node = no ring. Refuge needs the NO-RING one."
+      - "Hunted disengaging without warning — refuge-makers get hit by Nezarec's Hatred."
+      - "Breaking shoulders BEFORE Overwhelming Energy windup — refuge-makers don't see the tattoo."
+      - "Standing on the central platform during DPS — Nezarec teleport-slams there."
+      - "Side confusion (left = light or right = light). Lock convention at pull and stick to it."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+        - "Final-encounter chest (separate from per-encounter drops)."
+      hidden_chest:
+        location: |
+          Found by following a root BELOW the one leading to the final
+          encounter. The root leads into a floating Pyramid TURBINE.
+          Jump onto the open trapdoor above it. Contains the 3rd of 3
+          Deepsight puzzle seeds. If all 3 puzzle seeds were connected
+          correctly across the raid (see overall_notes), a separate
+          reward chest with guaranteed Deepsight Resonance weapon
+          spawns at the encounter end.
+        rewards:
+          - "Spoils of Conquest (×1)"
+          - "Final Deepsight puzzle seed"
+      potential_drops:
+        - "**Conditional Finality** (exotic kinetic shotgun — Stasis + Solar barrels). Most-chased loot from this raid. RNG from final chest."
+        - "Acasia's Dejection, Briar's Contempt, Koraxis's Distress (boss-specific raid weapons)."
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: floater. Lowest mechanic load."
+      - "2nd: refuge-maker. Practice reading shoulder-break tattoos."
+      - "3rd: light-runner or dark-runner."
+      - "4th+: hunted (the chest-aggro specialist)."
+
+# =========================================================================
+overall_notes:
+  - "Movement exotic in every encounter — Stompees, Lift, Heat Rises, Eager Edge."
+  - "Anti-Barrier mandatory for encounters 1, 2, 4."
+  - "**Deepsight puzzle** spans the whole raid. 3 hidden rooms in 3 traversal sections. The connection ORDER is determined by 3 flowers near the raid start (left-to-right gives you the sequence). Each room has a seed you connect; the 3 seeds across the 3 rooms must match the flower order. Correct connection: 'Your actions take root…' message appears. Wrong: 'Your spoils have suffered irrecoverable damage.' All 3 correct → reward chest at end with guaranteed Deepsight Resonance weapon."
+  - "**Triumph: 'Opaline Shatter'** — full raid with no deaths → exclusive shader."
+  - "**Triumph: 'Oxidized Lead'** — loot all 3 hidden chests → exclusive shader."
+  - "All loadout: \"\" slots in this file intentionally blank — to be filled via guided review."

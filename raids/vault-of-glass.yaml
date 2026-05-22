@@ -1,0 +1,910 @@
+# raids/vault-of-glass.yaml — Pass 1 (destinypedia baseline)
+
+slug: vault-of-glass
+name: Vault of Glass
+activity_type: raid
+released:
+  expansion: "(Original D1, 2014) — reprised D2 2021"
+  year: 2021  # D2 reprise
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1310    # original D2 reprise floor
+  master: 1340    # confirm against current rotators
+location: "Vault of Glass, Venus (only accessible via raid in D2)"
+tags: [vex, time-travel, atheon, templar, oracle, og-raid, exotic-fusion, vex-mythoclast]
+
+average_clear_time:
+  normal_experienced: "45-60 min"
+  normal_learning:    "2-3 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    The first raid Bungie ever made. Vex-themed time-travel; entire raid
+    revolves around sync plates, Oracles (musical-note spawn pattern),
+    and the Aegis relic (Kabr's shield, the ONLY thing that kills Praetorians
+    + destroys Oracles efficiently). Source of Vex Mythoclast (exotic
+    fusion) + the classic D1 weapons Fatebringer / Found Verdict /
+    Vision of Confluence.
+
+  bosses:
+    - name: "The Templar"
+      encounter: 3
+      role: "First boss — Vex Hydra; Aegis shield-break + Oracle defense"
+    - name: "Gatekeeper Hydras (×3)"
+      encounter: 6
+      role: "Gate-encounter — Venus + Mars portal mini-bosses"
+    - name: "Atheon, Time's Conflux"
+      encounter: 7
+      role: "Final boss — portals teleport teams to past/future + Relic-supersmash DPS"
+
+  recurring_mechanics:
+    - name: "Sync Plates"
+      brief: |
+        Floor pressure plates. Stand on to activate. Praetorians (elite
+        Vex Minotaurs) will try to capture. Praetorian capture = plate
+        reverses progress (Spire stage) or spawns Oracle wipe-trigger
+        (Gatekeeper).
+
+    - name: "The Aegis (Kabr's relic)"
+      brief: |
+        Picked up at Templar's Well. Wieldable Vex shield with melee + dash +
+        cleanse (grenade) + supersmash (Super button — only way to break
+        Templar's shield + only way to one-shot Oracles + only way to
+        damage Praetorians). Drop the Relic for 5s = team wipe ("Curse
+        of the Aegis"). 45s cooldown to re-pickup after dropping.
+
+    - name: "Oracles"
+      brief: |
+        Glowing Vex constructs. Spawn from 7 fixed positions ("notes" —
+        C/D/E/F#/G/A/B♭) accompanied by musical chimes. MUST be killed
+        in spawn order in D2 (any order = ENTIRE TEAM gets Marked for
+        Negation). Mark = 20-30s death timer.
+
+    - name: "Marked for Negation / Cleanse pool"
+      brief: |
+        Death timer debuff. Cleansed by stepping in the cleansing pool
+        (center of Templar's Well). Pool DESPAWNS after multiple uses;
+        also use the Aegis cleanse (grenade button).
+
+    - name: "Fanatics (negation pools)"
+      brief: |
+        Headless glowing Goblins. Don't melee. On death, leave a green
+        negation pool. Step in = Marked for Negation. Corral them in
+        center, kill at range.
+
+  role_archetypes:
+    - id: relic_holder
+      brief: "Carries the Aegis. Must know its 4 abilities cold."
+    - id: oracle_killer
+      brief: "Tracks Oracle spawn order + drops them ASAP."
+    - id: add_clear
+      brief: "Suppresses Hobgoblins, Fanatics, Praetorians."
+
+  sherpa_playbook:
+    - "1st-timer: add_clear. Oracle order + Relic require practice."
+    - "Sherpa: Relic holder for Templar + Atheon. Most critical role."
+    - "Pre-pull: brief the whole team on the 7 Oracle positions + spawn order."
+    - "Have someone with a god-roll Fatebringer (HC) — drop it for new players, it trivializes Atheon DPS."
+
+  loadout_general:
+    weapons:
+      - "Long-range scout/sniper for Hobgoblins on far platforms."
+      - "Burst DPS for Templar + Atheon (Whisper, Sleeper, Linear)."
+      - "Fatebringer (this raid's HC) is meta for Atheon."
+    armor_stats:
+      - "Mobility for jumping puzzle + Gorgon Labyrinth."
+      - "Resilience for Templar AoE damage."
+    common_exotics:
+      - "Hunter: Celestial Nighthawk (Atheon one-shot), Star-Eater Scales."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance (mandatory for Atheon DPS), Phoenix Protocol."
+
+  common_mistakes:
+    - "Killing Oracles OUT OF ORDER in D2 — entire team Marked for Negation."
+    - "Picking up the Aegis and panicking — learn the 4 abilities (melee / dash / cleanse / super)."
+    - "Dropping the Aegis without calling pickup — 5s timer = wipe."
+    - "Standing in a Fanatic's green pool — death timer applied."
+    - "Gorgon labyrinth: shooting Gorgons mid-stealth — they see you, full wipe in 5s."
+    - "Atheon: relic holder not cleansing the screen-blackness debuff = teamblind death."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: opening-spire
+    name: "Opening — Waking Ruins (Spire)"
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      Pre-raid opener. 3 sync plates around a Vex spire. Stand on all 3
+      for 5 minutes continuously (Praetorians try to interrupt) → spire
+      assembles → vault portal opens. Tutorial for sync-plate defense.
+
+    setup: |
+      WHAT YOU SEE:
+      - 3 sync plates (L / center / R) around a partially-assembled Vex spire.
+      - Goblins + Hobgoblins spawn near each plate.
+      - Praetorians (elite Minotaurs) spawn every few waves — they SPRINT to plates.
+      - Malignant Cyclops spawns occasionally on rocks (annoying ranged threat).
+
+      PLATFORM MECHANICS:
+      - Player on plate = plate active = spire builds.
+      - Praetorian on plate = plate reverses.
+      - All 3 active for ~5 minutes = spire complete.
+
+      START STATE: pull = step on any plate to start.
+
+    callouts:
+      - when: "Praetorian spawned"
+        from: "spotter"
+        to:   "team"
+        say:  '"PRAETORIAN [direction] — burn."'
+        why:  "Highest-priority kill. Will deactivate plate fast."
+      - when: "Cyclops up"
+        from: "spotter"
+        to:   "team"
+        say:  '"Cyclops [direction] — pick it."'
+        why:  "Annoying ranged. Kill or hide."
+
+    wipe_triggers:
+      - "All 3 plates deactivated simultaneously (rare, but possible if Praetorians overrun)."
+
+    damage_phase_triggers:
+      - "Spire fully built → portal opens."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "3 split to L/center/R plates."
+      - phase: "Hold (5min)"
+        plate_defenders_3: "Stand on plate. Defend from Praetorians."
+        floaters_3: "Patrol between plates. Burst Praetorians + Cyclops."
+
+    permutations:
+      - name: "Standard 1 plate / 1 floater per side"
+        learner_friendly: true
+        summary: "Each side gets a plate defender + a floater for Praetorian pressure."
+        roles:
+          - id: plate_defender
+            count: 3
+            does: "Stand on plate. Self-defend."
+          - id: floater
+            count: 3
+            does: "Praetorian hunting + cover."
+
+    cheese: []
+
+    common_mistakes:
+      - "Stepping off plate to chase a Praetorian — plate reverses."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview: ""
+      setup: ""
+
+    learner_path:
+      - "1st: plate_defender. Easy intro."
+
+  # ====================================================================
+
+  - order: 2
+    slug: confluxes
+    name: "Templar's Well — Confluxes (1st loot)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Defend 3 Confluxes from Vex sacrifices. 4 Vex sacrifices to a Conflux
+      = wipe. Phase 1 = 1 Conflux (center). Phase 2 = +2 Confluxes (L+R).
+      Final phase = all 3 active. Then Oracle wave (5 waves, kill IN ORDER).
+
+    setup: |
+      WHAT YOU SEE:
+      - Templar's Well arena — wide, with a center pool of light (cleanse pool).
+      - 3 Conflux spawn points: center-front, far-left, far-right.
+      - 7 Oracle spawn positions (use as map markers): mid, L1, R1, L2, R2, L3, R3.
+      - Cave areas near L+R Confluxes for Vex add-spawns.
+      - Hobgoblins on distant platforms (sniper threat).
+
+      PLATFORM MECHANICS:
+      - Conflux defense: Vex enemies (Wyvern / Overload Minotaur) try to walk INTO Conflux.
+        Each successful sacrifice = 1/4 of Conflux's "tribute." 4 = wipe.
+      - Cleanse pool: removes Marked for Negation. Despawns after several uses.
+      - Fanatics (headless glowing Goblins) leave NEGATION POOLS — don't step in. Don't melee them.
+
+      ORACLE PHASE:
+      - 5 waves. EACH oracle spawn signals with a musical chime.
+      - Must kill in SPAWN ORDER (D2 specific rule). Wrong order = team-wide Mark.
+
+      START STATE: enter arena = encounter starts. Center Conflux spawns first.
+
+    callouts:
+      - when: "Vex approaching Conflux"
+        from: "defender"
+        to:   "team"
+        say:  '"Wyvern center — burn!"' # or Minotaur L/R
+        why:  "Sacrifice imminent. Stop it."
+      - when: "Tribute count"
+        from: "any"
+        to:   "team"
+        say:  '"Center 2/4."'
+        why:  "Awareness — when to panic vs. proceed."
+      - when: "Fanatic killed near anyone"
+        from: "killer"
+        to:   "team"
+        say:  '"Fanatic pool [direction] — avoid."'
+        why:  "Negation."
+      - when: "Marked for Negation"
+        from: "self"
+        to:   "team"
+        say:  '"MARKED — pool now."'
+        why:  "Cleanse + don't double-stack pool usage."
+      - when: "Oracle spawned"
+        from: "spotter"
+        to:   "team"
+        say:  '"Oracle [position] — KILL."' # mid / L1 / R1 / L2 / R2 / L3 / R3
+        why:  "Order matters. Caller names sequence."
+
+    wipe_triggers:
+      - "4 sacrifices to ANY Conflux."
+      - "Oracle phase: wrong-order kills = team Mark + death."
+      - "All cleanse-pool charges exhausted with Marks active."
+
+    damage_phase_triggers:
+      - "All Oracle waves cleared → Templar's Well encounter completes."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Split. Center Conflux defense first."
+      - phase: "Conflux Phase 1 (center)"
+        defenders_3: "Hold center."
+        floaters_3: "Far-side enemy clearing."
+      - phase: "Conflux Phase 2 (+L+R)"
+        all: "Split L/M/R. 2 per Conflux."
+      - phase: "Oracle Phase (5 waves)"
+        spotters: "Call spawn order."
+        killers: "Kill in order. Use Aegis if available."
+
+    permutations:
+      - name: "Standard 2-per-Conflux"
+        learner_friendly: true
+        summary: "2 defenders per Conflux. Float for Praetorian pressure."
+        roles:
+          - id: conflux_defender
+            count: 6
+            does: "Pair to a Conflux. Add-clear + sacrifice prevention."
+
+      - name: "Speed: Wyvern-burst focus"
+        learner_friendly: false
+        summary: "All 6 burst Wyverns/Minotaurs the instant they spawn. Faster Conflux drain."
+        best_for: "Experienced teams."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing Fanatics mid-arena — pools cluster, can't navigate to cleanse pool."
+      - "Forgetting Oracle order — call positions LOUDLY."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Fatebringer (HC)"
+        - "Vision of Confluence (scout)"
+        - "Found Verdict (shotgun)"
+        - "Hezen Vengeance (rocket)"
+        - "VoG armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: conflux_defender."
+      - "2nd: Oracle caller."
+
+  # ====================================================================
+
+  - order: 3
+    slug: templar
+    name: "The Templar"
+    difficulty: hard
+    estimated_time: "12-20 min"
+
+    abstract: |
+      First boss. Aegis relic appears at the cleanse pool. Holder uses
+      Super-smash to break Templar's shield → ~30s DPS → Templar tries
+      to TELEPORT (red circle marks destination — stand in it to deny).
+      Cycle: shield + Oracles + teleport-deny + DPS. 7-8 min enrage timer.
+
+    setup: |
+      WHAT YOU SEE:
+      - Same arena as Confluxes. Templar (large Vex Hydra) appears center.
+      - Aegis relic on the spot where cleanse pool was.
+      - Same 7 Oracle spawn positions.
+      - Red circle on the radar = Templar teleport destination.
+      - Major Harpies spawn (Aegis Super-charges from killing them).
+
+      PLATFORM MECHANICS:
+      - Pick up Aegis → Templar engages.
+      - Aegis abilities:
+        • Melee (R1) — dash
+        • Heavy melee (R2 or jump+melee) — death-from-above
+        • Cleanse (grenade) — removes Marks; has cooldown based on use length
+        • Super (Super button) — breaks Templar shield (wave or bubble)
+      - Templar's shield drops on Aegis Super → ~30s DPS window.
+      - Templar attempts to teleport at end of DPS. Red circle marks destination.
+      - Player STANDS IN red circle = teleport denied + Minotaur spawns instead.
+      - If allowed to teleport, Oracle wave begins (3 → 5 → 9 over 7 waves, spacing tightens).
+      - 7-8 minute enrage. Get Templar down fast.
+
+      START STATE: post-Confluxes. Cleanse pool replaced by Aegis. Pickup = engage.
+
+    callouts:
+      - when: "Aegis picked up"
+        from: "holder"
+        to:   "team"
+        say:  '"AEGIS UP — building Super."'
+        why:  "Team focuses on Harpy add-clear for Super charge."
+      - when: "Shield phase ready"
+        from: "holder"
+        to:   "team"
+        say:  '"SHIELD DOWN INCOMING — 3, 2, 1."'
+        why:  "DPS prep."
+      - when: "DPS open"
+        from: "holder"
+        to:   "team"
+        say:  '"DPS — Well!"' # if Warlock has Well of Radiance
+        why:  "Stack + burst."
+      - when: "Red circle (teleport)"
+        from: "first to see"
+        to:   "team"
+        say:  '"RED [direction] — stand it!"'
+        why:  "Teleport-deny."
+      - when: "Oracle wave"
+        from: "spotter"
+        to:   "team"
+        say:  '"Oracle [position] — kill order!"'
+        why:  "Same musical-note positions, same in-order rule."
+
+    wipe_triggers:
+      - "Aegis dropped + not picked up in 5s = 'Curse of the Aegis' team kill."
+      - "Templar enrages at 7-8 minutes."
+      - "Oracle waves not cleared → cascading Marks → team death."
+
+    damage_phase_triggers:
+      - "Aegis Super-smash breaks Templar's shield → ~30s DPS."
+
+    parallel_timeline:
+      - phase: "Pickup"
+        relic_holder: "Grab Aegis."
+      - phase: "Charge Super (~1:00)"
+        add_clearers_5: "Burst Major Harpies for Super orbs."
+        relic_holder: "Stay alive, gain orbs."
+      - phase: "Shield down"
+        relic_holder: "Fire Aegis Super."
+        all: "Burst Templar."
+      - phase: "Teleport-deny"
+        denier: "Stand red circle."
+        relic_holder: "Reset for next cycle."
+
+    permutations:
+      - name: "Standard 1-Aegis / 5-clear"
+        learner_friendly: true
+        summary: "One dedicated Relic holder all encounter; team supports."
+        roles:
+          - id: relic_holder
+            count: 1
+            does: "Holds Aegis from pickup to Templar death."
+          - id: add_clear
+            count: 4
+            does: "Major Harpy hunters for Super orbs; Oracle killers; teleport-deny."
+          - id: dps_anchor
+            count: 1
+            does: "Pre-position for DPS windows."
+
+      - name: "Speed: deny ALL teleports"
+        learner_friendly: false
+        summary: |
+          Standing in EVERY red circle prevents teleports = no Oracle waves
+          = 2-phase Templar with sustained burst.
+        best_for: "Experienced teams. Higher-stakes."
+
+    cheese:
+      - title: "Cheese spot DPS perch"
+        detail: |
+          (D1-era) Specific corner perches allowed pre-shield Templar
+          DPS via geometry exploits. Mostly patched in D2 reprise.
+
+    common_mistakes:
+      - "Dropping Aegis to dodge — 5s timer = team death."
+      - "Spreading DPS away from a Well — Templar shrugs."
+      - "Forgetting Oracle order under pressure."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 1 (Gorgon Labyrinth): After Templar, in the Gorgon
+          Labyrinth section. Hug right wall on entry. Inside the chest
+          room: opened by destroying 3 hidden Oracles in the labyrinth.
+        rewards:
+          - "Random raid loot drop"
+      potential_drops:
+        - "Fatebringer (HC)"
+        - "Vision of Confluence (scout)"
+        - "Praedyth's Revenge (sniper)"
+        - "VoG armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear (Harpy focus)."
+      - "2nd: teleport-deny rotation."
+      - "3rd: Relic holder."
+
+  # ====================================================================
+
+  - order: 4
+    slug: gorgon-labyrinth
+    name: "Gorgon Labyrinth (stealth section)"
+    difficulty: medium
+    estimated_time: "5-15 min"
+
+    abstract: |
+      Stealth maze with 9 patrolling Gorgon Harpies. If a Gorgon SEES you,
+      team wipes in 5 seconds. Navigate the maze unspotted. Smoke Bomb
+      (Nightstalker) disguises. Two hidden chests in here.
+
+    setup: |
+      WHAT YOU SEE:
+      - Huge cavern with a large drop on entry (double-jump to negate fall damage).
+      - 9 glowing silver-white Harpies patrolling assigned routes.
+      - Rocks + alcoves provide concealment.
+
+      PLATFORM MECHANICS:
+      - Stealth: stay out of Gorgon LoS.
+      - Smoke Bomb (Hunter Nightstalker) provides disguise.
+      - Killing a Gorgon is hard — requires rockets, sword Supers, Melting Point. "The Gorgons grow stronger" message after each kill.
+
+      ROUTE:
+      - Drop in. From large rock, move LEFT.
+      - Find large hall on left, enter.
+      - Climb middle rock. Wait for the 2 Gorgons to clear right.
+      - Drop down, run to small right-side alcove.
+      - Hug right wall to find hole in wall → exit.
+
+    callouts:
+      - when: "Gorgon spotted ahead"
+        from: "spotter"
+        to:   "team"
+        say:  '"Hold — Gorgon [direction]."'
+        why:  "Stop the chain."
+      - when: "Clear to proceed"
+        from: "spotter"
+        to:   "team"
+        say:  '"CLEAR — go."'
+        why:  "Movement window."
+
+    wipe_triggers:
+      - "Gorgon LoS for 5s = team wipe."
+
+    damage_phase_triggers: []
+
+    parallel_timeline:
+      - phase: "Per stealth segment"
+        leader: "Calls hold/go."
+        followers_5: "Match leader's pace."
+
+    permutations:
+      - name: "Single-leader stealth"
+        learner_friendly: true
+        summary: "Most-experienced player leads. Others follow exactly."
+        roles:
+          - id: leader
+            count: 1
+            does: "Calls every movement."
+
+    cheese:
+      - title: "Smoke bomb invis"
+        detail: |
+          Hunter Nightstalker Smoke Bomb gives the team brief invis. Use
+          to cross open areas where waiting isn't an option.
+
+    common_mistakes:
+      - "Trying to fight Gorgons — they're spongy + alert the rest."
+      - "Sprinting blind — Gorgon LoS instant."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          GORGON CHEST 1 (right entry): Hug the right wall on entry to
+          the labyrinth. Find an alcove, follow it to a chest room. Rally
+          flag available inside for ammo.
+
+          GORGON CHEST 2 (the Oracle one): The chest room near the entry
+          is OPENED only by destroying 3 hidden Oracles around the Gorgon
+          area. Tough — need ranged precision.
+        rewards:
+          - "Random raid loot drops × 2"
+      potential_drops: []
+
+    images:
+      overview: ""
+      setup: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: follow leader, don't lead until you've crossed twice."
+
+  # ====================================================================
+
+  - order: 5
+    slug: jumping-puzzle
+    name: "Jumping Puzzle"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Disappearing platforms across a bottomless chamber. Jump
+      platform → platform until reaching the narrow ledge across.
+      Hunters (Bladedancer / Way of the Wind) or Warlocks (Bottom-tree
+      Dawnblade) cross easiest. Hidden chest #3 above the hallway to
+      Atheon's room.
+
+    setup: |
+      WHAT YOU SEE:
+      - Bottomless chamber. Initial platform near entry.
+      - Stepping = next platform spawns, current one starts decay.
+      - Narrow ledge on the far side leads to recessed doorway.
+      - Alternate route: from edge, jump up-left into cave → alt platforms direct to far side.
+
+    callouts: []
+    wipe_triggers:
+      - "Falling = death (long respawn outside Darkness Zone)."
+    damage_phase_triggers: []
+
+    parallel_timeline: []
+    permutations:
+      - name: "Sequential jumps"
+        learner_friendly: true
+        summary: "One at a time. Patience over speed."
+
+    cheese: []
+    common_mistakes:
+      - "Jumping too early — platforms haven't spawned yet."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 3: After crossing the chasm, look directly UP and
+          RIGHT of the hallway immediately before Atheon's chamber. Chest
+          is on a small ledge.
+        rewards:
+          - "Random raid loot drop"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Just play."
+
+  # ====================================================================
+
+  - order: 6
+    slug: gatekeeper
+    name: "Gatekeeper (Venus + Mars portals)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Split 3/3 onto Venus + Mars plates. Kill the central Gatekeeper
+      Hydra. Portal teams enter their respective portals, kill the
+      planet's Gatekeeper, grab Aegis Relic, return. Defenders hold
+      plates + Conflux. Praetorians try to capture plates → Oracle spawn
+      = wipe trigger.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central arena with 3 plates: Venus (right), Mars (left), center plate (Gatekeeper).
+      - Central Gatekeeper Hydra (no shield).
+      - 2 portals above the L+R plates (open after central Gatekeeper dies).
+      - Inside each portal: planet-themed mini-arena with another Gatekeeper Hydra + Aegis Relic.
+
+      PLATFORM MECHANICS:
+      - Encounter starts when ANY player fires a gun.
+      - Kill central Gatekeeper Hydra → portals open.
+      - Split 3/3: 1 plate defender + 2 portal divers per side.
+      - Inside portal: kill the Gatekeeper Hydra, grab the Aegis Relic, return.
+      - Inside portal: "Marked by the Void" debuff applies — vision clouds. Aegis cleanse removes.
+      - Outside on plate: Praetorians try to capture. Capture = Oracle spawn above portal = wipe if not destroyed.
+      - When Relic out: Conflux appears at center. Defend from sacrifices.
+      - Wave 3 done: Minotaurs from both portals + main room — clear.
+
+      START STATE: rally banner outside. Approach plates to load in. FIRST GUN SHOT = encounter starts.
+
+    callouts:
+      - when: "Central Gatekeeper down"
+        from: "killer"
+        to:   "team"
+        say:  '"GATE OPEN — splitting Venus/Mars."'
+        why:  "Cue split."
+      - when: "Inside portal — Praetorian status"
+        from: "diver"
+        to:   "team"
+        say:  '"[Venus/Mars] — Praetorian [yes/no]."'
+        why:  "Relic holder needs to know which planet to break shield."
+      - when: "Praetorian on outside plate"
+        from: "defender"
+        to:   "team"
+        say:  '"PRAETORIAN on [V/M] plate — burn!"'
+        why:  "Capture = Oracle wipe trigger."
+      - when: "Relic out of portal"
+        from: "holder"
+        to:   "team"
+        say:  '"RELIC OUT — Conflux center."'
+        why:  "Cue Conflux defense."
+      - when: "Gatekeeper Hydra (additional waves)"
+        from: "spotter"
+        to:   "team"
+        say:  '"NEW GATEKEEPER — burn ASAP."'
+        why:  "Locks portals if not killed."
+
+    wipe_triggers:
+      - "Oracle above portal not killed in time."
+      - "Praetorian captures plate."
+      - "Vex sacrifices reach Conflux limit (4)."
+      - "Aegis dropped > 5s."
+
+    damage_phase_triggers:
+      - "Both Relics out, central Conflux defended, final wave cleared → encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Approach plates. Burst central Gatekeeper."
+      - phase: "Split (~1:00)"
+        venus_team: "1 defender + 2 divers."
+        mars_team: "1 defender + 2 divers."
+      - phase: "Portal cycle (~2:00-4:00)"
+        divers: "Kill inner Gatekeeper, grab Relic, return."
+        defenders: "Plate defense + Praetorian burst."
+      - phase: "Conflux + final wave"
+        all: "Defend center Conflux. Burst Wyverns. Encounter ends."
+
+    permutations:
+      - name: "Standard 3 Venus / 3 Mars"
+        learner_friendly: true
+        summary: "1 plate defender + 1 Relic holder + 1 add-clear per side."
+        roles:
+          - id: plate_defender
+            count: 2
+            does: "Stay on plate. Burst Praetorians."
+          - id: relic_diver
+            count: 2
+            does: "Enter portal, grab Relic on cycle."
+          - id: add_diver
+            count: 2
+            does: "Support Relic diver inside portal."
+
+      - name: "Solo flawless (challenge mode)"
+        learner_friendly: false
+        summary: "Not common, but emperor-tier teams have solo'd via specific exotic combos."
+        best_for: "Endgame challenge."
+
+    cheese: []
+
+    common_mistakes:
+      - "All 6 fire on central Gatekeeper before splits ready — encounter starts unprepared."
+      - "Relic diver forgets cleanse — vision blacks out, can't aim."
+      - "Plate defender chases adds off plate — Praetorian captures."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Vision of Confluence (scout)"
+        - "Found Verdict (shotgun)"
+        - "Praedyth's Revenge (sniper)"
+        - "Corrective Measure (LMG)"
+        - "VoG armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: plate_defender."
+      - "2nd: add_diver."
+      - "3rd: relic_diver."
+
+  # ====================================================================
+
+  - order: 7
+    slug: atheon
+    name: "Atheon, Time's Conflux (final boss)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Final boss. Atheon randomly teleports 3 players to PAST (Mars) or
+      FUTURE (Venus). Inside team: 1 Relic holder + 2 Oracle killers (6
+      red/yellow Oracles to destroy in 30s). Outside team: 3 players hold
+      Atheon's aggro + DPS. Inside team returns through correct portal.
+      DPS phase: 6 stack + Well + burst Atheon. Final stand at 30%.
+
+    setup: |
+      WHAT YOU SEE:
+      - Atheon's Throne room with 2 portals (Venus right, Mars left).
+      - Center platform with Aegis Relic.
+      - Atheon (large Vex Conflux) at the back.
+
+      PLATFORM MECHANICS:
+      - Atheon teleports 3 random players (or specific 3 in some perms) into a portal — past or future.
+      - Inside team:
+        • Past (Mars): 3 Descendant Hobgoblins (Relic instant-kills them; team don't shoot or shields activate).
+        • Future (Venus): 2 Precursor Goblins + 1 Praetorian (very tanky; grenades stagger).
+        • 6 red/yellow Oracles spawn — kill all (Relic Super smash works, or 1-shot with jump+heavy).
+        • "Marked by the Void" debuff clouds vision. Aegis cleanse removes.
+        • 30s timer to kill enemies + Oracles → return through correct portal.
+      - Outside team:
+        • 3 players stay with Atheon. Atheon attacks them (Detains them on Master).
+        • Burst Atheon's HP.
+      - When inside team returns: all 6 stand on center plate → DPS phase.
+      - DPS phase: ~30-40s window. Drop Well + Bubble. Burst with Cuirass / Celestial / Whisper.
+      - Cycle repeats. ~3 phases typical normal-skill.
+
+      START STATE: rally banner outside. Walk in to start. First teleport ~30s in.
+
+    callouts:
+      - when: "Teleport — who's inside"
+        from: "first to see"
+        to:   "team"
+        say:  '"[name1, name2, name3] inside [Venus/Mars]."'
+        why:  "Outside team knows who's missing."
+      - when: "Inside team — planet ID"
+        from: "diver"
+        to:   "team"
+        say:  '"VENUS!"' # or "MARS"
+        why:  "Outside team prepares correct portal for return cleanse."
+      - when: "Oracle position inside portal"
+        from: "spotter"
+        to:   "team"
+        say:  '"Oracle [position] — Relic on it."'
+        why:  "Relic Super = 1-shot Oracle."
+      - when: "Returning"
+        from: "diver"
+        to:   "team"
+        say:  '"COMING OUT — portal!"'
+        why:  "Cleanse + ready DPS."
+      - when: "DPS open"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE — WELL!"'
+        why:  "Stack, Well, Bubble, burst."
+      - when: "Final stand (~30% HP)"
+        from: "any"
+        to:   "team"
+        say:  '"FINAL — burn!"'
+        why:  "Push through."
+
+    wipe_triggers:
+      - "Inside team timer expires → all inside die."
+      - "Oracle phase mismanaged → cascading Marks."
+      - "Aegis dropped > 5s = Curse of the Aegis team kill."
+      - "Atheon enrages (~7-8 min)."
+
+    damage_phase_triggers:
+      - "All 6 stand on center plate after inside team returns → ~30-40s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Atheon. 3 dive on first teleport."
+      - phase: "Inside portal (~0:30)"
+        relic_diver: "Pick up Aegis, kill planet's enemies."
+        oracle_killers_2: "Destroy 6 Oracles in order. Relic Super or jump+heavy."
+      - phase: "Return + cleanse"
+        diver: "Aegis cleanse on team blackness."
+      - phase: "DPS (~30-40s)"
+        all: "Stack, Well, Bubble, burst."
+      - phase: "Reset"
+        all: "Cycle teleports."
+
+    permutations:
+      - name: "Standard 3/3 split"
+        learner_friendly: true
+        summary: "3 inside (1 Relic + 2 Oracle), 3 outside (Atheon DPS)."
+        roles:
+          - id: inside_relic
+            count: 1
+            does: "Inside portal, holds Aegis."
+          - id: inside_oracle
+            count: 2
+            does: "Inside portal, kill enemies + Oracles."
+          - id: outside_dps
+            count: 3
+            does: "Stay with Atheon, burst HP, prep for return DPS."
+
+      - name: "Speed: Celestial Nighthawk one-shot"
+        learner_friendly: false
+        summary: |
+          Hunter with Celestial Nighthawk + Star-Eater Scales can hit
+          Atheon for 8+ million per Super (with Well + Cuirass Crash combo).
+          1-2 phase clears common.
+        best_for: "Endgame teams."
+
+      - name: "Atheon Cheese (D2 jail)"
+        learner_friendly: false
+        summary: |
+          (D1 era) Pushing Atheon off the edge via grenade was an old
+          cheese. Mostly patched in D2. Some teams still use specific
+          knockback strategies on Master.
+
+    cheese:
+      - title: "Edge knockback"
+        detail: |
+          Specific knockback grenades + sword pushes can shove Atheon
+          off the platform in certain D2 reprises. Patched on most
+          difficulty tiers — verify with current sandbox."
+
+    common_mistakes:
+      - "Inside team picks up Relic on Mars but doesn't burst Hobgoblins fast — shields up, wasted timer."
+      - "Outside team forgets to keep distance from Atheon Detain bubbles."
+      - "Not Well-ing DPS phase — Atheon shrugs sustained damage."
+      - "Confusing Past vs Future portal — return through WRONG one = team wipe."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (extra roll)"
+      hidden_chest: null
+      potential_drops:
+        - "Vex Mythoclast (exotic fusion rifle)"
+        - "Fatebringer (HC)"
+        - "Vision of Confluence (scout)"
+        - "Found Verdict (shotgun)"
+        - "Praedyth's Revenge (sniper)"
+        - "Hezen Vengeance (rocket)"
+        - "Corrective Measure (LMG)"
+        - "VoG armor (full set)"
+        - "Time-Worn Spire shader"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: outside_dps."
+      - "2nd: inside_oracle."
+      - "3rd: inside_relic."
+
+# ========================================================================
+overall_notes:
+  - "Vex Mythoclast: ~5% drop from Atheon. Master tier has a higher rate. Catalyst is from raid challenges."
+  - "Challenges (Master mode):"
+  - "  • Wait for It (Templar — no teleports)"
+  - "  • Out of Its Way (Atheon — kill Supplicants before they explode)"
+  - "  • Ensemble's Refrain (Confluxes — every player must contribute Confluxes equally)"
+  - "  • Strangers in Time (Atheon — same 3 players inside portal both teleports)"
+  - "Master version: Champions (Barrier Hydras, Overload Minotaurs)."
+  - "Soloing: extremely difficult. Hard solo recommended via solo Vex Mythoclast quest only."

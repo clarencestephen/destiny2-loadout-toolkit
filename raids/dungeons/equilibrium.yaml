@@ -1,0 +1,580 @@
+# raids/dungeons/equilibrium.yaml — Pass 1 (destinypedia stub + thegamepost.com walkthrough)
+
+slug: equilibrium
+name: Equilibrium
+activity_type: dungeon
+released:
+  expansion: Renegades
+  year: 2025  # Dec 13, 2025
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 2050         # confirm — Renegades release floor
+  master: ""           # TBD
+location: "Praxic Temple, Venus → Imperium Carrier → Malphas Contemptus"
+tags: [dread, barant-imperium, taken, dredgens, renegade-ability, gathering-shadow, exotic-quest, heirloom-bow, soloable, human-boss]
+
+average_clear_time:
+  normal_experienced: "60-90 min"
+  normal_learning:    "3-5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Renegades flagship dungeon. First D2 dungeon with a HUMAN boss
+    (Dredgen Sere). Entire dungeon revolves around the Gathering Shadow
+    resource system: collect Darkness pools to climb tiers (Gathering →
+    Novice → Apprentice → Master), then spend via Renegade ability to
+    break shields, activate panels, or Compel Blistered Shadows. First
+    dungeon released alongside an expansion since Pit of Heresy.
+
+  bosses:
+    - name: "Harrow, Dredgen-Apprentice"
+      encounter: 2
+      role: "Mid-boss — Renegade Cabal; insta-kill center + Arc-hole shield strip"
+    - name: "Dredgen Sere"
+      encounter: 3
+      role: "Final boss — Human Dredgen; Ascendant Compel + Taken orb DPS gate"
+
+  recurring_mechanics:
+    - name: "Gathering Shadow tier system"
+      brief: |
+        Step into Darkness pools (Taken wells) to build the resource:
+          Gathering Shadow → Shadow Novice (45s timer) → Shadow Apprentice → Shadow Master
+        Higher tiers required for higher-tier encounter mechanics
+        (Apprentice for Harrow panels; Master for Sere Compel).
+        Refreshable from Gladiator drops if meter depletes.
+
+    - name: "Renegade ability (activate Shadow)"
+      brief: |
+        New default ability slot (Renegades expansion). Pressing it
+        deploys your Shadow form for ~15s — used to break shields,
+        activate Taken panels, and Compel Blistered Shadows.
+
+    - name: "Nameless Apprentices"
+      brief: |
+        Red-bar Renegade enemies. Encounter 1: bait them onto array,
+        let them explode to break red barriers. Encounter 3: kill them
+        to enable destruction of 5 Taken orbs.
+
+    - name: "Blistered Shadows (encounter 3)"
+      brief: |
+        5 Sere copies in the Ascendant realm. Compel via Renegade ability
+        + Shadow Master → grants 1 stack of "Lure of the Dark" + permits
+        destruction of 1 corresponding Taken orb back in normal arena.
+
+    - name: "Lure of the Dark (timer)"
+      brief: |
+        45s setup window at the start of Sere fight (and on each reset).
+        During timer: build Shadow Master + kill Nameless Apprentices.
+        Timer expires = pulled into Ascendant.
+
+    - name: "Insta-kill zones"
+      brief: |
+        Multiple — Cabal drop pods in encounter 1, Harrow's center room,
+        Arc-energy mid arena post-DPS in encounter 3 (sprint to edges).
+
+  role_archetypes:
+    - id: shadow_runner
+      brief: "Builds Gathering Shadow → Novice / Apprentice / Master; uses Renegade ability for mechanic activation."
+    - id: apprentice_killer
+      brief: "Hunts Nameless Apprentices; primary add-clear."
+    - id: dps_anchor
+      brief: "Pre-positions for Harrow Arc holes + Sere damage phase."
+
+  sherpa_playbook:
+    - "1st-timer: apprentice_killer. Clear feedback loop."
+    - "Sherpa: shadow_runner. Tier management + timing is the bottleneck."
+    - "Solo: hard. Lure of the Dark cycle is unforgiving solo."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS for Harrow + Sere damage phases (short windows)."
+      - "Eager Edge sword highly recommended for traversal gaps."
+      - "Grapple class ability also useful for traversal."
+      - "Anti-Champion mods for Master."
+    armor_stats:
+      - "Mobility for jumping puzzles + Ascendant platforms."
+      - "Resilience for Renegade Cabal damage."
+    common_exotics:
+      - "Hunter: Caliban's Hand (CC), Star-Eater (DPS), Stompees (Eager Edge)."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance, Speaker's Sight, Phoenix Protocol."
+
+  common_mistakes:
+    - "Standing in Cabal drop pod landing zones = instant death."
+    - "Center of Harrow arena = Harrow insta-kill. Rotate outer U-shaped rooms."
+    - "Hitting Renegade ability without Shadow Apprentice / Master tier = wasted."
+    - "Standing in the center after Sere DPS = Arc energy fills + melts you. SPRINT to edges."
+    - "Killing Nameless Apprentices BEFORE collecting Shadow wells in Sere encounter — wastes Compel resource."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: temple-grounds-harvester
+    name: "Temple Grounds → Harvester"
+    difficulty: medium
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Opening clear + first proper encounter. Clear Temple Grounds Cabal
+      → boarded a Harvester ship → first Gathering Shadow encounter:
+      bait Nameless Apprentices onto Arc arrays, let them explode to
+      break red barriers, build Shadow Novice, defeat Behemoth Walkers,
+      board the ship for next area.
+
+    setup: |
+      WHAT YOU SEE:
+      - Open Praxic Temple grounds, Cabal patrols, drop pod landing zones.
+      - Waterfall + tunnel transition.
+      - Harvester ship in arena center (interact to begin).
+      - Red Nameless Apprentices wandering arena.
+      - Taken wells (Darkness pools) for Shadow energy.
+      - Arc arrays at side positions.
+      - Red barrier doors blocking forward progress.
+
+      PLATFORM MECHANICS:
+      - Interact with Harvester ship in center = encounter starts.
+      - Cabal drop pods land in marked zones (instant kill — leave the zones).
+      - Step in Taken well = Gathering Shadow stack. Build to Shadow Novice (45s timer).
+      - Bait Nameless Apprentice onto an Arc array. The Apprentice charges and detonates ON the array.
+      - Activate the array AS the Apprentice explodes = array destroyed + red barrier door opens.
+      - 6 Apprentices spawn through the fight (≈3 array activations).
+      - Side rooms have sparrows for fast Shadow well farming.
+      - Use Renegade ability when Shadow Novice → deploys Shadow form (~15s) for shield-breaks.
+      - Defeat Behemoth Walkers (Cabal mech enemies) to complete the phase.
+      - Board the ship via interact to advance.
+
+      START STATE: rally banner near arena entry. Walk to Harvester ship.
+
+    callouts:
+      - when: "Drop pod incoming"
+        from: "spotter"
+        to:   "team"
+        say:  '"POD [direction] — move!"'
+        why:  "Insta-kill landing zone."
+      - when: "Nameless Apprentice baiting array"
+        from: "baiter"
+        to:   "team"
+        say:  '"[N/S/E/W] array — Apprentice committed."'
+        why:  "Activate array on detonation."
+      - when: "Shadow Novice ready"
+        from: "self"
+        to:   "team"
+        say:  '"NOVICE — Renegade up."'
+        why:  "Cue for shield-break / panel activation."
+      - when: "Behemoth Walker down"
+        from: "killer"
+        to:   "team"
+        say:  '"Walker [N] down — [N] to go."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Standing in drop pod landing zone."
+      - "Behemoth Walker explosion at point-blank."
+      - "Nameless Apprentice detonation away from array (chained damage)."
+
+    damage_phase_triggers:
+      - "All Behemoth Walkers defeated → phase ends → board ship."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Interact with Harvester. First Apprentice + drop pods."
+      - phase: "Shadow build (~0:30)"
+        runners_3: "All 3 hit Taken wells. Build to Novice."
+      - phase: "Array cycle (×3-6)"
+        baiter: "Lead Apprentice onto array."
+        activator: "Activate array on detonation."
+        novice_user: "Use Renegade ability for shield-breaks on Cabal."
+      - phase: "Walker DPS"
+        all: "Burst Behemoth Walkers."
+      - phase: "Board"
+        all: "Interact with ship."
+
+    permutations:
+      - name: "Standard 1-baiter / 2-clear"
+        learner_friendly: true
+        summary: "One bait runner; two add-clear + Shadow build."
+        roles:
+          - id: baiter
+            count: 1
+            does: "Owns Apprentice routing + array activation."
+          - id: shadow_clear
+            count: 2
+            does: "Build Shadow + Renegade-shred Cabal."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All roles. Use sparrow for well-farming speed."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Apprentice bait then sprint to array."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing Apprentice with gunfire instead of array-baiting — array stays up, barrier locked."
+      - "Wasting Renegade ability on trash adds — save for shielded enemies / panels."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Conspiracy Honed (sniper)"
+        - "High Tyrant (pulse)"
+        - "Voltaic Shade (scout)"
+        - "Zealous Ideal (auto)"
+        - "Sage Protector armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: shadow_clear (lowest cognitive load)."
+      - "2nd: baiter."
+
+  # ====================================================================
+
+  - order: 2
+    slug: harrow
+    name: "Harrow, Dredgen-Apprentice"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Mid-boss. U-shaped outer rooms around an insta-kill center. Build
+      to Shadow Apprentice (1 tier higher than encounter 1). Activate
+      Taken panels in each room. Center phase: shoot Arc fuses to open
+      holes → bait Harrow into holes to strip shield (1/3 per hole) →
+      Renegade-melee trick speeds shield breaks → DPS to Final Stand.
+
+    setup: |
+      WHAT YOU SEE:
+      - 4 U-shaped outer rooms surrounding a central insta-kill area.
+      - Harrow (Renegade Cabal, large) in center.
+      - Glowing Taken panels on walls/ceilings of each outer room.
+      - Arc fuses at center arena sides (visible only when Emergency Subsystems text shows).
+      - 2 holes in arena floor (opened by shooting fuses).
+
+      PLATFORM MECHANICS:
+      - Center = INSTA-KILL by Harrow. Rotate outer rooms ONLY during build phase.
+      - Build Shadow → Apprentice (1 tier higher than encounter 1).
+      - In each outer room: find glowing Taken panel → use Renegade ability with Shadow Apprentice → panel activates.
+      - Activate panels in sequence until "Emergency subsystems activate" text appears.
+      - Center phase: shoot 2 Arc fuses at arena sides → 2 holes open in floor.
+      - Bait Harrow into a hole = strips 1/3 of his shield. Speed-up trick: use Taken melee ability THE INSTANT Harrow jumps back up from a hole.
+      - 3 hole-trips (or 2 + Arc generator destroyed on far left) = shield fully stripped.
+      - DPS phase opens.
+      - Final Stand: follow Harrow through destroyed gate, clear Cabal Centurions + turrets, finish him.
+
+      START STATE: shoot fuse above the door from post-Harvester traversal, drop through hatch.
+
+    callouts:
+      - when: "Shadow Apprentice ready"
+        from: "self"
+        to:   "team"
+        say:  '"APPRENTICE — panel [room]."'
+        why:  "Cue for panel activation."
+      - when: "Panel activated"
+        from: "self"
+        to:   "team"
+        say:  '"Panel [N/4] done."'
+        why:  "Progress to Emergency Subsystems trigger."
+      - when: "Emergency Subsystems text"
+        from: "any"
+        to:   "team"
+        say:  '"CENTER PHASE — fuses now."'
+        why:  "Switch from outer rooms to center."
+      - when: "Fuse shot, hole open"
+        from: "shooter"
+        to:   "team"
+        say:  '"Hole [direction] OPEN — bait Harrow."'
+        why:  "Target for shield-strip."
+      - when: "Harrow into hole + Renegade melee window"
+        from: "first to see"
+        to:   "team"
+        say:  '"MELEE on rise — NOW."'
+        why:  "Speed-up trick: Taken melee right as Harrow emerges."
+      - when: "Shield fully down"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — Harrow."'
+        why:  "Damage window. Stack + burst."
+
+    wipe_triggers:
+      - "Standing in center arena = Harrow insta-kill."
+      - "Harrow's charge explosion at any range without cover."
+      - "Falling into the holes (they close on you)."
+
+    damage_phase_triggers:
+      - "Shield fully stripped (3 hole-baits OR 2 holes + Arc generator) → DPS phase opens."
+      - "Final Stand: Harrow retreats through gate, clear adds + finish."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Drop in. Rotate outer rooms. Begin Shadow build."
+      - phase: "Outer room cycle (~1:00-2:30)"
+        shadow_runners: "Build Apprentice, activate panels."
+        add_clear: "Suppress Renegade Cabal ambient."
+      - phase: "Center phase (~2:30-3:30)"
+        fuse_shooters_2: "Shoot 2 Arc fuses to open holes."
+        baiter: "Lead Harrow into hole."
+        melee_user: "Time Renegade melee on rise."
+      - phase: "DPS + Final Stand"
+        all: "Burst Harrow. Push through gate. Clear adds. Finish."
+
+    permutations:
+      - name: "Standard 1-baiter / 2-shadow"
+        learner_friendly: true
+        summary: "One designated baiter; two on Shadow build + panels."
+        roles:
+          - id: baiter
+            count: 1
+            does: "Harrow aggro management + center phase bait."
+          - id: shadow_runner
+            count: 2
+            does: "Apprentice build + panel activation."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All roles. Patient outer-room rotation."
+        roles:
+          - id: solo
+            count: 1
+            does: "Slow, methodical. Use sustain."
+
+    cheese: []
+
+    common_mistakes:
+      - "Sprinting through center mid-build = insta-death."
+      - "Renegade-meleeing too late on Harrow's rise — narrow window."
+      - "Wasting Apprentice tier on standard add-clear — save for panels."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          SECRET CHEST 1: Post-Harvester traversal (between encounters 1
+          and 2). After clearing the middle room with the Arc-fuse puzzle,
+          look toward the back-right side of the room. Chest is on a
+          platform near the back, on the right.
+        rewards:
+          - "Random roll of already-obtained dungeon weapon"
+      potential_drops:
+        - "Bitter End (LMG)"
+        - "Sullen Claw (sword)"
+        - "Conspiracy Honed (sniper)"
+        - "Sage Protector armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: shadow_runner. Watch baiter routes."
+      - "2nd: baiter."
+
+  # ====================================================================
+
+  - order: 3
+    slug: dredgen-sere
+    name: "Dredgen Sere (final boss)"
+    difficulty: hard
+    estimated_time: "30-45 min"
+
+    abstract: |
+      Final boss. First HUMAN boss in any D2 dungeon. 45s Lure of the
+      Dark setup → pulled into Ascendant realm → Compel 5 Blistered
+      Shadows with Shadow Master → return to normal arena → destroy 5
+      Taken orbs → DPS. End-of-DPS hazard: Arc fills the center, sprint
+      to edges.
+
+    setup: |
+      WHAT YOU SEE:
+      - Throne-world arena with Sere center.
+      - 5 Taken orbs hovering in arena center.
+      - Taken wells (Darkness pools) scattered for Shadow building.
+      - Nameless Apprentices spawn throughout.
+      - Lure of the Dark timer at top of screen (45s).
+      - Ascendant version of arena (when pulled): same shape, hostile Taken.
+        - 5 Blistered Shadows (Sere clones) in the Ascendant realm.
+        - 1 Blistered Shadow elevated; requires Darkness-corrupted device → ghost platforms.
+
+      PLATFORM MECHANICS:
+      - Lure of the Dark timer starts immediately. 45s window:
+        • Collect Darkness wells → build to SHADOW MASTER (3-tier progression)
+        • Kill Nameless Apprentices (enables Taken orb destruction later)
+      - Timer expires → pulled into Ascendant.
+      - In Ascendant: find all 5 Blistered Shadows. Compel each with Renegade ability + Shadow Master.
+      - Each Compel = +1 Lure of the Dark stack + permits 1 Taken orb destruction back in normal arena.
+      - Elevated Shadow: hit the Darkness-corrupted device to spawn ghost platforms → access.
+      - Exit Ascendant with 5 Lure of the Dark stacks.
+      - Normal arena: finish remaining Apprentices. Destroy all 5 Taken orbs.
+      - DPS phase opens.
+      - During DPS: if Sere uses lightning hand attack, SHOOT his hands to stun briefly.
+      - DPS ends: Arc energy fills the center. SPRINT to edges immediately or melt.
+      - Cycle repeats: hunt → Ascendant → Compel → orbs → DPS → evade → repeat.
+
+      START STATE: rally banner outside arena. Walk in to start. 45s timer begins immediately.
+
+    callouts:
+      - when: "Lure of the Dark timer started"
+        from: "all"
+        to:   "team"
+        say:  '"45 — building Master."'
+        why:  "Setup phase clarity."
+      - when: "Shadow tier reached"
+        from: "self"
+        to:   "team"
+        say:  '"[Novice / Apprentice / Master]."'
+        why:  "Tier check before Ascendant."
+      - when: "Pulled into Ascendant"
+        from: "any"
+        to:   "team"
+        say:  '"ASCENDANT — 5 Shadows."'
+        why:  "Spread out to Compel."
+      - when: "Compel done"
+        from: "self"
+        to:   "team"
+        say:  '"Compelled [N/5]."'
+        why:  "Progress."
+      - when: "Elevated Shadow needs device"
+        from: "spotter"
+        to:   "team"
+        say:  '"Elevated Shadow — device [direction]."'
+        why:  "One player hits device for ghost platforms."
+      - when: "Returned to normal arena"
+        from: "any"
+        to:   "team"
+        say:  '"BACK — orbs."'
+        why:  "Destroy 5 Taken orbs."
+      - when: "Orb destroyed"
+        from: "destroyer"
+        to:   "team"
+        say:  '"Orb [N/5] — DPS soon."'
+        why:  "Progress."
+      - when: "DPS open"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE."'
+        why:  "Stack + Super dump."
+      - when: "Sere lightning hands"
+        from: "any"
+        to:   "team"
+        say:  '"HANDS — stun!"'
+        why:  "Shoot hands to stop lightning + stun."
+      - when: "DPS ending"
+        from: "any"
+        to:   "team"
+        say:  '"EDGES — Arc filling!"'
+        why:  "Sprint to perimeter or die."
+
+    wipe_triggers:
+      - "Lure of the Dark timer expires with team not at Shadow Master — Ascendant Compels fail."
+      - "Standing in center after DPS = Arc fill = melt."
+      - "Sere's lightning hands unstunned = sustained damage death."
+      - "Compelling without Master tier = wasted attempt."
+
+    damage_phase_triggers:
+      - "5 Blistered Shadows Compelled + 5 Taken orbs destroyed → Sere shield drops → DPS window."
+
+    parallel_timeline:
+      - phase: "Pull + 45s Lure (~0:00-0:45)"
+        all: "Build Shadow → Master. Kill Apprentices for orb-destruction permits."
+      - phase: "Ascendant (~0:45-2:00)"
+        compellers_3: "Each takes 1-2 Blistered Shadows. Compel for stacks."
+        elevator_handler: "Hit Darkness device for elevated Shadow access."
+      - phase: "Return + orb destruction (~2:00-2:30)"
+        all: "Finish Apprentices. Destroy 5 orbs."
+      - phase: "DPS (~2:30-3:00)"
+        all: "Stack. Burst Sere. Shoot hands on lightning. Super dump."
+      - phase: "Evade + reset"
+        all: "Sprint edges. Cycle repeats."
+
+    permutations:
+      - name: "Standard 3-compel sync"
+        learner_friendly: true
+        summary: "Each player compels assigned Blistered Shadows. Return together, destroy orbs in unison."
+        roles:
+          - id: compeller
+            count: 3
+            does: "Each owns 1-2 Blistered Shadows. Sync return."
+
+      - name: "Speed: Whisper / Heirloom DPS"
+        learner_friendly: false
+        summary: |
+          Heirloom (this dungeon's exotic bow) staggers Sere consistently.
+          Combined with Whisper of the Worm / Linear Fusion stack for
+          1-2 phase clears.
+        best_for: "Practiced teams."
+        roles:
+          - id: dps_anchor
+            count: 3
+            does: "All burst-DPS in unison. Sync Supers (Thundercrash, Golden Gun, Needlestorm) on hand-stun."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          All 5 Compels yourself. All 5 orbs yourself. Lure of the Dark
+          timer feels tight. Bring strong sustain + Heirloom if obtained.
+          Expect 4-6 phases.
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Don't engage Sere outside DPS windows."
+
+    cheese: []
+
+    common_mistakes:
+      - "Wasting Renegade ability on adds during setup — save for Master + Compel."
+      - "Missing the elevated Blistered Shadow — counts toward 5 stacks."
+      - "Trying to DPS while in center after Arc fill — melts."
+      - "Not shooting Sere's hands on lightning = sustained damage death."
+      - "Compeller dying in Ascendant = lost stacks."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (extra roll)"
+        - "Imperium's Adversary emblem (first clear)"
+      hidden_chest: null
+      potential_drops:
+        - "Heirloom (exotic combat bow — quest, not random)"
+        - "Conspiracy Honed (sniper)"
+        - "Bitter End (LMG)"
+        - "High Tyrant (pulse)"
+        - "Sullen Claw (sword)"
+        - "Voltaic Shade (scout)"
+        - "Zealous Ideal (auto)"
+        - "Sage Protector armor (all classes)"
+        - "Static Data Shell (exotic ghost)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: compeller. Watch tier-build pacing."
+      - "2nd: dps_anchor + Heirloom-quest progress."
+      - "Solo: only after multi-player Heirloom acquisition."
+
+# ========================================================================
+overall_notes:
+  - "Heirloom (exotic combat bow): quest from this dungeon ('The Way Between' quest)."
+  - "First D2 dungeon with a HUMAN boss (Dredgen Sere)."
+  - "First D2 dungeon with the Renegade ability mechanic — required for all major mechanics."
+  - "Trophies scattered with Premier Lume / Dredgen Bael dialogue (3 known so far)."
+  - "Master version: TBD."
+  - "Soloing: hard. Lure of the Dark cycle compounds without team."
+  - "Triumphs: Stand Alone (solo flawless), Dredgen's Descent (Contest difficulty clear), Imperium's Adversary (any clear)."

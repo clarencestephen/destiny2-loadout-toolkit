@@ -1,0 +1,1223 @@
+# raids/salvations-edge.yaml
+# Format v3 — setup + callouts + parallel timeline + permutations + cheese
+# + mistakes + rewards + learner_path per encounter.
+# Sourced primarily from destinypedia + scraped boss pages (The Witness,
+# Herald of Finality). Game-name terminology throughout.
+# Loadout fields blank — to be filled via guided review.
+#
+# PASS 2 (multi-source synthesis, 2026-05): mechanics cross-checked against
+# gamerant + pcgamesn + sportskeeda + shacknews.
+# Key verifications:
+#   • Verity hand-arm mapping: UP=Spherical (yellow), DOWN=Pyramidal
+#     (green), SIDEWAYS=Hexahedral (red). Bracelet NEVER shows its own
+#     color (e.g., spherical-circle hand never glows yellow itself).
+#   • Witness Glyphbreaker: "The Witness tests you..." text → dark nodes
+#     arranged to match shape of LAST destroyed hand.
+#   • Final Stand at ~10% HP, chest glows yellow.
+#   • 3-stack Resonance cap (4th = instant death) confirmed across sources.
+# Added: image slots per encounter (reserved for Discord upload).
+
+slug: salvations-edge
+name: "Salvation's Edge"
+activity_type: raid
+released:
+  expansion: The Final Shape
+  year: 2024
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1965
+  master: 2020
+
+location: "The Pale Heart of the Traveler — the Witness's Monolith"
+tags: [light, dark, shapes, resonance, witness, sol-divisive, dread, scorn, taken]
+
+average_clear_time:
+  normal_experienced: "60-90 min"
+  normal_learning: "3-6 hr"
+  master: "90-120 min"
+
+# =========================================================================
+overview:
+# =========================================================================
+  abstract: |
+    The Final Shape's capstone raid. The hardest raid in D2 since Last
+    Wish — 19-hour world-first race, 9-hour Verity encounter, lowest
+    day-one clear rate ever. Built around a Resonance shape system
+    (Pyramidal / Spherical / Hexahedral = triangle / circle / cube)
+    that you collect by picking up shapes from rooms, depositing into
+    conductors and chests. The Witness himself is fought directly in
+    the final encounter.
+
+  bosses:
+    - name: "Threshold Sentinel"
+      encounter: "1 (Substratum), 3 (Repository)"
+      role: "Tormentor mini-boss. Kill drops Stolen Favor buff (Repository only)."
+    - name: "Herald of Finality"
+      encounter: 2
+      role: "Mid-raid boss. Summons Called to Reckoning, drops Stolen Favor."
+    - name: "Splintered Curator"
+      encounter: 4 (Verity)
+      role: "Hive Knight inside the Verity realm — kill drops shapes for Inside team."
+    - name: "The Witness"
+      encounter: 5 (final)
+      role: "Endboss. Glyphbreaker mechanic, Final Shape wipe, shape tests."
+
+  recurring_mechanics:
+    - name: "Resonance shapes"
+      brief: |
+        Three shapes exist: **Pyramidal Resonance** (triangle),
+        **Spherical Resonance** (circle), **Hexahedral resonance**
+        (cube). Each spawns from a glowing resonance spot with the
+        matching shape at its centre. Walk to the spot, pick it up.
+        Maximum 3 stacks at a time — picking up a 4th instantly kills
+        you. Each stack also has its own countdown timer; if it expires
+        on you, you die.
+
+    - name: "Resonant Conductor"
+      brief: |
+        Obelisk-shaped object with a glowing centre. Stand a few
+        steps away and shoot the centre once to ARM it (a rippling
+        aura appears). Now the next charge that arrives at your
+        connected plate while you stand on the plate will lock the
+        conductor down — consuming 1 stack of resonance from your
+        inventory. Wrong shape in conductor = instant wipe (Herald
+        onwards).
+
+    - name: "Circuit plates"
+      brief: |
+        Glowing floor plates connected by orange wire-lines to
+        other plates or conductors. Step ON the plate the moment
+        the charge enters — you'll see a rapidly-shrinking circular
+        aura on it. Step off too early or too late, the charge is
+        lost. Plate-bouncing keeps the conductor powered and resets
+        the wipe timer.
+
+    - name: "Final Shape Looming"
+      brief: |
+        The encounter wipe timer (encounters 1, 2, 3, 5). Visible at
+        top of screen. Counts down. Completing the encounter's main
+        loop (depositing resonance / locking conductors / breaking
+        glyphs) extends it. Letting it hit 0 = instant team wipe.
+
+    - name: "The Witness's hand attacks"
+      brief: |
+        Three attacks recur throughout the raid:
+          • **Resonant Outburst** — TRIANGULAR area on the ground.
+            Stand in it long enough = pick up Pyramidal Resonance.
+          • **Resonant Seekers** — CIRCULAR area, swarm of seeker
+            projectiles. Stand in long enough = Spherical Resonance.
+          • **Wrathful Disarray** — RECTANGULAR beam from the side.
+            Stand in long enough = Hexahedral resonance.
+        In normal encounters, AVOID these. In the Witness fight,
+        Glyphbreakers DELIBERATELY stand in them to collect resonance.
+
+  role_archetypes:
+    - id: conductor
+      brief: "Encounters 1-3. Locks down a Resonant Conductor by arming it + stepping on the connected plate while holding correct shape."
+    - id: plate-runner
+      brief: "Encounters 1-3. Bounces charges between plates by stepping on at the right moment."
+    - id: add-clear
+      brief: "Every encounter. Holds the room while mechanic players work."
+    - id: called-guardian
+      brief: "Encounter 2 only. Pulled to centre by Called to Reckoning; reads the Herald, gets Stolen Favor."
+    - id: inside
+      brief: "Encounter 4 only. Trapped in Verity alternate realm. Reads 2D shapes, gives shapes to teammates' statues, escapes with 3D key."
+    - id: outside
+      brief: "Encounter 4 only. Stays in main realm. Swaps 3D shapes between Inside teammates' statues. Frees Catatonically Decimated allies with Ghosts."
+    - id: glyphbreaker
+      brief: "Encounter 5 only. Reads Witness hand armband colour. Picks up matching resonance from another hand's attack zone. Returns to the original hand to break it."
+    - id: dps
+      brief: "Encounter 5 only. Stays mobile on central plate. Damages the Witness during the open window after all 6 glyphs broken."
+
+  sherpa_playbook:
+    - "1st-timer? **Add-clear in Substratum**. Learn the resonance shape system without responsibility for plates/conductors."
+    - "2nd-timer? **Outside team in Verity** OR plate-runner in Substratum. Outside is harder logic but no time pressure."
+    - "3rd+? **Conductor in Repository** (wire-overlap variant), **Glyphbreaker** on Witness."
+    - "**Reserve Verity Inside team for run #3+.** That encounter is the wall — 9 hours during world-first race, 1-2 hours for new teams."
+    - "Pre-pull rule for EVERY encounter: name shapes-needed, side assignments, callout convention. Salvation's Edge has more callouts than any other raid."
+
+  loadout_general:
+    weapons:
+      - "**Anti-Barrier + Anti-Overload** mandatory (Overload Minotaurs in Substratum, Devotees of the Witness)."
+      - "**Anti-Unstoppable** mandatory (Verity Ogres, Repository Incendior)."
+      - "**Burst-DPS heavy** for Witness damage phases — Two-Tailed Fox, Sleeper, Apex Predator, sword swap."
+      - "Add-clear primary: Witherhoard, Riskrunner, Outbreak Perfected, wave-frame GLs."
+    armor_stats:
+      - "Resilience + Recovery for everyone — Witness hand attacks kill low-Resilience builds."
+      - "Discipline / Strength for Verity Inside-team grenade/melee Knight kills."
+    common_exotics:
+      - "Hunter: Star-Eaters / Liar's Handshake / Aeon Swift (Verity)."
+      - "Warlock: Phoenix Protocol / Heat Rises / Star-Eaters."
+      - "Titan: Cuirass of the Falling Star / Synthoceps / Heart of Inmost Light."
+
+  common_mistakes:
+    - "**Holding 4 stacks of resonance** — instant death. Cap at 3."
+    - "**Wrong shape in a conductor** (Herald onwards) — instant wipe."
+    - "**Standing on the plate too early** — charge passes through, you don't catch it, plate-bounce fails."
+    - "**Inside team picking up >2 shapes before escape-ready** — you'll form a 3D key containing your statue's shape, escape impossible, must die and respawn."
+    - "**Mixing player identity in Verity** — change colours/loadouts/ghosts to be visually distinct. Same-class same-shader = wipes."
+    - "**Glyphbreaker not cleansing resonance** at the central plate before timer runs out → death."
+
+# =========================================================================
+encounters:
+# =========================================================================
+
+  - order: 1
+    slug: substratum
+    name: Substratum
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      First encounter. Two teams of three clear side rooms of Sol
+      Divisive Vex + Dread. After two waves, find circuit plates +
+      conductors and bounce charges between them while picking up
+      Pyramidal Resonance. Lock down both conductors → deposit
+      resonance in central chest → repeat 2 more times.
+
+    setup: |
+      WHAT YOU SEE
+      - Large central room with a chest spawn in the middle.
+      - Two doors on opposite sides leading to peripheral rooms.
+      - Inside peripheral rooms (after they open): glowing floor
+        plates and a Resonant Conductor (obelisk with glowing core).
+      - Above the central area: a fluxing **WITNESS HAND** (orange-
+        triangular). It casts Resonant Outburst — a triangular AoE
+        on the floor that will kill low-Resilience players.
+      - Top of screen: **Final Shape Looming** wipe timer.
+
+      PLATFORM MECHANICS
+      - Plates: stand on them only when a charge enters (visible
+        shrinking circular aura). Step off after the charge bounces.
+      - Conductors: stand a few steps AWAY, shoot the centre once
+        to ARM. Then the next charge that arrives at YOUR plate while
+        you stand on it will lock down the conductor — consumes 1
+        resonance stack.
+      - Resonance stacks: pick up shapes by walking onto them. Max 3.
+        Each has a timer; expiring = death.
+
+      START STATE
+      - Encounter starts when one player picks up the central
+        Pyramidal Resonance and DUNKS it into the central chest.
+        Two side doors open + Final Shape Looming starts.
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"3-3 split. Left team = [names], right team = [names]. Conductor player = [name] per side. Plate player = [name] per side. Add-clear = third on each side."'
+        why:  "Salvation's Edge has more comms than any other raid; lock roles before pulling."
+
+      - when: "Doors open after dunk"
+        from: any
+        to:   team
+        say:  '"Doors open — go go go."'
+        why:  "Supplicants spawn at the rear of each peripheral room when doors open; rushing in dies. Walk forward, take cover."
+
+      - when: "Keeper of the Monolith (Hydra) appears"
+        from: any
+        to:   team
+        say:  '"Keeper [side]!"'
+        why:  "Killing each Keeper opens the next sub-room. Top priority."
+
+      - when: "Devotee of the Witness (Overload Minotaur) appears"
+        from: any
+        to:   team
+        say:  '"Overload [side]!"'
+        why:  "Overload mod requires Anti-Overload — make sure someone on that side has it."
+
+      - when: "Threshold Sentinel (Tormentor) spawns in centre"
+        from: any
+        to:   team
+        say:  '"Tormentor mid — converge!"'
+        why:  "Side doors close while Tormentor is alive — anyone caught inside or in the doorway dies. Move to centre fast."
+
+      - when: "Plates + conductors located"
+        from: plate-runner
+        to:   conductor
+        say:  '"Plate [side] — connecting now."'
+        why:  "Confirms which conductor each side is wired to so callouts are unambiguous."
+
+      - when: "Charge bounce missed"
+        from: any
+        to:   team
+        say:  '"Lost charge [side]."'
+        why:  "First miss = grace period (no penalty). Second miss → Subjugator spawns and locks plates. Tells team to stay calm or prep for Subjugator."
+
+      - when: "Conductor armed, ready for lockdown"
+        from: conductor
+        to:   plate-runner
+        say:  '"Conductor up — send the next charge."'
+        why:  "Next charge into the conductor's connected plate will lock it down. Plate-runner needs to know to step on at the right moment."
+
+      - when: "Conductor locked"
+        from: conductor
+        to:   team
+        say:  '"Conductor [side] LOCKED."'
+        why:  "One half done. Other side knows their conductor still needs locking."
+
+      - when: "Both conductors locked, central chest spawning"
+        from: any
+        to:   team
+        say:  '"Both locked. Chest mid — dump resonance!"'
+        why:  "Chest is proximity-activated; everyone must converge to deposit. Wipe timer extends after all resonance is dumped."
+
+    wipe_triggers:
+      - "Final Shape Looming timer hits 0 → wipe."
+      - "Holding 4+ resonance stacks → instant death."
+      - "Resonance stack timer expires on you → death."
+      - "Standing in Resonant Outburst (triangular floor AoE) at low Resilience."
+      - "Caught in a closing side door when the Threshold Sentinel spawns."
+
+    damage_phase_triggers:
+      - "No boss DPS in this encounter — completion = depositing all resonance into the central chest 3 times in a row."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all:               "Walk into centre. One player picks up the central Pyramidal Resonance + dunks into the chest. Doors open + Final Shape Looming starts."
+
+      - phase: "Side-room clear (rounds 1-2)"
+        left_team_3:       "Enter left side. Kill Sol Divisive Vex + Dread. Priority: Hydra (Keeper) → Overload Minotaur (Devotee)."
+        right_team_3:      "Mirror on right."
+        all_periodically:  "Don't stand under the Witness Hand (triangular AoE on floor). Avoid the swirling indicator."
+
+      - phase: "Threshold Sentinel in centre"
+        all:               "Side doors close. Converge to centre fast (caught in doors = death). Burn the Tormentor."
+
+      - phase: "Plates + conductors discovered"
+        left_team_3:       "Conductor player arms the conductor. Plate player bounces charges. Third player handles ads + picks up resonance shapes spawning in the side room."
+        right_team_3:      "Mirror."
+
+      - phase: "Charges bouncing, resonance collecting"
+        all:               "Each plate-runner steps on at the visible aura shrink. Each conductor player picks up max 3 Pyramidal Resonance. Subjugator spawns on 2nd missed bounce — kill it immediately."
+
+      - phase: "Lock both conductors"
+        conductor_each_side: "Stand on plate when the charge arrives WHILE conductor is armed → 1 stack consumed, conductor locks."
+
+      - phase: "Deposit at central chest"
+        all:               "Converge to chest. Anyone with resonance interacts to dump. Final Shape Looming extends back up. Avoid the Witness's Resonant Gaze attack while dumping."
+
+      - phase: "Repeat 2 more times"
+        all:               "Same flow. After 3rd successful round, encounter ends and stairs unfurl into the next area."
+
+    permutations:
+      - name: "Standard 3-3 Split, 1 Conductor + 1 Plate + 1 Add-Clear per side"
+        learner_friendly: true
+        summary: "Default. Two teams of three. Each side: one player owns the conductor, one owns the plate, one handles ads + collects shapes."
+        roles:
+          - id: conductor
+            count: 2
+            does: "Arm the conductor. Step on plate when charge arrives WHILE armed. Holds max 3 Pyramidal Resonance stacks. Locks down conductor."
+            loadout: ""
+          - id: plate-runner
+            count: 2
+            does: "Step on the connecting plate the moment the charge enters (shrinking aura visible). Step off after bounce."
+            loadout: ""
+          - id: add-clear
+            count: 2
+            does: "Hold the side room. Kill Keepers (Hydra), Devotees (Overload Minotaur), Weavers (disrupt plates), Goblins, Subjugator. Pick up resonance shapes in centre when not engaged."
+            loadout: ""
+
+      - name: "4-2 with Designated Sentinel Killers"
+        summary: "Two players are dedicated Threshold Sentinel killers — they don't do plate/conductor work, only converge mid for Tormentor + run resonance. Other 4 split 2-2 across sides."
+        best_for: "Teams that struggle with the Tormentor timing on hard difficulties."
+        roles:
+          - id: side-pair
+            count: 4
+            does: "2 per side. Conductor + plate handled between the pair. Light add-clear."
+            loadout: ""
+          - id: tormentor-killer
+            count: 2
+            does: "Hover mid. Kill Tormentor instantly when it spawns. Carry resonance to chest."
+            loadout: ""
+
+      - name: "Resonance-Heavy (collect overflow for wipe-timer extension)"
+        summary: "Instead of dumping 1-2 resonance per round, aggressively collect 3 stacks per player BEFORE locking conductors. Maximum wipe-timer extension."
+        best_for: "Master / Contest where Final Shape Looming runs hot."
+        roles:
+          - id: conductor
+            count: 2
+            does: "Same, but holds onto 3 stacks until lockdown moment."
+            loadout: ""
+          - id: plate-runner
+            count: 2
+            does: "Same."
+            loadout: ""
+          - id: resonance-collector
+            count: 2
+            does: "Run between sides + centre, collecting every spawned shape before timers expire."
+            loadout: ""
+
+    cheese: []
+
+    common_mistakes:
+      - "Plate-runner stepping on the plate too early → charge passes without registering."
+      - "Conductor not armed before charge arrives → lockdown fails, must rebound."
+      - "Holding 3 stacks and accidentally walking onto a 4th shape → instant death."
+      - "Caught in closing side door during Threshold Sentinel — leave the side room IMMEDIATELY when the Tormentor message appears."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest:
+        location: |
+          During the traversal to encounter 1. Detail in overall_notes
+          (Secret Deepsight Puzzle).
+        rewards:
+          - "First of 3 hidden conductors for the Deepsight puzzle."
+      potential_drops:
+        - "Critical Anomaly (sniper)"
+        - "Forthcoming Deviance (glaive)"
+        - "Imminence (SMG)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: add-clear. Learn resonance shapes without conductor/plate pressure."
+      - "2nd clear: plate-runner."
+      - "3rd+: conductor."
+
+# -------------------------------------------------------------------------
+
+  - order: 2
+    slug: herald-of-finality
+    name: Herald of Finality
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Boss fight in a triple-circuit arena. 3 teams of 2 across
+      left / middle / right sides. Each side has a Trammel
+      (Demise / Conflict / Time) — kill yours. Herald summons one
+      player from each side to centre via Called to Reckoning;
+      they get Stolen Favor from shooting Herald's head spot
+      (after blights around the arena are destroyed). Locks
+      conductors with a NEW twist: triangle (Pyramidal) OR circle
+      (Spherical) — wrong shape = wipe. Deposit resonance → damage
+      phase → repeat.
+
+    setup: |
+      WHAT YOU SEE
+      - Triangular arena split into 3 sides: LEFT, MIDDLE, RIGHT.
+      - Each side has its own circuit plate + Resonant Conductor.
+      - Central blight in the middle of the arena — destroy to start.
+      - Side blights spawn around the arena edges during Called to
+        Reckoning — must be destroyed to drop Herald's head shield.
+      - **Trammel of Demise** = LEFT side enemy. **Trammel of Conflict**
+        = MIDDLE. **Trammel of Time** = RIGHT.
+      - Witness Hand: floor-based version this time. Resonant Seekers
+        (circular swarm) launch at floor targets.
+
+      PLATFORM MECHANICS
+      - Plates and conductors: same as Substratum.
+      - NEW — conductor shape requirement: each conductor displays
+        EITHER a triangle (needs Pyramidal Resonance) OR a circle
+        (needs Spherical Resonance). Check before locking.
+      - Resonance OVERRIDE: the LAST shape you picked up is the one
+        you'll deposit. Pick up the correct shape last. Earlier
+        wrong shapes are overridden.
+
+      START STATE
+      - Encounter starts when central blight is destroyed → Herald
+        spawns → Final Shape Looming starts.
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"Left pair = [names], middle pair = [names], right pair = [names]. Best players to LEFT (harder terrain)."'
+        why:  "Left side has the trickiest movement + Trammel of Demise; designate accordingly."
+
+      - when: "Trammel killed on a side"
+        from: any
+        to:   team
+        say:  '"Trammel [side] down."'
+        why:  "First Trammel kill triggers Herald to summon players to centre via Called to Reckoning."
+
+      - when: "Player gets Called to Reckoning buff (pulled to centre)"
+        from: called-guardian
+        to:   team
+        say:  '"Called — coming to centre."'
+        why:  "Tells the team that the called player is leaving their side; others on that side cover their work."
+
+      - when: "Blights spotted around arena edges"
+        from: any
+        to:   team
+        say:  '"Blight [position] — break it!"'
+        why:  "Herald's head spot is shielded until all surrounding blights are destroyed. Calling locations lets the team kill them fast."
+
+      - when: "Called Guardians have Stolen Favor"
+        from: called-guardian
+        to:   side
+        say:  '"Stolen Favor — reading conductor [side]."'
+        why:  "Tells the side that the called Guardian will now check the conductor's shape and call out what's needed."
+
+      - when: "Conductor shape requirement read"
+        from: called-guardian-with-stolen-favor
+        to:   side
+        say:  '"Conductor [side] wants TRIANGLE."'  # or CIRCLE
+        why:  "Tells the conductor + plate-runner pair which shape resonance to grab. WRONG shape = wipe."
+
+      - when: "Shape mismatch noticed"
+        from: any
+        to:   team
+        say:  '"WAIT — don't dunk!"'
+        why:  "Last-chance call before a wipe. Player can override their last pickup by walking to the correct shape spawn."
+
+      - when: "All conductors locked"
+        from: any
+        to:   team
+        say:  '"All locked — deposit at vista."'
+        why:  "Chest spawns at the vista under the Witness's hand. Converge, dump, wipe-timer extends."
+
+      - when: "Damage phase open"
+        from: any
+        to:   team
+        say:  '"Vulnerable — DPS!"'
+        why:  "Edges of the arena glow when Herald is damageable. Burst-DPS now."
+
+      - when: "Final Stand"
+        from: any
+        to:   team
+        say:  '"FINAL STAND — 30 SECONDS. Trammels everywhere. Focus Herald."'
+        why:  "Herald spawns all Trammels at once. Ignore them. 30s to delete Herald or wipe."
+
+    wipe_triggers:
+      - "WRONG shape resonance in a conductor → instant wipe."
+      - "Final Shape Looming timer expires."
+      - "Called team killed by Herald in centre → 'celebrate your failure' → wipe."
+      - "Final Stand timer expires."
+      - "Standing in Resonant Seekers (floor swarm) without dodging."
+
+    damage_phase_triggers:
+      - "All 3 conductors locked + all resonance deposited at the vista chest → arena edges glow → Herald damageable."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all:                "Move to assigned side (left / mid / right). Destroy the central blight."
+      - phase: "Trammel + add wave"
+        left_pair:          "Kill Ravenous Taken Knights, Attendants, Trammel of Demise."
+        middle_pair:        "Same with Trammel of Conflict."
+        right_pair:         "Same with Trammel of Time."
+      - phase: "First Trammel dies → Called to Reckoning"
+        called_guardians_3: "One player from each side summoned to centre. Move there."
+        side_remaining_3:   "Cover your partner's work back on your side."
+      - phase: "Centre — destroy blights, gain Stolen Favor"
+        called_guardians_3: "Kill arena-edge blights around Herald. Then shoot Herald's head spot. Get Stolen Favor."
+        side_remaining_3:   "Continue add-clear, prep for plate bouncing."
+      - phase: "Reading conductors + bouncing charges"
+        called_guardians_3: "Return to your side. Read the conductor's shape (triangle or circle). Call out to your partner."
+        side_remaining_3:   "Bounce charges between plates. Collect the correct shape last."
+      - phase: "Lockdown + deposit"
+        all:                "Lock 3 conductors with correct shapes. Converge at vista chest. Dump resonance."
+      - phase: "Damage phase"
+        all:                "Arena edges glow. Burst-DPS the Herald."
+      - phase: "Loop / Final Stand"
+        all:                "Repeat until Herald reaches Final Stand. Timer drops to 30s + all Trammels spawn. Ignore Trammels; delete Herald."
+
+    permutations:
+      - name: "Standard 3 Sides × 2 Players"
+        learner_friendly: true
+        summary: "Each side has 1 conductor + 1 plate/add-clear. Called Guardian role rotates per round."
+        roles:
+          - id: side-pair
+            count: 6
+            does: "Two per side. One arms + locks the conductor; the other handles plate-runs + adds. Either may be Called to Reckoning."
+            loadout: ""
+
+      - name: "Designated Caller (1 fixed Called per side, 3 fixed plate-runners)"
+        summary: "Pre-pick the 3 best mechanic players to ALWAYS be Called to Reckoning. The other 3 stay on plates."
+        best_for: "Master, or coaching new teams through the Called complexity."
+        roles:
+          - id: caller
+            count: 3
+            does: "One per side. Always the one summoned. Reads conductor + handles head-shot in centre."
+            loadout: ""
+          - id: plate-runner
+            count: 3
+            does: "One per side. Plate-bouncing + ads. Never called."
+            loadout: ""
+
+      - name: "Plate-First Variant"
+        summary: "Instead of dealing with Herald first when called, called Guardians IMMEDIATELY return to side and start plate-bouncing. Stolen Favor read happens during the next Called cycle. Trades extra Trammel risk for cleaner plate work."
+        best_for: "Teams comfortable with the Trammels."
+        roles:
+          - id: side-pair
+            count: 6
+
+    cheese: []
+
+    common_mistakes:
+      - "Calling out the wrong shape needed — verify before dumping into conductor."
+      - "Picking up Spherical when Pyramidal needed (or vice versa) and forgetting to override → wipe."
+      - "Called Guardians dying in centre = wipe. They MUST survive."
+      - "Final Stand: trying to clear Trammels instead of focusing Herald."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest:
+        location: |
+          After completing Substratum (encounter 1). Instead of jumping
+          up the GREEN-coloured blocks leading to encounter 2, look for
+          a grate on the wall and go past it. Contains the 2nd hidden
+          conductor for the Deepsight puzzle.
+        rewards:
+          - "Second of 3 hidden conductors for the Deepsight puzzle."
+      potential_drops:
+        - "Nullify (pulse rifle)"
+        - "Summum Bonum (sword)"
+        - "Non-Denouement (combat bow)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: middle side-pair (easiest terrain)."
+      - "2nd: left side-pair (hardest terrain)."
+      - "3rd+: Designated Caller — handle Stolen Favor for the team."
+
+# -------------------------------------------------------------------------
+
+  - order: 3
+    slug: repository
+    name: Repository
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Series of 3 rooms with overlapping circuit wiring. NEW resonance
+      shape introduced: **Hexahedral Resonance** (cube). Each room
+      has a Threshold Sentinel + Honored Scorpius turrets to clear.
+      Shape spawn assignment is FIXED: Hexahedral on RIGHT, Spherical
+      in MIDDLE, Pyramidal on LEFT. Lock conductors + deposit + advance.
+
+    setup: |
+      WHAT YOU SEE
+      - 3 sequential rooms. Each has 3 circuit plates + 3 conductors.
+      - Wiring between plates and conductors CHANGES per room:
+          • Room 1: straight — left↔left, mid↔mid, right↔right.
+          • Room 2: left↔mid swap, right↔right.
+          • Room 3: left↔mid, mid↔right, right↔left (all rotated).
+      - Honored Scorpius turrets on elevated platforms after the
+        Threshold Sentinel dies.
+      - Witness Hand: new beam variant from the side walls.
+      - Shape spawn locations are FIXED:
+          • Hexahedral (cube) — spawns on RIGHT side only.
+          • Spherical (circle) — spawns in MIDDLE only.
+          • Pyramidal (triangle) — spawns on LEFT only.
+
+      PLATFORM MECHANICS
+      - Same as Substratum + Herald. Watch the wire rotation per room
+        before starting the bounce.
+      - Stolen Favor: this encounter, the player who lands the
+        KILLING BLOW on the Threshold Sentinel gets Stolen Favor.
+        Preferably this should be the conductor player so they can
+        immediately read what shape their conductor needs.
+
+      START STATE
+      - Encounter starts when team deposits resonance into the first
+        room's chest after Substratum. Threshold Sentinels then spawn.
+
+    callouts:
+      - when: "Pre-pull (per room)"
+        from: lead
+        to:   team
+        say:  '"Room [N] wiring: left→[X], mid→[Y], right→[Z]."'
+        why:  "Wire rotation changes per room. Lock it down out loud."
+
+      - when: "Threshold Sentinel about to die — designate killer"
+        from: lead
+        to:   conductor-player-on-that-side
+        say:  '"You take the killing blow [side]."'
+        why:  "Stolen Favor goes to the killer; you want it on the conductor player so they can read the shape requirement."
+
+      - when: "Stolen Favor acquired + conductor read"
+        from: conductor-with-favor
+        to:   their side
+        say:  '"My conductor wants [TRIANGLE | CIRCLE | CUBE]."'
+        why:  "Spawn-location rule means shapes must be ferried between sides — left has no cube, right has no triangle, etc."
+
+      - when: "Shape ferry needed (conductor needs a shape not native to their side)"
+        from: conductor
+        to:   teammate on the matching-spawn side
+        say:  '"Right needs CUBE — grab a triangle for me from left."'  # example
+        why:  "Hexahedral only spawns right; Pyramidal only on left; Spherical only mid. Someone has to walk the shape across."
+
+      - when: "Honored Scorpius turrets active"
+        from: any
+        to:   team
+        say:  '"Scorpii up — drop the [position] one."'
+        why:  "Constant hailstorm of bullets. Two-shot the turret platforms with a sniper / heavy."
+
+      - when: "Unstoppable Incendior spawns after conductor lockdowns"
+        from: any
+        to:   team
+        say:  '"Unstop Incendior — Anti-Stun!"'
+        why:  "Anti-Unstoppable required. Catches teams off-guard if not slotted."
+
+      - when: "All 3 conductors locked"
+        from: any
+        to:   team
+        say:  '"Locked — dump at chest, advance."'
+        why:  "Final Shape Looming extends after dump; door to next room opens."
+
+    wipe_triggers:
+      - "Wrong shape in conductor → wipe."
+      - "Final Shape Looming expires."
+      - "Holding 4+ stacks."
+
+    damage_phase_triggers:
+      - "No boss DPS — completion = 3 successive room lockdowns + Unstoppable Incendior kill."
+
+    parallel_timeline:
+      - phase: "Pull room 1"
+        all:               "3 teams of 2 to sides. Confirm wire rotation."
+      - phase: "Threshold Sentinels"
+        each_side_pair:    "Burn their side's Tormentor. Pre-assigned conductor player takes the killing blow → Stolen Favor."
+      - phase: "Scorpius wave"
+        all:               "Drop turrets quickly — they will not stop firing."
+      - phase: "Bounce charges + read conductors"
+        each_side_pair:    "Plate-runner bounces between connected plates per wire rotation. Conductor reads shape requirement."
+      - phase: "Shape ferry"
+        side-needing-non-native: "Player with no native shape on their side walks to the spawn-source side, picks up correct shape (override any wrong picks last)."
+      - phase: "Lock all 3 conductors"
+        each_side_pair:    "Conductor armed → step on plate at charge arrival → lock."
+      - phase: "Unstoppable Incendior"
+        all:               "Burn Unstoppable. Anti-Unstoppable rounds required."
+      - phase: "Deposit + advance"
+        all:               "Dump remaining resonance into central chest. Advance to next room."
+      - phase: "Repeat rooms 2 + 3"
+        all:               "Same flow with NEW wire rotations per setup notes."
+
+    permutations:
+      - name: "Standard 3-Side Pairs"
+        learner_friendly: true
+        summary: "Same 3 teams of 2 as Herald. Maintain pairings across rooms."
+        roles:
+          - id: side-pair
+            count: 6
+
+      - name: "Shape Courier"
+        summary: "Designate 1 player as a dedicated shape ferry across all 3 rooms — never owns a conductor or plate, just walks shapes."
+        best_for: "Teams that struggle with the shape spawn-location rule."
+        roles:
+          - id: pair-without-courier
+            count: 4
+          - id: shape-courier
+            count: 1
+            does: "Walks shapes between sides. Carries the cube to the right conductor, etc. Never locks down — just delivers."
+            loadout: ""
+          - id: floater
+            count: 1
+            does: "Add-clear, Unstoppable Incendior."
+            loadout: ""
+
+    cheese: []
+
+    common_mistakes:
+      - "Ignoring wire rotation per room → bouncing charges to the wrong plates."
+      - "Picking up Hexahedral on the right when your conductor needs Pyramidal → wrong shape in conductor → wipe."
+      - "Forgetting Anti-Unstoppable mod for the Incendior."
+      - "Letting Honored Scorpii turrets live too long → constant chip damage."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest: null
+      potential_drops:
+        - "Forthcoming Deviance (glaive)"
+        - "Imminence (SMG)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: any side-pair."
+      - "2nd: Shape Courier (mechanic-light, intent-heavy)."
+      - "3rd+: conductor player in any side-pair."
+
+# -------------------------------------------------------------------------
+
+  - order: 4
+    slug: verity
+    name: Verity
+    difficulty: hard
+    estimated_time: "30-60 min (first clears: 1-2 hours)"
+
+    abstract: |
+      The infamous shape-puzzle encounter. Team splits into INSIDE (3
+      trapped in alternate realm) and OUTSIDE (3 in main realm).
+      Inside reads 2D shapes (their statue holds one) and passes
+      shapes between Inside teammates to escape with a 3D KEY that
+      does NOT contain their own shape. Outside swaps 3D shapes
+      between Inside teammates' statues so the final shapes match.
+      One full round = both teams done correctly. 3 rounds = win.
+
+    setup: |
+      WHAT YOU SEE
+      - 6 STATUES of each player at the entrance — exact loadouts and
+        Ghosts. **This is why teams must be visually distinct.**
+      - 3 GLOWING STATUES deeper in the room (these are the inside
+        statues that hold shapes).
+      - A PROJECTOR SCREEN behind the glowing statues, fluxing between
+        2D shapes: circle, square, triangle.
+      - **Imminent End** wipe timer (3:30).
+
+      PLATFORM MECHANICS
+      - There is NO platform stepping in Verity. Movement is about
+        positioning for the Inside/Outside split.
+      - **Selection trick:** standing in the half of the room CLOSER
+        to the wall of shattered glass before the encounter starts =
+        guaranteed Inside. The other 4 stand near the 6 statues; one
+        gets randomly picked Inside.
+      - Inside team: trapped in their own bubble realm. Each player
+        sees their own statue + 2 teammates' statues from inside.
+        They can ONLY interact with their own realm's knights and
+        shapes.
+      - Shapes you HOLD persist on your character until you deposit
+        them on another Guardian's statue (Inside) or swap them
+        between statues (Outside).
+      - **Catatonic Decimation freeze:** when one Inside team escapes,
+        the others are frozen. Outside team must retrieve their
+        Ghosts and deposit on the correct frozen statue to revive.
+
+      START STATE
+      - Encounter starts when 3 players interact with the glowing
+        statues. RNG (or selection-trick) decides Inside/Outside.
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"Inside picks: [name1], [name2], [name3]. Outside: [name4], [name5], [name6]. All ensure distinct visual identity — change shaders + ornaments if needed."'
+        why:  "Verity REQUIRES visual distinction. Same-class same-shader teams have wiped repeatedly because they can't read each other's statues."
+
+      - when: "Inside team reads their statue shapes"
+        from: inside-team
+        to:   outside-team
+        say:  '"Inside order LEFT to RIGHT facing the projector: [shape], [shape], [shape]."'
+        why:  "Outside team needs the Inside statues' held shapes to compute the swaps."
+
+      - when: "Inside player ready to pass a shape"
+        from: inside-player
+        to:   target inside teammate
+        say:  '"[Name] — passing you a [shape]."'
+        why:  "Inside players can only give shapes to OTHER Inside players' statues (never their own). Clear targeting prevents duplicate or missed handoffs."
+
+      - when: "Inside player ready to escape (holds 2 shapes ≠ their statue's shape)"
+        from: inside-player
+        to:   team
+        say:  '"[Name] escaping — got [shape1] + [shape2]."'
+        why:  "When all 3 Inside escape, the Catatonic Decimation freeze hits everyone but one. Team needs to be ready to revive."
+
+      - when: "Outside dissection plan"
+        from: outside-lead
+        to:   outside-team
+        say:  '"Swap plan: take a [shape] from statue [X] to statue [Y]; take a [shape] from statue [Z] to statue [W]."'
+        why:  "Outside team operates by SWAPPING shapes between statues — every move affects two. Plan before acting."
+
+      - when: "Catatonic Decimation freeze"
+        from: outside-lead
+        to:   outside-team
+        say:  '"Ghosts up — [name1] needs ghost back to [position1], [name2] to [position2]..."'
+        why:  "Frozen players spectate. Outside collects 3 Ghosts and deposits each to the correct statue. WRONG statue = instant death for the depositor."
+
+      - when: "All 3 inside teams escaped + frozen players revived"
+        from: any
+        to:   team
+        say:  '"Round [N] done. Reset, fight ads, prep for round [N+1]."'
+        why:  "Imminent End pauses. Wave of Grim/Thrall/Unstoppable Ogres incoming."
+
+      - when: "Final round wave of Ogres"
+        from: any
+        to:   team
+        say:  '"Unstop Ogres — Anti-Stun!"'
+        why:  "Two Unstoppable Ogres per round. Anti-Unstoppable required."
+
+      - when: "Final ascension"
+        from: any
+        to:   team
+        say:  '"Lift up — heading to Witness."'
+        why:  "After 3 successful rounds, the lift to the next encounter activates."
+
+    wipe_triggers:
+      - "Imminent End timer expires."
+      - "Inside player forms a 3D key containing their statue's shape → escape impossible → must die + respawn."
+      - "Outside player deposits a Ghost onto the WRONG Guardian's statue → instant death + cascading failure."
+      - "All Inside players Catatonically Decimated + no Outside survivor → wipe."
+
+    damage_phase_triggers:
+      - "No boss DPS. Completion = 3 rounds of correct shape dissection + Catatonic revival."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all:                  "Activate the 3 glowing statues. RNG (or selection-trick) splits Inside (3) and Outside (3)."
+      - phase: "Inside team reads"
+        inside_team:          "Read your own statue + 2 teammate statues. Call out the order left-to-right."
+        outside_team:         "Listen. Note the Inside shapes."
+      - phase: "Inside shape collection (round 1)"
+        inside_team:          "Kill Splintered Curator Knights to drop the projector-screen shape. Pick up shape. Deposit on an Inside teammate's statue (NEVER your own, NEVER already-served)."
+        outside_team:         "Kill 3 Knights on your side to access all 3 shapes. Begin dissection — swap shapes between Inside statues. Plan ahead."
+      - phase: "Inside escape with 3D key"
+        inside_team:          "Once you hold 2 shapes that are NOT your statue's shape, form a 3D key. Walk through the glass wall."
+        outside_team:         "Continue dissection until Inside statues reflect the correct outside shape compositions."
+      - phase: "Catatonic Decimation freeze"
+        all:                  "When Inside escapes, all but one player freezes. Three Ghosts appear on the Outside. Survivor + frozen-spectators coordinate Ghost-to-statue."
+      - phase: "Revival"
+        frozen_players:       "Spectate, guide survivor to correct statues."
+        survivor:             "Pick up each Ghost, deposit on the correct statue. WRONG statue = death."
+      - phase: "Add wave between rounds"
+        all:                  "Grim, Thrall, 2× Unstoppable Ogres. Anti-Unstoppable mandatory."
+      - phase: "Repeat rounds 2 + 3"
+        all:                  "Same flow. After round 3 — lift to Witness encounter activates."
+
+    permutations:
+      - name: "Standard Inside/Outside 3-3"
+        learner_friendly: false
+        summary: "Default. RNG splits the team. Pre-coordinated callouts handle dissection."
+        roles:
+          - id: inside
+            count: 3
+            does: "Trapped in alt realm. Read statues. Collect shapes from Splintered Curator knights. Pass shapes to teammates' statues (NEVER own). Form 3D key ≠ your own shape. Escape."
+            loadout: ""
+          - id: outside
+            count: 3
+            does: "Stay in main realm. Kill outside Splintered Curators. Swap 3D shapes between Inside statues. Free Catatonically Decimated allies with Ghosts."
+            loadout: ""
+
+      - name: "Selection Trick (guarantee specific Inside/Outside)"
+        summary: "Position 2 players against the shattered-glass wall before pulling — they are GUARANTEED Inside. The 4 statue-side players have 1 chosen at random for Inside. Lets you pre-assign mechanic-heavy players to roles."
+        best_for: "Teams who have a clear weak link on Verity — pin them to Outside (or Inside, whichever they're better at)."
+        roles:
+          - id: pinned-inside
+            count: 2
+            does: "Stand against shattered-glass wall before pull. Guaranteed Inside."
+            loadout: ""
+          - id: pinned-outside
+            count: 3
+            does: "Stand near 6 statues. One of you will be Inside randomly; rest are Outside."
+            loadout: ""
+          - id: floater
+            count: 1
+            does: "Stand near 6 statues OR shattered glass per team plan."
+            loadout: ""
+
+      - name: "Single-Dissection Speedrun"
+        summary: "Outside team aims to finish dissection in ONE pass — only possible if Inside statues' starting 3D shapes contain all 3 shapes once each (cone + cylinder + prism, e.g.). Saves a full round."
+        best_for: "Experienced Verity teams."
+        roles:
+          - id: inside
+            count: 3
+          - id: outside
+            count: 3
+            does: "Compute the single-pass dissection at start. Move only the necessary 2 swaps. Verify before completion."
+            loadout: ""
+
+    cheese:
+      - title: "Visual distinction = encounter clarity"
+        detail: |
+          Force all 6 to wear different shaders. Change Ghost shells.
+          Same-class fireteams are the #1 cause of Verity wipes — you
+          literally can't tell which statue is which. Spend 60 seconds
+          on this before pulling, not 60 minutes wiping.
+
+    common_mistakes:
+      - "Inside player picks up >2 shapes WITHOUT being ready to escape → forms a 3D key containing their own statue's shape → escape impossible."
+      - "Inside player deposits a shape on their OWN statue → can't progress."
+      - "Outside player deposits a Ghost on the wrong frozen statue → instant death + must restart Ghost collection."
+      - "Outside team operating without a plan — every swap affects 2 statues. Plan before acting."
+      - "Same-class same-shader fireteam — visually indistinguishable statues = chaos."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+      hidden_chest:
+        location: |
+          After completing Repository (encounter 3). Trigger the dialogue
+          where the Witness reveals itself to be the Winnower's first
+          knife, then jump up the RED-coloured blocks. Contains the 3rd
+          and final hidden conductor for the Deepsight puzzle.
+        rewards:
+          - "Third of 3 hidden conductors for the Deepsight puzzle."
+      potential_drops:
+        - "Critical Anomaly (sniper)"
+        - "Nullify (pulse rifle)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: Outside (no time pressure, more logical work)."
+      - "2nd: Inside, but ONLY after coaching on the 'don't form your own shape' rule."
+      - "3rd+: try the Selection Trick to pre-pin yourself into your strongest role."
+
+# -------------------------------------------------------------------------
+
+  - order: 5
+    slug: the-witness
+    name: "The Witness"
+    difficulty: hard
+    estimated_time: "20-40 min"
+
+    abstract: |
+      Final encounter. Fight the Witness directly. Reads its hand
+      attacks to identify which resonance to collect, then break its
+      armband-colored arms. Each broken arm grants Glyphbreaker; with
+      that buff, shoot one of the Witness's chest glyphs to cleanse
+      resonance + progress toward damage phase. All 6 glyphs broken =
+      central plate rises = DPS window.
+
+    setup: |
+      WHAT YOU SEE
+      - Wide circular arena. **The Witness** stands at the back wall.
+      - 6 GLYPHS arranged in a row across the Witness's chest.
+      - 3 active **HANDS** at any time:
+          • SKY HAND — Resonant Outburst (triangle floor AoE).
+          • FLOOR HAND — Resonant Seekers (circle swarm).
+          • SIDE HAND — Wrathful Disarray (horizontal beam).
+      - Each hand has a glowing ARMBAND in a colour (green/yellow/red).
+        Colour = which resonance is needed to break it.
+      - Central CIRCULAR ORGANIC PLATFORM — rises during damage phase.
+
+      PLATFORM MECHANICS
+      - To pick up resonance: STAND in a hand's attack zone for ~2
+        seconds (you'll hear a droning sound). Avoid these in normal
+        play — Glyphbreakers deliberately stand in them.
+      - To BREAK a hand: with the matching resonance, return to the
+        attack zone of the hand whose armband matches that colour,
+        and shoot the armband. The hand explodes; you get
+        **Glyphbreaker** buff.
+      - To CLEANSE resonance: walk to the central organic platform,
+        shoot one of the Witness's 6 chest glyphs. Glyph disappears
+        + your resonance clears. Required: you DIE if you carry
+        resonance too long.
+      - Spike test: after destroying a hand, a glowing hand may signal
+        a test. Pyramid spikes spawn in front of the Witness. The team
+        must DESTROY spikes in a pattern matching the attack hand's
+        shape (triangle/circle/square). Wrong = lose jump for 5
+        seconds + ground-energy wave kills anyone not in the air.
+
+      START STATE
+      - Encounter starts the moment players approach the Witness's
+        platform.
+
+    callouts:
+      - when: "Pre-pull"
+        from: lead
+        to:   team
+        say:  '"Glyphbreakers = [3 names]. Add-clear = [3 names]. Glyphbreakers take HAND assignments: [name1] sky, [name2] floor, [name3] side."'
+        why:  "Each Glyphbreaker permanently owns one of the 3 hand types. Reduces confusion about who's reading what."
+
+      - when: "Sky hand armband read"
+        from: glyphbreaker-sky
+        to:   team
+        say:  '"Sky hand: [GREEN | YELLOW | RED] — need [Pyramidal | Spherical | Hexahedral]."'
+        why:  "Tells team which resonance type needs gathering for this hand."
+
+      - when: "Floor hand armband read"
+        from: glyphbreaker-floor
+        to:   team
+        say:  '"Floor hand: [colour] — need [shape]."'
+        why:  "Same."
+
+      - when: "Side hand armband read"
+        from: glyphbreaker-side
+        to:   team
+        say:  '"Side hand: [colour] — need [shape]."'
+        why:  "Same."
+
+      - when: "Glyphbreaker collecting wrong-shape resonance"
+        from: any
+        to:   that glyphbreaker
+        say:  '"[Name] — you''ve got [wrong shape], need [right shape]!"'
+        why:  "Wrong shape can't break the matched hand. Player must cleanse via central glyph and start over."
+
+      - when: "Hand broken"
+        from: glyphbreaker
+        to:   team
+        say:  '"[Sky | Floor | Side] hand DOWN — Glyphbreaker active."'
+        why:  "Tells team one hand attack is now offline + this player will cleanse at central glyph."
+
+      - when: "Spike test triggered"
+        from: any
+        to:   team
+        say:  '"SPIKES — need [TRIANGLE | CIRCLE | SQUARE]!"'
+        why:  "Witness winds up a spike test; correct-shape pattern dissolves the spikes; failure = ground-energy wave."
+
+      - when: "5th glyph being broken (last glyph imminent)"
+        from: lead
+        to:   team
+        say:  '"5th glyph — converge to central plate."'
+        why:  "Once 6th glyph breaks, central plate rises and damage phase starts. Be on the plate already."
+
+      - when: "Damage phase open"
+        from: any
+        to:   team
+        say:  '"VULNERABLE — burst him."'
+        why:  "Central organic plate up + Witness's heart open. All DPS in."
+
+      - when: "Witness wind-back during DPS (combined attack telegraph)"
+        from: any
+        to:   team
+        say:  '"BACK LEFT, FRONT RIGHT, JUMP."'
+        why:  "Combined Wrathful Disarray + ground-energy attack. Standard callout format. Tells team which direction to move + when to jump."
+
+      - when: "Damage phase ending (Witness slamming central plate)"
+        from: any
+        to:   team
+        say:  '"OUT — he''s slamming!"'
+        why:  "Witness ends the phase by slamming the central plate, killing or launching anyone still on it. Get off."
+
+      - when: "Final Stand"
+        from: lead
+        to:   team
+        say:  '"FINAL STAND — supers + heavies NOW. He has one phase."'
+        why:  "Final Stand window is tight; team gets one DPS rotation. Pre-save burst-DPS for this moment."
+
+    wipe_triggers:
+      - "Holding resonance too long → death."
+      - "Spike test failed → ground-energy wave kills anyone not airborne."
+      - "Wrathful Disarray (horizontal beam) hits low-Resilience players."
+      - "Witness Final Shape wipe — Final Stand timer expires."
+
+    damage_phase_triggers:
+      - "All 6 chest glyphs broken → central organic platform rises → Witness vulnerable."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all:                       "Approach Witness's platform. Final Shape Looming starts. Witness opens 3 hand attacks."
+        glyphbreaker_3:            "Read your assigned hand's armband colour. Move into the OPPOSITE attack zone to pick up needed resonance."
+        add_clear_3:               "Hold the arena. Burn Scorn forces. Keep the Glyphbreakers alive."
+
+      - phase: "First glyph break"
+        glyphbreaker_with_resonance: "Return to your hand's attack zone. Shoot armband to break the hand → Glyphbreaker buff."
+        other_two_glyphbreakers:    "Continue collecting resonance for your hands."
+        add_clear_3:                "Continuous ad-clear."
+
+      - phase: "Cleanse + repeat"
+        glyphbreakers:             "Cleanse resonance by shooting one of the Witness's 6 chest glyphs at the central organic platform."
+        all:                       "Repeat for each of the 6 glyphs across multiple rotations."
+
+      - phase: "Spike test (randomly between glyphs)"
+        all:                       "Read the attacking hand's shape. Destroy Pyramid spikes in matching pattern (triangle / circle / square). Failure → jump to avoid the ground wave."
+
+      - phase: "6th glyph imminent"
+        all:                       "Pre-converge to central platform. Damage phase starts the moment 6th glyph breaks."
+
+      - phase: "Damage phase"
+        all:                       "Central plate rises. Witness's heart open. Burst-DPS while ALSO moving around to avoid Resonant Outburst + Wrathful Disarray. After 3 hand-attack pairs, Witness slams the plate — get off."
+
+      - phase: "Loop / Final Stand"
+        all:                       "Repeat until Final Stand. Final Stand = Witness immune briefly, then opens for one tight DPS window. Use supers + heavies."
+
+    permutations:
+      - name: "Standard 3 Glyphbreakers + 3 Add-Clear"
+        learner_friendly: false
+        summary: "Default. Each Glyphbreaker permanently assigned to one of 3 hand types (sky, floor, side). Add-clear holds the arena."
+        roles:
+          - id: glyphbreaker-sky
+            count: 1
+            does: "Owns the sky hand (Resonant Outburst). Reads armband, collects matching resonance from another hand's zone, returns to break the sky hand. Cleanses at central glyph."
+            loadout: ""
+          - id: glyphbreaker-floor
+            count: 1
+            does: "Owns the floor hand (Resonant Seekers). Same flow."
+            loadout: ""
+          - id: glyphbreaker-side
+            count: 1
+            does: "Owns the side hand (Wrathful Disarray). Same flow."
+            loadout: ""
+          - id: add-clear
+            count: 3
+            does: "Hold arena. Kill Scorn. Call combined attack telegraphs during DPS. Keep Glyphbreakers safe while they're standing in attack zones to collect resonance."
+            loadout: ""
+
+      - name: "2 Glyphbreakers + 4 Add-Clear (Slower, Safer)"
+        summary: "Reduces glyphbreaker load to 2 players. They split 3 hand types between them; one handles 2 hands, other handles 1. Slower glyph progress, more add-clear stability."
+        best_for: "Master / teams with thin add-clear capability."
+        roles:
+          - id: glyphbreaker-double
+            count: 1
+            does: "Owns 2 of the 3 hand types. Heavier workload."
+            loadout: ""
+          - id: glyphbreaker-single
+            count: 1
+            does: "Owns the remaining hand."
+            loadout: ""
+          - id: add-clear
+            count: 4
+
+      - name: "Rotating Glyphbreakers"
+        summary: "No fixed hand assignments. Whoever picks up a resonance first goes for the matching hand. More flexible, requires comms-tight team."
+        best_for: "Experienced fireteams comfortable with on-the-fly callouts."
+        roles:
+          - id: rotating
+            count: 6
+            does: "Anyone can be Glyphbreaker. Read hands, pick up resonance, break matching hand. Call ownership out loud."
+            loadout: ""
+
+    cheese:
+      - title: "Stack Glyphbreakers near final glyph for instant DPS open"
+        detail: |
+          When 5 glyphs are broken and the last Glyphbreaker is en
+          route to break the 6th, the OTHER 5 should already be on
+          the central plate ready to DPS. Saves 3-5 seconds of
+          repositioning, which is the difference between making it
+          to Final Stand in 4 phases vs 5.
+
+    common_mistakes:
+      - "Glyphbreaker forgets to cleanse → dies to resonance timer."
+      - "Glyphbreaker reads wrong-colour armband → picks up wrong shape → can't break hand."
+      - "**Same-color trap (verified Pass 2)**: a hand's armband NEVER matches the resonance it itself spawns. The FLOOR hand (spawns Spherical) won't show yellow. The SKY hand (spawns Pyramidal) won't show green. The SIDE hand (spawns Hexahedral) won't show red. So to break any hand you must grab resonance from a DIFFERENT hand's zone — never the one in front of you."
+      - "Add-clear standing in Resonant Seekers (floor swarm) → accidentally picks up Spherical resonance → also dies to timer if not cleansed."
+      - "Spike test ignored → instant team wipe."
+      - "Spike-test pattern: shape matches the LAST destroyed hand. Text on screen reads 'The Witness tests you...' — that's the cue."
+      - "Final Stand: trying for a 2nd damage phase — there isn't one. Burst NOW or wipe."
+
+    rewards:
+      guaranteed:
+        - "1× raid armor or weapon."
+        - "Final-encounter chest (separate from per-encounter drops)."
+      hidden_chest: null
+      potential_drops:
+        - "**Euphony** (exotic linear fusion rifle) — most-chased loot. RNG drop from final chest."
+        - "Critical Anomaly, Nullify, Summum Bonum, Imminence, Non-Denouement, Forthcoming Deviance."
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: add-clear. Learn the rhythm of hand attacks + spike tests."
+      - "2nd: glyphbreaker-side (Wrathful Disarray is the easiest beam to dodge)."
+      - "3rd: glyphbreaker-sky or glyphbreaker-floor."
+
+# =========================================================================
+overall_notes:
+  - "Pre-raid: ensure all 6 players are visually distinct (shaders, ornaments, ghosts). Verity requires this; failing makes the encounter 10× harder."
+  - "Anti-Barrier + Anti-Overload + Anti-Unstoppable all needed across the raid."
+  - "**Deepsight puzzle**: 3 hidden conductors across encounters 1-4. After encounter 1 (Substratum), look at the 5-row wall and note COLUMN 3, bottom-to-top order — that's the seed sequence. Ignore 2nd and 4th shape in column 3 (those are for the Raid Mod Puzzle). Connect the 3 hidden conductors in the right shape order; correct = 'Energy flows deeper into the monolith…' / wrong = 'Energy retreats from your grasp…'. All correct → guaranteed Deepsight Resonance weapon from final chest."
+  - "**Raid Mod Puzzle** (separate from Deepsight): requires 5 of 10 specific triumphs (Touch and Go, Changing Tactics, Singular Torment, Equal Distribution, Careful Calculation, Scenic Route, At Capacity, Balanced Diet, Varied Geometry, Coordinated Efforts). Then connect 2 more hidden conductors using shapes 1, 3, and 5 of column 3. Reward: in-raid mod, 5 Spoils of Conquest, Rubicon lore book entry."
+  - "**Triumph: 'Resonant Cellweave'** — find both hidden chests."
+  - "**Triumph: 'Diametric Crush'** — full raid no deaths + no orbiting."
+  - "All loadout: \"\" slots blank — to be filled via guided review."

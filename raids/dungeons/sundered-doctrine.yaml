@@ -1,0 +1,555 @@
+# raids/dungeons/sundered-doctrine.yaml — Pass 1 (destinypedia baseline)
+
+slug: sundered-doctrine
+name: Sundered Doctrine
+activity_type: dungeon
+released:
+  expansion: "Episode: Heresy"
+  year: 2025
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1990         # contemporary endgame floor
+  master: ""           # confirm — Heresy dungeon Master tier
+location: "Sunken Pyramid, Savathûn's Throne World (Flooded Inspection)"
+tags: [dread, hive, lucent-hive, symbol-puzzle, lenses, exotic-quest, finalitys-auger, soloable, riddle-mechanic]
+
+average_clear_time:
+  normal_experienced: "60-75 min"
+  normal_learning:    "2.5-4 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Symbol-puzzle dungeon inside Rhulk's sunken Pyramid. Every encounter
+    keys off the same Vow-of-the-Disciple symbol set: kill specific enemies
+    to drop symbols/knowledge, route LIGHT beams through LENSES to match
+    a target symbol on a wheel. Most-cerebral dungeon to date — heavy on
+    callouts. Source of Finality's Auger (exotic linear fusion).
+
+  bosses:
+    - name: "Zoetic Lockset"
+      encounter: 2
+      role: "Mid-boss — multi-wheel symbol lock with Kill/Stop modifiers"
+    - name: "Kerrev, the Erased"
+      encounter: 3
+      role: "Final boss — Subjugator (Dread); Strand tethers + Truth/Lie dial"
+
+  recurring_mechanics:
+    - name: "Symbol set (Vow of the Disciple)"
+      brief: |
+        Same 27 symbols as Vow of the Disciple raid + Dual Destiny exotic
+        mission. Including: Hive, Remember, Commune, Stop, Kill, Worm,
+        Grief, Darkness, Witness, etc. Familiarity helps; not required.
+
+    - name: "Truthspeaker (Grim)"
+      brief: |
+        Kill = reveals a target symbol. Used in encounters 1 + 3 to know
+        which symbol to aim for.
+
+    - name: "Lens Bearer (Subjugator)"
+      brief: |
+        Kill = drops a lens. Place on a pedestal. RESPAWNS Lens Bearer
+        on placement. Lenses redirect light beams.
+
+    - name: "Knowledge stacks (encounter 2)"
+      brief: |
+        Kill Preceptor Wizard = knowledge shard. Stacks:
+          • Heightened (1) → rotate wheel light by 1 space
+          • Brimming (2)   → rotate by 2 spaces
+          • Overflowing (3)→ rotate by 3 spaces
+        Deposit at pillar to rotate.
+
+    - name: "Pyramid switches"
+      brief: |
+        Above the center pedestals. Shoot to redirect which light beam
+        comes from where. Critical for routing beams to specific wheels.
+
+    - name: "Lockout Progression buff (Zoetic Lockset)"
+      brief: |
+        4-section bar on screen. Indicates which wheel is currently
+        RANG (rotatable). Cycle left→right; when full, the RIGHTMOST
+        wheel's current symbol LOCKS IN with an effect (Hive/Remember/
+        Commune/Stop/Kill).
+
+    - name: "Unwritten Empowerment (Kerrev)"
+      brief: |
+        Kill Unwritten Attendant → 7s buff. Required to destroy Kerrev's
+        Strand tethers attached to pedestals.
+
+  role_archetypes:
+    - id: symbol_caller
+      brief: "Identifies + announces symbol targets and routes."
+    - id: knowledge_collector
+      brief: "Kills knowledge enemies + deposits stacks for wheel rotations."
+    - id: lens_handler
+      brief: "Places/retrieves lenses; manages light-beam routing."
+
+  sherpa_playbook:
+    - "1st-timer: lens_handler. Most direct cause-effect feedback."
+    - "Sherpa: symbol_caller. Knowing the 27 symbols + naming them quickly is the bottleneck."
+    - "Brief learners on the symbol set BEFORE pull — it's everything in this dungeon."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS for Zoetic Lockset + Kerrev windows (short)."
+      - "Long-range primary for Truthspeakers + Lens Bearers."
+      - "Anti-Champion mods — Dread champions on Master."
+    armor_stats:
+      - "Mobility for jumping puzzles between encounters."
+      - "Resilience for Subjugator damage."
+    common_exotics:
+      - "Hunter: Star-Eater Scales, Gyrfalcon's Hauberk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance, Phoenix Protocol, Speaker's Sight (heal)."
+
+  common_mistakes:
+    - "Misnaming a symbol → wrong wheel → break lenses → spawn Tormentor (Zoetic Lockset only)."
+    - "Routing light beam to the wrong wheel → breaks lenses + Tormentor spawn."
+    - "Placing a lens then NOT retrieving the Lens Bearer's NEW lens — encounter stalls."
+    - "Locking in 'Kill' too early in Zoetic Lockset — short DPS phase."
+    - "Hitting Strand tethers without Unwritten Empowerment — does nothing, wastes time."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: solve-the-riddle
+    name: "Solve the Riddle"
+    difficulty: medium
+    estimated_time: "15-20 min"
+
+    abstract: |
+      Tutorial puzzle. A central wheel shows 3 symbols (then later 2, then
+      1). To match: kill a Truthspeaker to reveal the missing symbol. Find
+      a side wheel with that symbol → route a light beam to it through
+      lenses. Get a lens from killing a Lens Bearer. Wrong routing breaks
+      lenses + spawns a Tormentor.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central pedestal with a wheel showing 2-3 symbols.
+      - Side wheels around the perimeter, each with their own symbol.
+      - Pedestal pillars between wheels (for lens placement).
+      - Pyramid switches floating above (shoot to redirect beams).
+      - Truthspeaker Grim wandering / spawning.
+      - Lens Bearer Subjugator wandering / spawning.
+
+      PLATFORM MECHANICS:
+      - Look at center wheel — note the displayed symbols. The MISSING one is what you need to add.
+      - Kill Truthspeaker → reveals missing symbol identity.
+      - Find side wheel that displays that symbol.
+      - Kill Lens Bearer → grab lens → place on pedestal between center + that side wheel.
+      - Placement RESPAWNS Lens Bearer. Continue lensing as needed.
+      - Shoot Pyramid switches to route light beam to your target wheel.
+      - Correct routing = encounter advances. Wrong = lenses break + Tormentor spawns.
+
+      START STATE: rally banner at entry. Interact with the LIGHT BEAM PEDESTAL → point at wheel → encounter starts.
+
+    callouts:
+      - when: "Truthspeaker down + symbol revealed"
+        from: "killer"
+        to:   "team"
+        say:  '"Symbol: [name]."' # Hive, Worm, Stop, etc.
+        why:  "Whole team needs the target name."
+      - when: "Side wheel ID'd"
+        from: "spotter"
+        to:   "team"
+        say:  '"[direction] wheel has [symbol]."'
+        why:  "Routing target."
+      - when: "Lens placed"
+        from: "placer"
+        to:   "team"
+        say:  '"Lens on [position]."'
+        why:  "Coordinates pyramid switch order."
+      - when: "Pyramid switch shot, beam redirected"
+        from: "shooter"
+        to:   "team"
+        say:  '"Beam to [direction]."'
+        why:  "Confirms routing in real-time."
+      - when: "Wrong target = Tormentor incoming"
+        from: "any"
+        to:   "team"
+        say:  '"TORMENTOR — break it."'
+        why:  "Drop everything, burst Tormentor or wipe."
+
+    wipe_triggers:
+      - "Wrong-wheel routing → Tormentor + ongoing pressure."
+      - "Tormentor melee = death."
+      - "Subjugator / Lens Bearer overlap on a lens runner."
+
+    damage_phase_triggers:
+      - "Correct symbol + routing = encounter clears (no boss DPS in this one — puzzle encounter)."
+
+    parallel_timeline:
+      - phase: "Per riddle (progressively harder, ~3 rounds)"
+        symbol_caller: "Kill Truthspeaker, name target symbol."
+        lens_handler: "Kill Lens Bearer, place lens at correct pedestal."
+        beam_shooter: "Shoot Pyramid switch to redirect beam to target wheel."
+
+    permutations:
+      - name: "Standard role split"
+        learner_friendly: true
+        summary: "One Truthspeaker hunter, one Lens Bearer hunter, one routing caller."
+        roles:
+          - id: symbol_caller
+            count: 1
+            does: "Hunts Truthspeakers + names targets."
+          - id: lens_handler
+            count: 1
+            does: "Hunts Lens Bearers + places lenses."
+          - id: beam_shooter
+            count: 1
+            does: "Shoots Pyramid switches to route."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All roles sequentially. Slower but doable."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Bring add-clear primary."
+
+    cheese: []
+
+    common_mistakes:
+      - "Calling symbol by description ('the spiral') instead of name ('Worm') — slows team. Use symbol names."
+      - "Triggering Pyramid switch BEFORE lenses are placed — beam routes through empty pedestal, breaks."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Unloved (hand cannon)"
+        - "Unsworn (trace)"
+        - "Unworthy (scout)"
+        - "Unvoiced (shotgun)"
+        - "Flain armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: lens_handler. Direct feedback loop."
+      - "2nd: symbol_caller."
+
+  # ====================================================================
+
+  - order: 2
+    slug: open-the-locks
+    name: "Open the Locks (Zoetic Lockset)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Mid-boss. Rotating-light wheels with knowledge-stack rotations.
+      The Zoetic Lockset shines on wheels left→right (tracked via
+      Lockout Progression buff); when right wheel locks, its current
+      symbol triggers an effect. Goal: get KILL locked in for DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Zoetic Lockset (Hive boss) in the center.
+      - 4 symbol wheels in a row.
+      - Lockout Progression buff bar (4 sections) at the top of the screen.
+      - Pillars next to each wheel for knowledge deposits.
+      - Pyramid switches above center pedestals.
+
+      PLATFORM MECHANICS:
+      - Lockout buff cycles through wheels L→R as time passes (4 sections, each = 1 wheel light).
+      - The wheel currently lit is the wheel CURRENTLY rotatable.
+      - Kill Preceptor Wizard → knowledge shard (stacks: Heightened 1 / Brimming 2 / Overflowing 3).
+      - Deposit knowledge at the wheel's pillar → rotates wheel light to specific symbol.
+      - When the buff fills + cycle resets, the RIGHTMOST wheel's currently-lit symbol LOCKS IN.
+
+      Locked symbol effects:
+        • Hive       → Ogres spawn
+        • Remember   → Wizards spawn
+        • Commune    → Lockset shoots Resonant Sun projectiles
+        • Stop       → enemies stop spawning
+        • Kill       → DPS phase begins
+
+      - If Kill is NOT locked, Lockset keeps locking symbols R→L (more added each cycle).
+      - DPS length is INVERSELY related to how many symbols locked before Kill.
+      - During DPS: Lockset's shell closes periodically (damage paused).
+
+      START STATE: rally banner. Walk past flag = encounter starts.
+
+    callouts:
+      - when: "Lockout buff section [N/4]"
+        from: "watcher"
+        to:   "team"
+        say:  '"Lockout [N], wheel [N] active."'
+        why:  "Tells knowledge-depositors which wheel to focus."
+      - when: "Preceptor down + knowledge held"
+        from: "killer"
+        to:   "team"
+        say:  '"[Heightened/Brimming/Overflowing] knowledge — depositing wheel [N]."'
+        why:  "Coordinates rotations."
+      - when: "Symbol locked in"
+        from: "any"
+        to:   "team"
+        say:  '"LOCKED: [Hive/Remember/Commune/Stop/Kill]."'
+        why:  "Tracks effects + DPS readiness."
+      - when: "Kill locked = DPS begins"
+        from: "any"
+        to:   "team"
+        say:  '"KILL — DAMAGE."'
+        why:  "Burst window opens. Coordinate Supers."
+
+    wipe_triggers:
+      - "Wrong symbol → Tormentor spawns."
+      - "Commune Resonant Sun projectiles untracked = pile damage."
+      - "DPS phase too short (locked too many bad symbols first)."
+
+    damage_phase_triggers:
+      - "Kill symbol locked in by Lockout cycle → DPS opens (length varies)."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Lockset. Burst Preceptors for knowledge."
+      - phase: "First cycle (~1:00)"
+        knowledge_runners: "Drop Preceptors, deposit knowledge at the lit wheel."
+        symbol_caller: "Track Lockout progression. Aim for Stop early to slow spawns."
+      - phase: "Second cycle (~2:00)"
+        all: "Set up Kill on the rightmost wheel BEFORE the buff fills."
+      - phase: "DPS"
+        all: "Burst Lockset. Watch for shell-close phases (damage stops). Use Supers."
+      - phase: "Reset"
+        all: "Encounter cycles."
+
+    permutations:
+      - name: "Standard Stop-first / Kill-second"
+        learner_friendly: true
+        summary: "Lock Stop on 1st cycle to halt spawns. Lock Kill 2nd for DPS."
+        roles:
+          - id: knowledge_runner
+            count: 2
+            does: "Continuous Preceptor kills + deposits."
+          - id: caller
+            count: 1
+            does: "Tracks Lockout buff. Calls deposit targets + Lockset shell state."
+
+      - name: "Speed: instant Kill"
+        learner_friendly: false
+        summary: |
+          Skip Stop, focus all rotations on Kill IMMEDIATELY on rightmost
+          wheel. Highest-DPS phase but you eat all the spawning. Burst
+          with sustained DPS (Whisper, Sleeper, Linear).
+        best_for: "Experienced teams. 1-phase potential."
+        roles:
+          - id: dps_anchor
+            count: 1
+            does: "Pre-loaded Sleeper / Whisper. Doesn't deposit, just burns."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All roles. Take Stop first. Expect 2-3 cycles."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Witherhoard the Lockset during cycles."
+
+    cheese: []
+
+    common_mistakes:
+      - "Depositing knowledge on the WRONG (unlit) wheel — wastes shard."
+      - "Letting buff cycle end without Stop locked — Ogre/Wizard wave overwhelms."
+      - "Trying to do too many rotations on one cycle — depleted knowledge supply."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Boss CORE drop (carry to bowl near loot chest to open next area)"
+      hidden_chest: null
+      potential_drops:
+        - "Unloved (HC)"
+        - "Unsworn (trace)"
+        - "Unworthy (scout)"
+        - "Unvoiced (shotgun)"
+        - "Flain armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: knowledge_runner."
+      - "2nd: caller."
+
+  # ====================================================================
+
+  - order: 3
+    slug: kerrev-the-erased
+    name: "Kerrev, the Erased (final boss)"
+    difficulty: hard
+    estimated_time: "25-35 min"
+
+    abstract: |
+      Final boss. Subjugator Dread leader. Tethers pedestals with Strand
+      that you can only break under Unwritten Empowerment (7s from kill).
+      A central dial has TRUTH side + LIE side. Choose which side to light
+      via lensed beams. Truthspeakers only drop TRUTH symbols.
+      Enough symbols lit → interact with pillar → fire trap → shield drops
+      → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Large vault chamber. Kerrev (Subjugator) in the center.
+      - Pyramid spikes around with Strand tethers to pedestals.
+      - Central dial near vault door — TRUTH symbols on one side, LIE on the other.
+      - Pedestals + Pyramid switches throughout (same lens/beam pattern as encounter 1).
+      - Unwritten Attendants spawn periodically.
+      - Truthspeakers (from encounter 1) spawn periodically.
+
+      PLATFORM MECHANICS:
+      - Kerrev's Strand tethers PROTECT pedestals — you can't lens them without breaking tethers.
+      - Kill Unwritten Attendant → Unwritten Empowerment buff (7s) → destroy tethers (Threadlings counter-attack).
+      - Truthspeakers drop TRUTH side symbols only. (Lie side has separate spawns — confirm in-encounter; might be a different enemy or simply "default" symbols.)
+      - Decide which side to back: Truth OR Lie (team commits).
+      - Lens beams to wheels showing the chosen side's symbols (same routing as encounter 1).
+      - Enough symbols lit on chosen dial side → interact with pillar near dial → ROOM IGNITES (fire trap).
+      - Take cover during fire trap.
+      - Kerrev's shield drops post-fire → DPS window.
+
+      START STATE: rally banner. Approach boss to start. Strand tethers appear immediately.
+
+    callouts:
+      - when: "Strand tether spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Tether on [pedestal direction]."'
+        why:  "Identifies which pedestal needs unlocking."
+      - when: "Unwritten Attendant down + buff active"
+        from: "killer"
+        to:   "team"
+        say:  '"EMPOWERED — 7 seconds — tethers."'
+        why:  "All buff-holders sprint to assigned tethers."
+      - when: "Truthspeaker down + symbol revealed"
+        from: "killer"
+        to:   "team"
+        say:  '"TRUTH symbol: [name]."'
+        why:  "Identifies which dial-side symbol to lens."
+      - when: "Lensing wheel"
+        from: "lens_handler"
+        to:   "team"
+        say:  '"Lensing [direction] wheel — [Truth/Lie] side."'
+        why:  "Routing confirmation."
+      - when: "Dial side fully lit"
+        from: "any"
+        to:   "team"
+        say:  '"FIRE TRAP — cover."'
+        why:  "Interact triggers fire room AoE."
+      - when: "Shield down"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — Kerrev."'
+        why:  "Burst window."
+
+    wipe_triggers:
+      - "Tether-breaking Threadling explosions while no Empowerment."
+      - "Wrong lens routing → broken lenses + Tormentor."
+      - "Standing in fire trap = death."
+      - "Mixing Truth + Lie symbol contributions — undefined behavior, likely fail."
+      - "Kerrev's Subjugator-grade abilities at close range."
+
+    damage_phase_triggers:
+      - "Chosen side's dial fully lit + pillar interacted + fire trap fired → Kerrev's shield drops → ~15-20s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage Kerrev. Tethers appear on pedestals. Identify them."
+      - phase: "Empowerment + tether break (~0:30-1:00)"
+        attendant_killer: "Drop Attendant."
+        tether_breaker: "Within 7s, destroy assigned tether(s). Handle Threadlings."
+      - phase: "Truthspeaker hunt + symbol ID (~1:00-1:30)"
+        symbol_caller: "Drop Truthspeaker, name TRUTH symbol."
+      - phase: "Lens routing (~1:30-2:30)"
+        lens_handler: "Place lens at pedestal connecting to wheel with target symbol."
+        beam_shooter: "Pyramid switch routing."
+      - phase: "Fire trap + DPS (~2:30-3:00)"
+        all: "Interact, take cover, then burst Kerrev when shield drops."
+      - phase: "Reset"
+        all: "Kerrev re-shields. Cycle."
+
+    permutations:
+      - name: "Standard 3-role"
+        learner_friendly: true
+        summary: "Pre-assign roles: symbol_caller, lens_handler, tether_breaker."
+        roles:
+          - id: symbol_caller
+            count: 1
+            does: "Truthspeaker focus + symbol naming."
+          - id: lens_handler
+            count: 1
+            does: "Lens placement + routing."
+          - id: tether_breaker
+            count: 1
+            does: "Attendant kill + tether destruction; backup add clear."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          All roles. Expect 4-5 phases. Bring sustain + a wide-mag DPS
+          option (Finality's Auger if obtained — it's a beast for this).
+        roles:
+          - id: solo
+            count: 1
+            does: "Methodical. Don't engage tethers without Empowerment."
+
+    cheese: []
+
+    common_mistakes:
+      - "Hitting Strand tethers WITHOUT Unwritten Empowerment — does nothing, wastes time."
+      - "Mixing Truth + Lie lit symbols — dial doesn't fire fire-trap correctly."
+      - "Not taking cover during fire trap = death."
+      - "DPS window short — bring burst weapons (Whisper, Sleeper)."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (extra roll)"
+        - "Vault chest (if all 3 Pyramid codes found this run — separate exotic-quest progression)"
+      hidden_chest:
+        location: |
+          PYRAMID CODES: 3 codes scattered through the dungeon area
+          (Hive Grief Darkness, Fleet Remember Witness, Worm Give
+          Guardian). Input at the device near the Hidden's base of
+          operations (encounter 1 area). All 3 found this run = vault
+          door opens behind Kerrev → bonus chest with Memory of Oryx
+          + bonus loot.
+        rewards:
+          - "Memory of Oryx (lore + collectable)"
+          - "Bonus dungeon loot roll"
+      potential_drops:
+        - "Finality's Auger (exotic linear fusion — quest, not random)"
+        - "Unloved (HC)"
+        - "Unsworn (trace)"
+        - "Unworthy (scout)"
+        - "Unvoiced (shotgun)"
+        - "Flain armor"
+        - "Future Proof sparrow"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: tether_breaker. Most action, least mental load."
+      - "2nd: lens_handler."
+      - "3rd: symbol_caller (hardest — must know symbols)."
+
+# ========================================================================
+overall_notes:
+  - "Finality's Auger (exotic linear fusion): quest from this dungeon (The Drowning Labyrinth)."
+  - "Symbol literacy is the gating skill. Run Vow of the Disciple raid + Dual Destiny mission first to internalize symbols if possible."
+  - "Pyramid codes: 3 codes can be input at the Hidden's base of operations. Find all 3 in a single run to unlock the bonus vault chest behind Kerrev."
+  - "Master version: TBD — verify against current Bungie rotation."
+  - "Soloing: hardest current solo dungeon. Symbol-puzzle pressure compounds without team callouts."

@@ -1,0 +1,652 @@
+# raids/dungeons/warlords-ruin.yaml — Pass 1 (destinypedia baseline)
+# Brevity-first. Card a sherpa hands a learner before queueing, not an encyclopedia.
+# Pass-2 synthesis re-pass + images pending — see raids/TODO.md.
+
+slug: warlords-ruin
+name: Warlord's Ruin
+activity_type: dungeon
+released:
+  expansion: Season of the Wish
+  year: 2023
+roster_status: current
+fireteam_size: 3       # 1-3 supported (soloable)
+power_floor:
+  normal: 1790
+  master: ""           # no master version
+
+location: "Windswept Crag → Dark Age castle, European Dead Zone"
+tags: [scorn, taken, ahamkara, wish-themed, soloable, exotic-quest]
+
+average_clear_time:
+  normal_experienced: "45-60 min"
+  normal_learning:    "1.5-2.5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Climb a Scorn-infested Dark Age castle to break a Taken corruption
+    bound to an Ahamkara bone. Mechanic-light, callout-light, but punishes
+    timer mismanagement: totem-cleanse buff duration scales with cleanse
+    count, so under-cleansing means under-damage means longer encounters.
+
+  bosses:
+    - name: "Rathil, First Broken Knight of Fikrul"
+      encounter: 1
+      role: "Tutorial boss — introduces totems + gibbet + Naeem's Wish DPS"
+    - name: "Locus of Wailing Grief"
+      encounter: 2
+      role: "Taken Ogre — totems + Biting Cold weather mechanic"
+    - name: "Hefnd's Vengeance, Blighted Chimaera"
+      encounter: 3
+      role: "Final boss — totems + Hex passing + 3-floor chase"
+
+  recurring_mechanics:
+    - name: "Imminent Wish (cleanse timer)"
+      brief: |
+        Timer counts down. While it's active, stand in a corrupted Ether
+        Totem to cleanse it (~5s each). The totem clears when the central
+        Taken blight disappears and a blue glow appears. More cleanses
+        = longer Naeem's Wish Empowerment = more DPS time.
+
+    - name: "Naeem's Wish Empowerment"
+      brief: |
+        The damage-window buff. Granted after Imminent Wish ends. Duration
+        scales linearly with totem cleanses. You CANNOT damage bosses
+        without it.
+
+    - name: "Blighted Eyes"
+      brief: |
+        Floating purple eyes. Shoot to either (a) break free of a gibbet
+        cage, (b) drop a boss shield, or (c) extend DPS-phase duration
+        (encounter 3 final floor).
+
+    - name: "Biting Cold / Shelter From The Storm"
+      brief: |
+        Encounter 2 only. Snowstorm applies Biting Cold stacks; 10 = freeze
+        + die. Standing at a lit torch ("Shelter From The Storm") clears
+        stacks in 5s.
+
+    - name: "Hex of Vengeful Corruption"
+      brief: |
+        Encounter 3 only. 15s debuff. Melee a Corrupted Hex-Drinker (immune
+        Wraith) to transfer it. Hex-Drinkers will melee it back to you —
+        don't linger. If you hold it at 0s, you die.
+
+  role_archetypes:
+    - id: cleanser
+      brief: "Runs to corrupted totems during Imminent Wish window."
+    - id: add_clear
+      brief: "Kills Broken Knights / Blighted Eyes / sustains the cleanser."
+    - id: dps_anchor
+      brief: "Sets up DPS positioning + first shot when buff drops."
+
+  sherpa_playbook:
+    - "1st-timer: cleanser. Simple call, see all mechanics first-hand."
+    - "Solo runner: bring something with reach (sniper / linear) — final boss has tight floor cycles."
+    - "Skip-the-jumping-puzzle: nope, no cheese for the climbs; learners just take the time."
+
+  loadout_general:
+    weapons:
+      - "Burst-DPS preferred — Naeem's Wish windows are short (~15-30s)."
+      - "Whisper of the Worm, Still Hunt + Celestial, Two-Tailed Fox all strong."
+      - "Anti-Barrier mod recommended for Broken Knights on Master-tier rotators."
+      - "Indebted Kindness (from this dungeon) is an arc sidearm — exists for the meta."
+    armor_stats:
+      - "Resilience priority — Blighted Chimaera one-shots are real."
+      - "Recovery secondary — sustained damage between adds."
+    common_exotics:
+      - "Hunter: Star-Eater Scales (DPS), Caliban's Hand (totem hold)."
+      - "Titan: Cuirass of the Falling Star (DPS), Wormgod Caress (sword DPS)."
+      - "Warlock: Star-Eater (DPS), Sunbracers (add clear)."
+
+  common_mistakes:
+    - "Killing Broken Knights before they spawn totems — they only drop the totem on their attack OR on death. Wait for the swing animation."
+    - "Standing on a damage-phase pillar by accident — that pillar is now BURNT for this phase. Walk wide of unused pillars."
+    - "Melee'ing the wrong Hex-Drinker first — they spawn in different spots; track yours before the timer drops."
+    - "Forgetting Shelter From The Storm on the BACK wall (encounter 2) — players run forward looking for it, freeze, die."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: rathil
+    name: "Rathil, First Broken Knight of Fikrul"
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      Tutorial fight. Rathil teleports you into spike cages on a timer;
+      you shoot 3 Blighted Eyes per cage to drop, then cleanse Taken totems
+      to earn Naeem's Wish Empowerment for DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Open ridge arena with Rathil in the center (large Broken Knight wielding a fire scepter).
+      - 4-5 small altars around the perimeter with central Taken blights (corrupted Ether Totems — start dormant).
+      - Floating Blighted Eyes above the arena (3 per gibbet cage when triggered).
+
+      PLATFORM MECHANICS:
+      - Totems: walk up, stand still. Cleanses in ~5s. Blight disappears + blue glow = done.
+      - Gibbets: forced teleport. Look UP and OUT — 3 Blighted Eyes float around your cage. Shoot all 3 → cage opens → fall back down. Eyes count for ALL caged players, but each player's cage has its own set.
+      - Pillar (DPS): none here. Damage Rathil from anywhere once Naeem's Wish triggers.
+
+      START STATE: pull = engage Rathil. Imminent Wish fires automatically after first damage threshold.
+
+    callouts:
+      - when: "Rathil casts (red flash + Imminent Wish text)"
+        from: "first to see"
+        to:   "team"
+        say:  '"Cages incoming — eyes up."'
+        why:  "Everyone needs to be looking UP/OUT, not at adds. Gibbet spawns in ~2s."
+      - when: "You break out of your cage"
+        from: "self"
+        to:   "team"
+        say:  '"Free, going [N/S/E/W] totem."'
+        why:  "Avoids 2 cleansers running to the same totem; spreads the cleanse load."
+      - when: "Imminent Wish < 10s remaining"
+        from: "any"
+        to:   "team"
+        say:  '"10 seconds — last totems!"'
+        why:  "Triggers people to abandon dying-totem attempts and prep for DPS positioning."
+      - when: "Naeem's Wish Empowerment grants"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE."'
+        why:  "Buff duration = #totems cleansed × ~5s. Don't waste the first 2s reloading."
+
+    wipe_triggers:
+      - "Cage timer expires while a Blighted Eye is still alive = impaled, dead."
+      - "Cleansing zero totems → Naeem's Wish Empowerment = 0s → can't damage Rathil → enrage."
+
+    damage_phase_triggers:
+      - "Imminent Wish countdown reaches 0 with ≥1 totem cleansed → buff applies."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Damage Rathil to trigger first Imminent Wish cast. Add-clear on Scorn fodder."
+
+      - phase: "Imminent Wish 1 (cages drop ~0:30)"
+        all: "Shoot YOUR 3 Blighted Eyes. Fall. Pick a totem. Cleanse."
+
+      - phase: "Cleanse window (~0:35-1:15)"
+        cleanser_1_2: "Solo each totem; rotate to nearest unclaimed."
+        add_clear:    "Pick off Scorn pulling cleanser attention."
+
+      - phase: "DPS window (~1:15-1:45)"
+        all: "Stack mid-arena. Burst with Naeem's Wish active."
+
+      - phase: "Reset"
+        all: "Rathil retreats. Wait for next cast."
+
+    permutations:
+      - name: "Standard 3-cleanser"
+        learner_friendly: true
+        summary: "Each player owns 1-2 totems. All damage together."
+        best_for: "Default. Soloable variant with same logic."
+        roles:
+          - id: cleanser
+            count: 3
+            does: "Cage break → assigned totem → DPS position."
+            loadout: ""
+            notes:
+              - "Soloists do all totems alone — Imminent Wish is generous."
+
+      - name: "Speed: 2 cleanse / 1 DPS-anchor"
+        learner_friendly: false
+        summary: "Two players cleanse all totems; third reloads + opens DPS the instant the buff drops."
+        best_for: "1-phase attempts with strong burst weapons."
+        roles:
+          - id: cleanser
+            count: 2
+            does: "Each takes 2 totems back-to-back."
+          - id: dps_anchor
+            count: 1
+            does: "Skip cleanse (only need ≥1 totem for any buff). Pre-position for instant fire."
+            notes:
+              - "Risky — if cleansers miss a totem, buff duration is too short."
+
+    cheese: []  # No confirmed cheese. Boss is too simple to be worth one.
+
+    common_mistakes:
+      - "Tunnel-visioning Blighted Eyes — Scorn adds can melt cleansers."
+      - "Cleansing then running mid-arena for DPS — pillar position doesn't matter, but Rathil's fire AoE does."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Naeem's Lance (sniper)"
+        - "Indebted Kindness (sidearm)"
+        - "Dark Age armor (Titan/Hunter/Warlock)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: cleanser (3-player team)."
+      - "2nd clear: solo Rathil's mechanic on master rotators to internalize timing."
+
+  # ====================================================================
+
+  - order: 2
+    slug: imprisoned-and-climb
+    name: "Imprisoned! → Venture Deeper (jumping puzzle)"
+    difficulty: easy
+    estimated_time: "10-15 min"
+    abstract: |
+      Not a boss encounter. Two puzzle gates between Rathil and the second
+      boss. Included here because each blocks progress and the gear puzzle
+      stumps learners.
+
+    setup: |
+      IMPRISONED! (gear puzzle):
+      - You're locked in cells. Each cell has a "node" — round, glowing,
+        on the wall. Shoot to spin (1 shot = counterclockwise, 2 = clockwise).
+      - Skeletons on cell floors have tally marks next to one hand. Right
+        hand = N gears spin CW. Left hand = N gears spin CCW.
+      - When all 6 nodes are spinning correctly, a switch glows near a cell
+        door. Shoot it. All cells open.
+
+      VENTURE DEEPER (climb):
+      - Spike-trap maze: griddle plates on walls fire spikes. Step IN FRONT
+        of the plate triggers it. Walk past on the OPPOSITE side of the
+        corridor.
+      - Cliffside climb under Chimaera fire — sprint between cover, don't
+        stop on bridges.
+      - Sewer drain entry to Encounter 2 arena.
+
+    callouts:
+      - when: "Skeleton found"
+        from: "finder"
+        to:   "team"
+        say:  '"Skeleton in [N/S/E/W] cell — [right/left] hand, [N] marks."'
+        why:  "Two cells have skeletons. Both clues are needed to know the full CW/CCW split."
+
+    wipe_triggers:
+      - "Spike traps in the maze (instant kill, full team needs revives → optimization wipe at MM)."
+      - "Falling off cliffside (no respawn until checkpoint)."
+
+    damage_phase_triggers: []
+    parallel_timeline: []
+    permutations: []
+    cheese:
+      - title: "Solo Imprisoned skip"
+        detail: |
+          Solo players have access to all cells via wall holes. Spin all 6
+          nodes yourself, then shoot the switch. No skeleton-reading needed
+          if you brute-force combinations (12 perms max — fast).
+
+    common_mistakes:
+      - "Shooting nodes the wrong number of times — count your shots, the CW/CCW indicator changes per shot."
+      - "Sprinting through the spike maze — walking gives you time to read the griddle plates."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          BURIED BLOODLINE secret chest 1: After the Imprisoned! puzzle, in
+          the prison cell with the LEFTMOST skeleton, look up — there's a
+          ledge above the cell door. Jump up and behind it, you'll find a
+          chest with a fragment for the Buried Bloodline exotic quest.
+        rewards:
+          - "Hidden quest item: Bone Fragment 1 (Buried Bloodline catalyst seed)"
+          - "Spoils of Conquest"
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st time: bring a teammate who's run it for the gear puzzle walkthrough."
+      - "Spike maze: walk every section once before sprinting."
+
+  # ====================================================================
+
+  - order: 3
+    slug: wailing-tempest
+    name: "Wailing Tempest (Locus of Wailing Grief)"
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      Taken Ogre that's shielded until you cleanse totems through a
+      snowstorm. Adds Biting Cold weather mechanic — manage stacks at
+      Shelter From The Storm torches in back, or freeze + die.
+
+    setup: |
+      WHAT YOU SEE:
+      - Castle bailey arena. Locus (massive Taken Ogre) at the far end.
+      - 4 unlit pillars in a square in the center. Each holds a Solar Charge brazier on top.
+      - Lit torches along the BACK wall (away from boss) — these are Shelter From The Storm.
+      - Broken Knights spawn at left + right ends of the arena once Imminent Wish triggers.
+
+      PLATFORM MECHANICS:
+      - Pillars: carry a Solar Charge (drops from arena center after totems cleansed) → walk to pillar → press hold to ignite. Each lit pillar = 1 of 4 needed for DPS.
+      - Shelter torches: stand within ~3m → "Shelter From The Storm" buff applies → all Biting Cold stacks clear in 5s.
+      - DPS pillars: stand on the LAST-LIT pillar at damage start to get both Shelter + Naeem's Wish. Burns the pillar — don't waste them.
+
+      START STATE: pull = shoot the central blight to engage Locus. Imminent Wish + first Broken Knight wave begin.
+
+    callouts:
+      - when: "Imminent Wish starts"
+        from: "first to see"
+        to:   "team"
+        say:  '"Wish up — knights spawning [L/R]."'
+        why:  "Cues add-clear to position before the Broken Knights drop their totems."
+      - when: "Broken Knight summons a totem (visible blight at their feet)"
+        from: "killer"
+        to:   "team"
+        say:  '"Totem [L/R] — DOWN."'
+        why:  "Confirms where to cleanse. Don't kill the Knight BEFORE the totem spawns."
+      - when: "Biting Cold ≥ 7 stacks"
+        from: "self"
+        to:   "team"
+        say:  '"I'm on shelter, [back-left/back-right]."'
+        why:  "Lets teammates ride your cleared zone if they're also high stacks."
+      - when: "Solar Charges drop (center of arena, after cleanse)"
+        from: "carrier"
+        to:   "team"
+        say:  '"Got charge, lighting pillar [N/S/E/W]."'
+        why:  "Avoids 2 carriers racing to the same pillar."
+      - when: "Fourth pillar lit"
+        from: "last carrier"
+        to:   "team"
+        say:  '"FOURTH LIT — stack on me!"'
+        why:  "Team must stand by the last-lit pillar for both Shelter + Naeem's Wish during DPS."
+      - when: "Naeem's Wish duration < 5s"
+        from: "any"
+        to:   "team"
+        say:  '"Move next pillar, [direction]."'
+        why:  "Sets the next pillar everyone runs to when shelter drops."
+
+    wipe_triggers:
+      - "10 stacks Biting Cold = frozen → death (no revive window — others also freezing)."
+      - "Stepping on an unused pillar by accident = pillar is burnt for this phase, may not reach 4."
+      - "Locus melee at point-blank one-shots most builds."
+
+    damage_phase_triggers:
+      - "All 4 pillars lit → Locus shield drops + Naeem's Wish Empowerment grants."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Shoot center blight to engage. Locus summons Blighted Eyes for shield."
+
+      - phase: "Eye-pop + Knight spawn (~0:20)"
+        eye_shooters: "Drop all Blighted Eyes ASAP."
+        add_clear:    "Engage Broken Knights at L+R spawns. Wait for swing animation = totem drops."
+
+      - phase: "Cleanse + cold management (~0:30-1:30)"
+        cleansers_2: "Cleanse totems as they spawn (4-6 over the window)."
+        torch_runner: "When stacks ≥7, sprint back-wall torch. Return."
+        carrier:      "Pick up Solar Charges from arena center → ignite pillars."
+
+      - phase: "Final pillar + DPS (~1:35)"
+        all: "Stack on last-lit pillar. Burst Locus with Naeem's Wish + Shelter."
+
+      - phase: "Reset (if not 1-phased)"
+        all: "Locus reshields. Cycle repeats from eye-pop."
+
+    permutations:
+      - name: "Standard 1/1/1 (cleanser / carrier / add-clear)"
+        learner_friendly: true
+        summary: "Roles rotate fluidly. One player owns cold management as priority."
+        best_for: "First clears."
+        roles:
+          - id: cleanser
+            count: 1
+            does: "Owns totem cleanses. Calls cold stacks loud."
+          - id: carrier
+            count: 1
+            does: "Owns Solar Charge → pillar pipeline."
+          - id: add_clear
+            count: 1
+            does: "Locks down Broken Knights + shoots eyes. Backup cleanse."
+
+      - name: "Speed: stacked DPS"
+        learner_friendly: false
+        summary: |
+          All 3 cleanse simultaneously through 1-2 cycles → ignite all 4
+          pillars before Locus reshields → maximum-duration buff → 1-phase.
+        best_for: "Experienced teams with burst DPS."
+        roles:
+          - id: cleanser
+            count: 3
+            does: "Each owns 1-2 totems per cycle. Self-manage cold."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          Slow + methodical. Cleanse one totem at a time, return to back-wall
+          torch between each. Light 1-2 pillars per Imminent Wish window.
+          Expect 3-4 cycles to DPS.
+        best_for: "Soloists."
+        roles:
+          - id: cleanser
+            count: 1
+            does: "All mechanics yourself. Bring sustained DPS (Whisper, Sleeper)."
+            notes:
+              - "Witherhoard for damage-over-time during cold-recovery sprints."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing Broken Knights too fast — totem only drops on their swing OR on death. Wait for the swing."
+      - "Running to find Shelter From The Storm in the FRONT of the arena — torches are all on the back wall."
+      - "Burning a pillar by accident during the cleanse phase (walking through it on the way to a totem) — only step on pillars when you're carrying a charge."
+      - "Doing DPS away from the lit pillar = no Shelter = freeze mid-DPS."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          BURIED BLOODLINE secret chest 2: After defeating Locus, before
+          dropping into the climb to Vengeful Peak, scan the back-left
+          corner of the bailey arena — there's a wooden balcony with a
+          chest tucked behind a banner.
+        rewards:
+          - "Hidden quest item: Bone Fragment 2"
+          - "Spoils of Conquest"
+      potential_drops:
+        - "Dragoncult Sickle (sword)"
+        - "Vengeful Whisper (bow)"
+        - "Dark Age armor"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: cleanser. Most-instructive role — touches every mechanic."
+      - "2nd: carrier — practice pillar pathing without burning unused ones."
+      - "3rd: solo to internalize cold-recovery timing."
+
+  # ====================================================================
+
+  - order: 4
+    slug: quell-the-corruption
+    name: "Quell the Corruption (Hefnd's Vengeance, Blighted Chimaera)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Final boss. Same totem-cleanse + Naeem's Wish loop as previous
+      encounters, plus the Hex of Vengeful Corruption (15s timer, pass via
+      melee to a Hex-Drinker Wraith). Boss teleports up 3 floors; each
+      floor repeats mechanics until the final stand grants infinite buff.
+
+    setup: |
+      WHAT YOU SEE:
+      - Mountain summit arena, central Taken blight + floating Ahamkara bones.
+      - Chimaera (Taken hydra-type) hovers in center. Void Eversion AoE around it.
+      - Broken Knights spawn at L+R ends once Imminent Wish triggers.
+      - Corrupted Hex-Drinkers (immune Wraiths) skulk around the perimeter — usually 2-3 visible.
+
+      PLATFORM MECHANICS:
+      - Floor 1: ground level. Standard totem/cleanse/DPS loop.
+      - Floor 2: climbable ruins. Same loop, smaller footprint.
+      - Floor 3 (final stand): 3 platforms in a triangle. Standing on a platform = Naeem's Wish. Shooting Blighted Eyes nearby extends duration. Chimaera teleports between platforms after each Wish drop.
+      - Hex-Drinkers: immune to gunfire. Melee = transfers your Hex to them. They melee back to re-apply.
+
+      START STATE: pull = shoot central blight to engage. Chimaera Void Eversion activates immediately.
+
+    callouts:
+      - when: "Imminent Wish starts"
+        from: "first to see"
+        to:   "team"
+        say:  '"Wish up — eyes on knights + hex-drinkers."'
+        why:  "Knights drop totems, hex-drinkers are your hex outlet."
+      - when: "You receive Hex of Vengeful Corruption (red icon, 15s timer)"
+        from: "self"
+        to:   "team"
+        say:  '"HEXED — going [direction] drinker."'
+        why:  "Other hexed players need to NOT go the same drinker (chain hex). 15s feels long; isn't."
+      - when: "Hex passed to drinker"
+        from: "self"
+        to:   "team"
+        say:  '"Clean."'
+        why:  "Confirms the drinker is committed. Don't melee a committed drinker."
+      - when: "Floor 3 — boss teleports to new platform"
+        from: "first to see"
+        to:   "team"
+        say:  '"Platform [N/S/E] active."'
+        why:  "Team needs to move + stand on the new platform before old buff drops."
+      - when: "Naeem's Wish expiring (Floor 3)"
+        from: "any"
+        to:   "team"
+        say:  '"Eyes! Eyes for extension!"'
+        why:  "Shooting nearby Blighted Eyes adds duration. Critical for survival on Floor 3."
+      - when: "Final stand begins (Chimaera teleports team back to Floor 1)"
+        from: "any"
+        to:   "team"
+        say:  '"FINAL STAND — burn it down."'
+        why:  "Buff is infinite at final stand. Take your time, don't panic."
+
+    wipe_triggers:
+      - "Hex of Vengeful Corruption hits 0s on your bar = death."
+      - "Two players melee'ing the same Hex-Drinker = one passes, one re-receives, one dies."
+      - "Chimaera's Void Eversion at point-blank = death."
+      - "Falling off Floor 2/3 ruins = full death (no revive available mid-encounter)."
+
+    damage_phase_triggers:
+      - "Floors 1-2: All totems cleansed + all Hexes resolved → Naeem's Wish grants."
+      - "Floor 3: Standing on an active platform = Naeem's Wish constant."
+      - "Final stand: Infinite Naeem's Wish until boss dies."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Shoot center blight. Engage Chimaera. Locate nearest 2 Hex-Drinkers."
+
+      - phase: "Floor 1 — Wish 1 (~0:20-1:30)"
+        cleansers_2: "Cleanse totems as Broken Knights drop them."
+        hex_runner:  "When hexed, sprint a Hex-Drinker. Melee. Return."
+        add_clear:   "Knights + Blighted Eyes. Watch your hex timer."
+
+      - phase: "Floor 1 — DPS (~1:30-2:00)"
+        all: "Burst Chimaera. Take 30-50% per phase."
+
+      - phase: "Floor 2 — climb + repeat (~2:00-3:30)"
+        all: "Climb ruins to Floor 2. Same mechanic loop. Smaller footprint = tighter cold."
+
+      - phase: "Floor 3 — platform chase"
+        all: "Stand on active platform → DPS → Chimaera teleports → move to new platform → repeat."
+
+      - phase: "Final stand (Floor 1 again)"
+        all: "Infinite buff. Don't panic. Burst Chimaera to 0."
+
+    permutations:
+      - name: "Standard 2-cleanse / 1-hex (Floor 1-2)"
+        learner_friendly: true
+        summary: "Two players own totem cleanses; one owns hex-pass + add-clear backup."
+        best_for: "First clears."
+        roles:
+          - id: cleanser
+            count: 2
+            does: "Cleanse totems as Knights drop them."
+          - id: hex_runner
+            count: 1
+            does: "Owns hex-pass priority. Map drinker locations on pull."
+
+      - name: "Floor 3: triangle DPS rotation"
+        learner_friendly: false
+        summary: |
+          Designate one player per platform direction. When boss teleports,
+          the assigned player calls + sprints first; team follows. Avoids
+          all 3 racing to the same platform.
+        best_for: "Floor 3 specifically. Use any Floor 1-2 perm beforehand."
+        roles:
+          - id: platform_caller
+            count: 3
+            does: "One per direction (N/S/E). Calls + leads the move."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: |
+          Methodical: cleanse 1 totem, pass your own hex (drinkers spawn for
+          solo too), DPS what you can per phase. Expect 4-6 phases per floor.
+        best_for: "Soloists."
+        roles:
+          - id: cleanser
+            count: 1
+            does: "Full mechanics. Use stasis/strand crowd-control to manage knights."
+            notes:
+              - "Buried Bloodline (this dungeon's exotic) is great for solo here — Devour-on-hit + decent damage."
+
+    cheese: []
+
+    common_mistakes:
+      - "Two players hexed and going to the same Hex-Drinker — second player gets the hex re-applied AND now there's no clean drinker. Always call direction."
+      - "Floor 3: standing on a platform 'just to check' — counts as your platform, may strand you when boss teleports."
+      - "Trying to DPS during Final Stand from across the map — Chimaera's Void Eversion AoE still kills. Stay close but not point-blank."
+      - "Ignoring Blighted Eyes on Floor 3 — without extensions, the platform Wish drops too fast to find the next platform."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final boss chest (extra roll, all loot pool)"
+      hidden_chest:
+        location: |
+          BURIED BLOODLINE quest fragment: After the final boss, before
+          collecting the Ahamkara bone, look behind a fallen pillar on the
+          right side of the summit. Third bone fragment spawns here.
+          Completing all 3 fragments + the final boss → Buried Bloodline
+          exotic sidearm quest unlocks.
+        rewards:
+          - "Bone Fragment 3 → Buried Bloodline exotic quest start"
+          - "Spoils of Conquest"
+      potential_drops:
+        - "Buried Bloodline (exotic sidearm — quest, not random drop)"
+        - "Dragoncult Sickle"
+        - "Naeem's Lance"
+        - "Indebted Kindness"
+        - "Vengeful Whisper"
+        - "Dark Age armor (chest piece guaranteed)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: cleanser on Floor 1-2. Don't volunteer for hex until you've seen a cycle."
+      - "2nd: hex_runner — learn drinker spawn pattern."
+      - "3rd: own a Floor 3 platform direction."
+      - "Solo: only attempt after a 3-player clear; the mechanic load compounds fast solo."
+
+# ========================================================================
+overall_notes:
+  - "Buried Bloodline exotic quest: 3 bone fragments hidden through the dungeon (one per major area). Must collect all 3 BEFORE final boss kill to start the quest on completion."
+  - "Master version: not available for this dungeon."
+  - "Soloing: feasible all encounters. Final boss is the wall — bring sustain (Devour, Healing Rift, Resto). Expect 1.5-3hr solo flawless."
+  - "Indebted Kindness (sidearm from this dungeon) is meta in many builds — farm encounter 1 specifically for it."

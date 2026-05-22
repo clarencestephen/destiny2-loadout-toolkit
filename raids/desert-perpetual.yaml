@@ -1,0 +1,800 @@
+# raids/desert-perpetual.yaml — Pass 1 (destinypedia baseline + Epic variant)
+
+slug: desert-perpetual
+name: The Desert Perpetual
+activity_type: raid
+released:
+  expansion: The Edge of Fate (Epic variant in Ash & Iron)
+  year: 2025  # July 19, 2025
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 100   # new normalized scaling (Renegades-era)
+  master: ""    # TBD; Epic Raid is the harder variant
+location: "Unknown Space (IX Realms) → Kepler's singularity"
+tags: [vex, nessian-schism, conductor, non-linear, three-temporalities, epic-raid, exotic-rocket, whirling-ovation]
+
+average_clear_time:
+  normal_experienced: "60-90 min"
+  normal_learning:    "3-5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Edge of Fate raid. Second NON-LINEAR D2 raid (after Leviathan).
+    Pick any 3 of 4 bosses (Epoptes/Agraios/Iatros) in any order, then
+    Koregos. All encounters key off the 3 Temporality debuffs
+    (Constant/Cyclical/Absolute). Source of Whirling Ovation (exotic
+    rocket launcher).
+
+  bosses:
+    - name: "Epoptes, Lord of Quanta"
+      encounter: "non-linear (any of 1-3)"
+      role: "Vex Hydra trio (Particle/Wave Lens + Epoptes); 6-eye Lens kill via shield-of-light"
+    - name: "Agraios, Inherent"
+      encounter: "non-linear (any of 1-3)"
+      role: "Vex Hobgoblin + 3 proxies (Made Constant/Absolute/Cyclical); ring charge + Alignment Charge detainment"
+    - name: "Iatros, Inward-Turned"
+      encounter: "non-linear (any of 1-3)"
+      role: "Vex Hobgoblin (sniping); 3-floor Climber + Builder + Hourglass mechanic"
+    - name: "Koregos, the Worldline / Fractured in Time"
+      encounter: 4
+      role: "Final boss — Mega Hydra; mines + Hourglass + 4-arm cube puzzle + head DPS"
+
+  recurring_mechanics:
+    - name: "3 Temporality debuffs"
+      brief: |
+        Three colored debuffs from specific plates:
+          • CONSTANT TEMPORALITY (left plate)
+          • CYCLICAL TEMPORALITY (right plate)
+          • ABSOLUTE TEMPORALITY (middle plate — added in Agraios/Koregos)
+        Each gives access to specific shield-of-light cones, ring colors,
+        or cube views. Wrong debuff at mechanic = wipe.
+
+    - name: "Time's Magistrates (Major Cyclopses)"
+      brief: |
+        Kill to unlock plates that grant Temporality debuffs. Encounter 1 +
+        4. Respawn periodically.
+
+    - name: "Cobalt / Cinnabar / Antimony Chronons"
+      brief: |
+        3 Chronon colors (Blue/Red/White) dropped by Time's Burden
+        Minotaurs. Used differently per encounter:
+          • Agraios: charge rings.
+          • Iatros: fill Hourglass (color irrelevant at first; later matters).
+          • Koregos: fill Hourglass (color critical, Absolute player calls).
+
+    - name: "Lens-of-light cones"
+      brief: |
+        Shielded enemies project cones of light visible only to debuffed
+        players. Standing in cone = freezes debuff timer + reveals eye/
+        symbol/cube targets.
+
+    - name: "Hoop-mounted Hourglass"
+      brief: |
+        Iatros + Koregos. Diamond Oracle beneath. Slowly drains; refill
+        with Chronons or Neomutation wipe begins.
+
+  role_archetypes:
+    - id: temporality_carrier
+      brief: "Holds a Constant/Cyclical/Absolute debuff. Mechanic-specific routes."
+    - id: chronon_runner
+      brief: "Kills Time's Burdens, gathers + runs Chronons."
+    - id: stunner
+      brief: "Constant-buffed; stuns Koregos arms (final boss specific)."
+    - id: cube_solver
+      brief: "Iatros climber + Koregos cube-trio puzzle."
+
+  sherpa_playbook:
+    - "Pre-pull: review symbols + Temporality color assignments."
+    - "Whirling Ovation exotic: ~5% chance from Koregos, re-rollable."
+    - "EPIC RAID (Ash & Iron variant): harder + better loot tier (Wayward Psyche armor, Epic-only weapons)."
+    - "Atemporal title: requires completing all FEATS (Phase Race / Token Limit / Cutthroat / Encounter Challenges / Battalions)."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS: Whisper, Sleeper, Linear Fusion, Whirling Ovation itself."
+      - "Trace Rifles for Mine identification (Koregos)."
+      - "Anti-Champion mods for Epic / Master rotators."
+    armor_stats:
+      - "Mobility for Iatros vertical Climber."
+      - "Resilience for Koregos Arc beam."
+    common_exotics:
+      - "Hunter: Star-Eater Scales, Gyrfalcon's Hauberk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance (multi-Well recommended), Speaker's Sight, Phoenix Protocol."
+
+  common_mistakes:
+    - "Wrong Lens eye destroyed (Epoptes) = wipe."
+    - "Wrong ring charge for wrong Alignment player (Agraios) = stalled."
+    - "Climber not timing Diastole cube destruction (Iatros) = platforms collapse."
+    - "Koregos: wrong Chronon dunked = instant death."
+    - "Final stand (Koregos): standing too close to dying body = Decoherence Imminent wipe."
+
+# ========================================================================
+encounters:
+
+  - order: 0
+    slug: nursery
+    name: "The Nursery (Opener + boss select)"
+    difficulty: easy
+    estimated_time: "5-10 min"
+
+    abstract: |
+      Opening lobby. Clear central Vex platform → ascend main spire →
+      pick boss to face first (Epoptes left, Agraios middle behind pillar,
+      Iatros right). Koregos forward (locked until other 3 down).
+
+    setup: |
+      WHAT YOU SEE:
+      - Central platform with Vex waves.
+      - Main purple spire ascending to a selection altar.
+      - 4 lesser spires marking each boss arena entrance.
+
+      PLATFORM MECHANICS:
+      - Clear central platform Vex.
+      - Ascend spire. Interact with selection device to teleport to chosen boss.
+      - Order: any of (Epoptes/Agraios/Iatros) first. Koregos last.
+
+    callouts: []
+    wipe_triggers: []
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Standard pick"
+        learner_friendly: true
+        summary: "Pick Epoptes first to learn Lens mechanics (it teaches the 2-Temporality system)."
+
+    cheese: []
+    common_mistakes: []
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview: ""
+
+    learner_path:
+      - "Just play."
+
+  # ====================================================================
+
+  - order: 1
+    slug: epoptes
+    name: "Epoptes, Lord of Quanta"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Vex Hydra trio: Epoptes + Particle Lens + Wave Lens. Lenses
+      protected by 6-eye shields (visible via shield-of-light cones).
+      Constant + Cyclical Temporality players see eye positions on
+      pillars → call out cross-team → destroy 3 eyes per side → break
+      shields → kill Lenses → Epoptes DPS phase with sub-phase eye
+      mechanic.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central arena pit.
+      - Epoptes (large Hydra) hovers above pit, supported by Particle Lens (L) + Wave Lens (R).
+      - Plates L+R for Temporality debuffs.
+      - Pillars in each side room with 6 eye positions visible only via shield-of-light cone.
+      - Time's Magistrates (Major Cyclopses) on each side.
+
+      PLATFORM MECHANICS:
+      - Approach Epoptes → Lenses vanish briefly; Epoptes attacks.
+      - Kill Time's Magistrates (L + R) → plates unlock.
+      - Two players step plates simultaneously: L = Constant Temporality, R = Cyclical Temporality (30s death timer).
+      - Constant + Cyclical players enter side rooms (their respective Lens).
+      - Inside cone of light from Lens shield: timer freezes + see 1 of 6 lit eye on pillar.
+      - Call eye position cross-team. Constant destroys the eye Cyclical called; Cyclical destroys the eye Constant called. (Cross-talk.)
+      - Wrong eye = regen + stalls time + Epoptes accelerates wipe meter.
+      - Destroy 3 eyes max per Lens (more triggers wipe phase).
+      - Wipe phase ("Broken by Quanta"): inside players (NOT Hydra-eyes shooters) deal with Epoptes' own 2 shields.
+        Same 2-shield, 3-eyes-each system. Cross-call again.
+      - Cleanse all 6 Epoptes eyes → wipe averted, eyes refresh.
+      - Refresh Temporality at plates. Continue eye-burst.
+      - Once all 6 Lens eyes done → shoot central Lens eye = Lens dies.
+      - On first Lens death → Epoptes wipe sub-phase → 6-eye dance.
+      - Repeat for second Lens. Lens shield breaks on central eye → Epoptes vulnerable → DPS phase.
+      - During DPS: Epoptes regenerates 2 shields. Random 2 players get Constant/Cyclical. They see 6 orbiting eyes around central eye → shoot all → break shield → continue DPS.
+      - 3 sub-phases → Epoptes immunity → restart mechanics.
+
+      START STATE: rally banner. Approach to engage.
+
+    callouts:
+      - when: "Magistrates down"
+        from: "killer"
+        to:   "team"
+        say:  '"MAGISTRATES — plates open."'
+        why:  "Step plates for debuffs."
+      - when: "Plate stepped"
+        from: "self"
+        to:   "team"
+        say:  '"CONSTANT/CYCLICAL — going [L/R] room."'
+        why:  "Designate Lens hunter."
+      - when: "Eye position seen (in cone)"
+        from: "Constant"
+        to:   "team"
+        say:  '"Constant sees: [position]"'
+        why:  "Cyclical player destroys this on their Lens."
+      - when: "Cyclical sees"
+        from: "Cyclical"
+        to:   "team"
+        say:  '"Cyclical sees: [position]"'
+        why:  "Constant destroys."
+      - when: "3 eyes done"
+        from: "self"
+        to:   "team"
+        say:  '"3 EYES — wipe phase incoming."'
+        why:  "Switch to inside-Epoptes 6-eye dance."
+      - when: "DPS phase"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — orbiting eyes for shield cycle!"'
+        why:  "2 selected players go to shields."
+
+    wipe_triggers:
+      - "Wrong Lens eye destroyed = wipe mechanic."
+      - "Wrong Epoptes eye in 6-eye dance = wipe."
+      - "Temporality 0s = death."
+      - "Failure to refresh shield cycle during DPS = forced reset."
+
+    damage_phase_triggers:
+      - "Both Lenses' central eyes shot → shields drop → Epoptes vulnerable → ~30s DPS window."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage. Burst Magistrates."
+      - phase: "Lens kill cycle"
+        L_team_3: "Constant + Hydra eyes + add-clear."
+        R_team_3: "Cyclical + Hydra eyes + add-clear."
+      - phase: "Epoptes wipe sub-phase"
+        inside_team: "Burst 6 orbiting eyes per shield. Cleanse."
+      - phase: "DPS"
+        all: "Burst Epoptes after shields drop."
+      - phase: "Reset"
+        all: "Cycle."
+
+    permutations:
+      - name: "Standard 3L / 3R split"
+        learner_friendly: true
+        summary: "Each side has Constant/Cyclical player + Hydra eye shooter + add-clear."
+        roles:
+          - id: temporality_holder
+            count: 2
+            does: "Constant (L) + Cyclical (R). Lens eyes."
+          - id: hydra_eye_shooter
+            count: 2
+            does: "Shoot called eyes on Lens shields."
+          - id: add_clear
+            count: 2
+            does: "Suppress Harpies + Goblins."
+
+      - name: "Challenge: No sequential eye"
+        learner_friendly: false
+        summary: "Cannot destroy same Lens' eye twice in a row. 2 players per side swap eye-destruction roles."
+
+    cheese: []
+
+    common_mistakes:
+      - "Misreading 6-eye position (top/middle/bottom × L/R/center)."
+      - "Forgetting cross-talk (Constant shoots what Cyclical sees)."
+      - "Stalling time = wipe meter fills."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Opaque Hourglass (bow)"
+        - "Intercalary (auto)"
+        - "Antedate (SMG)"
+        - "Collective Psyche armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear."
+      - "2nd: hydra_eye_shooter."
+      - "3rd: temporality_holder."
+
+  # ====================================================================
+
+  - order: 2
+    slug: agraios
+    name: "Agraios, Inherent"
+    difficulty: hard
+    estimated_time: "25-35 min"
+
+    abstract: |
+      Vex Hobgoblin boss with 3 proxies (Made Constant/Cyclical/Absolute).
+      5 rings to charge with Cobalt Chronons (from Time's Burden Minotaurs).
+      3 plates grant Temporality. Sniping proxy: matching-Temporality
+      player runs to proxy platform, interacts with Vex device → builds
+      Alignment Charge → ricochet detainment bubble to kill proxy →
+      Agraios exposed → DPS.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central arena with 5 rings (number 1-5 clockwise from spawn).
+      - 3 plates inside the ring circle (Constant L, Absolute M, Cyclical R).
+      - Agraios + 3 proxies (Made Constant, Made Absolute, Made Cyclical) on 4 Vex platforms.
+      - Time's Burden Minotaurs spawn in corners.
+      - Ultra Hydra spawns mid-encounter.
+      - Coryphaeus Wyverns spawn around arena after Ultra Hydra dies.
+
+      PLATFORM MECHANICS:
+      - Approach to engage.
+      - Agraios teleports to 1 of 4 platforms; 3 proxies (Made X) occupy the others.
+      - Kill ambient + Ultra Hydra → 5 Time's Burden Minotaurs spawn in corners → Cobalt Chronons drop.
+      - 5 Guardians take 1 Chronon each, run through ring 1-5 to charge. Each charges only 1 ring.
+      - 3 Coryphaeus Wyverns spawn → 3 plates activate.
+      - 3 plate players step → take Constant/Absolute/Cyclical Temporality (longer-lasting than encounter 1).
+      - One proxy starts SNIPING (Variable Elimination debuff: 10s, instant kill at 0 even if hidden afterwards).
+        Cover breaks LoS + resets timer to 10s.
+      - Plate players ID the SNIPING proxy's title (Made Constant/Cyclical/Absolute) and call it.
+      - Player with matching Temporality runs to proxy platform → interacts with Vex receptacle.
+      - That player now has ALIGNMENT CHARGE buff + 5 small boxes beneath.
+      - Other 2 plate players see 2 RINGS glowing BLUE (out of 5; others flash red).
+      - Call blue rings to non-plate players → they Chronon-charge those blue rings.
+      - Alignment player runs through CHARGED rings to fill the 5 boxes.
+      - Max Alignment Charge → grenade ability replaces with Vex-gate icon.
+      - One player draws proxy aggro, counts down. At ~4s: Alignment player detonates Detainment Bubble = ricochet = proxy dies.
+      - Agraios exposed → DPS phase.
+      - During DPS, Alignment buff returns → re-do ring run + detain ricochet for second/third proxy kill = extended DPS.
+      - 3 ricochet detains per damage phase.
+
+      START STATE: rally banner. Approach to engage.
+
+    callouts:
+      - when: "Time's Burden Minotaur"
+        from: "spotter"
+        to:   "team"
+        say:  '"MINOTAUR [corner] — Chronons."'
+        why:  "Pickup target."
+      - when: "Ring charged"
+        from: "self"
+        to:   "team"
+        say:  '"Ring [N] CHARGED."'
+        why:  "Track 5 rings."
+      - when: "Sniping proxy"
+        from: "tracker"
+        to:   "team"
+        say:  '"SNIPING: Made [Constant/Cyclical/Absolute]."'
+        why:  "Designate Alignment player."
+      - when: "Blue rings"
+        from: "plate player"
+        to:   "team"
+        say:  '"Blue rings: [N1] + [N2]."'
+        why:  "Charge order."
+      - when: "Alignment buff full"
+        from: "self"
+        to:   "team"
+        say:  '"ALIGNMENT FULL — countdown!"'
+        why:  "Goader steps out."
+      - when: "Goader counting"
+        from: "goader"
+        to:   "team"
+        say:  '"5, 4, 3, 2, 1 — DETONATE."'
+        why:  "Sync ricochet."
+
+    wipe_triggers:
+      - "Variable Elimination 0s = instant death."
+      - "Wrong ring charged for Alignment player = stalled."
+      - "Alignment Charge wasted on premature detonation = no DPS trigger."
+      - "Agraios wipe meter fills (slow but ongoing)."
+
+    damage_phase_triggers:
+      - "Ricochet kills proxy → Agraios teleports center + vulnerable → ~25-30s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage. Ultra Hydra first."
+      - phase: "Chronon + ring charge"
+        chronon_runners: "5 players charge 5 rings."
+      - phase: "Plate + proxy ID"
+        plate_holders_3: "Step Temporality plates."
+      - phase: "Alignment phase"
+        alignment_player: "Sniper-matching Temp. Run rings, fill Charge."
+        ring_chargers: "Charge blue rings on call."
+      - phase: "Ricochet + DPS"
+        goader: "Steps out, counts down."
+        alignment_player: "Detonates at ~4s."
+        team: "Burst Agraios."
+      - phase: "Re-ricochet during DPS"
+        alignment_player: "Re-fill Charge mid-DPS."
+
+    permutations:
+      - name: "Standard 3-plate / 3-charge"
+        learner_friendly: true
+        summary: "3 Temporality holders, 3 ring chargers + add-clear."
+        roles:
+          - id: temporality_holder
+            count: 3
+            does: "Constant/Cyclical/Absolute. Alignment when proxy matches."
+          - id: ring_charger
+            count: 3
+            does: "Cobalt Chronons → ring charges."
+
+      - name: "Challenge: All-Chronons collected"
+        learner_friendly: false
+        summary: "No player picks Chronon until ALL have. Slow + coordinated."
+
+    cheese: []
+
+    common_mistakes:
+      - "Charging the wrong-color ring."
+      - "Premature Detainment Bubble = wasted DPS prep."
+      - "Goader survives the Variable Elimination if not ricochet'd."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Finite Maybe (fusion)"
+        - "Lance Ephemeral (sniper)"
+        - "Collective Psyche armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: ring_charger."
+      - "2nd: temporality_holder."
+
+  # ====================================================================
+
+  - order: 3
+    slug: iatros
+    name: "Iatros, Inward-Turned"
+    difficulty: hard
+    estimated_time: "25-35 min"
+
+    abstract: |
+      Vex Hobgoblin. Climber ascends 3 levels via Diastole-timed cube
+      breaks (Builders shoot cubes on Diastole pulse). Hourglass filled
+      with Cinnabar/Antimony Chronons from 6 Time's Burdens — diamond
+      Oracle shot to start. Add-clear team kills extra Time's Burdens to
+      refill Hourglass.
+
+    setup: |
+      WHAT YOU SEE:
+      - Iatros in central area.
+      - Hoop with hourglass + spherical receptacle in front of Iatros.
+      - 3 pillars (one per area: spawn, middle, boss spawn) with 3 cubes each.
+      - 6 Time's Burden Minotaurs at start; more spawn periodically.
+
+      PLATFORM MECHANICS:
+      - Engage Iatros + 6 Time's Burdens.
+      - Each player kills 1 Minotaur, picks Chronon (Cinnabar = Red, Antimony = White), jumps through hoop, deposits.
+      - 6 Chronons in hoop → Diamond Oracle visible → shoot to start prep phase.
+      - All players get Diastole buff (pulse counter, fires on 4th cube break).
+      - Climber: needs Absolute Temporality from a plate. Builders mark 3 areas (spawn / middle / boss-spawn).
+      - 3 cubes per pillar. Builders shoot BOTTOM cube exactly when Diastole pulse hits the 4th sequence pip.
+      - Climber jumps onto freshly-created platforms, ascending.
+      - Climber interacts with first cube → MIDDLE cube unlocks. Builders shoot MIDDLE cube on Diastole.
+      - Bottom platforms VANISH when middle ones spawn → time jumps.
+      - Climber interacts with second cube → TOP cube unlocks. Same Diastole timing.
+      - Climber interacts with THIRD cube → DPS phase.
+      - During this, 2 floaters hunt randomly-spawning Time's Burdens + dunk Chronons into Hourglass to prevent Neomutation wipe (12s timer when Hourglass empties).
+      - DPS phase: Iatros vulnerable. Warp Lance + Ground Slam are dangerous.
+      - Repeat 3 phases.
+
+      START STATE: rally banner. Engage.
+
+    callouts:
+      - when: "Chronon collected"
+        from: "self"
+        to:   "team"
+        say:  '"Chronon — dunking."'
+        why:  "Hoop refill."
+      - when: "Diamond Oracle shot"
+        from: "shooter"
+        to:   "team"
+        say:  '"ORACLE — Diastole active."'
+        why:  "Cue Climber + Builders to position."
+      - when: "Climber position"
+        from: "climber"
+        to:   "team"
+        say:  '"Bottom cube — shoot on 4th!"'
+        why:  "Builder coordination."
+      - when: "Builder shoots"
+        from: "builder"
+        to:   "team"
+        say:  '"Cube DOWN — platforms!"'
+        why:  "Climber jumps."
+      - when: "Hourglass low"
+        from: "watcher"
+        to:   "team"
+        say:  '"HOURGLASS 3s — Chronon!"'
+        why:  "Refill priority."
+      - when: "DPS open"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — to Climber!"'
+        why:  "Converge top."
+
+    wipe_triggers:
+      - "Diastole mistimed = platforms collapse + Climber falls."
+      - "Hourglass empties + 12s Neomutation = wipe."
+      - "Warp Lance one-shot at exposed sightline."
+
+    damage_phase_triggers:
+      - "Climber interacts third cube → Iatros vulnerable → DPS until Iatros teleports or Hourglass empties."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage. 6 Minotaurs → Chronons → Hoop."
+      - phase: "Prep phase"
+        builders_3: "Position at each pillar."
+        climber: "Get Absolute, find first platform."
+        floaters_2: "Watch + Time's Burden hunt."
+      - phase: "Cube cycle (×3 levels)"
+        all: "Diastole-time cube breaks. Climber ascends."
+      - phase: "DPS"
+        all: "Burst Iatros at top."
+
+    permutations:
+      - name: "Standard 1-Climber / 3-Builders / 2-Floaters"
+        learner_friendly: true
+        summary: "1 Climber, 3 Builders (one per pillar), 2 Hourglass-refillers."
+        roles:
+          - id: climber
+            count: 1
+            does: "Solo ascent + cube interactions."
+          - id: builder
+            count: 3
+            does: "Diastole-time cube destruction."
+          - id: floater
+            count: 2
+            does: "Add-clear + Hourglass refill."
+
+      - name: "Challenge: 3 Climbers"
+        learner_friendly: false
+        summary: "Each pillar gets a Climber instead of 1."
+
+    cheese: []
+
+    common_mistakes:
+      - "Diastole mistiming — Climber falls."
+      - "Forgetting to refill Hourglass during DPS = Neomutation mid-burst."
+      - "Climber damaged during cube interaction = progress reset."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "The When and Where (rocket)"
+        - "Opaque Hourglass (bow)"
+        - "Antedate (SMG)"
+        - "Collective Psyche armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: floater."
+      - "2nd: builder."
+      - "3rd: climber."
+
+  # ====================================================================
+
+  - order: 4
+    slug: koregos
+    name: "Koregos, the Worldline (final boss)"
+    difficulty: hard
+    estimated_time: "30-50 min"
+
+    abstract: |
+      Final boss. Mega Hydra. 6-min Digitization wipe timer. Constant
+      stunners take down Koregos's 4 arms (Arc beam interrupt). 3-team
+      Temporality cycle: Absolute sees Chronon color in Hoop, Constant
+      sees Mine colors, Cyclical sees TRUE mines (3 of 6 are real). Dunk
+      6 Chronons in Hoop → diamond → Koregos exposes head. 4-arm cube
+      puzzle (Constant+Cyclical see, Absolute interacts). Head DPS with
+      Arc beams + final stand with shrinking time + Decoherence wipe at
+      death.
+
+    setup: |
+      WHAT YOU SEE:
+      - Wide circular arena with central pit.
+      - Koregos hovers center, then teleports to corners.
+      - 3 plates: Constant (L), Absolute (M), Cyclical (R) from spawn perspective.
+      - 6 "sea-mine" devices around arena.
+      - Hoop-mounted Hourglass over central pit.
+      - 4 Tetrad pillar pools (Temporal Oculus refresh).
+
+      PLATFORM MECHANICS:
+      - Approach to engage. 6-min Digitization timer starts.
+      - Split: STUNNER team (Constant + add-clear) + MECHANIC team (1 Constant + 1 Absolute + 1 or 2 Cyclical).
+      - Mechanic loop:
+        • Kill ambient + Coryphaeus Hydras → 3 plates active.
+        • Pick Temporalities.
+        • Stand in Temporal Oculus pool → get Oculus buff.
+        • Absolute: sees Chronon color needed in Hoop (Cinnabar/Antimony/Cobalt).
+        • Constant: sees which mines hold that color (dust aura).
+        • Cyclical: sees TRUE mines (digital aura). 3 of 6 are real.
+        • Cross-talk: Absolute calls color → Constant marks colored mines (e.g., Trace Rifle ping) → Cyclical confirms TRUE.
+        • Absolute destroys TRUE mines = Chronons drop.
+        • Cyclical picks Chronon, dunks in Hoop. DOUBLE-DUNK strategy = 2 Cyclicals dunk near-simultaneously.
+      - Wrong dunk = instant death.
+      - 6 Chronons in Hoop → diamond Oracle visible → shoot to advance.
+      - Koregos teleports up. 4-arm cube puzzle phase:
+        • 2 cubes for Constant + Cyclical (each sees 2 of 3) per arm.
+        • Absolute interacts with the cube BOTH see common.
+        • Constant: from Koregos perspective, calls cube positions (e.g., "middle + left").
+        • Cyclical: from Koregos perspective, calls cube positions.
+        • Absolute interacts with the common position.
+        • Optional: Constant/Cyclical STAND on the absent-cube position (the one only they see). Shows Absolute the common.
+      - All 4 arms = head exposed.
+      - DPS phase: shoot head (3-eye sets). Arc beam diamond fires 2 beams in changing paths — dodge.
+      - 1 player can extend phase: matches dusty aura around local Hoop with Chronon around Koregos. Dunk = extension.
+      - 3 damage extension checks per phase.
+      - Final stand: spinning head, beams more erratic. Decoherence Imminent debuff at boss death — get FAR from Koregos or wipe.
+
+      START STATE: rally banner. Interact cube in middle to start.
+
+    callouts:
+      - when: "Stunner ready"
+        from: "stunner"
+        to:   "team"
+        say:  '"STUN — arms down!"'
+        why:  "Refresh Constant timers."
+      - when: "Absolute color"
+        from: "absolute"
+        to:   "team"
+        say:  '"Hoop wants [RED/WHITE/BLUE]."'
+        why:  "Constant identifies that mines."
+      - when: "Constant marks"
+        from: "constant"
+        to:   "team"
+        say:  '"Mines [N1, N2, N3] colored — Cyclical confirm."'
+        why:  "Cyclical confirms which are TRUE."
+      - when: "Cyclical confirms"
+        from: "cyclical"
+        to:   "team"
+        say:  '"Real: [N1, N2]. False: [N3]."'
+        why:  "Absolute destroys true ones."
+      - when: "Chronon ready"
+        from: "cyclical"
+        to:   "team"
+        say:  '"CYCLICAL holds — dunking!"'
+        why:  "Double-dunk sync."
+      - when: "Cube position (Koregos perspective)"
+        from: "constant"
+        to:   "team"
+        say:  '"Constant sees middle + left (Koregos POV)."'
+        why:  "Absolute compares with Cyclical."
+      - when: "DPS open"
+        from: "any"
+        to:   "team"
+        say:  '"HEAD — DPS! Watch beams!"'
+        why:  "Burst + dodge."
+      - when: "Final stand"
+        from: "any"
+        to:   "team"
+        say:  '"DECOHERENCE — RUN!"'
+        why:  "Avoid death explosion."
+
+    wipe_triggers:
+      - "Digitization 6-min timer."
+      - "Wrong Chronon dunked = instant Cyclical death."
+      - "Wrong cube interacted by Absolute = encounter reset."
+      - "Arc beam direct hit."
+      - "Decoherence Imminent at boss death."
+
+    damage_phase_triggers:
+      - "6 Chronons dunked + 4 cube-arm puzzles done → head exposed → DPS."
+      - "Damage extension via Chronon-color match around Koregos."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage. 3 plates."
+      - phase: "Temporality + mine cycle"
+        absolute: "Oculus, calls color."
+        constant: "Marks mines."
+        cyclical: "Confirms + dunks."
+        stunner: "Arm destruction."
+      - phase: "Cube puzzle (×4 arms)"
+        constant: "Calls 2 cubes from Koregos POV."
+        cyclical: "Calls 2 cubes from Koregos POV."
+        absolute: "Interacts common cube."
+      - phase: "DPS head"
+        all: "Burst + dodge beams. Damage extension Chronon dunks."
+      - phase: "Final stand"
+        all: "Burn + Decoherence escape."
+
+    permutations:
+      - name: "Standard 1-Absolute / 1-Constant-mechanic / 1-Cyclical / 2-Constant-stunners / 1-floater"
+        learner_friendly: true
+        summary: "Three Constants total (one mechanic + two stunners)."
+        roles:
+          - id: absolute
+            count: 1
+            does: "Hoop color caller."
+          - id: constant_mechanic
+            count: 1
+            does: "Mine color marker."
+          - id: cyclical
+            count: 1
+            does: "True mine confirm + Chronon dunk."
+          - id: constant_stunner
+            count: 2
+            does: "Arm destruction + Constant Temporality refresh."
+          - id: floater
+            count: 1
+            does: "Add-clear + Coryphaeus + backup."
+
+      - name: "Speed: Double-dunk (2 Cyclical)"
+        learner_friendly: false
+        summary: "2 Cyclicals dunk near-simultaneously. Faster phase. Risk: Hoop color changes after first."
+
+      - name: "Challenge: Every player dunks"
+        learner_friendly: false
+        summary: "3 teams of 2 cycle through Cyclical role so all 6 dunk a Chronon."
+
+    cheese: []
+
+    common_mistakes:
+      - "Constant misreading Koregos-POV vs entrance-POV = wrong cube call."
+      - "Cyclical Chronon mistype = instant death."
+      - "Decoherence escape distance miscalculated = wipe at boss death."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (Conductor statue extra)"
+      hidden_chest: null
+      potential_drops:
+        - "Whirling Ovation (exotic rocket launcher — random chance, re-rollable)"
+        - "Opaque Hourglass (bow)"
+        - "Intercalary (auto)"
+        - "Antedate (SMG)"
+        - "Finite Maybe (fusion)"
+        - "Lance Ephemeral (sniper)"
+        - "The When and Where (rocket)"
+        - "Collective Psyche armor (Standard)"
+        - "Wayward Psyche armor (Epic)"
+        - "Cusp Sempiternal / Starscape Null / The Ever-Present (Epic-only weapons)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: floater."
+      - "2nd: constant_stunner."
+      - "3rd: cyclical (mechanic role)."
+      - "4th: absolute (caller — most complex)."
+
+# ========================================================================
+overall_notes:
+  - "Whirling Ovation exotic rocket: ~5% drop from Koregos, re-rollable via Spoils."
+  - "EPIC Raid variant (Ash & Iron, Sept 2025): same encounters, harder + better loot tier. Wayward Psyche armor + Epic-only weapons (Cusp Sempiternal / Starscape Null / The Ever-Present)."
+  - "FEATS (orbit-applied modifiers, for Atemporal title):"
+  - "  • Phase Race — 2-phase boss kills."
+  - "  • Token Limit — 3 revives total."
+  - "  • Cutthroat Combat — contest-mode enemy stats."
+  - "  • Encounter Challenges — challenge-or-wipe."
+  - "  • Battalions — new Bane enemies per encounter."
+  - "Non-linear: first run forces order (Epoptes/Agraios/Iatros, then Koregos). Subsequent runs allow direct Koregos pick."
+  - "Symbol literacy: not required (different from Vow/Sundered)."
+  - "Soloing: practically impossible. Multi-player Temporality coordination throughout."

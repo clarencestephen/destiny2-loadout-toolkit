@@ -1,0 +1,912 @@
+# raids/last-wish.yaml — Pass 1 (destinypedia baseline)
+
+slug: last-wish
+name: Last Wish
+activity_type: raid
+released:
+  expansion: Forsaken
+  year: 2018
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1810
+  master: ""           # No Master version; Last Wish has Petra's Run + challenges only
+location: "Dreaming City (Awoken realm)"
+tags: [taken, awoken, ahamkara, riven, exotic-bow-precursor, wall-of-wishes, og-forsaken-raid]
+
+average_clear_time:
+  normal_experienced: "75-90 min"
+  normal_learning:    "3-5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Forsaken's signature raid. 4 named encounters + 1 traversal puzzle.
+    Riven is the most communication-heavy boss in Destiny history (eyes
+    + lens + dual-room coordination). Famously has a CHEESE method that
+    skips most of phase 1, which most groups use. Wall of Wishes near
+    Kalli grants 15 different effects (chest spawns, encounter
+    teleports, modifiers).
+
+  bosses:
+    - name: "Kalli, the Corrupted"
+      encounter: 1
+      role: "Taken Wizard — symbol plate cleanse + door-dive Obliterate"
+    - name: "Shuro Chi, the Corrupted"
+      encounter: 2
+      role: "Taken Wizard — crystal triangle shield-break + 3-floor song"
+    - name: "Morgeth, the Spirekeeper"
+      encounter: 3
+      role: "Taken Ogre — Taken Strength collection + Umbral Enervation rescue"
+    - name: "Riven of a Thousand Voices"
+      encounter: 5
+      role: "Final boss — Ahamkara dragon; eyes + lens + 2-room coord + skydive DPS + Heart escape"
+
+  recurring_mechanics:
+    - name: "Eye of Riven (Taken Essence)"
+      brief: |
+        Major Taken Captain. Drops Taken Essence on death. Used in
+        Shuro Chi (wipe-cancel super), Morgeth (rescue), Vault (cleanse
+        plates), Riven (lens cleanse). Carrying = stacking debuff
+        (Greed) that kills at max.
+
+    - name: "Mights of Riven (Major Taken Knight)"
+      brief: |
+        Major Cleaver-wielding Knight. Threatens to slam plates (Vault)
+        → fast wipe. Kill on sight.
+
+    - name: "Wall of Wishes"
+      brief: |
+        21 buttons before Kalli. Match 5-digit symbol code to activate
+        wishes (15 known). Most useful: Wish 1 (Ethereal Key, once/account),
+        Wish 4-7 (teleport to specific encounters), Wish 14 (Corrupted
+        Eggs require Wish-Ender).
+
+    - name: "Heart of Riven / Fate's Chosen (final escape)"
+      brief: |
+        Post-Riven kill. One player gets Heart. 15s timer. Anyone too
+        close at timer = sucked into Heart realm. Run Heart back through
+        the raid to the Vault deposit point.
+
+  role_archetypes:
+    - id: caller
+      brief: "Calls plates / symbols / eye combinations. Communication anchor."
+    - id: runner
+      brief: "Carries Taken Essence; runs Heart in final encounter."
+    - id: lens_user
+      brief: "Riven encounter — looks through lens to ID symbols."
+    - id: dps_anchor
+      brief: "Burst phases (Morgeth, Riven skydive)."
+
+  sherpa_playbook:
+    - "Pre-pull: brief Wall of Wishes — activate Wish 1 (Ethereal Key) at minimum."
+    - "Riven CHEESE: nearly every group uses the wall-hug cheese. Brief team on it."
+    - "Solo flawless: Petra's Run wish means a single death = orbit. Endgame achievement."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS for Shuro Chi / Morgeth / Riven."
+      - "Wish-Ender for Truesight on Corrupted Eggs (Wish 14) + Wizard-spotting."
+      - "Tractor Cannon for Eye of Riven push (Vault speed)."
+      - "Anti-Champion mods on Master rotators."
+    armor_stats:
+      - "Mobility for Vault tunnels + Riven Ascendant Plane race."
+      - "Resilience for Taken Knight melee."
+    common_exotics:
+      - "Hunter: Wish-Ender (this raid's exotic — Hunter only), Stompees, Celestial Nighthawk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance, Phoenix Protocol."
+
+  common_mistakes:
+    - "Kalli: not killing Ravenous Knight = closed door = wipe on Obliterate."
+    - "Shuro Chi: shooting crystal triangle wrong direction = no shield break."
+    - "Morgeth: 3rd Taken Strength pickup = instant death."
+    - "Morgeth Umbral Enervation: rescuer with 1+ Taken Strength dies on absorb."
+    - "Vault: Might of Riven slamming a plate = fast wipe."
+    - "Riven: shooting wrong eye = team wipe."
+    - "Heart of Riven: player too close at 15s = pulled in."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: kalli
+    name: "Kalli, the Corrupted"
+    difficulty: medium
+    estimated_time: "12-18 min"
+
+    abstract: |
+      6 symbol plates around the arena. 6 of 9 symbols shown via center
+      icons. Cleanse 2 of each shown symbol (so 6 plates total). Each
+      plate has 3 sections — stand on EMPTY section. Kill Ravenous Knight
+      spawn = plate complete. DPS phase: dodge Obliterate by diving
+      into doors tied to killed Knights.
+
+    setup: |
+      WHAT YOU SEE:
+      - Round arena similar to Blind Well.
+      - 6 symbol plates around perimeter, each with 3 sections.
+      - 2 Taken Blight bombs above 2 sections per plate.
+      - Center: 6 of 9 symbol icons shown (Heads/Smile/Eight/Infinite + 2 more).
+      - Doors below Kalli's center pit (open after Ravenous Knight kills).
+
+      PLATFORM MECHANICS:
+      - Identify 6 shown symbols at center → find matching plates around arena.
+      - 2 plates per symbol type. Total 6 cleanses.
+      - Stand on EMPTY (no blight) section of plate.
+      - Hold plate → Ravenous Taken Knight spawns. Kill = plate complete.
+      - Kalli warps to a random plate — shoot her to teleport away (or dodge her blasts).
+      - After all 6 plates: DPS phase starts. Kalli moves to center pit.
+      - During DPS she casts wipe spell. Each Guardian must DIVE into an open door (tied to killed Ravenous Knights).
+      - Failure to find door = wipe.
+
+      START STATE: rally banner outside arena. Pull = start.
+
+    callouts:
+      - when: "Symbols ID'd at center"
+        from: "caller"
+        to:   "team"
+        say:  '"Symbols: [Heads, Smile, Eight, Infinite, X, Y]"'
+        why:  "All know what to cleanse."
+      - when: "Plate started"
+        from: "stander"
+        to:   "team"
+        say:  '"[symbol] PLATE — Knight incoming."'
+        why:  "Coordinates kill priority."
+      - when: "Knight down"
+        from: "killer"
+        to:   "team"
+        say:  '"[symbol] DONE — [N/6]."'
+        why:  "Progress."
+      - when: "DPS phase starting"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — dive doors at Obliterate!"'
+        why:  "Reminder."
+
+    wipe_triggers:
+      - "Failure to dive into a door during Obliterate = wipe."
+      - "Insufficient killed Knights = doors closed = wipe."
+
+    damage_phase_triggers:
+      - "All 6 plates cleansed → DPS phase begins."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Drop in, identify 6 symbols."
+      - phase: "Plate cycle"
+        plate_stander: "Stand empty section, kill spawned Knight."
+        floaters: "Burst Kalli when she warps in, suppress."
+      - phase: "DPS"
+        all: "Burst Kalli (small head — use Divinity or non-precision)."
+      - phase: "Obliterate"
+        all: "Dive into open door."
+
+    permutations:
+      - name: "Standard 6-plate split"
+        learner_friendly: true
+        summary: "1 player per plate type. Cover both plates of that symbol."
+        roles:
+          - id: plate_runner
+            count: 6
+            does: "Stand plate, kill Knight, dive door."
+
+      - name: "Challenge: All 9 plates"
+        learner_friendly: false
+        summary: "Cleanse all 9 plates (including 3 not in shown symbols). Each WRONG plate spawns an Ogre."
+
+    cheese: []
+
+    common_mistakes:
+      - "Standing on a section with a blight = damage."
+      - "Forgetting to kill Knight = plate doesn't complete."
+      - "Failing to dive door during Obliterate."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Tyranny of Heaven (bow)"
+        - "Age-Old Bond (auto)"
+        - "Last Wish armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: plate_runner with sherpa support."
+
+  # ====================================================================
+
+  - order: 2
+    slug: shuro-chi
+    name: "Shuro Chi, the Corrupted"
+    difficulty: medium
+    estimated_time: "15-20 min"
+
+    abstract: |
+      3 floors. Per floor: clear adds → 3 crystals on 3 plates → shoot
+      crystals in triangle pattern to break Shuro Chi's shield → burst
+      1/6 HP bar. If wipe-attack starts: use Eye of Riven Taken Essence
+      super to cancel. Then symbol image puzzle (3 wall images, 9 plates)
+      to ascend.
+
+    setup: |
+      WHAT YOU SEE:
+      - Wide arena, Shuro Chi at far end.
+      - 3 plates with crystals during shield-break phase.
+      - Symbol images on walls + 9 plates between phases.
+      - Eye of Riven Captain spawns periodically — drops Taken Essence.
+
+      PLATFORM MECHANICS:
+      - 4-min song timer per floor (resets after image puzzle).
+      - Kill adds first. Then 3 crystals spawn on plates (damage to stand).
+      - 3 players pick up crystals, shoot in TRIANGLE pattern (each shoots to RIGHT or LEFT carrier, consistent direction).
+      - Shield breaks → DPS. Need to drop 1/6 HP bar per shield-break.
+      - Obliterate prep: pick up Taken Essence from Eye of Riven, use Super NEXT TO Shuro Chi as LATE as possible = cancels wipe.
+      - 2 designated Taken Essence carriers (alternate across 6 phases).
+      - Image puzzle between floors: 3 wall images, 9 plates. Stand on plates corresponding to EMPTY parts of each image (4 players doing this, 2 on add-clear especially Phalanxes).
+      - Plate cannot be re-stood after stepping off → swap with teammate.
+
+      START STATE: rally banner. Enter arena to engage.
+
+    callouts:
+      - when: "Adds clear, crystals ready"
+        from: "any"
+        to:   "team"
+        say:  '"CRYSTALS — triangle right."'
+        why:  "Direction call."
+      - when: "Shield down"
+        from: "any"
+        to:   "team"
+        say:  '"DPS!"'
+        why:  "Burst."
+      - when: "Wipe attack starting"
+        from: "any"
+        to:   "team"
+        say:  '"OBLITERATE — Essence super!"'
+        why:  "Cancel cue."
+      - when: "Image puzzle"
+        from: "spotter"
+        to:   "team"
+        say:  '"Image [1/2/3] — plates [list]"'
+        why:  "Coordinated plate stand."
+
+    wipe_triggers:
+      - "Song timer expires (4-min)."
+      - "Obliterate not canceled."
+      - "Wrong triangle direction = no shield break."
+      - "Greed debuff from Eye of Riven Essence carrying."
+
+    damage_phase_triggers:
+      - "Crystal triangle breaks shield → burst 1/6 HP bar → cycle next phase."
+
+    parallel_timeline:
+      - phase: "Per phase (×6)"
+        add_clear: "Clear waves first."
+        crystal_users_3: "Pick up + shoot triangle."
+        essence_carriers_2: "Hold Taken Essence (alternating each phase)."
+      - phase: "Image puzzle"
+        plate_steppers_4: "Stand on plates per image holes."
+        phalanx_killers_2: "Suppress Phalanx pushes."
+
+    permutations:
+      - name: "Standard 3-crystal / 1-Essence / 2-clear"
+        learner_friendly: true
+        summary: "Roles per phase. Essence carrier rotates 2 designated players."
+        roles:
+          - id: crystal_user
+            count: 3
+            does: "Per phase: pick crystal, shoot triangle."
+          - id: essence_carrier
+            count: 1
+            does: "Hold Essence for Obliterate cancel."
+          - id: add_clear
+            count: 2
+            does: "Burst Eyes of Riven + Phalanx pushes."
+
+      - name: "Master: No ranged blast damage"
+        learner_friendly: false
+        summary: "Cannot take damage from Shuro Chi's ranged blast attack. Move actively."
+
+    cheese:
+      - title: "Shuro Chi rally checkpoint"
+        detail: |
+          Shuro Chi is the easiest farm spot in the game. Rally flag near
+          her, quick-mob clears for triumphs / catalysts / mod farming.
+
+    common_mistakes:
+      - "Wrong triangle direction = shield doesn't break."
+      - "Forgetting Taken Essence carrier alternation = Greed kills carrier."
+      - "Phalanx pushing plate-steppers off during image puzzle."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Transfiguration (scout)"
+        - "Apex Predator (rocket — Spike Grenades)"
+        - "Last Wish armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: add_clear."
+      - "2nd: crystal_user."
+      - "3rd: essence_carrier."
+
+  # ====================================================================
+
+  - order: 3
+    slug: morgeth
+    name: "Morgeth, the Spirekeeper"
+    difficulty: hard
+    estimated_time: "12-18 min"
+
+    abstract: |
+      Taken Ogre boss. Collect 10 Taken Strength orbs (max 2 per player —
+      3rd kills you) to spawn final Strength → DPS Morgeth before his
+      wipe meter fills. Rescue Umbral Enervation players (trapped, 20s)
+      via Eye of Riven Essence + Grenade button. Rescuer absorbs Strength
+      — risk of 3-stack death.
+
+    setup: |
+      WHAT YOU SEE:
+      - Cavernous arena with Morgeth (Taken Ogre) sleeping center.
+      - 4 Taken Ogres in front of Morgeth (Challenge: do NOT kill).
+      - First Taken Strength floating in front of Morgeth.
+      - Steps directly behind Ogre = recommended DPS spot.
+
+      PLATFORM MECHANICS:
+      - Pick up first Taken Strength → encounter starts.
+      - Split L+R 3-3.
+      - 10 Taken Strength total: 1 to start, 4 wave 1, 4 wave 2, 1 final (where first was).
+      - Max 2 Taken Strength per player (3rd = death).
+      - Morgeth's wipe meter ticks UP in 10% increments (each faster).
+      - Umbral Enervation: random Strength-holder trapped for 20s.
+        • Kill Eye of Riven → grab Essence → grenade-button on trapped player = rescue.
+        • Rescuer ABSORBS trapped's Strength. Don't rescue with 2 Strength already.
+      - Once all 10 Strength collected (or 12 if cycle), Morgeth vulnerable.
+      - DPS: shoot pulsating glowing spots on his body.
+      - Steps behind Morgeth: great DPS perch (close + Well-friendly).
+      - Near-100%: grab spare Eye of Riven Essence + super-hit Morgeth = resets wipe meter (extends fight).
+
+      START STATE: rally banner. Pick up first Strength to start.
+
+    callouts:
+      - when: "Taken Strength spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"Strength [direction] — picker up?"'
+        why:  "Coordinate avoid-3 rule."
+      - when: "Holding 2 Strength"
+        from: "self"
+        to:   "team"
+        say:  '"I'M AT 2 — no more!"'
+        why:  "Warn rescuers."
+      - when: "Umbral Enervation"
+        from: "trapped"
+        to:   "team"
+        say:  '"TRAPPED [direction] — rescue!"'
+        why:  "20s timer."
+      - when: "Eye of Riven down + Essence"
+        from: "killer"
+        to:   "team"
+        say:  '"Essence — rescuing [name]."'
+        why:  "Confirm rescuer."
+      - when: "All Strength collected"
+        from: "any"
+        to:   "team"
+        say:  '"DPS — Well behind Morgeth!"'
+        why:  "Coordinated DPS."
+
+    wipe_triggers:
+      - "3 Taken Strength on one player = death."
+      - "Morgeth wipe meter to 100%."
+      - "Trapped player not rescued in 20s."
+      - "Rescuer with 1+ Strength absorbs to 3 = death."
+
+    damage_phase_triggers:
+      - "10 Taken Strength collected → Morgeth vulnerable."
+      - "Near-100% wipe + Essence super = resets meter, extends DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Pick first Strength."
+      - phase: "Wave 1 (~1:00)"
+        runners: "Collect 4 Strength."
+        rescuers: "Be ready for Umbral Enervation."
+      - phase: "Wave 2 (~2:00)"
+        all: "Collect 4 more Strength. Manage 2-cap rule."
+      - phase: "DPS"
+        well_warlock: "Drop Well behind Morgeth."
+        all: "Burst pulsating spots."
+      - phase: "Reset (Essence super if needed)"
+        carrier: "Hit Morgeth with Eye Essence Super."
+
+    permutations:
+      - name: "Standard 3-runner / 3-rescue"
+        learner_friendly: true
+        summary: "3 collect Strength on assigned side; 3 ready for Umbral rescue + Eye kills."
+        roles:
+          - id: strength_runner
+            count: 3
+            does: "Collect assigned Strength orbs."
+          - id: rescuer
+            count: 3
+            does: "Keep 0 Strength. Kill Eye of Riven. Rescue Umbral targets."
+
+      - name: "Challenge: Keep Ogres alive"
+        learner_friendly: false
+        summary: "4 front Ogres must NOT be killed. Maneuver around their LoS."
+
+    cheese: []
+
+    common_mistakes:
+      - "Picking 3rd Strength = instant death."
+      - "Rescuer with 2 Strength absorbing = 3-stack death."
+      - "Spreading DPS = Morgeth wipe meter wins."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Transfiguration (scout)"
+        - "Chattering Bone (pulse)"
+        - "Last Wish armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: strength_runner with sherpa Strength-counting."
+      - "2nd: rescuer."
+
+  # ====================================================================
+
+  - order: 4
+    slug: vault
+    name: "The Vault (Symbol Puzzle)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      No boss. Symbol/Penumbra/Antumbra puzzle. 3 plates (Stairs, Tree,
+      Rocks). Each player sees 3 symbols (1 center, 2 sides). Identify
+      Penumbra (L) vs Antumbra (R) per plate via callouts. Run Eye of
+      Riven Essence to matching plate (grenade button cleanse). Kill
+      Mights of Riven before they slam plate. 3 cleanses per phase, 3
+      phases.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central vault mechanism with 3 plates around it.
+      - 3 rooms branching off (Stairs spawn, Tree, Rocks).
+      - Each plate displays 1 center symbol + 2 side symbols (L=Penumbra, R=Antumbra).
+      - Tunnels connecting the 3 rooms.
+
+      PLATFORM MECHANICS:
+      - 3 players stand on plates → 3 symbol sets revealed.
+      - Match each plate's center symbol → another plate's left or right side.
+        • Match on LEFT = Penumbra
+        • Match on RIGHT = Antumbra
+      - 1 room opens at a time → kill ambient + Eye of Riven → Essence with Penumbra or Antumbra buff.
+      - Runner takes Essence + grenade-button on the matching plate.
+      - Cleansed plate locks → next room opens (clockwise pattern).
+      - Might of Riven (Major Taken Knight) spawns in rooms — kill before plate slam.
+      - 3 cleanses per phase, 3 phases total. 3-min timer per phase resets on completion.
+      - Tractor Cannon trick: push Eye of Riven into central room → no tunnel travel.
+
+      START STATE: rally banner. 3 players stand plates to start.
+
+    callouts:
+      - when: "Symbols read"
+        from: "plate stander"
+        to:   "team"
+        say:  '"Stairs middle [symbol]; Stairs left [symbol]; Stairs right [symbol]"'
+        why:  "All plates publish their symbol set."
+      - when: "Penumbra/Antumbra determined"
+        from: "caller"
+        to:   "team"
+        say:  '"Stairs P, Tree A, Rocks P"' # example
+        why:  "Each plate's cleanse direction."
+      - when: "Eye of Riven down + Essence"
+        from: "runner"
+        to:   "team"
+        say:  '"Essence Penumbra/Antumbra — heading [plate]."'
+        why:  "Pair runner with correct plate."
+      - when: "Might of Riven spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"MIGHT [room] — KILL!"'
+        why:  "Plate-slam wipe risk."
+      - when: "Plate cleansed"
+        from: "runner"
+        to:   "team"
+        say:  '"[plate] CLEAN — [N/3]."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Might of Riven slams plate."
+      - "Wrong plate cleanse (counts as miss)."
+      - "3-min timer expires."
+
+    damage_phase_triggers:
+      - "3 correct plate cleanses per phase × 3 phases = encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        plate_steppers_3: "Step plates, read symbols."
+        callers: "Determine P/A per plate."
+      - phase: "Cleanse cycle"
+        runners: "Kill Eye, grab Essence, cleanse correct plate."
+        might_killers: "Kill Might of Riven in their assigned room."
+
+    permutations:
+      - name: "Standard 1 runner + 1 watcher per room"
+        learner_friendly: true
+        summary: "2 per room: 1 runner, 1 Might watcher."
+        roles:
+          - id: runner
+            count: 3
+            does: "Per room: kill Eye, grab Essence, cleanse plate."
+          - id: might_watcher
+            count: 3
+            does: "Per room: watch + kill Might of Riven on spawn."
+
+      - name: "Speed: Tractor Cannon"
+        learner_friendly: false
+        summary: "Tractor Cannon pushes Eye of Riven near center room — no tunnel travel."
+        best_for: "Speed clears."
+
+      - name: "Master: Mights stay in rooms"
+        learner_friendly: false
+        summary: "Mights of Riven cannot cross room barrier — challenge fail if they do."
+
+    cheese:
+      - title: "Tractor Cannon push"
+        detail: |
+          Tractor Cannon shoots Eye of Riven Captain across the room.
+          Push him into central room before kill → drop Essence right
+          near plates → no tunnel running.
+
+    common_mistakes:
+      - "Wrong plate cleanse = phase wasted."
+      - "Might of Riven ignored = plate slammed = wipe."
+      - "Bad symbol callouts → wrong P/A → confusion."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Tyranny of Heaven (bow)"
+        - "Chattering Bone (pulse)"
+        - "Apex Predator (rocket)"
+        - "Last Wish armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: might_watcher (clear role)."
+      - "2nd: runner."
+      - "3rd: plate caller."
+
+  # ====================================================================
+
+  - order: 5
+    slug: riven
+    name: "Riven of a Thousand Voices (final boss)"
+    difficulty: hard
+    estimated_time: "30-50 min"
+
+    abstract: |
+      Most communication-heavy boss in Destiny. Split into 2 rooms (Crystal
+      + Tree). Riven appears in one, Eye of Riven in other. Stagger Riven
+      via tentacle attack or fire attack → 2 of her 10 eyes glow → call
+      to other team. Other team shoots called eyes when Riven swaps rooms.
+      6 eyes total over phase 1. Then skydive DPS on her chest sores +
+      Axion Darts. Final stand = Ascendant Plane race + chest blight inside
+      her mouth. POST-KILL: Heart of Riven Fate's Chosen escape run.
+
+      MOST GROUPS use the WALL-HUG CHEESE that skips eyes entirely.
+
+    setup: |
+      WHAT YOU SEE:
+      - Riven, a massive Ahamkara dragon, in a vast chamber.
+      - 2 side rooms: Crystal (blue) + Tree.
+      - Lens at the back of each room (jump up + look through).
+      - Riven's body has 10 eyes around it.
+      - Heart of Riven (post-kill): in her mouth.
+
+      PLATFORM MECHANICS (legitimate):
+      - Split 3/3 into Crystal + Tree rooms.
+      - Riven appears in one, Eye of Riven in the other.
+      - Riven's tentacle attack: bait melee range, dodge, hit her until staggered.
+      - Riven's fire attack: wait for end → mouth glows → shoot mouth = stagger.
+      - 2 of 10 eyes glow on stagger → call to other room.
+      - Other room (with Eye): kill Eye → Essence → use lens to ID symbol on a column → cleanse symbol via grenade-button at matching spot.
+      - Riven swaps rooms after stagger. New room has DPS window + must shoot CALLED eyes.
+      - Repeat for room 2 (now Riven in opposite room).
+      - Both groups go upper room (starting room) for joint phase.
+      - 3 staggers in upper room = 6 eyes total → shoot all 6 → Creeping Darkness debuff (10 stacks death) → starting plates.
+      - SKYDIVE DPS: floating down past Riven. Shoot her chest sores. Axion Darts harass.
+      - If insufficient damage, cycle repeats.
+      - Final stand: teleported to Ascendant Plane → race to top while taking environmental damage → grab Taken Strength orb → return.
+      - Riven's final attack: shoot her glowing mouth → kill.
+      - Climb into her mouth → shoot blight inside her body → done.
+
+      PLATFORM MECHANICS (cheese — most-used method):
+      - All 6 in upper crystal room. Watch for shadow.
+      - If shadow crosses → Riven not coming first → leave room.
+      - Hug purple crystal wall → "Joining Allies" teleport back to initial.
+      - Race back to OTHER room before Riven arrives.
+      - Gather upper-left where Riven's limb rests on arrival.
+      - Drop Well + hammer limb with meta DPS.
+      - Skip past eye-shooting entirely.
+
+      POST-KILL: Heart of Riven Fate's Chosen escape (see below).
+
+    callouts:
+      - when: "Riven appearing"
+        from: "spotter"
+        to:   "team"
+        say:  '"RIVEN [Crystal/Tree] room."'
+        why:  "Identifies which team gets Riven."
+      - when: "Stagger achieved"
+        from: "stagger team"
+        to:   "team"
+        say:  '"EYES: [eye N1], [eye N2]"' # 1-10 numbering
+        why:  "Other room shoots called eyes when Riven swaps."
+      - when: "Riven swapping rooms"
+        from: "any"
+        to:   "team"
+        say:  '"SWAP — shoot eyes [N1, N2]."'
+        why:  "Damage + correct-eye shot."
+      - when: "Lens symbol ID"
+        from: "lens_user"
+        to:   "team"
+        say:  '"Symbol [name] — position [direction]."'
+        why:  "Cleansing direction for Essence runner."
+      - when: "Skydive DPS"
+        from: "any"
+        to:   "team"
+        say:  '"SORES — shoot darts!"'
+        why:  "Coordinate sore-vs-dart prioritization."
+      - when: "Final stand — Ascendant"
+        from: "any"
+        to:   "team"
+        say:  '"RACE TOP — burst Phalanxes!"'
+        why:  "Don't pause."
+
+    wipe_triggers:
+      - "Wrong eye shot = wipe."
+      - "Creeping Darkness 10 stacks = death."
+      - "Skydive without damage to break HP segment = restart."
+      - "Final blight inside Riven's body: health depletes, no time to wait."
+
+    damage_phase_triggers:
+      - "Skydive past Riven = unlimited DPS window (must break HP segment)."
+      - "Final stand inside Riven's body."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Step starting plates → skydive down to rooms."
+      - phase: "Phase 1 — 2 rooms (legitimate)"
+        crystal_team_3: "Engage whatever (Riven OR Eye) is there."
+        tree_team_3: "Same on other side."
+      - phase: "Stagger + eye calls"
+        riven_team: "Stagger Riven → call eyes."
+        eye_team: "Kill Eye → cleanse symbol via lens."
+      - phase: "Swap"
+        all: "Wait for Riven to swap rooms. Shoot called eyes."
+      - phase: "Upper room joint (3 staggers)"
+        all: "Gather, kill Goblins/Ogres, stagger 3× = 6 eyes."
+      - phase: "Skydive DPS"
+        all: "Shoot chest sores + Axion Darts."
+      - phase: "Final stand — Ascendant"
+        all: "Race top, grab Strength orb."
+      - phase: "Riven mouth shot + blight"
+        all: "Climb mouth, shoot blight inside body."
+
+    permutations:
+      - name: "Legitimate 3/3 split"
+        learner_friendly: true
+        summary: "True intended encounter. 3-room rotation, eye calls, lens cleanse."
+        roles:
+          - id: stagger_dps
+            count: 3
+            does: "Per room: stagger Riven, call eyes."
+          - id: essence_runner
+            count: 3
+            does: "Per room: kill Eye, cleanse via lens."
+
+      - name: "Wall-hug cheese (most common)"
+        learner_friendly: true
+        summary: |
+          All 6 in upper crystal room. Watch shadow → leave or stay.
+          Hug purple wall → teleport back via 'Joining Allies'. Race
+          to other room. Hammer limb with Well + meta DPS.
+        best_for: "All practical clears."
+        roles:
+          - id: cheese_dps
+            count: 6
+            does: "All 6 hammer limb in upper-left during cheese."
+
+      - name: "Master: Each player different eye"
+        learner_friendly: false
+        summary: "No player can shoot the same eye more than once."
+
+    cheese:
+      - title: "Wall-hug method"
+        detail: |
+          The standard. See PLATFORM MECHANICS (cheese) above. Has
+          minor luck element (shadow crossing). Once Riven arrives at
+          the limb, stack Well + sustained DPS for ~5-10s burst per
+          cycle. Skips eye-coordination entirely.
+
+    common_mistakes:
+      - "Cheese: wrong shadow read → wasted cycle."
+      - "Legitimate: wrong eye shot = full wipe."
+      - "Skydive: not shooting Axion Darts = chest sores blocked."
+      - "Ascendant race: stopping to fight Phalanxes = environmental damage death."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (Heart of Riven escape)"
+      hidden_chest: null
+      potential_drops:
+        - "1000 Voices (exotic fusion rifle) — random chance, can re-roll w/ Spoils"
+        - "Tyranny of Heaven (bow)"
+        - "Chattering Bone (pulse)"
+        - "Apex Predator (rocket)"
+        - "Transfiguration (scout)"
+        - "Age-Old Bond (auto)"
+        - "Last Wish armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: cheese_dps (the way 95% of groups run it)."
+      - "2nd: legitimate stagger_dps."
+      - "3rd: lens_user / essence_runner."
+
+  # ====================================================================
+
+  - order: 6
+    slug: heart-escape
+    name: "The Heart of Riven (Fate's Chosen escape)"
+    difficulty: hard
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Post-Riven kill. One player is chosen Fate's Chosen → carries Heart
+      out of Riven's mouth. 15s timer; at 0, anyone NEAR Heart-holder is
+      sucked INTO Heart realm. Carry Heart all the way back through the
+      raid to the Vault deposit point. Heart holders inside grab Taken
+      Strength orbs to delay rip timer.
+
+    setup: |
+      WHAT YOU SEE:
+      - Inside Riven's mouth post-kill: Heart of Riven on the ground.
+      - Path: Riven's mouth → back of room → left → right → blight crossing room → left → Vault → Stairs deposit.
+
+      PLATFORM MECHANICS:
+      - Fate's Chosen has 15s rip timer. AURA around them protects from Creeping Darkness.
+      - Stay close to Heart holder ALL THE TIME (except last 3-5s of rip timer).
+      - When timer hits 0: anyone in radius = sucked into Heart realm.
+      - Inside Heart realm: collect Taken Strength orbs (max 2 each — like Morgeth). Last orb resets rip timer (once per holder).
+      - Mights of Riven appear inside Heart. Kill before plate slam.
+      - Route: Riven's mouth → out → left door → right door → blight room (cross via platforms or just heal) → right door → left → Vault → Trees or Rocks open → tunnel to Stairs → up stairs → deposit Heart at small room.
+
+      START STATE: Riven dead. Heart spawns. Fate's Chosen begins.
+
+    callouts:
+      - when: "Heart picked up"
+        from: "carrier"
+        to:   "team"
+        say:  '"HEART — 15."'
+        why:  "Timer broadcast."
+      - when: "Timer at 5s"
+        from: "carrier"
+        to:   "team"
+        say:  '"5 — back!"'
+        why:  "Team backs off."
+      - when: "Sucked in"
+        from: "absorbed"
+        to:   "team"
+        say:  '"IN HEART — finding Strength."'
+        why:  "Coordinate inside."
+      - when: "Approaching Vault"
+        from: "carrier"
+        to:   "team"
+        say:  '"Vault next — [Trees/Rocks] open!"'
+        why:  "Route confirmation."
+
+    wipe_triggers:
+      - "Creeping Darkness 10 stacks (outside aura)."
+      - "Heart drops too long without pickup."
+      - "Mights of Riven slam plate inside Heart realm."
+
+    damage_phase_triggers:
+      - "Heart deposited at Stairs → raid complete + loot chests spawn."
+
+    parallel_timeline:
+      - phase: "Pull (Riven dies)"
+        fate_chosen: "Heart picked up."
+        team: "Run out of mouth, stay close until ~3s on timer."
+      - phase: "Cycle (every 15s)"
+        fate_chosen: "Move + count timer."
+        absorbed_players: "Collect Taken Strength inside."
+      - phase: "Vault entry"
+        all: "Route through Vault to Stairs."
+      - phase: "Deposit"
+        carrier: "Deposit Heart → raid complete."
+
+    permutations:
+      - name: "Standard escape route"
+        learner_friendly: true
+        summary: "Fate's Chosen rotates as each gets sucked. Route is fixed."
+        roles:
+          - id: heart_carrier
+            count: 1
+            does: "Rotates among players. Manages timer."
+          - id: support
+            count: 5
+            does: "Stay close, run with carrier, clear ambient."
+
+    cheese: []
+
+    common_mistakes:
+      - "Heart holder stops too far from team — Creeping Darkness kills team."
+      - "Inside Heart: 3rd Strength = death (like Morgeth)."
+      - "Route confusion at Vault — go to open room."
+
+    rewards:
+      guaranteed:
+        - "Final raid chest opens after deposit"
+        - "Ethereal Keys (from Wish 1 + others) open additional chests under Awoken statues"
+      hidden_chest: null
+      potential_drops:
+        - "1000 Voices (exotic) — random chance"
+        - "Last Wish armor + weapons"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: support — learn route."
+      - "2nd: heart_carrier."
+
+# ========================================================================
+overall_notes:
+  - "1000 Voices exotic fusion rifle: ~5% drop from Riven, can re-roll via Spoils."
+  - "Wall of Wishes (21-button puzzle near Kalli): activate Wish 1 (Ethereal Key, once/account) at minimum. See encounter notes for full wish list."
+  - "Wishes 4-7 teleport to specific encounters — useful for farming."
+  - "Master version: NOT available for this raid. Petra's Run (Wish 13) is the closest 'hard mode' — 1 death = orbit."
+  - "Challenges: All 9 plates (Kalli), No ranged blast (Shuro Chi), Keep 4 Ogres alive (Morgeth), Mights in rooms (Vault), Each player different eye (Riven)."
+  - "Wish-Ender exotic bow (from Shattered Throne dungeon, not this raid) needed for Corrupted Eggs (Wish 14)."
+  - "Riven cheese: the wall-hug skip is the standard way to clear. Legitimate route is teaching-rare."
+  - "Soloing: Heart escape requires multiple players to absorb Strength inside Heart — soloing it requires very high skill / specific cheese."

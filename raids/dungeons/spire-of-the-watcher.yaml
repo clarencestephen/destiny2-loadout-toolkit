@@ -1,0 +1,642 @@
+# raids/dungeons/spire-of-the-watcher.yaml — Pass 1 (destinypedia baseline)
+
+slug: spire-of-the-watcher
+name: Spire of the Watcher
+activity_type: dungeon
+released:
+  expansion: Season of the Seraph
+  year: 2022
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: 1840
+location: "Ares Spire, Mars (Ishtar Chronoscopic Analysis)"
+tags: [vex, sol-divisive, arc-circuit, seraph, exotic-quest, hierarchy-of-needs, soloable, western-cowboy]
+
+average_clear_time:
+  normal_experienced: "35-50 min"
+  normal_learning:    "1.5-2 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Vex-Seraph dungeon on Mars. Entire dungeon keys off Arc-circuit
+    puzzles: kill Conduit Minotaurs for the Arctrician buff, shoot Arc
+    nodes in sequence (yellow cables = ordered; red = any order in
+    time window). Easy mechanics, heavy navigation. Source of Hierarchy
+    of Needs (exotic bow) + Long Arm + Wilderflight + Hailing Confusion.
+
+  bosses:
+    - name: "Akelous, the Siren's Current"
+      encounter: 2
+      role: "First boss — Vex Hydra; 4 platform circuits + eye-burst DPS"
+    - name: "Persys, Primordial Ruin"
+      encounter: 4
+      role: "Final boss — Vex Wyvern; reactor purge mechanic + small weak point"
+
+  recurring_mechanics:
+    - name: "Arctrician buff"
+      brief: |
+        Picked up from pools dropped by killed Conduit Minotaurs. 30s
+        timer. Enables shooting Arc nodes. Refreshes ~5s per node hit.
+        Expires = need to kill another Conduit Minotaur.
+
+    - name: "Yellow Arc circuits"
+      brief: |
+        Diamond-shaped nodes connected by YELLOW cables. Must be activated
+        in ORDER from start node (chevron arrows = identify) to end node.
+        Nodes deactivate if previous in chain isn't active fast enough.
+
+    - name: "Red Arc circuits"
+      brief: |
+        Same nodes, but connected by RED cables. Activate in ANY order,
+        all within a short time window. Used in reactor descent + final
+        boss.
+
+    - name: "Supplicants"
+      brief: |
+        Spawn after completing each Arc circuit (yellow type). Chase +
+        explode. Avoidable by finishing all circuits in rapid succession
+        instead of one-at-a-time.
+
+  role_archetypes:
+    - id: circuit_runner
+      brief: "Holds Arctrician + shoots node sequences."
+    - id: minotaur_killer
+      brief: "Drops Conduit Minotaurs to refresh Arctrician pools."
+    - id: add_clear
+      brief: "Suppresses Goblins, Harpies, Incarcerator Hydras."
+
+  sherpa_playbook:
+    - "1st-timer: circuit_runner. Easiest to teach."
+    - "Sherpa: lead navigation — node positions are often hidden under catwalks/behind machinery."
+    - "Solo: extremely viable. Akelous is the trickiest part."
+
+  loadout_general:
+    weapons:
+      - "Trace Rifles for Akelous eye phase (high fire rate, sweep)."
+      - "Long-range precision for Persys + Akelous core (small weak points)."
+      - "Anti-Champion mods for Master rotators (Barrier Hydras, Unstoppable Minotaurs)."
+    armor_stats:
+      - "Mobility for circuit traversal (lots of jumping)."
+      - "Resilience for Vex slap-rifle barrages."
+    common_exotics:
+      - "Hunter: Stompees, Star-Eater (DPS)."
+      - "Titan: Heart of Inmost Light, Synthoceps (sword DPS)."
+      - "Warlock: Well of Radiance, Sunbracers."
+
+  common_mistakes:
+    - "Running circuits in WRONG order — yellow nodes deactivate. Always check chevrons."
+    - "Letting Arctrician expire mid-circuit — Conduit Minotaurs respawn but it costs a cycle."
+    - "Triggering Supplicants by completing 1 of 4 circuits then running away — they wreck the next runner."
+    - "Akelous: not killing eyes fast enough — DPS phase shortens."
+    - "Persys: completing all 4 circuits BEFORE Persys is in the core — encounter soft-resets."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: reestablish-power
+    name: "Reestablish Power (intro outpost — 4 circuits)"
+    difficulty: easy
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Tutorial. 4 yellow Arc circuits to activate in an outpost. Two
+      buildings with circuits on rooftop + inside each. Goal: door
+      opens at center when all 4 done. Triggers Supplicants if completed
+      separately — finish them all near-simultaneously.
+
+    setup: |
+      WHAT YOU SEE:
+      - Two buildings (left + right) framing an outpost square.
+      - Conduit Minotaur in the center for first Arctrician.
+      - 4 separate circuits: 2 per building (one inside, one on rooftop).
+      - Central door (locked) with end-node convergence.
+
+      PLATFORM MECHANICS:
+      - Kill Conduit Minotaur → step in pool = Arctrician (30s).
+      - Each circuit's start node has chevrons pointing direction.
+      - Complete each one → Supplicants spawn from THAT side. Finish 3 to
+        ~90%, save the final node for each, sweep all 4 last steps.
+
+    callouts:
+      - when: "Circuit started"
+        from: "runner"
+        to:   "team"
+        say:  '"[L-inside / R-rooftop / etc] STARTED."'
+        why:  "Avoids 2 runners on same circuit."
+      - when: "Circuit at last node (held)"
+        from: "runner"
+        to:   "team"
+        say:  '"[location] LAST NODE — holding."'
+        why:  "Sync for parallel finish to avoid Supplicants."
+
+    wipe_triggers:
+      - "Supplicant chain explosions during finish sweep."
+      - "Falling from rooftops (long fall = death)."
+
+    damage_phase_triggers:
+      - "All 4 circuits ended → central door opens."
+
+    parallel_timeline:
+      - phase: "Setup"
+        all: "Kill Conduit Minotaur, all 3 get Arctrician."
+      - phase: "Build to 90%"
+        runners_2: "Take 2 circuits each — activate everything except last node."
+      - phase: "Sweep"
+        all: "Hit last nodes near-simultaneously. Manage Supplicants."
+
+    permutations:
+      - name: "Standard split"
+        learner_friendly: true
+        summary: "Each player owns 1-2 circuits. Sync final activations."
+        roles:
+          - id: circuit_runner
+            count: 3
+            does: "Owns assigned circuit. Reports start/last-node status."
+
+    cheese: []
+
+    common_mistakes:
+      - "Finishing one circuit fully = Supplicants spawn = next runner takes damage."
+
+    rewards:
+      guaranteed: []
+      hidden_chest: null
+      potential_drops: []
+
+    images:
+      overview: ""
+      setup: ""
+
+    learner_path:
+      - "Just play. Self-teaching mechanic."
+
+  # ====================================================================
+
+  - order: 2
+    slug: ascend-the-spire
+    name: "Ascend the Spire (3 levels of circuits)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      First proper loot encounter. 3 levels, each with Arc circuits +
+      Goblins + Hydras + Conduit Minotaurs. Complete circuits per level
+      to power the next grav lift. Levels 2-3 introduce Arc gates (avoid
+      LoS damage) and parallel circuits.
+
+    setup: |
+      WHAT YOU SEE:
+      - Multi-level vertical structure (3 floors).
+      - Grav lifts between floors (need power = circuit completion).
+      - Arc gates (shocking energy barriers) on floor 2.
+      - Hidden chest 1 is in this section (before encounter properly starts).
+
+      PLATFORM MECHANICS:
+      - Per floor: identify start node (chevrons), trace circuit, activate end node.
+      - 2 circuits per floor (sometimes parallel).
+      - Conduit Minotaur respawns if Arctrician expires.
+
+      HIDDEN CHEST 1:
+      Reach the SECOND high catwalk after jumping between crane-suspended
+      objects. Jump around the back of pillars to the other catwalk. A
+      small ledge between them. Chest is on another ledge behind the
+      last pillar.
+
+      START STATE: rally banner near entry, then start circuit.
+
+    callouts:
+      - when: "Arctrician expiring"
+        from: "self"
+        to:   "team"
+        say:  '"Need Minotaur — 10s."'
+        why:  "Teammate spawns/drops one for the pool."
+      - when: "Circuit complete"
+        from: "runner"
+        to:   "team"
+        say:  '"Circuit [N] done."'
+        why:  "Progress."
+
+    wipe_triggers:
+      - "Arc gate LoS damage at exposed sightline."
+      - "Hydra/Hobgoblin from elevation."
+      - "Falling between floors."
+
+    damage_phase_triggers:
+      - "All Arc circuits done per floor → grav lift powers up."
+
+    parallel_timeline:
+      - phase: "Per floor"
+        runner: "Identify start node, trace, complete."
+        add_clear_2: "Suppress Goblins + Hydras."
+
+    permutations:
+      - name: "Standard 1-runner / 2-clear"
+        learner_friendly: true
+        summary: "One runner manages Arctrician + circuits; two clear adds."
+        roles:
+          - id: runner
+            count: 1
+            does: "Sole circuit responsibility."
+          - id: add_clear
+            count: 2
+            does: "Suppress Hydras + Hobgoblins."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Self-pace per floor."
+        roles:
+          - id: solo
+            count: 1
+            does: "Both roles in sequence."
+
+    cheese: []
+
+    common_mistakes:
+      - "Following yellow cable visually under a catwalk and missing the node — check catwalk UNDERSIDES."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 1: Second high catwalk after the crane-jumps in
+          'Begin the Ascent' platforming section. Jump behind the pillars
+          to find a ledge bridging to another catwalk. Chest is behind
+          the last pillar.
+        rewards:
+          - "Random roll of an already-obtained dungeon weapon"
+      potential_drops:
+        - "Long Arm (scout)"
+        - "Wilderflight (GL)"
+        - "Hailing Confusion (pulse)"
+
+    images:
+      overview: ""
+      setup: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: add_clear."
+      - "2nd: runner."
+
+  # ====================================================================
+
+  - order: 3
+    slug: silence-the-siren
+    name: "Silence the Siren (Akelous, the Siren's Current)"
+    difficulty: medium
+    estimated_time: "15-20 min"
+
+    abstract: |
+      First boss. 4 numbered platforms extend from a central structure;
+      each has an Arc circuit ending at a fuel rod. Complete all 4 to
+      expose Akelous's eyes → shoot eyes (Trace Rifle ideal) → core
+      exposed → DPS while it moves backward.
+
+    setup: |
+      WHAT YOU SEE:
+      - Central tower structure with 4 covered platforms extending outward (numbered 1-4 on signs).
+      - Conduit Minotaur + Goblin groups spawn on opposite platforms.
+      - Fuel rods at the end of each platform (revealed after circuit).
+      - Akelous (large Vex Hydra) on top of central tower.
+
+      PLATFORM MECHANICS:
+      - Each platform = its own yellow Arc circuit. Nodes hidden under catwalks + on platform sides.
+      - 4 circuits done = 4 fuel rods revealed = Akelous descends + reveals eyes.
+      - Shoot ALL EYES → core (radiolarian weak point) exposed.
+      - DPS while Akelous moves backward to center.
+      - Phase ends with a knockback BLAST → take cover behind gantry / behind Akelous.
+
+      START STATE: kill Minotaur Akelous is holding to start.
+
+    callouts:
+      - when: "Platform circuit done"
+        from: "runner"
+        to:   "team"
+        say:  '"[1/2/3/4] DONE."'
+        why:  "Progress to 4/4."
+      - when: "All 4 done — eyes phase"
+        from: "any"
+        to:   "team"
+        say:  '"EYES — sweep!"'
+        why:  "Switch to Trace Rifle / high-fire-rate for eye burst."
+      - when: "Eyes all down — core exposed"
+        from: "any"
+        to:   "team"
+        say:  '"CORE — DPS."'
+        why:  "Switch back to burst DPS."
+      - when: "Phase ending (knockback prep)"
+        from: "any"
+        to:   "team"
+        say:  '"BLAST — cover."'
+        why:  "Take cover or align behind gantry."
+
+    wipe_triggers:
+      - "Knockback blast off the central platform = fall death."
+      - "Hydra-laser sweep during eye phase."
+      - "Supplicants from completed circuits chasing eye-shooters."
+
+    damage_phase_triggers:
+      - "All 4 fuel rods revealed → eyes shootable → core exposed → ~20s DPS."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Kill the held Minotaur. Akelous engages."
+      - phase: "Platform circuits (parallel)"
+        runners_3: "One platform each (1-3), pick up #4 with leftover Arctrician."
+        # OR runners assigned 1+2 / 3+4 / Minotaur Carrier
+      - phase: "Eyes"
+        all: "Sweep eyes ASAP. Trace Rifle preferred."
+      - phase: "Core DPS"
+        all: "Burst Akelous core. Move back as he retreats."
+      - phase: "Blast → reset"
+        all: "Take cover. Reset to platform circuits."
+
+    permutations:
+      - name: "Standard 1-platform-each + 1 floater"
+        learner_friendly: true
+        summary: "Each player owns 1-2 platforms. Reassemble for eyes + core."
+        roles:
+          - id: platform_owner
+            count: 3
+            does: "Assigned platform circuit(s); converge for eye/core phase."
+
+      - name: "Speed: Whisper / Linear DPS"
+        learner_friendly: false
+        summary: "Burst Akelous in 1 phase with Whisper of the Worm / Linear Fusion."
+        best_for: "Practiced teams."
+        roles:
+          - id: dps
+            count: 3
+            does: "Sustained Whisper/Linear during eye + core windows."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "4 circuits alone, eyes alone, DPS alone. 2-3 phases expected."
+        roles:
+          - id: solo
+            count: 1
+            does: "Trace Rifle for eyes; rocket/sniper for core."
+
+    cheese: []
+
+    common_mistakes:
+      - "Trying to burst Akelous BEFORE killing all eyes — core is protected until eyes are clear."
+      - "Standing in front of Akelous during knockback blast — straight off the platform."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "Long Arm (scout)"
+        - "Wilderflight (GL)"
+        - "Hailing Confusion (pulse)"
+        - "Liminal Vigil (sidearm)"
+        - "Seventh Seraph CQC-12 (shotgun)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: 1-platform owner."
+      - "2nd: floater (covers slowest platform runner)."
+
+  # ====================================================================
+
+  - order: 4
+    slug: descend
+    name: "Descend (Pillory cell stacks — red circuits + reactor descent)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Multi-room descent introducing RED Arc circuits (any-order, time-
+      windowed). Each room: kill Conduit Minotaur, get Arctrician,
+      activate all nodes within time window. Ventilation shafts with
+      spinning fans between rooms. Hidden chest 2 here.
+
+    setup: |
+      WHAT YOU SEE:
+      - Connected rooms (3 total), each with red-cable circuits.
+      - Spinning fans in ventilation shafts between rooms.
+      - Arc gates in last room with Incarcerator Hydra inside.
+
+      PLATFORM MECHANICS:
+      - Red nodes: any order, but ALL within time window. Reset if late.
+      - Fans: stand on platforms on top OR use wall crevices to bypass blades.
+      - Final room: Arc gates around perimeter. 4 nodes outside, 1 inside (with Hydra).
+
+      HIDDEN CHEST 2:
+      Under stairs at each corner of the final descent room is a vent
+      cover. One vent opens to a shaft with the chest.
+
+    callouts:
+      - when: "Red circuit started"
+        from: "starter"
+        to:   "team"
+        say:  '"RED CIRCUIT — go go go."'
+        why:  "Time-windowed, all must hit nodes."
+      - when: "Fan section"
+        from: "first to descend"
+        to:   "team"
+        say:  '"Fans below, use crevices."'
+        why:  "Avoids fan-deaths."
+
+    wipe_triggers:
+      - "Fan blade contact = death."
+      - "Red circuit timer expires mid-activation = reset."
+      - "Hydra in final room sweeping = damage."
+
+    damage_phase_triggers:
+      - "All red circuits in each room done → next shaft opens."
+
+    parallel_timeline:
+      - phase: "Per room"
+        all: "Kill Minotaur, all 3 get Arctrician, hit all red nodes within window."
+
+    permutations:
+      - name: "Standard parallel-nodes"
+        learner_friendly: true
+        summary: "Each player owns a fraction of nodes; all hit simultaneously."
+        roles:
+          - id: node_owner
+            count: 3
+            does: "Pre-assigned node subset per room."
+
+    cheese: []
+
+    common_mistakes:
+      - "One player hits all nodes alone — Arctrician timer expires before last node."
+      - "Fan timing — use wall crevices instead, much safer."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          HIDDEN CHEST 2: Final descent room (Arc gates + Hydra inside).
+          Under the stairs at each corner is a vent cover. One of the four
+          opens to a shaft containing the chest.
+        rewards:
+          - "Random roll of an already-obtained dungeon weapon"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: follow the lead. Don't pioneer."
+
+  # ====================================================================
+
+  - order: 5
+    slug: prompt-critical
+    name: "Prompt Critical (Persys, Primordial Ruin)"
+    difficulty: hard
+    estimated_time: "15-25 min"
+
+    abstract: |
+      Final boss. Persys is a Vex Wyvern. Mechanic: activate yellow Arc
+      circuits leading INTO the reactor core. Then trigger red circuits
+      OUTSIDE for reactor purge → core opens → Persys exits → DPS its
+      small radiolarian core. CRITICAL: lure Persys INTO the core BEFORE
+      completing the last yellow circuit, or fight resets.
+
+    setup: |
+      WHAT YOU SEE:
+      - Starting room with 4 pillars, central door to reactor core (closed initially).
+      - 5 yellow Arc nodes (4 on inside-facing pillar faces + 1 above main door) for opening reactor.
+      - 4 yellow Arc circuits starting outside the pillars, leading INTO the reactor core.
+      - Red Arc circuit on inside pillar faces for the reactor purge.
+      - 2 Incarcerator Hydras on each side at pull.
+
+      PLATFORM MECHANICS:
+      - Kill both Hydras → Conduit Minotaurs spawn → Arctrician pool drops.
+      - Activate the 5 yellow nodes (4 pillar + 1 door) → reactor doors open.
+      - Trigger 2 of 4 yellow circuits (start outside pillars, end inside reactor).
+      - LURE Persys INSIDE core BEFORE completing last circuit (or soft-reset).
+      - Once all circuits done with Persys inside, EVACUATE → refresh Arctrician → red circuit nodes inside pillars + above door → reactor PURGE → Persys exits, vulnerable.
+      - DPS Persys's small radiolarian core (Wyvern-style weak point).
+      - Short damage window. Repeat if not killed.
+
+      START STATE: shoot/approach Persys to start. He emerges from reactor.
+
+    callouts:
+      - when: "Hydras down"
+        from: "killer"
+        to:   "team"
+        say:  '"Hydras down — Minotaurs incoming."'
+        why:  "Arctrician pool prep."
+      - when: "Reactor open"
+        from: "any"
+        to:   "team"
+        say:  '"REACTOR OPEN — start circuits."'
+        why:  "Move to outer pillars for yellow circuits."
+      - when: "Persys movement"
+        from: "tracker"
+        to:   "team"
+        say:  '"Persys [in/out] of core."'
+        why:  "Timing for last circuit completion."
+      - when: "Last circuit ready"
+        from: "runner"
+        to:   "team"
+        say:  '"Last circuit READY — Persys check?"'
+        why:  "Confirm Persys is in core before finishing."
+      - when: "Reactor purge complete"
+        from: "any"
+        to:   "team"
+        say:  '"PURGE — DPS core."'
+        why:  "Persys vulnerable, burst window."
+
+    wipe_triggers:
+      - "Persys's slap-rifle barrage in tight spaces."
+      - "Falling into reactor bottomless pit."
+      - "Finishing last yellow circuit BEFORE Persys is in core = soft reset."
+
+    damage_phase_triggers:
+      - "All yellow circuits done with Persys INSIDE core → evacuate + red circuit → purge → ~15-20s DPS window."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Engage Persys. Burst Hydras."
+      - phase: "Arctrician + 5 yellow nodes (~0:30)"
+        all: "Activate 5 pillar+door nodes to open reactor."
+      - phase: "Yellow circuits (parallel ×2)"
+        runners_2: "Take 2 of the 4 outside-pillar circuits."
+        add_clear: "Lure Persys toward / into the core."
+      - phase: "Persys check + finish"
+        all: "Confirm Persys in core. Finish last circuit."
+      - phase: "Evacuate + red purge"
+        all: "Exit core. Refresh Arctrician. Red circuit on inside pillars + door."
+      - phase: "DPS (~0:15-0:20)"
+        all: "Burst Persys core."
+      - phase: "Reset (if not killed)"
+        all: "Persys overcharges shields. Cycle from yellow circuits."
+
+    permutations:
+      - name: "Standard 2-runner / 1-lure"
+        learner_friendly: true
+        summary: "Two runners on yellow circuits; one luring Persys + Hydra mgmt."
+        roles:
+          - id: circuit_runner
+            count: 2
+            does: "Take 2 of 4 yellow circuits each cycle."
+          - id: lurer
+            count: 1
+            does: "Keeps Persys in/near core during last-circuit phase."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All mechanics in sequence. Expect 3+ phases."
+        roles:
+          - id: solo
+            count: 1
+            does: "Patient. Witherhoard Persys during circuit-running."
+
+    cheese: []
+
+    common_mistakes:
+      - "Finishing last yellow circuit BEFORE Persys is in core — soft-resets mechanic. ALWAYS check."
+      - "Refreshing Arctrician requires NEW Conduit Minotaur — they spawn after Hydras die. If you killed nothing, no pool."
+      - "DPS phase ends fast — bring burst weapons (Whisper, Sleeper, Linear)."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final chest (extra roll)"
+      hidden_chest: null
+      potential_drops:
+        - "Hierarchy of Needs (exotic bow — quest, not random)"
+        - "Long Arm (scout)"
+        - "Wilderflight (GL)"
+        - "Hailing Confusion (pulse)"
+        - "Liminal Vigil (sidearm)"
+        - "Terminus Horizon (LMG)"
+        - "Seventh Seraph CQC-12 (shotgun)"
+        - "Seraph armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: lurer (lowest cognitive load)."
+      - "2nd: circuit_runner."
+      - "Solo: do team clear first."
+
+# ========================================================================
+overall_notes:
+  - "Hierarchy of Needs exotic bow: quest involves coil-rolling Arc nodes in specific patterns through the dungeon. Multiple clears typically."
+  - "Master version: yes — Barrier Hydras + Unstoppable Minotaurs as Champions."
+  - "Soloing: very feasible. Persys is the wall — practice circuit timing."
+  - "Western/cowboy aesthetic theme runs through loot (Wilderflight, Liminal Vigil naming, Posthaste armor before Echoes refactor)."

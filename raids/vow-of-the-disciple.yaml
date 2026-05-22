@@ -1,0 +1,777 @@
+# raids/vow-of-the-disciple.yaml — Pass 1 (destinypedia baseline)
+
+slug: vow-of-the-disciple
+name: Vow of the Disciple
+activity_type: raid
+released:
+  expansion: The Witch Queen
+  year: 2022
+roster_status: current
+fireteam_size: 6
+power_floor:
+  normal: 1810
+  master: 1840
+location: "Sunken Pyramid, Savathûn's Throne World"
+tags: [taken, scorn, witness, rhulk, symbols, exotic-pulse, collective-obligation, deepsight-puzzle]
+
+average_clear_time:
+  normal_experienced: "60-90 min"
+  normal_learning:    "3-5 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    Witch Queen raid. SYMBOL-based mechanics throughout (same 26 symbols
+    used in Dual Destiny + Sundered Doctrine). Heavy on Knowledge Bearers
+    → symbols → match → shoot/dunk. Master version exists with Chaff
+    (no radar). Source of Collective Obligation (exotic pulse rifle).
+
+  bosses:
+    - name: "The Caretaker"
+      encounter: 3
+      role: "Mid-boss — large stone-encased; stun via face + back weak point, 4-floor chase"
+    - name: "Rhulk, Disciple of the Witness"
+      encounter: 5
+      role: "Final boss — Pyramid Disciple; Leeching/Emanating Force + dunk pillars + glaive break + DPS"
+
+  recurring_mechanics:
+    - name: "26 Symbols (Pyramid alphabet)"
+      brief: |
+        Used in every encounter. Same set as Dual Destiny + Sundered
+        Doctrine. Encounter 1 has a tutorial room where 26 symbols
+        display + names appear on screen. Memorize / screenshot.
+
+    - name: "Knowledge Bearer Abominations"
+      brief: |
+        Drop knowledge-granting Darkness shards on death. Max 3
+        per player. Carry to payload (Bog encounter) to advance.
+
+    - name: "Glyphkeeper Chieftains"
+      brief: |
+        Spawn in pairs (Light/Dark side or Taken Phalanx/Scorn Chieftain).
+        Kill the correct one based on indicated symbol. Reveals shooting
+        symbol or shared-symbol mechanic.
+
+    - name: "Pervading Darkness"
+      brief: |
+        Stacking vision-impairing debuff. 10 = death. Stacks when not
+        near payload (Bog), inside symbol rooms (Caretaker), inside
+        Aegis bubble negates (Exhibition + Rhulk).
+
+    - name: "Pyramid switches"
+      brief: |
+        Floating Darkness orbs. Shoot to toggle:
+          • Open/close doors (Acquisition rooms)
+          • Extend/retract platforms (jumping puzzles)
+          • Trigger encounter activations
+        Same mechanic as Sundered Doctrine.
+
+  role_archetypes:
+    - id: symbol_caller
+      brief: "Tracks 26 symbols. Calls names quickly. Critical role."
+    - id: runner
+      brief: "Enters rooms, hunts Glyphkeepers, dunks symbols."
+    - id: defender
+      brief: "Add-clear + stun (Caretaker) + protection (Rhulk)."
+
+  sherpa_playbook:
+    - "Pre-pull: SCREENSHOT the 26 symbols in the entry room. Names matter."
+    - "Collective Obligation exotic: ~5% from Rhulk, re-rollable. Catalyst from challenges."
+    - "Solo flawless: extremely difficult. Symbols + relics demand coordination."
+
+  loadout_general:
+    weapons:
+      - "Cataclysmic (this raid's LFR) — Disciple's Bane perk boss-melts."
+      - "Burst DPS: Whisper, Sleeper, Linear, Cataclysmic."
+      - "Anti-Champion mods for Master Champions."
+    armor_stats:
+      - "Mobility for Exhibition platforming."
+      - "Resilience for Rhulk beams."
+    common_exotics:
+      - "Hunter: Star-Eater Scales (DPS), Gyrfalcon's Hauberk."
+      - "Titan: Cuirass of the Falling Star, Heart of Inmost Light."
+      - "Warlock: Well of Radiance, Phoenix Protocol, Speaker's Sight."
+
+  common_mistakes:
+    - "Misnaming symbol = wrong dunk = miss + reset."
+    - "Acquisition: shooting wrong symbol on obelisk = offering rejected."
+    - "Caretaker: stomp-bait failure = face won't glow = no stun."
+    - "Exhibition: relic dropped into abyss = lost + back to start."
+    - "Rhulk: losing Leeching Force = glaive resummons, 3× = wipe."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: bog-payload
+    name: "Disciple's Bog (Payload)"
+    difficulty: easy
+    estimated_time: "10-15 min"
+
+    abstract: |
+      Escort a Pyramid payload to the entrance. 6 stops, Knowledge Bearer
+      Abominations spawn at each. Kill them, collect shards (max 3 each),
+      return to payload for progress. 3 hidden Pyramid Spikes spawn a
+      hidden chest near the 5th stop.
+
+    setup: |
+      WHAT YOU SEE:
+      - Swampy bog area, Pyramid payload at start.
+      - Knowledge Bearer Abominations spawn at each of 6 stops.
+      - 3 Pyramid Spikes hidden along the route (shoot for chest unlock).
+      - 26-symbol entry room before the first encounter.
+
+      PLATFORM MECHANICS:
+      - Approach payload to engage.
+      - Kill Knowledge Bearer → shards drop.
+      - Max 3 shards per player. Return to payload to deposit.
+      - Outside payload range = Pervading Darkness stacks (10 = death).
+      - 3 Pyramid Spikes scattered: shoot all 3 to unlock hidden chest near 5th stop (inside building).
+
+    callouts:
+      - when: "Knowledge Bearer down"
+        from: "killer"
+        to:   "team"
+        say:  '"Shards [direction]."'
+        why:  "Collectors converge."
+      - when: "Spike spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"SPIKE [N/3] — shoot."'
+        why:  "Hidden chest progress."
+
+    wipe_triggers:
+      - "Pervading Darkness 10 = death (mostly individual)."
+
+    damage_phase_triggers:
+      - "Payload reaches Pyramid → enter for next encounter."
+
+    parallel_timeline: []
+    permutations:
+      - name: "Standard escort"
+        learner_friendly: true
+        summary: "Stay near payload, kill Bearers, deposit shards."
+
+    cheese: []
+    common_mistakes:
+      - "Forgetting to return shards to payload = stalled progress."
+      - "Wandering too far from payload = Pervading Darkness death."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          BOG SECRET CHEST: Shoot 3 Pyramid Spikes along the route:
+          (1) under rocks/trees left side of 2nd stop;
+          (2) end of long path to 3rd stop;
+          (3) beneath bridge that payload flies over after 4th stop
+              (shoot from far side).
+          Chest in building above swamp level near 5th stop — door opens only with all 3 spikes shot.
+        rewards:
+          - "Random raid loot + raid mod chance"
+      potential_drops: []
+
+    images:
+      overview: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Just play. Visit the 26-symbol room to learn names."
+
+  # ====================================================================
+
+  - order: 2
+    slug: acquisition
+    name: "Acquisition (3 obelisks)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Defend 3 obelisks from Abated Adherent lurkers (fill obelisks =
+      wipe). Reveal 3 symbols per obelisk via Disciple's Compass (Taken
+      Knight) → 9 rooms → kill Glyphkeeper (Light or Dark side per call).
+      Shoot 3 correct symbols on obelisk within timeframe. Repeat 3
+      obelisks × 3 symbols each.
+
+    setup: |
+      WHAT YOU SEE:
+      - 3 obelisks (large stone pillars) around the arena.
+      - Columns of 3-panel symbols across from each obelisk (start blank).
+      - 9 rooms spread around the area (3 per runner area).
+      - Central area with Traveler/Pyramid switches.
+      - Pyramid switches for door open/close on rooms.
+
+      PLATFORM MECHANICS:
+      - Approach Pyramid switch in middle to start.
+      - Per obelisk:
+        • Top symbol on column reveals: Traveler OR Pyramid (= Disciple's Compass spawn side).
+        • Kill Disciple's Compass → middle symbol reveals (= room to enter).
+        • Runner enters room. Shoot Pyramid switch if door is wrong (Traveler/Pyramid toggle).
+        • Inside room: 2 Glyphkeepers (Light + Dark side).
+        • Third symbol on column reveals: light or dark.
+        • Kill the correct Glyphkeeper → drops symbol → call it out.
+        • That symbol must be shot on obelisk OUTSIDE within short window.
+      - Repeat to get all 3 symbols for an obelisk.
+      - Shoot the 3 symbols on the obelisk → offering accepted (if correct).
+      - Wrong = offering rejected, symbols shuffle, obelisk fills more.
+      - Killing a Glyphkeeper RESETS obelisk fill levels.
+      - 3 obelisks × 3 symbols each = encounter complete.
+
+      START STATE: rally banner. Pyramid switch in middle to start.
+
+    callouts:
+      - when: "Column top symbol"
+        from: "spotter"
+        to:   "team"
+        say:  '"Compass spawn [TRAVELER/PYRAMID]."'
+        why:  "Identifies Disciple's Compass side."
+      - when: "Compass down + room symbol"
+        from: "killer"
+        to:   "team"
+        say:  '"Room [symbol name]."'
+        why:  "Tells runner which room."
+      - when: "Light/Dark indicator"
+        from: "outside spotter"
+        to:   "runner"
+        say:  '"[LIGHT/DARK] Glyphkeeper."'
+        why:  "Runner kills correct side."
+      - when: "Symbol dropped"
+        from: "runner"
+        to:   "team"
+        say:  '"Symbol: [name] — obelisk [N]."'
+        why:  "Shoot symbol on obelisk window."
+      - when: "3 symbols ready"
+        from: "any"
+        to:   "team"
+        say:  '"OFFERING — shoot now!"'
+        why:  "Short window."
+
+    wipe_triggers:
+      - "Obelisk fills to max = wipe."
+      - "Wrong-Glyphkeeper kill = wasted, fills obelisk."
+      - "Wrong symbol shot on obelisk = offering rejected, fills."
+
+    damage_phase_triggers:
+      - "3 symbols correctly shot on each of 3 obelisks → encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Pyramid switch. Split 3 pairs to 3 obelisks."
+      - phase: "Per obelisk cycle (×3 symbols)"
+        defender: "Defend obelisk from Abated Adherents."
+        runner: "Enter room, kill correct Glyphkeeper, return symbol."
+      - phase: "Shoot 3 symbols"
+        all: "Within window, shoot all 3 on obelisk."
+      - phase: "Repeat for other obelisks"
+        all: "Cycle."
+
+    permutations:
+      - name: "Standard 3 pairs (defender + runner)"
+        learner_friendly: true
+        summary: "Each pair owns 1 obelisk + 3 nearby rooms."
+        roles:
+          - id: defender
+            count: 3
+            does: "Defend obelisk + add-clear."
+          - id: runner
+            count: 3
+            does: "Enter rooms, kill correct Glyphkeeper, deliver symbols."
+
+      - name: "Master (Chaff + Shielded)"
+        learner_friendly: false
+        summary: "No radar. Glyphkeepers = Champions. Slow pace, callouts essential."
+
+    cheese: []
+
+    common_mistakes:
+      - "Missing the Light/Dark call = wrong Glyphkeeper = wasted."
+      - "Symbol-shot window too slow = rejected."
+      - "Forgetting Disciple's Compass alive = obelisk fills."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Submission (SMG)"
+        - "Insidious (pulse)"
+        - "Deliverance (fusion)"
+        - "Vow armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: defender (no symbol responsibility yet)."
+      - "2nd: runner."
+
+  # ====================================================================
+
+  - order: 3
+    slug: caretaker
+    name: "The Caretaker"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      Boss escorts an obelisk down 3 floors. Symbol Team collects symbols
+      from dark room, shoots matching on obelisk. Stun Team stomp-baits
+      Caretaker (face glows), shoots face + back weak point. Kill Team
+      handles Abated Adherents + Darkness Scale drones. 9 symbols cleared
+      → DPS phase (3 plates around obelisk). 4 floors total.
+
+    setup: |
+      WHAT YOU SEE:
+      - Floor arena with obelisk on one side, Caretaker (large encased boss) walking toward it.
+      - Dark room opposite obelisk (symbol collection).
+      - 3 plates surrounding the obelisk (DPS positions).
+      - Pyramid switches by the door.
+
+      PLATFORM MECHANICS:
+      - Shoot Pyramid switch on the door = encounter starts.
+      - Caretaker walks toward obelisk. If it reaches it = wipe.
+      - Symbol Team: 1 enters dark room at a time, grabs up to 3 symbols, exits, shoots matching on obelisk.
+        • Dark room = Pervading Darkness stacks (10 = death).
+        • Pick 2 symbols max (3 risks rotating obelisk faces).
+        • Wrong shot = rejected, symbols return.
+        • 9 symbols on obelisk total.
+      - Stun Team: Face side baits stomp (well-timed melee blocks stomp), face glows → shoot. Back side shoots weak point in coffin-like rear → STUN.
+      - Kill Team: Abated Adherents + Darkness Scale drones (these turn into homing missiles if left alive).
+      - 9 symbols cleared → DPS phase. 3 plates light in sequence (per side Caretaker approaches from). Resonant Breakthrough buff while on lit plate.
+      - 3 floors of obelisk → final stand floor with 3 plates in a row.
+
+      START STATE: rally banner. Pyramid switch starts.
+
+    callouts:
+      - when: "Symbol Team going in"
+        from: "self"
+        to:   "team"
+        say:  '"IN — keep door open!"'
+        why:  "Door closes; need switch."
+      - when: "Symbols collected"
+        from: "symbol team"
+        to:   "team"
+        say:  '"Got [N1, N2] — shooting obelisk."'
+        why:  "Pre-shot prep."
+      - when: "Stun ready (face glow)"
+        from: "face team"
+        to:   "team"
+        say:  '"FACE GLOWING — shoot back!"'
+        why:  "Back-team stuns."
+      - when: "Stunned"
+        from: "back team"
+        to:   "team"
+        say:  '"STUNNED — push back to obelisk."'
+        why:  "Face team rotates Caretaker direction."
+      - when: "DPS plate"
+        from: "any"
+        to:   "team"
+        say:  '"PLATE [N/3] — Resonant Breakthrough!"'
+        why:  "Move team to current lit plate."
+
+    wipe_triggers:
+      - "Caretaker reaches obelisk = wipe (over-fill)."
+      - "Pervading Darkness 10 in dark room = death."
+      - "Wrong symbol shot = rejected = fill increases."
+      - "Drones turning into homing missiles = mid-fight chaos."
+
+    damage_phase_triggers:
+      - "9 symbols cleared per floor → 3 plates light in sequence based on Caretaker approach → ~10s per plate damage window."
+      - "Final stand floor: 3 plates in a row."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Pyramid switch. Roles assigned."
+      - phase: "Symbol + stun cycle"
+        symbol_team_2: "One in dark room, other door-keeper."
+        stun_team_2: "Face baits stomp + shoots; back-side stuns."
+        kill_team_2: "Abated Adherents + drones."
+      - phase: "DPS (3 plates)"
+        all: "Move plate-to-plate with Resonant Breakthrough."
+      - phase: "Floor swap"
+        all: "Caretaker teleports next floor. Repeat."
+
+    permutations:
+      - name: "Standard 2-Symbol / 2-Stun / 2-Kill"
+        learner_friendly: true
+        summary: "Pre-assigned 2-pair roles."
+        roles:
+          - id: symbol_team
+            count: 2
+            does: "Dark room runs + obelisk shoots."
+          - id: stun_team
+            count: 2
+            does: "Face stomp-bait + back weak point stun."
+          - id: kill_team
+            count: 2
+            does: "Abated Adherents + drones + ambient."
+
+      - name: "Skip Floor 3 via Floor 2 DPS push"
+        learner_friendly: false
+        summary: |
+          Don't push Caretaker HP to next segment on Plate 2. Save it
+          for Plate 3 (longest window). Push damage into next floor's HP
+          segment to skip Floor 3 obelisk entirely.
+        best_for: "Optimized teams."
+
+      - name: "Master (Chaff)"
+        learner_friendly: false
+        summary: "No radar. Stun team blind to drones. Slower."
+
+    cheese: []
+
+    common_mistakes:
+      - "Stun team forgets to bait stomp = face won't glow = no stun."
+      - "Drones ignored = homing missile wipes stun team."
+      - "Pervading Darkness in dark room = symbol team dies."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest:
+        location: |
+          HIDDEN CHEST (Platforming): Between Caretaker and Exhibition,
+          the platforming has 2 paths. Hugging RIGHT wall takes you to
+          a secret chest room via vaguely tubular platforms. Shortcut to
+          intended path opens after chest.
+        rewards:
+          - "Random raid loot already-obtained + raid mod"
+      potential_drops:
+        - "Cataclysmic (LFR)"
+        - "Forbearance (GL)"
+        - "Vow armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st: kill_team."
+      - "2nd: stun_team (specific role)."
+      - "3rd: symbol_team."
+
+  # ====================================================================
+
+  - order: 4
+    slug: exhibition
+    name: "Exhibition (relics race)"
+    difficulty: hard
+    estimated_time: "20-30 min"
+
+    abstract: |
+      4-room race against Terminal Resonance timer. Pick up Resonant
+      Shard → enter room → kill Glyphkeepers → identify SHARED symbol
+      → shoot door symbol → advance. Room 2 adds Aegis (VoG) for Pervading
+      Darkness cleanse. Room 3 adds Taken Essence (Last Wish) for blight
+      cleanse. Disciple's Hourglass Taken Knight = reset Terminal
+      Resonance timer.
+
+    setup: |
+      WHAT YOU SEE:
+      - 4 rooms, each progressively harder.
+      - Resonant Shard in initial small room.
+      - Glyphkeepers spawn pairs (one Chieftain, one Phalanx).
+      - Shielded Disciple's Hourglass Knights (require Shard laser to break shield).
+      - Aegis relic in Room 2 (VoG-style sword shield).
+      - Taken Essence in Room 3 (Last Wish-style cleanse).
+      - 4 of 6 wall symbols around each locked door.
+
+      PLATFORM MECHANICS:
+      - Pick up Resonant Shard = encounter starts. Terminal Resonance timer = wipe at 0.
+      - Per room:
+        • Kill 2 Glyphkeepers (left = Phalanx, right = Chieftain).
+        • Phalanx symbols (LEFT column) visible only to RELIC HOLDER.
+        • Chieftain symbols (RIGHT column) visible only to NON-RELIC HOLDERS.
+        • Identify SHARED symbol → shoot it on the door = door opens.
+      - Disciple's Hourglass: Shard-laser to drop shield → kill = reset Terminal Resonance.
+      - Room 2 onward: deposit Shard at deposit point, pickup Aegis + Shard (2 relic holders).
+        • Aegis cleanse on the team's Pervading Darkness.
+        • Curbed Resonance debuff on Shard-depositor (30s no-relic-pickup).
+      - Room 3: add Taken Essence. Cleanse blights with grenade button.
+      - Room 4: large abyss platforming + same mechanics. Drop relic into abyss = back to start.
+      - All 3 relics deposited in Room 4 = encounter ends.
+
+      START STATE: rally banner. Pick up Shard to start.
+
+    callouts:
+      - when: "Symbols read"
+        from: "phalanx side"
+        to:   "team"
+        say:  '"Left: [symbol1], [symbol2], [symbol3]"'
+        why:  "Pair team identifies shared."
+      - when: "Shared symbol"
+        from: "non-relic"
+        to:   "team"
+        say:  '"SHARED: [symbol]"'
+        why:  "Shoot door symbol."
+      - when: "Disciple's Hourglass spotted"
+        from: "spotter"
+        to:   "team"
+        say:  '"HOURGLASS — Shard laser!"'
+        why:  "Reset Terminal Resonance."
+      - when: "Aegis cleanse"
+        from: "aegis_holder"
+        to:   "team"
+        say:  '"CLEANSING — stack!"'
+        why:  "Team stack for Pervading Darkness clear."
+      - when: "Curbed Resonance"
+        from: "self"
+        to:   "team"
+        say:  '"CURBED 30s — Shard back to me later."'
+        why:  "Avoids picking another relic."
+
+    wipe_triggers:
+      - "Terminal Resonance timer = 0."
+      - "Pervading Darkness 10."
+      - "Falling into abyss in Room 4."
+      - "Drop relic into abyss = back to start."
+
+    damage_phase_triggers:
+      - "All 3 relics deposited in Room 4 = encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull (Room 1)"
+        relic_holder: "Pick Shard."
+        team_l_3: "Push left, kill Phalanx Glyphkeeper."
+        team_r_3: "Push right, kill Chieftain Glyphkeeper."
+      - phase: "Door symbol + advance"
+        all: "Identify shared, shoot door, advance."
+      - phase: "Room 2 (Aegis added)"
+        aegis_holder: "Pick Aegis after Shard deposit."
+        shard_holder_new: "Pick Shard, juggle roles."
+      - phase: "Room 3 (Essence added)"
+        essence_holder: "Cleanse blights with grenade button."
+      - phase: "Room 4 (final)"
+        all: "Same mechanics + abyss platforming. Deposit all 3 = done."
+
+    permutations:
+      - name: "Standard 3 relics rotating"
+        learner_friendly: true
+        summary: "Pre-assigned relic holders. Pace by Terminal Resonance."
+        roles:
+          - id: shard_holder
+            count: 1
+            does: "Carries Shard. Drops Hourglass."
+          - id: aegis_holder
+            count: 1
+            does: "Pervading Darkness cleanse."
+          - id: essence_holder
+            count: 1
+            does: "Blight cleanse."
+          - id: symbol_reader
+            count: 3
+            does: "Glyphkeeper kills + symbol identification."
+
+      - name: "Speed: 2-rooms-fast"
+        learner_friendly: false
+        summary: "Skip cleanse on intermediate rooms. Push to Room 4 with stack tolerance."
+
+    cheese: []
+
+    common_mistakes:
+      - "Shard drop into abyss = back to start."
+      - "Curbed Resonance forgot = can't pick up Shard at deposit."
+      - "Slow Hourglass kills = timer death."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+      hidden_chest: null
+      potential_drops:
+        - "Submission (SMG)"
+        - "Lubrae's Ruin (glaive)"
+        - "Vow armor"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+
+    learner_path:
+      - "1st: symbol_reader."
+      - "2nd: shard_holder."
+      - "3rd: aegis or essence holder."
+
+  # ====================================================================
+
+  - order: 5
+    slug: rhulk
+    name: "Rhulk, Disciple of the Witness (final boss)"
+    difficulty: hard
+    estimated_time: "30-50 min"
+
+    abstract: |
+      Final boss. Pyramid Disciple. Two phases:
+      Phase 1: Glaive break → Leeching Force → 6 Emanating Force dunks
+      to push force field back. Phase 2: Glaive break + dunk on correct
+      symbol pillar → stun + weak point burst (×4) → DPS chase phase.
+      3 damage phases until forced final stand. Most complex final boss.
+
+    setup: |
+      WHAT YOU SEE:
+      - Tall arena with stair-stepped levels.
+      - Sarcophagus at top with Rhulk floating.
+      - 6 pillars around the arena (Reader's job to track).
+      - Swapping plate in middle ground.
+      - Force field initially pushes team back.
+
+      PLATFORM MECHANICS:
+      PHASE 1 (lower arena):
+      - Approach Rhulk → force field push (don't jump or you go OFF the edge).
+      - Step up to first stairs → Rhulk summons GLAIVE above his head + Pervading Darkness stacks all.
+      - Shoot glaive (long range) to BREAK = killing blow grants LEECHING FORCE buff.
+      - Swapper: stand on middle-ground plate while holding Leeching → spawn 2 Darkness Cruxes in back.
+        2 team members break Cruxes → Leeching transferred to them.
+      - Lose Leeching across team = glaive resummons. 3 resummons = invincible glaive = wipe by Pervading Darkness.
+      - Dunker: take Leeching → get hit by Rhulk's Darkness BEAM (or stand in it deliberately) = converts to EMANATING FORCE.
+      - Emanating Force = barrier doesn't push you. Carry to specific pillar to dunk → barrier retreats.
+      - Reader: ID pillars 1-6 (L1, L2, L3, R1, R2, R3). Calls correct pillar based on Glyphkeeper-revealed symbols.
+      - Glyphkeepers (Phalanx left, Chieftain right) per wave drop symbol columns. Same shared-symbol mechanic.
+      - 6 Emanating Force dunks total → Phase 2.
+
+      PHASE 2 (upper arena):
+      - Rhulk lands. Charges glaive + slices forward → damages target.
+      - Glaive breaks → Leeching Force again. Rhulk's NEXT attack = X+ beam (Pervading Darkness + Leeching → Emanating conversion).
+      - Dunker takes Emanating to pillar matching symbol left by broken glaive.
+      - Dunk = Rhulk stun + weak point on SHOULDERS (then HIPS) exposed.
+      - 4 dunks total = all 4 weak points broken → DPS phase (chasing Rhulk).
+      - 3 damage phases until forced final stand.
+      - Final stand: constant Pervading Darkness stacks. Limited time. Save Supers.
+
+      START STATE: rally banner. Approach Rhulk to start.
+
+    callouts:
+      - when: "Glaive broken + Leeching Force"
+        from: "killer"
+        to:   "team"
+        say:  '"LEECHING — pillar [reader call]"'
+        why:  "Reader assigns next."
+      - when: "Pillar assignment (Reader)"
+        from: "reader"
+        to:   "team"
+        say:  '"Pillar [L1/L2/L3/R1/R2/R3]."'
+        why:  "Dunker target."
+      - when: "Emanating Force in hand"
+        from: "dunker"
+        to:   "team"
+        say:  '"EMANATING — going [pillar]."'
+        why:  "Other dunkers don't go same pillar."
+      - when: "Dunked + barrier retreats"
+        from: "dunker"
+        to:   "team"
+        say:  '"DUNKED [N/6]."'
+        why:  "Progress."
+      - when: "Beam telegraph"
+        from: "spotter"
+        to:   "team"
+        say:  '"BEAM [direction]."'
+        why:  "Dodge or convert."
+      - when: "Phase 2 weak point ready"
+        from: "any"
+        to:   "team"
+        say:  '"SHOULDERS/HIPS — break!"'
+        why:  "Burst weak point exposed by dunk."
+
+    wipe_triggers:
+      - "3 glaive resummons = invincible glaive = wipe."
+      - "Pervading Darkness 10 = death."
+      - "Hit by force field at low arena = pushed off edge."
+      - "Wrong pillar dunk = Dunker dies."
+      - "Charge attack at end-point hit = damage."
+      - "Final stand timer exhaust = wipe."
+
+    damage_phase_triggers:
+      - "Phase 1: 6 dunks → Phase 2."
+      - "Phase 2: 4 weak point breaks → DPS phase (chasing Rhulk)."
+
+    parallel_timeline:
+      - phase: "Phase 1 — Pull"
+        all: "Engage. Glaive break."
+      - phase: "Phase 1 — Swap + dunk cycle"
+        swappers_2: "Plate + Cruxes."
+        readers: "Track pillars."
+        dunkers: "Convert + dunk."
+      - phase: "Phase 1 — 6 dunks"
+        all: "Cycle until barrier fully back."
+      - phase: "Phase 2 — Pull"
+        all: "Advance up to Rhulk."
+      - phase: "Phase 2 — Glaive + dunk × 4"
+        all: "Cycle: glaive break → beam → emanating → dunk → weak point break."
+      - phase: "Phase 2 — DPS"
+        all: "Burst Rhulk (head + broken weak points crit)."
+      - phase: "Final stand"
+        all: "Constant Pervading Darkness. Burn supers."
+
+    permutations:
+      - name: "Standard 2-Swap / 1-Reader / 2-Dunk / 1-Float"
+        learner_friendly: true
+        summary: "Pre-assigned roles. Reader is critical."
+        roles:
+          - id: swapper
+            count: 2
+            does: "Manage Leeching Force pickup/transfer via plate."
+          - id: dunker
+            count: 2
+            does: "Convert to Emanating + dunk at correct pillar."
+          - id: reader
+            count: 1
+            does: "Track 6 pillars, call correct pillar from symbol matches."
+          - id: floater
+            count: 1
+            does: "Add-clear + backup swap/dunk."
+
+      - name: "Speed: double dunks per cycle"
+        learner_friendly: false
+        summary: "2 Dunkers + 2 Swappers run in parallel. Time dunks to not scramble pillars."
+
+      - name: "Master (Chaff + Shielded)"
+        learner_friendly: false
+        summary: "No radar, Champions for Glyphkeepers, Solar/Void Wraiths."
+
+    cheese: []
+
+    common_mistakes:
+      - "Reader misreading pillar = Dunker dies."
+      - "Losing Leeching 3 times = wipe."
+      - "Hit by Phase 1 force field on jump = off edge."
+      - "Phase 2 charge attack mistimed = sliced."
+
+    rewards:
+      guaranteed:
+        - "1× raid weapon or armor"
+        - "Final boss chest (Rhulk's glaive)"
+        - "Deepsight chest (if all secret puzzle symbols correct — see Notes)"
+      hidden_chest: null
+      potential_drops:
+        - "Collective Obligation (exotic pulse — random chance)"
+        - "Submission (SMG)"
+        - "Cataclysmic (LFR)"
+        - "Insidious (pulse)"
+        - "Forbearance (GL)"
+        - "Deliverance (fusion)"
+        - "Lubrae's Ruin (glaive)"
+        - "Vow armor (full set)"
+
+    images:
+      overview: ""
+      setup: ""
+      callouts: ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st: floater (no critical role)."
+      - "2nd: swapper or dunker."
+      - "3rd: reader (most demanding)."
+
+# ========================================================================
+overall_notes:
+  - "Collective Obligation exotic pulse: ~5% from Rhulk. Re-rollable via Spoils. Has Vex Crucifix perk."
+  - "Deepsight Puzzle: 3 symbols on the obelisk before the first encounter. Find 9 secret rooms with Pyramid switches throughout the raid. Symbols: Pyramid, Give, Darkness (start) + Traveler, Worship, Light (mid) + Stop, Guardian, Kill (late). Shoot wall plate in each matching room. All correct = bonus craftable chest after Rhulk."
+  - "Master version: Chaff (no radar) + Shielded Foes. Champions on Glyphkeepers + Hobgoblins."
+  - "Soloing: Acquisition + Exhibition mechanics inherently 6-person. Solo flawless essentially impossible without specific cheese."
+  - "Symbol literacy: prerequisite for Vow + Dual Destiny + Sundered Doctrine. Memorize the 26."

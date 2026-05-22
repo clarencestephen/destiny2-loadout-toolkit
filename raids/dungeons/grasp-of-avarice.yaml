@@ -1,0 +1,686 @@
+# raids/dungeons/grasp-of-avarice.yaml — Pass 1 (destinypedia baseline)
+
+slug: grasp-of-avarice
+name: Grasp of Avarice
+activity_type: dungeon
+released:
+  expansion: 30th Anniversary Pack (Season of the Lost)
+  year: 2021
+roster_status: current
+fireteam_size: 3       # 1-3
+power_floor:
+  normal: 1600
+  master: ""           # no master version
+
+location: "Loot Cave → Cosmodrome cave network → Wilhelm's Hoard"
+tags: [fallen, hive, exotic-quest, gjallarhorn, soloable, classic-meme]
+
+average_clear_time:
+  normal_experienced: "30-45 min"
+  normal_learning:    "1-2 hr"
+
+# ========================================================================
+overview:
+  abstract: |
+    The OG loot-cave joke turned into an actual dungeon. Everything keys
+    off Burdened by Riches — pick up cursed engrams, accrue stacks on a
+    death timer, deposit at an Icon of Excess to trigger boss-vulnerable
+    phases. Easiest current dungeon, source of Gjallarhorn and Eyasluna.
+
+  bosses:
+    - name: "Phry'zhia, the Insatiable"
+      encounter: 1  # technically 2nd encounter overall but 1st boss
+      role: "Tutorial boss — Hive Ogre, 40-engram deposit triggers DPS"
+    - name: "Fallen Shield"
+      encounter: 3
+      role: "Mini-encounter — Servitor-launching puzzle, no health bar"
+    - name: "Captain Avarokk, the Covetous"
+      encounter: 4
+      role: "Final boss — Fallen Captain, 60-engram deposit, Scorch Cannons rain engrams"
+
+  recurring_mechanics:
+    - name: "Burdened by Riches (engram pickup + timer)"
+      brief: |
+        Pick up a Cursed Engram dropped by enemies → 1 stack + 30s death
+        timer. Picking up more resets the timer. At 0s = death. Engrams
+        also explode if left on the ground too long. EVERY 10 stacks =
+        instant Super recharge.
+
+    - name: "Icon of Excess (boss vulnerability)"
+      brief: |
+        White quartz crystal. Stand next to it to deposit your Burdened
+        stacks (clears stacks + grows the icon). Reach the encounter's
+        deposit target (50 → 40 → 60) to make the boss damageable.
+
+    - name: "Scorch Cannon (Fallen rocket launcher)"
+      brief: |
+        Picked up from Fallen Vandals. Used to (a) open gates/doors,
+        (b) charge Fallen batteries that drop engrams. Hold the trigger
+        to charge for max effect. Switching weapons drops the cannon but
+        preserves ammo for re-pickup.
+
+    - name: "Spike traps (pressure pads)"
+      brief: |
+        Most rusted corridors have step-triggered spike traps. Jump OVER
+        pressure plates. Visual cue: dust + mechanism on adjacent wall.
+
+  role_archetypes:
+    - id: gatherer
+      brief: "Picks up engrams, manages own timer, deposits."
+    - id: cannoneer
+      brief: "Holds Scorch Cannon — opens doors, charges batteries."
+    - id: defender
+      brief: "Clears adds + protects gatherers/cannoneer."
+
+  sherpa_playbook:
+    - "1st-timer: gatherer. Most engagement, lowest risk if they panic-deposit."
+    - "Sherpa: take Cannoneer in Avarokk fight — coordinated battery hits speed DPS-prep significantly."
+    - "Gjallarhorn quest takes ONE no-checkpoint run. Don't load in from a checkpoint."
+
+  loadout_general:
+    weapons:
+      - "Burst DPS — Phry'zhia + Avarokk vulnerability windows are short."
+      - "Witherhoard for sustained chip during deposit runs."
+      - "Anti-Barrier mod for Master-tier Knights/Captains."
+    armor_stats:
+      - "Resilience priority — Wretches and Captains hit hard."
+      - "Mobility for solo (sparrow section + final boss kiting)."
+    common_exotics:
+      - "Hunter: Aeon Swift (Super spam from engram stacks)."
+      - "Titan: Heart of Inmost Light (ability uptime)."
+      - "Warlock: Well of Radiance for stationary DPS windows."
+
+  common_mistakes:
+    - "Holding 9 stacks waiting for #10 to Super-pop — timer expires, you die. Take #10 from any nearby engram, don't wait for a specific drop."
+    - "Standing on pressure plates in the jumping puzzle — instant death."
+    - "Loading from a checkpoint when chasing the Gjallarhorn catalyst — Reaver Vandals don't spawn. Quest requires full no-checkpoint clear."
+    - "Avarokk: shooting his crew members BEFORE the battery rains engrams — they drop their engrams away from the deposit point and timer becomes hard to manage."
+
+# ========================================================================
+encounters:
+
+  - order: 1
+    slug: skywatch
+    name: "Skywatch (Loot Cave intro)"
+    difficulty: easy
+    estimated_time: "5-8 min"
+
+    abstract: |
+      Tutorial. The original Loot Cave is now a mechanic-teach. Build
+      Burdened stacks from Hive engrams + deposit 50 at the Icon to
+      collapse the floor and progress.
+
+    setup: |
+      WHAT YOU SEE:
+      - Skywatch landing zone, crashed Hive Seeder visible.
+      - The Loot Cave proper (mouth, then descending tunnel).
+      - Icon of Excess (white quartz crystal) inside the cave at the back.
+      - Hive + Fallen actively fighting at the cave mouth.
+
+      PLATFORM MECHANICS:
+      - Engrams drop from killed Hive. Walk over to pick up = +1 Burdened stack + timer.
+      - Icon: stand within ~2m. Auto-deposits stacks at ~1/second.
+      - No platform damage zones — just the Burdened timer.
+
+      START STATE: pull = engage. No countdown, no callout-triggered start.
+
+    callouts:
+      - when: "First engram picked up"
+        from: "self"
+        to:   "team"
+        say:  '"[N] stacks."'
+        why:  "Lets team gauge collective progress without checking individual buffs."
+      - when: "Burdened timer < 5s"
+        from: "self"
+        to:   "team"
+        say:  '"Depositing!"'
+        why:  "Avoids 3 players crowding the Icon and one running out of timer mid-walk."
+
+    wipe_triggers:
+      - "Burdened timer = 0 on any player."
+      - "Standing too close to an unpicked engram when it explodes."
+
+    damage_phase_triggers:
+      - "50 stacks deposited cumulatively = floor collapses, encounter ends."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Engage enemies at cave mouth. Pick engrams as they drop."
+      - phase: "Build stacks (~0:30-1:30)"
+        gatherers: "Each holds 8-10 stacks max. Deposit. Repeat."
+      - phase: "Final deposit"
+        all: "Push to 50 cumulative. Floor collapses → drop into encounter 2 path."
+
+    permutations:
+      - name: "Standard 3-gatherer"
+        learner_friendly: true
+        summary: "All 3 gather + deposit. No specialization."
+        roles:
+          - id: gatherer
+            count: 3
+            does: "Pick + deposit. Self-manage timer."
+
+    cheese: []
+
+    common_mistakes:
+      - "Hoarding 15+ stacks for a 'super-deposit' — timer doesn't wait. Cap at 10, then deposit."
+      - "Standing inside the Loot Cave during a Hive Seeder spawn — splash damage."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          GJALLARHORN catalyst chest 1: After encounter, before progressing,
+          a Reaver Vandal ("Randal") spawns near the cave. Damage him
+          until he drops a Cursed Engram. Pick up + go to the chest in
+          the back-right corner of the Loot Cave alcove. Catalyst piece 1.
+          REQUIRES no-checkpoint run for Randal to spawn.
+        rewards:
+          - "Gjallarhorn Catalyst fragment 1 (of 3)"
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      hidden_chest: ""
+
+    learner_path:
+      - "Just play. Mechanics are self-teaching."
+
+  # ====================================================================
+
+  - order: 2
+    slug: phryzhia
+    name: "Phry'zhia, the Insatiable"
+    difficulty: easy
+    estimated_time: "8-12 min"
+
+    abstract: |
+      First boss. Phry'zhia stands invincible mid-arena. Use Scorch Cannons
+      from Fallen to blow open side rooms, gather engrams from Hive inside,
+      deposit 40 at the central Icon → DPS phase opens.
+
+    setup: |
+      WHAT YOU SEE:
+      - Rectangular arena, Phry'zhia (Hive Ogre) center.
+      - Icon of Excess near the spawn-side gap.
+      - Two side rooms (L/R) sealed behind Fallen-battery doors.
+      - Fallen units periodically spawn with Scorch Cannons.
+      - Elevated ledge on the right side (safe DPS perch).
+
+      PLATFORM MECHANICS:
+      - Scorch Cannon: take from killed Fallen → aim at door battery → hold trigger to charge → release at full charge = door opens.
+      - Doors stay open for ~30s. Side rooms have Hive that drop engrams when killed.
+      - Icon of Excess: deposit Burdened stacks. 40 cumulative triggers DPS.
+
+      START STATE: rally banner on spawn-side ledge. Drop down to engage = Phry'zhia activates eye laser.
+
+    callouts:
+      - when: "Scorch Cannon picked up"
+        from: "self"
+        to:   "team"
+        say:  '"Cannon — opening [L/R]."'
+        why:  "Tells gatherers which side room to push next."
+      - when: "Door opened, engrams flowing"
+        from: "self"
+        to:   "team"
+        say:  '"[L/R] open."'
+        why:  "Gatherers swap rooms. Cannoneer holds for next door."
+      - when: "Deposit count milestone"
+        from: "any"
+        to:   "team"
+        say:  '"20 deposited."' # adjust as needed
+        why:  "Pace check — informs whether to push more rooms or sprint to 40."
+      - when: "Phry'zhia succumbs (DPS phase opens)"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE — well at the icon."'
+        why:  "Triggers stack on the Icon spot (best Well/Bubble placement)."
+
+    wipe_triggers:
+      - "Burdened timer to 0."
+      - "Phry'zhia eye laser at exposed sightline (hides behind cover when not depositing/damaging)."
+      - "Thrall waves overwhelming a solo cannoneer."
+
+    damage_phase_triggers:
+      - "40 stacks deposited at the Icon → 'succumbs to temptation' = ~20-25s damage window."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        cannoneer: "Kill nearest Scorch-Cannon Vandal, take cannon."
+        gatherers_2: "Add-clear, prep for engram intake."
+
+      - phase: "First door + gather (~0:30-1:30)"
+        cannoneer: "Charge battery, open L room."
+        gatherers_2: "Push L room, kill Hive, gather engrams, deposit."
+        cannoneer_followup: "Hold cannon, open R room next."
+
+      - phase: "DPS window (~1:30-2:00)"
+        all: "Stack at the Icon. Pop Well/Bubble. Burst Phry'zhia."
+
+      - phase: "Reset (if not 1-phased)"
+        all: "Phry'zhia resumes invincibility. Cycle."
+
+    permutations:
+      - name: "Standard 1-cannon / 2-gather"
+        learner_friendly: true
+        summary: "One dedicated cannoneer; two gatherers split L/R rooms."
+        roles:
+          - id: cannoneer
+            count: 1
+            does: "Hold cannon ALL phases. Open doors, charge batteries."
+          - id: gatherer
+            count: 2
+            does: "Push side rooms, gather engrams, deposit."
+
+      - name: "Speed: 2-cannon / 1-gather"
+        learner_friendly: false
+        summary: "Two cannoneers prep both doors simultaneously; one gatherer farms whichever opens first."
+        best_for: "1-phase attempts."
+        roles:
+          - id: cannoneer
+            count: 2
+            does: "Open both side rooms at the same time."
+          - id: gatherer
+            count: 1
+            does: "Sprint into whichever room opened first, gather, deposit."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "You do everything. Cannon → door → gather → deposit. 2-3 phases typical."
+        roles:
+          - id: solo
+            count: 1
+            does: "Full loop. Don't bother with 2 doors — use one, deposit, swap sides next phase."
+            notes:
+              - "Witherhoard the Ogre during deposit runs for free chip."
+
+    cheese:
+      - title: "Ledge DPS perch"
+        detail: |
+          Right-side elevated ledge has line-of-sight on Phry'zhia + cover
+          from eye laser. Drop a Well there, damage from the perch. Less
+          risky than the Icon-spot but tighter LoS.
+
+    common_mistakes:
+      - "Using the cannon to KILL the Hive instead of OPEN the door — wastes ammo, cannon despawns."
+      - "Depositing one stack at a time — slow. Bank 8-10, then deposit."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest: null
+      potential_drops:
+        - "1000-Yard Stare (sniper)"
+        - "Eyasluna (hand cannon)"
+        - "Matador 64 (shotgun)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: gatherer (Hive room dive)."
+      - "2nd: cannoneer."
+
+  # ====================================================================
+
+  - order: 3
+    slug: rusted-gangplank
+    name: "Rusted Gangplank → Sparrow Mines (jumping puzzle + race)"
+    difficulty: medium
+    estimated_time: "10-20 min"
+
+    abstract: |
+      Two unrelated mid-dungeon sections lumped together. (a) Spike-trap
+      jumping puzzle through Wilhelm-7's booby-trapped facility. (b) Sparrow
+      race to disarm 4 splinter mines before they detonate.
+
+    setup: |
+      JUMPING PUZZLE:
+      - Pressure plates = spike traps. Jump OVER them, don't step.
+      - Falling-panel platforms — land on LEFT panel (right one blocks console once it falls).
+      - Multi-door lever room: doors flip in a sequence (open #3 → #1 → #2 → #4 via Scorch Cannon).
+      - Rolling barrel staircase: hide in side alcoves as it rolls past.
+
+      SPARROW SECTION:
+      - 4 splinter mines on a sparrow track. Each has a despawn timer.
+      - Boost pads extend time. Web mines + Fallen gunfire harass.
+      - Failure (mine detonates) = full encounter reset.
+
+    callouts:
+      - when: "Pressure plate identified"
+        from: "first to see"
+        to:   "team"
+        say:  '"Trap ahead — jump."'
+        why:  "Saves a wipe if anyone's distracted."
+      - when: "Lever in 4-door room hit"
+        from: "self"
+        to:   "team"
+        say:  '"3 OPEN — head 3."' # door numbering varies per group
+        why:  "Coordinates door sequence."
+      - when: "Sparrow mine count"
+        from: "front-runner"
+        to:   "team"
+        say:  '"2 down, 2 to go — left fork."'
+        why:  "Slow players follow path."
+
+    wipe_triggers:
+      - "Stepping on pressure plate = instant death."
+      - "Sparrow mine detonates = full reset."
+      - "Falling off pseudo-platform climb = long respawn or death (no checkpoint mid-section)."
+
+    damage_phase_triggers: []
+    parallel_timeline: []
+
+    permutations:
+      - name: "Lead-follower"
+        learner_friendly: true
+        summary: "Experienced player leads, calls every trap + lever. Others follow exactly."
+        roles:
+          - id: leader
+            count: 1
+            does: "Knows the route. Calls every pressure plate + lever."
+          - id: follower
+            count: 2
+            does: "Wait at safe points; advance only on call."
+
+    cheese:
+      - title: "Skip rolling barrel"
+        detail: |
+          Stay flush against either side wall of the staircase from the bottom.
+          The barrel doesn't roll over wall-flush positions in most spots —
+          alcoves still safer, but flush works in a pinch.
+
+    common_mistakes:
+      - "Sprinting the jumping puzzle — every section punishes haste."
+      - "Sparrow section: trying to fight Fallen instead of racing — they respawn, mines don't wait."
+
+    rewards:
+      guaranteed: []
+      hidden_chest:
+        location: |
+          GJALLARHORN catalyst chest 2: In the 4-door lever room. Look UP
+          at one of the vertical metal struts on the side walls. There's
+          a small platform with a chest, facing the concrete wall. Requires
+          a jump from a high beam.
+        rewards:
+          - "Gjallarhorn Catalyst fragment 2 (of 3)"
+        # also a Sparrow-section chest:
+      potential_drops: []
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st time: follow leader, look at the layout for the next run."
+      - "2nd: lead the puzzle for someone else."
+
+  # ====================================================================
+
+  - order: 4
+    slug: shield-shutdown
+    name: "Shield Shutdown (Fallen Shield / Servitor cannon)"
+    difficulty: medium
+    estimated_time: "10-15 min"
+
+    abstract: |
+      No boss health bar — puzzle encounter. Deposit 20 engrams to break
+      a Servitor's shield → kill the Servitor → use a Scorch Cannon to
+      launch its body into a "shield core." 4 cores = shield down → final
+      boss room access.
+
+    setup: |
+      WHAT YOU SEE:
+      - Flooded cavern with the Great Sphere suspended in the center.
+      - 4 shield cores around the perimeter — each is a section of the sphere's barrier.
+      - Multiple platforms with Fallen, shielded white Servitors, and gravity cannons.
+      - Icons of Excess on the platforms.
+
+      PLATFORM MECHANICS:
+      - Gravity cannons: stand in front of one → press interact → launched to next platform. Some are aim-able (turn-able cannons).
+      - Servitor shields (white sphere protection): drop ONLY by depositing 20 Burdened stacks at the local Icon.
+      - Killed Servitor leaves a body — push it into a cannon → aim at a shield core → fire → 1/4 shield down.
+
+      START STATE: drop into cavern. 4 separate sub-rooms, can do in any order.
+
+    callouts:
+      - when: "Servitor shield drops"
+        from: "depositor"
+        to:   "team"
+        say:  '"[N] servitor down — body for cannon."'
+        why:  "Tells cannoneer to position."
+      - when: "Cannon aimed + ready"
+        from: "cannoneer"
+        to:   "team"
+        say:  '"Firing on [N/S/E/W] core."'
+        why:  "Confirms which core is being broken; team rotates."
+      - when: "All 4 cores broken"
+        from: "any"
+        to:   "team"
+        say:  '"Shield down — center cannon up."'
+        why:  "Cue to converge on center launcher for final boss room entry."
+
+    wipe_triggers:
+      - "Burdened timer = 0 (timer pressure is real here — fewer engram drops than earlier encounters)."
+      - "Failure to break all 4 cores in time → encounter resets (some sources say no time limit, but slow runs face escalating add density)."
+      - "Falling into the water below the platforms = death."
+
+    damage_phase_triggers:
+      - "All 4 shield cores broken via launched-Servitor cannons → progress."
+
+    parallel_timeline:
+      - phase: "Pull"
+        all: "Drop into cavern. Split L/R to nearest platforms."
+      - phase: "Per-platform loop"
+        gatherers: "Kill Fallen, gather engrams, deposit at Icon → Servitor shield drops."
+        cannoneer: "Hold Scorch Cannon. Position behind Servitor body for cannon shot."
+      - phase: "Core break"
+        cannoneer: "Aim launched-Servitor at the assigned shield core, fire."
+      - phase: "Rotate"
+        all: "Move to next platform via gravity cannon. Repeat."
+
+    permutations:
+      - name: "Round-robin 1-platform-per-player"
+        learner_friendly: true
+        summary: "Each player owns one platform. Coordinate cannon usage."
+        roles:
+          - id: platform_owner
+            count: 3
+            does: "Own platform: gather, deposit, kill Servitor, launch body."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "All 4 platforms yourself, sequentially. Bring sustain."
+        roles:
+          - id: solo
+            count: 1
+            does: "Cycle each platform. ~3-5 min per platform."
+
+    cheese: []
+
+    common_mistakes:
+      - "Killing the Servitor BEFORE depositing 20 (kills don't count — shield won't drop)."
+      - "Cannon misaim — launched Servitor body has falloff; aim for the core CENTER, not perimeter."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+      hidden_chest:
+        location: |
+          GJALLARHORN catalyst chest 3 (final): After encounter completes,
+          go to CENTER turnable cannon. Aim at the waterfall area. Launch.
+          Land near the Reaver Vandal in that side cavern. Kill Vandal,
+          quickly run to top room near the Cannon. Open chest = Gjallarhorn
+          Catalyst complete. REQUIRES previous 2 chests this run (no
+          checkpoint loading) — otherwise Vandal won't spawn.
+        rewards:
+          - "Gjallarhorn Catalyst (last fragment)"
+      potential_drops:
+        - "Dungeon weapons"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      hidden_chest: ""
+
+    learner_path:
+      - "1st clear: gather + deposit on assigned platform."
+      - "2nd: cannoneer for launch aim practice."
+
+  # ====================================================================
+
+  - order: 5
+    slug: avarokk
+    name: "Wilhelm's Hoard (Captain Avarokk, the Covetous)"
+    difficulty: hard
+    estimated_time: "12-18 min"
+
+    abstract: |
+      Final boss. Avarokk + 2 lieutenants (R-M80, Grisprax). Charge Fallen
+      batteries with Scorch Cannons → engrams rain from ceiling → deposit
+      60 at Icon → DPS phase. Lieutenants drop ~10 engrams each on death.
+
+    setup: |
+      WHAT YOU SEE:
+      - Sphere interior, opulent loot piles, Avarokk + lieutenants in center.
+      - 3 Fallen batteries around the perimeter (visible orange chargers).
+      - Icon of Excess in the room center.
+      - Scorch Cannons drop from Vandal spawns periodically.
+
+      PLATFORM MECHANICS:
+      - Approach the central engram on pull to summon Avarokk + lieutenants.
+      - Kill lieutenants ASAP (high damage + drop 10 engrams each).
+      - Scorch Cannon → aim at a battery → hold trigger to charge → release at full = engrams fall from ceiling near that battery.
+      - Deposit 60 cumulative stacks → DPS phase.
+
+      START STATE: rally banner outside the door. Walk to center engram to start.
+
+    callouts:
+      - when: "Lieutenants spotted (Grisprax + R-M80)"
+        from: "spotter"
+        to:   "team"
+        say:  '"R-M80 [direction], Grisprax [direction]."'
+        why:  "Focus-fire priority. They one-shot from melee range."
+      - when: "Lieutenant down"
+        from: "killer"
+        to:   "team"
+        say:  '"[Lieutenant] DOWN — 10 engrams [location]."'
+        why:  "Gatherers converge."
+      - when: "Battery charged + engrams falling"
+        from: "cannoneer"
+        to:   "team"
+        say:  '"[N/S/E] battery RAINING."'
+        why:  "Gatherers run that direction."
+      - when: "Deposit milestone"
+        from: "any"
+        to:   "team"
+        say:  '"40 in."'
+        why:  "Pacing — push 1 more battery or sprint last 20."
+      - when: "Avarokk succumbs (DPS open)"
+        from: "any"
+        to:   "team"
+        say:  '"DAMAGE — front of room."'
+        why:  "Avarokk retreats to front during DPS. Position there."
+
+    wipe_triggers:
+      - "Burdened timer = 0 (very tight on this fight — engram density is variable)."
+      - "Lieutenant melee (one-shot most builds)."
+      - "Avarokk's grenade barrage at full LoS."
+
+    damage_phase_triggers:
+      - "60 stacks deposited → Avarokk retreats to front of room + becomes vulnerable."
+
+    parallel_timeline:
+      - phase: "Pull (~0:00)"
+        all: "Approach center engram. Avarokk + lieutenants spawn."
+      - phase: "Lieutenant kill (~0:15-0:45)"
+        focus_fire: "Burst R-M80 + Grisprax. Pick up their 20 engrams."
+      - phase: "Battery cycle (~0:45-2:00)"
+        cannoneer: "Charge 1-2 batteries."
+        gatherers_2: "Run under raining engrams. Pick + deposit."
+      - phase: "DPS (~2:00-2:30)"
+        all: "Stack at front. Well + Bubble. Burst Avarokk to threshold."
+      - phase: "Reset (if not 1-phased)"
+        all: "Lieutenants respawn. Cycle."
+
+    permutations:
+      - name: "Standard 1-cannon / 2-gather"
+        learner_friendly: true
+        summary: "Dedicated cannoneer charges batteries; 2 gatherers focus lieutenants then engrams."
+        roles:
+          - id: cannoneer
+            count: 1
+            does: "Hold cannon all phases. Charge 2 batteries per cycle."
+          - id: gatherer
+            count: 2
+            does: "Kill lieutenants → gather lieutenant engrams → gather battery engrams → deposit."
+
+      - name: "Speed: 2-cannon / 1-gather"
+        learner_friendly: false
+        summary: "Two batteries simultaneously, one gatherer races both rain points."
+        best_for: "1-phase teams with good burst."
+        roles:
+          - id: cannoneer
+            count: 2
+            does: "Charge batteries in parallel."
+          - id: gatherer
+            count: 1
+            does: "Sprint between rain zones. Deposit."
+
+      - name: "Solo"
+        learner_friendly: false
+        summary: "Cannon → battery → gather → deposit, alone. Expect 4-6 phases."
+        roles:
+          - id: solo
+            count: 1
+            does: "Cannon for 1 battery per cycle. Witherhoard Avarokk during deposit runs."
+            notes:
+              - "Stasis crowd-control on lieutenants helps survive while cannoneering."
+
+    cheese: []
+
+    common_mistakes:
+      - "Picking engrams BEFORE killing lieutenants — lieutenants kill you while you're on a timer."
+      - "Trying to cannon BEFORE killing lieutenants — cannon is needed but lieutenant DPS interrupts."
+      - "Depositing one-by-one — bank 10, then deposit. Fewer Icon trips."
+      - "DPS from the back of the room — Avarokk moves to front during DPS, range matters."
+
+    rewards:
+      guaranteed:
+        - "1× dungeon armor or weapon"
+        - "Final boss chest (extra roll)"
+      hidden_chest: null   # Gjallarhorn chest is in encounter 4
+      potential_drops:
+        - "Gjallarhorn (exotic rocket launcher) — guaranteed on first clear via quest"
+        - "1000-Yard Stare (sniper)"
+        - "Eyasluna (hand cannon)"
+        - "Matador 64 (shotgun)"
+        - "Hero of Ages (sword)"
+        - "Echo armor (Twisting/Descending/Corrupting per class)"
+
+    images:
+      overview:     ""
+      setup:        ""
+      callouts:     ""
+      damage_phase: ""
+
+    learner_path:
+      - "1st clear: gatherer (lieutenant focus → engrams)."
+      - "2nd: cannoneer (battery routing practice)."
+      - "Solo: only after 3-player clear. Mechanic load compounds."
+
+# ========================================================================
+overall_notes:
+  - "Gjallarhorn exotic rocket launcher is a quest reward, NOT a random drop. Quest auto-starts on dungeon entry."
+  - "Gjallarhorn Catalyst: 3 hidden chests across the dungeon. MUST be done in a single no-checkpoint run (Reaver Vandals don't spawn from checkpoint loads)."
+  - "12 'Messages in Bottles' scattered throughout tell the Wilhelm-7 story — find for lore triumph + Catalyst seal."
+  - "Soloing: very feasible. Final boss is the wall — bring strong sustained DPS + add control."
+  - "Master version: not available for this dungeon."
