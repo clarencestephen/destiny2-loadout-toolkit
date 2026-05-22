@@ -1,0 +1,39 @@
+# Darth Bot — conda environment spec.
+# Usage:
+#     conda env create -f darth-bot/environment.yml
+#     conda activate darth-bot
+#
+# To update an existing env after adding deps:
+#     conda env update -f darth-bot/environment.yml --prune
+#
+# To wipe and rebuild:
+#     conda env remove -n darth-bot && conda env create -f darth-bot/environment.yml
+
+name: darth-bot
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      # Discord
+      - discord.py>=2.4
+
+      # LLM client (Qwen via ollama — install ollama separately as a binary)
+      - ollama>=0.4
+      - httpx[http2]>=0.27
+
+      # RAG stack
+      - chromadb>=0.5
+      - sentence-transformers>=3.0
+
+      # Scraping
+      - beautifulsoup4>=4.12
+      - lxml>=5.0
+      - trafilatura>=1.12
+
+      # Utilities
+      - python-dotenv>=1.0
+      - pydantic>=2.0

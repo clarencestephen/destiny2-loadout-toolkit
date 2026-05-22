@@ -12,6 +12,25 @@ from functools import lru_cache
 from ..config import CHROMA_DIR, EMBED_MODEL, TOP_K
 
 
+def _chroma_has_data() -> bool:
+    """Cheap probe: does the chroma DB have any documents?
+    Inspecting the DB without loading the embedding model first avoids the
+    ~133MB BGE download blocking Discord interactions when KB is empty.
+    """
+    try:
+        import chromadb
+        client = chromadb.PersistentClient(path=str(CHROMA_DIR))
+        # Use a no-op embedding fn — we're only counting rows, not querying
+        from chromadb.utils import embedding_functions as ef
+        coll = client.get_or_create_collection(
+            name="destiny",
+            embedding_function=ef.DefaultEmbeddingFunction(),
+        )
+        return coll.count() > 0
+    except Exception:
+        return False
+
+
 @lru_cache(maxsize=1)
 def _collection():
     import chromadb
@@ -28,6 +47,10 @@ def _collection():
 
 def retrieve(query: str, *, top_k: int = TOP_K) -> list[dict]:
     """Returns list of {text, source, title, url, distance}."""
+    # Short-circuit if the KB is empty — avoids loading the heavy embed model
+    # for nothing (was hanging Discord interactions on first /ask).
+    if not _chroma_has_data():
+        return []
     try:
         coll = _collection()
     except Exception as e:
