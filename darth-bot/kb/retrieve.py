@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
-from ..config import CHROMA_DIR, EMBED_MODEL, TOP_K
+from config import CHROMA_DIR, EMBED_MODEL, TOP_K
 
 
 def _chroma_has_data() -> bool:
@@ -45,8 +45,16 @@ def _collection():
     )
 
 
-def retrieve(query: str, *, top_k: int = TOP_K) -> list[dict]:
-    """Returns list of {text, source, title, url, distance}."""
+def retrieve(query: str, *, top_k: int = TOP_K,
+             must_contain: str | None = None) -> list[dict]:
+    """Returns list of {text, source, title, url, distance}.
+
+    `must_contain` adds a chromadb `$contains` post-filter so the
+    retrieved chunks must literally contain that string. Useful for
+    sub-queries like "Crota's End Abyss" where token-overlap embedding
+    otherwise hauls back chunks about Crota-the-boss instead of
+    Abyss-the-encounter.
+    """
     # Short-circuit if the KB is empty — avoids loading the heavy embed model
     # for nothing (was hanging Discord interactions on first /ask).
     if not _chroma_has_data():
@@ -58,7 +66,28 @@ def retrieve(query: str, *, top_k: int = TOP_K) -> list[dict]:
         return []
     if coll.count() == 0:
         return []
-    res = coll.query(query_texts=[query], n_results=top_k)
+    kwargs: dict = {"query_texts": [query], "n_results": top_k}
+    if must_contain:
+        # must_contain may be a string OR a list. A list means ALL of
+        # the terms must appear (ANDed) — useful for nailing down a
+        # raid-encounter pair like ["Crota", "Yut"] so King's Fall
+        # Deathsinger content (also mentions "Yut") doesn't leak in.
+        if isinstance(must_contain, (list, tuple)):
+            kwargs["where_document"] = {
+                "$and": [{"$contains": t} for t in must_contain]
+            }
+        else:
+            kwargs["where_document"] = {"$contains": must_contain}
+    try:
+        res = coll.query(**kwargs)
+    except Exception as e:
+        # If the filter yields no candidates, chroma may raise — fall back
+        # to an unfiltered query so we still return SOMETHING.
+        if must_contain:
+            res = coll.query(query_texts=[query], n_results=top_k)
+        else:
+            print(f"[retrieve] query error: {e}")
+            return []
     out = []
     for i, doc in enumerate(res["documents"][0]):
         meta = res["metadatas"][0][i] or {}
@@ -72,8 +101,9 @@ def retrieve(query: str, *, top_k: int = TOP_K) -> list[dict]:
     return out
 
 
-def format_for_context(query: str, *, top_k: int = TOP_K) -> str:
-    chunks = retrieve(query, top_k=top_k)
+def format_for_context(query: str, *, top_k: int = TOP_K,
+                        must_contain: str | None = None) -> str:
+    chunks = retrieve(query, top_k=top_k, must_contain=must_contain)
     if not chunks:
         return ""
     parts = []
