@@ -28,10 +28,10 @@ from pathlib import Path
 import discord
 from discord import app_commands
 
-from .config import (ALLOWED_CHANNEL_NAMES, DISCORD_BOT_TOKEN, DISCORD_GUILD_ID,
+from config import (ALLOWED_CHANNEL_NAMES, DISCORD_BOT_TOKEN, DISCORD_GUILD_ID,
                      MODEL)
-from .llm import check_ollama
-from .router import answer, classify
+from llm import check_ollama
+from router import answer, classify
 
 logging.basicConfig(level=logging.INFO,
                     format="[%(asctime)s] %(levelname)s %(name)s: %(message)s",
@@ -39,10 +39,14 @@ logging.basicConfig(level=logging.INFO,
 log = logging.getLogger("darth-bot")
 
 
-# Discord setup — minimal intents
+# Discord setup — intents needed for: messages (KB answers), members
+# (role assignment for /verify-clan + reaction-roles), reactions
+# (native reaction-role handling, replaces MEE6/Sapphire).
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
+intents.members = True
+intents.reactions = True
 
 
 class DarthBot(discord.Client):
@@ -50,6 +54,7 @@ class DarthBot(discord.Client):
         super().__init__(intents=intents)
         self.tree = app_commands.CommandTree(self)
         self.guild = discord.Object(id=DISCORD_GUILD_ID)
+        self.reaction_roles = None  # set in on_ready after attach()
 
     async def setup_hook(self):
         self.tree.copy_global_to(guild=self.guild)
@@ -61,9 +66,15 @@ class DarthBot(discord.Client):
         if not await check_ollama():
             log.warning("Ollama not reachable or model not pulled — answers will fail "
                         "until `ollama pull %s` is done.", MODEL)
+        if self.reaction_roles:
+            await self.reaction_roles.refresh()
 
 
 bot = DarthBot()
+
+# Wire native reaction-role handling (replaces MEE6/Sapphire).
+import reaction_roles
+bot.reaction_roles = reaction_roles.attach(bot, DISCORD_GUILD_ID)
 
 
 # ============================================================
@@ -203,7 +214,7 @@ async def cmd_help(interaction: discord.Interaction):
 async def cmd_inventory(interaction: discord.Interaction, focus: str = "all"):
     await interaction.response.defer(thinking=True)
     try:
-        from .inventory import build_context, has_inventory
+        from inventory import build_context, has_inventory
         if not has_inventory():
             await interaction.followup.send(
                 "No inventory found. Link your Bungie account in Destiny Voyager first "
@@ -293,6 +304,88 @@ async def cmd_link_bungie(interaction: discord.Interaction):
         await interaction.followup.send(msg, ephemeral=True)
 
 
+@bot.tree.command(
+    name="verify-clan",
+    description="Check your Bungie account against Order 66 — auto-assigns @Imperial Trooper if you're in",
+)
+async def cmd_verify_clan(interaction: discord.Interaction):
+    """Looks up the user's linked Bungie account, checks if they're in
+    Order 66 (groupId 5421866). If yes, assigns @Imperial Trooper."""
+    import bungie_clan
+    await interaction.response.defer(ephemeral=True, thinking=True)
+
+    result = await bungie_clan.check_clan_membership(str(interaction.user.id))
+    if result.get("error") and not result.get("bungie_id"):
+        # Not linked, or backend down
+        await interaction.followup.send(
+            f"⚠️  {result['error']}\n\n"
+            f"Once linked, re-run `/verify-clan` to claim `@Imperial Trooper`.",
+            ephemeral=True,
+        )
+        return
+    if result.get("error"):
+        await interaction.followup.send(
+            f"⚠️  Couldn't check Bungie clan membership: {result['error']}\n"
+            f"Bungie ID: `{result['bungie_id']}`",
+            ephemeral=True,
+        )
+        return
+
+    display = result.get("display_name") or "Guardian"
+
+    if not result["in_clan"]:
+        await interaction.followup.send(
+            f"❌  **{display}**, your Bungie account isn't a member of Order 66 yet.\n\n"
+            f"Apply for the in-game clan here:\n"
+            f"🔗  https://www.bungie.net/7/en/Clan/Profile/5421866\n\n"
+            f"Once an officer accepts you in-game, re-run `/verify-clan` and "
+            f"I'll auto-promote you to `@Imperial Trooper`.",
+            ephemeral=True,
+        )
+        return
+
+    # In the clan — assign @Imperial Trooper
+    guild = interaction.guild
+    if not guild:
+        await interaction.followup.send("⚠️  Run this in the server, not DM.", ephemeral=True)
+        return
+    role = discord.utils.get(guild.roles, name="Imperial Trooper")
+    if not role:
+        await interaction.followup.send(
+            "⚠️  `@Imperial Trooper` role doesn't exist on this server. "
+            "Tell a mod.", ephemeral=True,
+        )
+        return
+    member = interaction.user if isinstance(interaction.user, discord.Member) \
+             else guild.get_member(interaction.user.id)
+    if not member:
+        await interaction.followup.send("⚠️  Couldn't resolve your guild membership.", ephemeral=True)
+        return
+    if role in member.roles:
+        await interaction.followup.send(
+            f"✅  **{display}**, you're already in Order 66 and already have "
+            f"`@Imperial Trooper`. Welcome back.",
+            ephemeral=True,
+        )
+        return
+    try:
+        await member.add_roles(role, reason="/verify-clan: verified Order 66 member")
+    except discord.Forbidden:
+        await interaction.followup.send(
+            "⚠️  I don't have permission to assign roles. Tell a mod to give "
+            "Darth Bot the `Manage Roles` permission, and ensure my role sits "
+            "ABOVE `@Imperial Trooper` in the role list.", ephemeral=True,
+        )
+        return
+
+    await interaction.followup.send(
+        f"⚔️  **{display}**, welcome to the Empire. You've been promoted to "
+        f"`@Imperial Trooper` — full clan-channel access is unlocked.\n\n"
+        f"*Together we will rule the galaxy.*",
+        ephemeral=True,
+    )
+
+
 @bot.tree.command(name="sanity",
                   description="Verify Darth Bot's backend services")
 async def cmd_sanity(interaction: discord.Interaction):
@@ -301,13 +394,13 @@ async def cmd_sanity(interaction: discord.Interaction):
     bits.append(f"Model: `{MODEL}`")
     bits.append(f"Ollama: {'✅ reachable' if await check_ollama() else '❌ unreachable / model not pulled'}")
     try:
-        from .kb.retrieve import _collection
+        from kb.retrieve import _collection
         n = _collection().count()
         bits.append(f"Knowledge base: {'✅' if n > 0 else '⚠️ empty'} ({n} chunks)")
     except Exception as e:
         bits.append(f"Knowledge base: ❌ {e}")
     try:
-        from .inventory import has_inventory
+        from inventory import has_inventory
         bits.append(f"Inventory cache: {'✅' if has_inventory() else '⚠️ not populated'}")
     except Exception as e:
         bits.append(f"Inventory cache: ❌ {e}")

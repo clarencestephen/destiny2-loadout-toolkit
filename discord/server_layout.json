@@ -3,262 +3,853 @@
   "_target_server_id": "1471072707524296767",
   "_clan_name": "Order 66",
   "_app_name": "Destiny Voyager",
-  "_tagline": "Destiny voyager optimizer · wishlist organizer · API stat tracking",
+  "_tagline": "Destiny voyager optimizer \u00b7 wishlist organizer \u00b7 API stat tracking",
   "_naming_convention": "Star Wars themed names. Channel topics describe the actual purpose so members don't get lost.",
-
   "roles": [
-    {"name": "Emperor",                     "color": "sith-purple", "hoist": true,  "mentionable": true,  "_purpose": "Server owner / admin (you)"},
-    {"name": "Emperor's Royal Guard",       "color": "neon-saber",  "hoist": true,  "mentionable": true,  "_purpose": "Co-admins / trusted lieutenants — elite tier between Emperor and mods"},
-    {"name": "Death Star Commander",        "color": "dark-sith",   "hoist": true,  "mentionable": true,  "_purpose": "Mods / staff"},
-    {"name": "Imperial Trooper",            "color": "holo-blue",   "hoist": true,  "mentionable": true,  "_purpose": "Clan members — gated access to Imperial Troopers category"},
-    {"name": "Rebel Ally",                  "color": "soft-sith",   "hoist": true,  "mentionable": false, "_purpose": "Verified non-clan members"},
-    {"name": "Padawan",                     "color": "teal",        "hoist": true,  "mentionable": false, "_purpose": "Want to join the clan"},
-    {"name": "Unverified",                  "color": "grey",        "hoist": false, "mentionable": false, "_purpose": "Default on join — sees only gateway"},
-
-    {"name": "Clan",                        "color": "blue",    "hoist": false, "mentionable": true},
-    {"name": "Non-clan members",            "color": "purple",  "hoist": false, "mentionable": false},
-    {"name": "Want to join",                "color": "teal",    "hoist": false, "mentionable": false},
-
-    {"name": "Xbox",                        "color": "green",   "hoist": false, "mentionable": true},
-    {"name": "PlayStation",                 "color": "blue",    "hoist": false, "mentionable": true},
-    {"name": "PC",                          "color": "grey",    "hoist": false, "mentionable": true},
-    {"name": "Steam",                       "color": "navy",    "hoist": false, "mentionable": true},
-
-    {"name": "Dungeon",                     "color": "orange",  "hoist": false, "mentionable": true},
-    {"name": "Raids",                       "color": "red",     "hoist": false, "mentionable": true},
-    {"name": "PvP",                         "color": "red",     "hoist": false, "mentionable": true},
-    {"name": "Gambit",                      "color": "green",   "hoist": false, "mentionable": true},
-    {"name": "End game",                    "color": "gold",    "hoist": false, "mentionable": true},
-    {"name": "Making friends 🧡",           "color": "orange",  "hoist": false, "mentionable": true},
-
-    {"name": "US East",                     "color": "navy",    "hoist": false, "mentionable": true},
-    {"name": "US Central",                  "color": "navy",    "hoist": false, "mentionable": true},
-    {"name": "US Mountain",                 "color": "navy",    "hoist": false, "mentionable": true},
-    {"name": "US Pacific",                  "color": "navy",    "hoist": false, "mentionable": true},
-    {"name": "UK",                          "color": "blue",    "hoist": false, "mentionable": true},
-    {"name": "EU",                          "color": "blue",    "hoist": false, "mentionable": true},
-    {"name": "Asia",                        "color": "purple",  "hoist": false, "mentionable": true},
-    {"name": "Australia",                   "color": "teal",    "hoist": false, "mentionable": true}
+    {
+      "name": "Emperor",
+      "color": "sith-purple",
+      "hoist": true,
+      "mentionable": true,
+      "_purpose": "Server owner / admin (you)"
+    },
+    {
+      "name": "Emperor's Royal Guard",
+      "color": "neon-saber",
+      "hoist": true,
+      "mentionable": true,
+      "_purpose": "Co-admins / trusted lieutenants \u2014 elite tier between Emperor and mods"
+    },
+    {
+      "name": "Death Star Commander",
+      "color": "dark-sith",
+      "hoist": true,
+      "mentionable": true,
+      "_purpose": "Mods / staff"
+    },
+    {
+      "name": "Imperial Trooper",
+      "color": "holo-blue",
+      "hoist": true,
+      "mentionable": true,
+      "_purpose": "Clan members \u2014 gated access to Imperial Troopers category"
+    },
+    {
+      "name": "Rebel Ally",
+      "color": "soft-sith",
+      "hoist": true,
+      "mentionable": false,
+      "_purpose": "Verified non-clan members"
+    },
+    {
+      "name": "Padawan",
+      "color": "teal",
+      "hoist": true,
+      "mentionable": false,
+      "_purpose": "Want to join the clan"
+    },
+    {
+      "name": "Unverified",
+      "color": "grey",
+      "hoist": false,
+      "mentionable": false,
+      "_purpose": "Default on join \u2014 sees only gateway"
+    },
+    {
+      "name": "Clan",
+      "color": "blue",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Non-clan members",
+      "color": "purple",
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "name": "Want to join",
+      "color": "teal",
+      "hoist": false,
+      "mentionable": false
+    },
+    {
+      "name": "Xbox",
+      "color": "green",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "PlayStation",
+      "color": "blue",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "PC",
+      "color": "grey",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Steam",
+      "color": "navy",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Dungeon",
+      "color": "orange",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Raids",
+      "color": "red",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "PvP",
+      "color": "red",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Gambit",
+      "color": "green",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "End game",
+      "color": "gold",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Making friends \ud83e\udde1",
+      "color": "orange",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "US East",
+      "color": "navy",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "US Central",
+      "color": "navy",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "US Mountain",
+      "color": "navy",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "US Pacific",
+      "color": "navy",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "UK",
+      "color": "blue",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "EU",
+      "color": "blue",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Asia",
+      "color": "purple",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Australia",
+      "color": "teal",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Female",
+      "color": "pink",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Male",
+      "color": "blue",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Run 10+ dungeons each",
+      "color": "orange",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Teaching dungeons",
+      "color": "gold",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Learning dungeon (clan)",
+      "color": "soft-sith",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Learning dungeon (non-clan)",
+      "color": "grey",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Teaching raids",
+      "color": "neon-saber",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "10 raids each+",
+      "color": "red",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Learning raids (clan)",
+      "color": "sith-purple",
+      "hoist": false,
+      "mentionable": true
+    },
+    {
+      "name": "Learning raids (non-clan)",
+      "color": "grey",
+      "hoist": false,
+      "mentionable": true
+    }
   ],
-
   "categories": [
     {
-      "name": "📋 In a Galaxy Far Far Away",
-      "_purpose": "Gateway / new members — visible to Unverified",
+      "name": "\ud83d\udccb In a Galaxy Far Far Away",
+      "_purpose": "Gateway / new members \u2014 visible to Unverified",
       "channels": [
-        {"type": "text",  "name": "welcome",                       "topic": "Start here. Read the law → pick your roles → introduce yourself."},
-        {"type": "text",  "name": "imperial-law",                  "topic": "Server rules. Read before chatting. (rules)"},
-        {"type": "text",  "name": "the-council",                   "topic": "Meet the mods + active members."},
-        {"type": "text",  "name": "in-a-galaxy-far-far-away",      "topic": "Introductions. Tell us who you are, your platform, your time zone."},
-        {"type": "text",  "name": "galactic-standard-time",        "topic": "Find people in your time zone. Pick a TZ role in #recruitment-roles."}
+        {
+          "type": "text",
+          "name": "welcome",
+          "topic": "Start here. Read the law \u2192 pick your roles \u2192 introduce yourself."
+        },
+        {
+          "type": "text",
+          "name": "imperial-law",
+          "topic": "Server rules. Read before chatting. (rules)"
+        },
+        {
+          "type": "text",
+          "name": "the-council",
+          "topic": "Meet the mods + active members."
+        },
+        {
+          "type": "text",
+          "name": "in-a-galaxy-far-far-away",
+          "topic": "Introductions. Tell us who you are, your platform, your time zone."
+        },
+        {
+          "type": "text",
+          "name": "galactic-standard-time",
+          "topic": "Find people in your time zone. Pick a TZ role in #recruitment-roles."
+        }
       ]
     },
     {
-      "name": "🌟 Recruitment Roles",
+      "name": "\ud83c\udf1f Recruitment Roles",
       "_purpose": "Reaction-role assignment",
       "channels": [
-        {"type": "text",  "name": "recruitment-roles",             "topic": "React to messages here to assign yourself roles — clan status, platform, dungeon/raid experience, time zone. (formerly: pick-roles)"}
+        {
+          "type": "text",
+          "name": "recruitment-roles",
+          "topic": "React to messages here to assign yourself roles \u2014 clan status, platform, dungeon/raid experience, time zone. (formerly: pick-roles)"
+        }
       ]
     },
     {
-      "name": "📣 Imperial Declarations",
+      "name": "\ud83d\udce3 Imperial Declarations",
       "_purpose": "Announcements (one-way, mods only post)",
       "_setup_note": "Set as Discord announcement channel type if available. Restrict 'send messages' to Death Star Command + Emperor only.",
       "channels": [
-        {"type": "text",  "name": "imperial-declarations",         "topic": "Server announcements, release notes, important pings. Read-only for members."}
+        {
+          "type": "text",
+          "name": "imperial-declarations",
+          "topic": "Server announcements, release notes, important pings. Read-only for members."
+        }
       ]
     },
     {
-      "name": "🎫 Galactic Senate",
+      "name": "\ud83c\udfab Galactic Senate",
       "_setup_note": "Invite TicketTool.xyz (https://tickettool.xyz/) and run /setup in #bounty-office to enable private tickets.",
       "channels": [
-        {"type": "text",  "name": "bounty-office",                 "topic": "Open a private ticket here for mod help. Powered by TicketTool.xyz."}
+        {
+          "type": "text",
+          "name": "bounty-office",
+          "topic": "Open a private ticket here for mod help. Powered by TicketTool.xyz."
+        }
       ]
     },
     {
-      "name": "🚀 The Imperial Armory",
+      "name": "\ud83d\ude80 The Imperial Armory",
       "_purpose": "Destiny Voyager app + toolkit support (the Order 66 clan's app)",
       "_setup_note": "Restrict view to verified roles (Imperial Trooper / Rebel Ally / Padawan).",
       "channels": [
-        {"type": "text",  "name": "destiny-voyager",              "topic": "📌 Destiny Voyager — the Order 66 clan app. Latest .exe pinned at top. Download, setup steps, and FAQ here."},
-        {"type": "text",  "name": "smugglers-cache",               "topic": "Older releases, DIM CSV templates, manifest backups."},
-        {"type": "text",  "name": "engineering-bay",               "topic": "Destiny Voyager support — bug reports, install help, questions."},
-        {"type": "text",  "name": "imperial-briefings",            "topic": "Release notes + version pings for Destiny Voyager."},
-        {"type": "text",  "name": "senate-polls",                  "topic": "Quick 2-day polls on builds, features, meta. (formerly: 2-day-polls)"}
+        {
+          "type": "text",
+          "name": "destiny-voyager",
+          "topic": "\ud83d\udccc Destiny Voyager \u2014 the Order 66 clan app. Latest .exe pinned at top. Download, setup steps, and FAQ here."
+        },
+        {
+          "type": "text",
+          "name": "smugglers-cache",
+          "topic": "Older releases, DIM CSV templates, manifest backups."
+        },
+        {
+          "type": "text",
+          "name": "engineering-bay",
+          "topic": "Destiny Voyager support \u2014 bug reports, install help, questions."
+        },
+        {
+          "type": "text",
+          "name": "imperial-briefings",
+          "topic": "Release notes + version pings for Destiny Voyager."
+        },
+        {
+          "type": "text",
+          "name": "senate-polls",
+          "topic": "Quick 2-day polls on builds, features, meta. (formerly: 2-day-polls)"
+        }
       ]
     },
     {
-      "name": "💬 The Cantina",
+      "name": "\ud83d\udcac The Cantina",
       "channels": [
-        {"type": "text",  "name": "the-cantina",                   "topic": "General chat — like the Mos Eisley Cantina."},
-        {"type": "text",  "name": "cantina-tables",                "topic": "Find buddies, mentors, fireteam regulars."}
+        {
+          "type": "text",
+          "name": "the-cantina",
+          "topic": "General chat \u2014 like the Mos Eisley Cantina."
+        },
+        {
+          "type": "text",
+          "name": "cantina-tables",
+          "topic": "Find buddies, mentors, fireteam regulars."
+        }
       ]
     },
     {
-      "name": "⚔️ Imperial Troopers",
+      "name": "\u2694\ufe0f Imperial Troopers",
       "_setup_note": "Restrict ALL channels here to @Imperial Trooper role only. This is your clan-private space.",
       "channels": [
-        {"type": "text",  "name": "trooper-comms",                 "topic": "Clan-only chat. (Imperial Trooper role required)"},
-        {"type": "text",  "name": "clan-events",                   "topic": "Clan event scheduling, raid nights, GM runs."},
-        {"type": "text",  "name": "trooper-builds",                "topic": "Internal build sharing. Clan-only DIM URLs."},
-        {"type": "voice", "name": "🪖 Trooper HQ"}
+        {
+          "type": "text",
+          "name": "trooper-comms",
+          "topic": "Clan-only chat. (Imperial Trooper role required)"
+        },
+        {
+          "type": "text",
+          "name": "clan-events",
+          "topic": "Clan event scheduling, raid nights, GM runs."
+        },
+        {
+          "type": "text",
+          "name": "trooper-builds",
+          "topic": "Internal build sharing. Clan-only DIM URLs."
+        },
+        {
+          "type": "voice",
+          "name": "\ud83e\ude96 Trooper HQ"
+        }
       ]
     },
     {
-      "name": "🛠️ Lightsaber Forge",
+      "name": "\ud83d\udee0\ufe0f Lightsaber Forge",
       "_purpose": "Build sharing by class",
       "channels": [
-        {"type": "text",  "name": "mandalorian-warriors",          "topic": "Titan builds — armored Mando-style. Drop DIM share URLs."},
-        {"type": "text",  "name": "the-bad-batch",                 "topic": "Hunter builds — elite specialists. Drop DIM share URLs."},
-        {"type": "text",  "name": "jedi-order",                    "topic": "Warlock builds — Force users. Drop DIM share URLs."}
+        {
+          "type": "text",
+          "name": "mandalorian-warriors",
+          "topic": "Titan builds \u2014 armored Mando-style. Drop DIM share URLs."
+        },
+        {
+          "type": "text",
+          "name": "the-bad-batch",
+          "topic": "Hunter builds \u2014 elite specialists. Drop DIM share URLs."
+        },
+        {
+          "type": "text",
+          "name": "jedi-order",
+          "topic": "Warlock builds \u2014 Force users. Drop DIM share URLs."
+        }
       ]
     },
     {
-      "name": "📜 Padawan's Journey",
+      "name": "\ud83d\udcdc Padawan's Journey",
       "channels": [
-        {"type": "text",  "name": "lfg-storyline",                 "topic": "LFG — story missions, campaign coop, exotic missions."}
+        {
+          "type": "text",
+          "name": "lfg-storyline",
+          "topic": "LFG \u2014 story missions, campaign coop, exotic missions."
+        }
       ]
     },
     {
-      "name": "⚔️ Outer Rim Skirmish",
+      "name": "\u2694\ufe0f Outer Rim Skirmish",
       "channels": [
-        {"type": "text",  "name": "lfg-pvp",                       "topic": "LFG — Crucible, Trials, Iron Banner, Competitive."},
-        {"type": "text",  "name": "trial-of-combat",               "topic": "Set up private matches."}
+        {
+          "type": "text",
+          "name": "lfg-pvp",
+          "topic": "LFG \u2014 Crucible, Trials, Iron Banner, Competitive."
+        },
+        {
+          "type": "text",
+          "name": "trial-of-combat",
+          "topic": "Set up private matches."
+        }
       ]
     },
     {
-      "name": "🏆 The Imperial Throne",
+      "name": "\ud83c\udfc6 The Imperial Throne",
       "channels": [
-        {"type": "text",  "name": "lfg-endgame",                   "topic": "LFG — GM Nightfalls, Master raids, day-one races."},
-        {"type": "text",  "name": "treasure-of-the-sith",          "topic": "Where to farm each exotic. Drop tips + locations."}
+        {
+          "type": "text",
+          "name": "lfg-endgame",
+          "topic": "LFG \u2014 GM Nightfalls, Master raids, day-one races."
+        },
+        {
+          "type": "text",
+          "name": "treasure-of-the-sith",
+          "topic": "Where to farm each exotic. Drop tips + locations."
+        }
       ]
     },
     {
-      "name": "🏔️ Dagobah Trials",
-      "_purpose": "DUNGEONS only — never mix raid content here. Current Destiny 2 dungeon roster (Edge of Fate / Renegades era, 2025-2026).",
+      "name": "\ud83c\udfd4\ufe0f Dagobah Trials",
+      "_purpose": "DUNGEONS only \u2014 never mix raid content here. Current Destiny 2 dungeon roster (Edge of Fate / Renegades era, 2025-2026).",
       "channels": [
-        {"type": "text",  "name": "lfg-dungeons",                  "topic": "LFG for any dungeon."},
-        {"type": "text",  "name": "equilibrium",                   "topic": "Equilibrium dungeon — Edge of Fate (2025). Praxic Blade, Sullen Claw, Heirloom."},
-        {"type": "text",  "name": "sundered-doctrine",             "topic": "Sundered Doctrine dungeon — Renegades (2025). Drowning Labyrinth, Finality's Auger."},
-        {"type": "text",  "name": "warlords-ruin",                 "topic": "Warlord's Ruin dungeon — Season of the Wish (2023). Hefnd's Vengeance, Locus of Wailing Grief."},
-        {"type": "text",  "name": "ghosts-of-the-deep",            "topic": "Ghosts of the Deep dungeon — Season of the Deep (2023). Ecthar / Šimumah / final boss."},
-        {"type": "text",  "name": "spire-of-the-watcher",          "topic": "Spire of the Watcher dungeon — Season of the Seraph (2022). Akelous / Persys."},
-        {"type": "text",  "name": "duality",                       "topic": "Duality dungeon — Season of the Haunted (2022). Gahlran / Caiatl / Egregore."},
-        {"type": "text",  "name": "grasp-of-avarice",              "topic": "Grasp of Avarice dungeon — 30th Anniversary (2021). Gjallarhorn quest, Captain Avarokk."},
-        {"type": "text",  "name": "prophecy",                      "topic": "Prophecy dungeon — D2 Y3 (returned post-vault). Kell Echo / Phalanx Echo."},
-        {"type": "text",  "name": "pit-of-heresy",                 "topic": "Pit of Heresy dungeon — Shadowkeep (2019, returned). Hive shrines, Zulmak."},
-        {"type": "text",  "name": "shattered-throne",              "topic": "Shattered Throne dungeon — Forsaken (2018, returned). Vorgeth, Dûl Incaru."},
-        {"type": "text",  "name": "padawan-training",              "topic": "Patient teachers + sherpas for newer players."}
+        {
+          "type": "text",
+          "name": "lfg-dungeons",
+          "topic": "LFG for any dungeon."
+        },
+        {
+          "type": "text",
+          "name": "equilibrium",
+          "topic": "Equilibrium dungeon \u2014 Edge of Fate (2025). Praxic Blade, Sullen Claw, Heirloom."
+        },
+        {
+          "type": "text",
+          "name": "sundered-doctrine",
+          "topic": "Sundered Doctrine dungeon \u2014 Renegades (2025). Drowning Labyrinth, Finality's Auger."
+        },
+        {
+          "type": "text",
+          "name": "warlords-ruin",
+          "topic": "Warlord's Ruin dungeon \u2014 Season of the Wish (2023). Hefnd's Vengeance, Locus of Wailing Grief."
+        },
+        {
+          "type": "text",
+          "name": "ghosts-of-the-deep",
+          "topic": "Ghosts of the Deep dungeon \u2014 Season of the Deep (2023). Ecthar / \u0160imumah / final boss."
+        },
+        {
+          "type": "text",
+          "name": "spire-of-the-watcher",
+          "topic": "Spire of the Watcher dungeon \u2014 Season of the Seraph (2022). Akelous / Persys."
+        },
+        {
+          "type": "text",
+          "name": "duality",
+          "topic": "Duality dungeon \u2014 Season of the Haunted (2022). Gahlran / Caiatl / Egregore."
+        },
+        {
+          "type": "text",
+          "name": "grasp-of-avarice",
+          "topic": "Grasp of Avarice dungeon \u2014 30th Anniversary (2021). Gjallarhorn quest, Captain Avarokk."
+        },
+        {
+          "type": "text",
+          "name": "prophecy",
+          "topic": "Prophecy dungeon \u2014 D2 Y3 (returned post-vault). Kell Echo / Phalanx Echo."
+        },
+        {
+          "type": "text",
+          "name": "pit-of-heresy",
+          "topic": "Pit of Heresy dungeon \u2014 Shadowkeep (2019, returned). Hive shrines, Zulmak."
+        },
+        {
+          "type": "text",
+          "name": "shattered-throne",
+          "topic": "Shattered Throne dungeon \u2014 Forsaken (2018, returned). Vorgeth, D\u00fbl Incaru."
+        },
+        {
+          "type": "text",
+          "name": "padawan-training",
+          "topic": "Patient teachers + sherpas for newer players."
+        }
       ]
     },
     {
-      "name": "⚔️ The Death Star Awaits",
-      "_purpose": "RAIDS only — never mix dungeon content here. Current Destiny 2 raid roster (Edge of Fate / Renegades era, 2025-2026).",
+      "name": "\u2694\ufe0f The Death Star Awaits",
+      "_purpose": "RAIDS only \u2014 never mix dungeon content here. Current Destiny 2 raid roster (Edge of Fate / Renegades era, 2025-2026).",
       "_excluded": "Leviathan + Spire of Stars + Eater of Worlds (sunset), Scourge of the Past (sunset), Crown of Sorrow (sunset)",
       "channels": [
-        {"type": "text",  "name": "lfg-raids",                     "topic": "LFG for any raid."},
-        {"type": "text",  "name": "desert-perpetual",              "topic": "Desert Perpetual raid — Edge of Fate (2025)."},
-        {"type": "text",  "name": "salvations-edge",               "topic": "Salvation's Edge raid — Final Shape (2024)."},
-        {"type": "text",  "name": "root-of-nightmares",            "topic": "Root of Nightmares raid — Lightfall (2023)."},
-        {"type": "text",  "name": "vow-of-the-disciple",           "topic": "Vow of the Disciple raid — Witch Queen (2022)."},
-        {"type": "text",  "name": "deep-stone-crypt",              "topic": "Deep Stone Crypt raid — Beyond Light (2020)."},
-        {"type": "text",  "name": "garden-of-salvation",           "topic": "Garden of Salvation raid — Shadowkeep (2019), currently in rotation."},
-        {"type": "text",  "name": "last-wish",                     "topic": "Last Wish raid — Forsaken (2018, never sunset)."},
-        {"type": "text",  "name": "kings-fall",                    "topic": "King's Fall raid — D1 rerelease (2022)."},
-        {"type": "text",  "name": "vault-of-glass",                "topic": "Vault of Glass raid — D1 rerelease (2021)."},
-        {"type": "text",  "name": "crotas-end",                    "topic": "Crota's End raid — D1 rerelease (2023)."},
-        {"type": "text",  "name": "jedi-training",                 "topic": "Patient teachers + sherpas for first-clears."}
+        {
+          "type": "text",
+          "name": "lfg-raids",
+          "topic": "LFG for any raid."
+        },
+        {
+          "type": "text",
+          "name": "desert-perpetual",
+          "topic": "Desert Perpetual raid \u2014 Edge of Fate (2025)."
+        },
+        {
+          "type": "text",
+          "name": "salvations-edge",
+          "topic": "Salvation's Edge raid \u2014 Final Shape (2024)."
+        },
+        {
+          "type": "text",
+          "name": "root-of-nightmares",
+          "topic": "Root of Nightmares raid \u2014 Lightfall (2023)."
+        },
+        {
+          "type": "text",
+          "name": "vow-of-the-disciple",
+          "topic": "Vow of the Disciple raid \u2014 Witch Queen (2022)."
+        },
+        {
+          "type": "text",
+          "name": "deep-stone-crypt",
+          "topic": "Deep Stone Crypt raid \u2014 Beyond Light (2020)."
+        },
+        {
+          "type": "text",
+          "name": "garden-of-salvation",
+          "topic": "Garden of Salvation raid \u2014 Shadowkeep (2019), currently in rotation."
+        },
+        {
+          "type": "text",
+          "name": "last-wish",
+          "topic": "Last Wish raid \u2014 Forsaken (2018, never sunset)."
+        },
+        {
+          "type": "text",
+          "name": "kings-fall",
+          "topic": "King's Fall raid \u2014 D1 rerelease (2022)."
+        },
+        {
+          "type": "text",
+          "name": "vault-of-glass",
+          "topic": "Vault of Glass raid \u2014 D1 rerelease (2021)."
+        },
+        {
+          "type": "text",
+          "name": "crotas-end",
+          "topic": "Crota's End raid \u2014 D1 rerelease (2023)."
+        },
+        {
+          "type": "text",
+          "name": "jedi-training",
+          "topic": "Patient teachers + sherpas for first-clears."
+        }
       ]
     },
     {
-      "name": "📊 Galactic Holonet",
+      "name": "\ud83d\udcca Galactic Holonet",
       "channels": [
-        {"type": "text",  "name": "galactic-stats",                "topic": "Charlemagne / Raid Report links + personal stat dumps."},
-        {"type": "text",  "name": "weekly-briefing",               "topic": "Weekly reset summary: Nightfall, Trials map, vendor rotations."}
+        {
+          "type": "text",
+          "name": "galactic-stats",
+          "topic": "Charlemagne / Raid Report links + personal stat dumps."
+        },
+        {
+          "type": "text",
+          "name": "weekly-briefing",
+          "topic": "Weekly reset summary: Nightfall, Trials map, vendor rotations."
+        }
       ]
     },
     {
-      "name": "🎨 Tailor of Coruscant",
+      "name": "\ud83c\udfa8 Tailor of Coruscant",
       "channels": [
-        {"type": "text",  "name": "fashion-show",                  "topic": "Fashion shots. Glow-up your guardian."},
-        {"type": "text",  "name": "galactic-ball",                 "topic": "Weekly fashion contest entries."}
+        {
+          "type": "text",
+          "name": "fashion-show",
+          "topic": "Fashion shots. Glow-up your guardian."
+        },
+        {
+          "type": "text",
+          "name": "galactic-ball",
+          "topic": "Weekly fashion contest entries."
+        }
       ]
     },
     {
-      "name": "😎 The Holocron",
+      "name": "\ud83d\ude0e The Holocron",
       "channels": [
-        {"type": "text",  "name": "force-wisdom",                  "topic": "Quotes, life advice, lore drops."},
-        {"type": "text",  "name": "cantina-photos",                "topic": "IRL pics if you want."}
+        {
+          "type": "text",
+          "name": "force-wisdom",
+          "topic": "Quotes, life advice, lore drops."
+        },
+        {
+          "type": "text",
+          "name": "cantina-photos",
+          "topic": "IRL pics if you want."
+        }
       ]
     },
     {
-      "name": "🏆 Trials of the Jedi",
+      "name": "\ud83c\udfc6 Trials of the Jedi",
       "channels": [
-        {"type": "text",  "name": "jedi-trials",                   "topic": "Title farms — Conqueror, Flawless, Rivensbane, etc."}
+        {
+          "type": "text",
+          "name": "jedi-trials",
+          "topic": "Title farms \u2014 Conqueror, Flawless, Rivensbane, etc."
+        }
       ]
     },
     {
-      "name": "🎤 Hyperspace Lanes",
+      "name": "\ud83c\udfa4 Hyperspace Lanes",
       "_purpose": "Voice channels",
       "channels": [
-        {"type": "text",  "name": "broken-comms",                  "topic": "Text channel for voice users with broken mics."},
-        {"type": "voice", "name": "🟢 Open Hyperspace"},
-        {"type": "voice", "name": "🚀 Millennium Falcon"},
-        {"type": "voice", "name": "🚀 Slave I"},
-        {"type": "voice", "name": "🚀 Ghost"},
-        {"type": "voice", "name": "⚔️ Death Star Squad"},
-        {"type": "voice", "name": "⚔️ Star Destroyer"},
-        {"type": "voice", "name": "⚔️ Imperial Fleet"},
-        {"type": "voice", "name": "🏔️ Dagobah"},
-        {"type": "voice", "name": "🏔️ Hoth"},
-        {"type": "voice", "name": "🏔️ Endor"},
-        {"type": "voice", "name": "🎯 Outer Rim Trials"},
-        {"type": "voice", "name": "🎯 Galactic Crucible"},
-        {"type": "voice", "name": "👥 Rogue Squadron"},
-        {"type": "voice", "name": "👥 Rebel Strike Team"},
-        {"type": "voice", "name": "👥 Imperial Strike Team"},
-        {"type": "voice", "name": "🎵 Cantina Band"},
-        {"type": "voice", "name": "🎵 Jedi Temple"},
-        {"type": "voice", "name": "🎵 Sith Symphony"},
-        {"type": "voice", "name": "🎵 Mos Eisley Beats"},
-        {"type": "voice", "name": "🎵 Coruscant Nightclub"},
-        {"type": "voice", "name": "💤 Carbonite Chamber",         "_setup_note": "Set this as the server AFK channel under Server Settings → Overview → Inactive Channel."}
+        {
+          "type": "text",
+          "name": "broken-comms",
+          "topic": "Text channel for voice users with broken mics."
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udfe2 Open Hyperspace"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\ude80 Millennium Falcon"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\ude80 Slave I"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\ude80 Ghost"
+        },
+        {
+          "type": "voice",
+          "name": "\u2694\ufe0f Death Star Squad"
+        },
+        {
+          "type": "voice",
+          "name": "\u2694\ufe0f Star Destroyer"
+        },
+        {
+          "type": "voice",
+          "name": "\u2694\ufe0f Imperial Fleet"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfd4\ufe0f Dagobah"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfd4\ufe0f Hoth"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfd4\ufe0f Endor"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfaf Outer Rim Trials"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfaf Galactic Crucible"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udc65 Rogue Squadron"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udc65 Rebel Strike Team"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udc65 Imperial Strike Team"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfb5 Cantina Band"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfb5 Jedi Temple"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfb5 Sith Symphony"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfb5 Mos Eisley Beats"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83c\udfb5 Coruscant Nightclub"
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udca4 Carbonite Chamber",
+          "_setup_note": "Set this as the server AFK channel under Server Settings \u2192 Overview \u2192 Inactive Channel."
+        }
       ]
     },
     {
-      "name": "📡 Destiny 2 Resources",
+      "name": "\ud83d\udce1 Destiny 2 Resources",
       "_purpose": "Vendor + weekly-info reference channels (Kyber-style). One channel per topic so members can mute the noise they don't care about.",
       "channels": [
-        {"type": "text",  "name": "weekly-reset",                  "topic": "Tuesday reset summary — Nightfall, Trials map, vendor rotations, story missions."},
-        {"type": "text",  "name": "twid",                          "topic": "This Week in Destiny — Bungie's weekly blog post + key takeaways."},
-        {"type": "text",  "name": "xur",                           "topic": "Xûr's Friday-Tuesday location + inventory. Auto-posted by bot when location is known."},
-        {"type": "text",  "name": "ada-1",                         "topic": "Ada-1's daily armor mod offerings + her bounties."},
-        {"type": "text",  "name": "rahool-rank-up-info",           "topic": "Rahool focusing options + cipher inventory + rank-up rewards."},
-        {"type": "text",  "name": "gunsmith",                      "topic": "Banshee-44's daily weapon rotation + Gunsmith rank-ups."},
-        {"type": "text",  "name": "armor-3point0",                 "topic": "Armor 3.0 system reference — stat tiers, mod costs, armor archetypes (Bulwark / Brawler / Grenadier / Paragon / Specialist / Gunner)."},
-        {"type": "text",  "name": "foundry-hakke",                 "topic": "Hakke Foundry weapons + perks."},
-        {"type": "text",  "name": "foundry-suros",                 "topic": "SUROS Foundry weapons + perks."},
-        {"type": "text",  "name": "foundry-tex-mechanica",         "topic": "Tex Mechanica Foundry weapons + perks."},
-        {"type": "text",  "name": "foundry-omolon",                "topic": "Omolon Foundry weapons + perks."},
-        {"type": "text",  "name": "foundry-veist",                 "topic": "VEIST Foundry weapons + perks."},
-        {"type": "text",  "name": "court-projects",                "topic": "Eliksni Project / Court of Blades / faction-grind activities + rewards."},
-        {"type": "text",  "name": "eververse",                     "topic": "Eververse cosmetics rotation + Bright Dust costs."},
-        {"type": "text",  "name": "lost-sectors",                  "topic": "Daily Legend + Master Lost Sector + exotic-armor drop pool."},
-        {"type": "text",  "name": "planet-specific",               "topic": "Per-destination loot pools, exotic missions, secret chests, region chests."},
-        {"type": "text",  "name": "seasonal-content",              "topic": "Current expansion / episode content — quests, exotics, story missions."},
-        {"type": "text",  "name": "the-sieve",                     "topic": "Edge of Fate's 'The Sieve' rotating exotic mission — current rotation + best farm route."},
-        {"type": "text",  "name": "vex-incursion",                 "topic": "Neomuna Vex Incursion zone — exotic rewards, schedule, key drops."},
-        {"type": "text",  "name": "trials-and-iron-banner",        "topic": "Trials of Osiris (Fri-Tue) + Iron Banner (monthly) — current map, mode, adept weapon, armor focusing."}
+        {
+          "type": "text",
+          "name": "weekly-reset",
+          "topic": "Tuesday reset summary \u2014 Nightfall, Trials map, vendor rotations, story missions."
+        },
+        {
+          "type": "text",
+          "name": "twid",
+          "topic": "This Week in Destiny \u2014 Bungie's weekly blog post + key takeaways."
+        },
+        {
+          "type": "text",
+          "name": "xur",
+          "topic": "X\u00fbr's Friday-Tuesday location + inventory. Auto-posted by bot when location is known."
+        },
+        {
+          "type": "text",
+          "name": "ada-1",
+          "topic": "Ada-1's daily armor mod offerings + her bounties."
+        },
+        {
+          "type": "text",
+          "name": "rahool-rank-up-info",
+          "topic": "Rahool focusing options + cipher inventory + rank-up rewards."
+        },
+        {
+          "type": "text",
+          "name": "gunsmith",
+          "topic": "Banshee-44's daily weapon rotation + Gunsmith rank-ups."
+        },
+        {
+          "type": "text",
+          "name": "armor-3point0",
+          "topic": "Armor 3.0 system reference \u2014 stat tiers, mod costs, armor archetypes (Bulwark / Brawler / Grenadier / Paragon / Specialist / Gunner)."
+        },
+        {
+          "type": "text",
+          "name": "foundry-hakke",
+          "topic": "Hakke Foundry weapons + perks."
+        },
+        {
+          "type": "text",
+          "name": "foundry-suros",
+          "topic": "SUROS Foundry weapons + perks."
+        },
+        {
+          "type": "text",
+          "name": "foundry-tex-mechanica",
+          "topic": "Tex Mechanica Foundry weapons + perks."
+        },
+        {
+          "type": "text",
+          "name": "foundry-omolon",
+          "topic": "Omolon Foundry weapons + perks."
+        },
+        {
+          "type": "text",
+          "name": "foundry-veist",
+          "topic": "VEIST Foundry weapons + perks."
+        },
+        {
+          "type": "text",
+          "name": "court-projects",
+          "topic": "Eliksni Project / Court of Blades / faction-grind activities + rewards."
+        },
+        {
+          "type": "text",
+          "name": "eververse",
+          "topic": "Eververse cosmetics rotation + Bright Dust costs."
+        },
+        {
+          "type": "text",
+          "name": "lost-sectors",
+          "topic": "Daily Legend + Master Lost Sector + exotic-armor drop pool."
+        },
+        {
+          "type": "text",
+          "name": "planet-specific",
+          "topic": "Per-destination loot pools, exotic missions, secret chests, region chests."
+        },
+        {
+          "type": "text",
+          "name": "seasonal-content",
+          "topic": "Current expansion / episode content \u2014 quests, exotics, story missions."
+        },
+        {
+          "type": "text",
+          "name": "the-sieve",
+          "topic": "Edge of Fate's 'The Sieve' rotating exotic mission \u2014 current rotation + best farm route."
+        },
+        {
+          "type": "text",
+          "name": "vex-incursion",
+          "topic": "Neomuna Vex Incursion zone \u2014 exotic rewards, schedule, key drops."
+        },
+        {
+          "type": "text",
+          "name": "trials-and-iron-banner",
+          "topic": "Trials of Osiris (Fri-Tue) + Iron Banner (monthly) \u2014 current map, mode, adept weapon, armor focusing."
+        }
       ]
     },
     {
-      "name": "💀 Death Star Command",
-      "_purpose": "Mods / staff only — replaces old 'Mod Only' category",
+      "name": "\ud83d\udc80 Death Star Command",
+      "_purpose": "Mods / staff only \u2014 replaces old 'Mod Only' category",
       "_setup_note": "Restrict view to @Death Star Command + @Emperor roles only.",
       "channels": [
-        {"type": "text",  "name": "imperial-records",              "topic": "FlaviBot / MEE6 mod actions logged here."},
-        {"type": "text",  "name": "council-chambers",              "topic": "Admin-only chat."},
-        {"type": "voice", "name": "💀 Death Star War Room"}
+        {
+          "type": "text",
+          "name": "imperial-records",
+          "topic": "FlaviBot / MEE6 mod actions logged here."
+        },
+        {
+          "type": "text",
+          "name": "council-chambers",
+          "topic": "Admin-only chat."
+        },
+        {
+          "type": "voice",
+          "name": "\ud83d\udc80 Death Star War Room"
+        }
       ]
     }
   ]

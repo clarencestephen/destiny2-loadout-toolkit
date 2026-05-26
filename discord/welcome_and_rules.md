@@ -58,18 +58,38 @@ The negotiation loudly inhales. And now... the server begins.
 
 **Embed title:** `▲ IMPERIAL LAW`
 **Color:** `#B432FF` (Sith Purple)
-**Footer:** `react ✅ to accept · Order 66`
+**Footer:** `react ✅ to accept · Order 66 · v2` *(marker bumped from v1 → v2 when the Code of Conduct preamble was added)*
 
 **Body:**
 
 ```
+**▲ THE IMPERIAL CODE OF CONDUCT**
+
+Order 66 is a harassment-free clan — for everyone, regardless of
+gender, gender identity and expression, age, sexual orientation,
+disability, physical appearance, body size, race, ethnicity,
+religion (or lack thereof), or technology choices.
+
+No slurs. No harassment. No targeting anyone for who they are.
+Sexual language and imagery is out of bounds in every space the
+Empire gathers — Discord, Bungie.net, PSN, Xbox, Steam, social
+media. Violations earn a ban or expulsion from the clan and all
+associated platforms, at moderator discretion.
+
+By participating in this server, you confirm you've read and
+understood this code. Questions or want to report a violation?
+DM any mod or open a ticket in 🎫 **#bounty-office**.
+
+*Now, go execute Order 66, Guardian.*
+
+────────────────────────────────────────
+
 You underestimate the power of the dark side.
 
 **The seven precepts. Read. React. Comply.**
 
-➊  **Respect all troopers in chat.** No slurs, no harassment, no
-    targeting anyone for who they are. The Empire is a meritocracy of
-    builds, not a free-for-all.
+➊  **Respect all troopers in chat.** The Empire is a meritocracy of
+    builds, not a free-for-all. (Full conduct in the Code above.)
 
 ➋  **No spam, excessive caps, or rebel alliance behaviour.** One emoji
     per thought. Reaction roles are not a slot machine.

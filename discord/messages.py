@@ -21,7 +21,7 @@ SITH_PURPLE = 0xB432FF
 # #welcome — Imperial Transmission embed
 # ────────────────────────────────────────────────────────────────────
 
-WELCOME_MARKER = "Order 66 · home of Destiny Voyager · v2"
+WELCOME_MARKER = "Order 66 · home of Destiny Voyager · v3"
 
 WELCOME_TITLE = "▲ IMPERIAL TRANSMISSION RECEIVED"
 
@@ -51,6 +51,17 @@ WELCOME_BODY = (
     "Also signed up with **Charlemagne** (the Destiny 2 Discord bot)? "
     "Run `/profile link` to attach your Bungie account for clan event "
     "signups and stat lookups.\n\n"
+    "────────────────────────────────────────\n\n"
+    "**Want to be an Imperial Trooper?**\n\n"
+    "Order 66 is also a Bungie clan. Apply for the in-game clan here:\n"
+    "🔗  https://www.bungie.net/7/en/Clan/Profile/5421866\n\n"
+    "After Bungie accepts you, run `/verify-clan` in any channel — "
+    "Darth Bot will check your Bungie account and auto-promote you to "
+    "`@Imperial Trooper` (full access to clan-only channels). Requires "
+    "`/link-bungie` first.\n\n"
+    "`@Padawan` = verified Discord member. `@Imperial Trooper` = "
+    "verified AND in the Bungie clan. `@Rebel Ally` = trusted "
+    "non-clan friend. All three are welcome.\n\n"
     "There is no luck. Only probability — and execution.\n\n"
     "*The negotiation loudly inhales. And now... the server begins.*"
 )
@@ -60,16 +71,30 @@ WELCOME_BODY = (
 # #imperial-law — rules embed + ✅ verification reaction
 # ────────────────────────────────────────────────────────────────────
 
-RULES_MARKER = "react ✅ to accept · Order 66 · v1"
+RULES_MARKER = "react ✅ to accept · Order 66 · v2"
 
 RULES_TITLE = "▲ IMPERIAL LAW"
 
 RULES_BODY = (
+    "**▲ THE IMPERIAL CODE OF CONDUCT**\n\n"
+    "Order 66 is a harassment-free clan — for everyone, regardless of "
+    "gender, gender identity and expression, age, sexual orientation, "
+    "disability, physical appearance, body size, race, ethnicity, "
+    "religion (or lack thereof), or technology choices.\n\n"
+    "No slurs. No harassment. No targeting anyone for who they are. "
+    "Sexual language and imagery is out of bounds in every space the "
+    "Empire gathers — Discord, Bungie.net, PSN, Xbox, Steam, social "
+    "media. Violations earn a ban or expulsion from the clan and all "
+    "associated platforms, at moderator discretion.\n\n"
+    "By participating in this server, you confirm you've read and "
+    "understood this code. Questions or want to report a violation? "
+    "DM any mod or open a ticket in 🎫 **#bounty-office**.\n\n"
+    "*Now, go execute Order 66, Guardian.*\n\n"
+    "────────────────────────────────────────\n\n"
     "You underestimate the power of the dark side.\n\n"
     "**The seven precepts. Read. React. Comply.**\n\n"
-    "➊  **Respect all troopers in chat.** No slurs, no harassment, no "
-    "targeting anyone for who they are. The Empire is a meritocracy of "
-    "builds, not a free-for-all.\n\n"
+    "➊  **Respect all troopers in chat.** The Empire is a meritocracy "
+    "of builds, not a free-for-all. (Full conduct in the Code above.)\n\n"
     "➋  **No spam, excessive caps, or rebel alliance behaviour.** One "
     "emoji per thought. Reaction roles are not a slot machine.\n\n"
     "➌  **No self-promotion or solicitation.** Don't drop your stream, "
@@ -138,6 +163,44 @@ DARTH_BOT_GUIDE_BODY = (
     "_Item names in responses are verified against the Bungie manifest. "
     "If you see a `_⚠ Possibly invented names_` caveat, double-check on "
     "light.gg/db before acting on it._"
+)
+
+
+# ────────────────────────────────────────────────────────────────────
+# #destiny-voyager — pinned "COMMUNITY BUILDS" embed
+# (Content that Bungie's About filter blocked — see clan_creation.md
+# § Lessons learned. Lives here instead.)
+# ────────────────────────────────────────────────────────────────────
+
+COMMUNITY_BUILDS_MARKER = "Order 66 · community-builds · v1"
+
+COMMUNITY_BUILDS_TITLE = "▲ COMMUNITY BUILDS"
+
+COMMUNITY_BUILDS_BODY = (
+    "Two open Destiny 2 tools made for Order 66 — and for anyone who "
+    "wants to help shape them:\n\n"
+    "🌌  **Destiny Voyager**\n"
+    "Loadout optimizer · wishlist organizer · Bungie API stats tracker. "
+    "The companion web app for the clan.\n"
+    "→ https://destiny-voyager.clarencestephen.com\n\n"
+    "🤖  **Darth Bot**\n"
+    "The AI assistant living in this Discord. Answers build, raid, "
+    "and catalyst questions using your real inventory + Bungie's "
+    "manifest + scraped raid wikis. Local LLM (Qwen3 via Ollama) + "
+    "RAG pipeline, running on a homelab box.\n\n"
+    "See the **Darth Bot Command Dossier** pinned above for the full "
+    "command reference.\n\n"
+    "**How you help**\n"
+    "• Just use the bot — every question helps us tune the retrieval "
+    "and catch hallucinations\n"
+    "• AI / ML / LLM curious? Drop questions in #engineering-bay — "
+    "happy to walk through the RAG pipeline, the embeddings, the "
+    "manifest cache, the works\n"
+    "• Code contributor? GitHub: "
+    "https://github.com/clarencestephen/destiny-voyager\n\n"
+    "Both projects are in active development. The clan is the test "
+    "bed, the feedback loop, and the reason we built them in the "
+    "first place."
 )
 
 
@@ -250,6 +313,69 @@ RECRUITMENT_MESSAGES = [
         ),
         ["🌅", "🌆", "🏔️", "🌉", "🇬🇧", "🇪🇺", "🌏", "🇦🇺"],
     ),
+]
+
+
+# ────────────────────────────────────────────────────────────────────
+# Reaction-role wiring — consumed by darth-bot/reaction_roles.py
+#
+# Each entry: (marker_substr, channel_name, {emoji: role_name})
+# The bot looks up each message at startup by searching the named
+# channel for a message containing marker_substr (embed footer or
+# body). This lets the bot survive marker version bumps without code
+# changes — Darth Bot finds the new post automatically.
+# ────────────────────────────────────────────────────────────────────
+
+REACTION_ROLE_MAP = [
+    # Imperial Law — the verification gateway. ✅ → @Padawan unlocks the server.
+    ("react ✅ to accept", "imperial-law", {"✅": "Padawan"}),
+
+    # Recruitment role categories (in #recruitment-roles).
+    ("Order 66 · clan-status",         "recruitment-roles", {
+        "🍑": "Clan",
+        "🐕": "Non-clan members",
+        "🖕": "Want to join",
+    }),
+    ("Order 66 · pronouns",            "recruitment-roles", {
+        "💃": "Female",
+        "🕺": "Male",
+    }),
+    ("Order 66 · platform",            "recruitment-roles", {
+        "❎": "Xbox",
+        "🎮": "PlayStation",
+        "💻": "PC",
+        "📡": "Steam",
+    }),
+    ("Order 66 · dungeon-experience",  "recruitment-roles", {
+        "🔫": "Dungeon",
+        "🙈": "Run 10+ dungeons each",
+        "🦖": "Teaching dungeons",
+        "🍌": "Learning dungeon (clan)",
+        "📚": "Learning dungeon (non-clan)",
+    }),
+    ("Order 66 · raid-experience",     "recruitment-roles", {
+        "🚬": "Raids",
+        "💀": "Teaching raids",
+        "☠️": "10 raids each+",
+        "🍻": "Learning raids (clan)",
+        "👍": "Learning raids (non-clan)",
+    }),
+    ("Order 66 · activities",          "recruitment-roles", {
+        "⚔️": "PvP",
+        "🐔": "Gambit",
+        "🏆": "End game",
+        "🧡": "Making friends 🧡",
+    }),
+    ("Order 66 · time-zone",           "recruitment-roles", {
+        "🌅": "US East",
+        "🌆": "US Central",
+        "🏔️": "US Mountain",
+        "🌉": "US Pacific",
+        "🇬🇧": "UK",
+        "🇪🇺": "EU",
+        "🌏": "Asia",
+        "🇦🇺": "Australia",
+    }),
 ]
 
 
