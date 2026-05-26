@@ -21,6 +21,8 @@ export default function App() {
           <nav className="flex items-center gap-6 font-ui text-xs uppercase tracking-[0.22em] text-muted">
             <Link to="/" className="hover:text-star transition-colors">Home</Link>
             <Link to="/app" className="hover:text-star transition-colors">Dashboard</Link>
+            <Link to="/builds" className="hover:text-star transition-colors">Builds</Link>
+            <Link to="/optimizer" className="hover:text-saber transition-colors">Optimizer</Link>
             <Link to="/chat" className="hover:text-saber transition-colors">Darth Bot</Link>
             <a href="https://github.com/clarencestephen/destiny-voyager" target="_blank"
                rel="noopener noreferrer" className="hover:text-sith transition-colors">

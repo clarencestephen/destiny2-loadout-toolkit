@@ -1,0 +1,359 @@
+{
+  "source": "https://github.com/Adamsdown-Boy/Destiny-Raids",
+  "raids": {
+    "kings-fall": {
+      "name": "King's-Fall",
+      "github_folder": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall",
+      "images": [
+        {
+          "filename": "1-Hall-of-Souls-map.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/1-Hall-of-Souls-map.png"
+        },
+        {
+          "filename": "1-Hall-of-Souls-rotations-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/1-Hall-of-Souls-rotations-1.png"
+        },
+        {
+          "filename": "1-Hall-of-Souls-rotations-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/1-Hall-of-Souls-rotations-2.png"
+        },
+        {
+          "filename": "1-Hall-of-Souls-rotations-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/1-Hall-of-Souls-rotations-3.png"
+        },
+        {
+          "filename": "2-Portico-jumping-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/2-Portico-jumping-1.png"
+        },
+        {
+          "filename": "2-Portico-jumping-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/2-Portico-jumping-2.png"
+        },
+        {
+          "filename": "3-Basilica-Totems-map-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/3-Basilica-Totems-map-1.png"
+        },
+        {
+          "filename": "3-Basilica-Totems-map-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/3-Basilica-Totems-map-2.png"
+        },
+        {
+          "filename": "3-Basilica-Totems-map.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/3-Basilica-Totems-map.png"
+        },
+        {
+          "filename": "3-Basilica-Totems-rotations.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/3-Basilica-Totems-rotations.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-map-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-map-1.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-map-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-map-2.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-mechanics-1.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-mechanics-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-mechanics-2.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-rotations-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-rotations-1.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-rotations-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-rotations-2.png"
+        },
+        {
+          "filename": "4-Basilica-Warpriest-rotations-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/4-Basilica-Warpriest-rotations-3.png"
+        },
+        {
+          "filename": "5-Gologroth-maze-map.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/5-Gologroth-maze-map.png"
+        },
+        {
+          "filename": "6-Golgoroth-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/6-Golgoroth-roles-1.png"
+        },
+        {
+          "filename": "6-Gologroth-map-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/6-Gologroth-map-1.png"
+        },
+        {
+          "filename": "6-Gologroth-map-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/6-Gologroth-map-2.png"
+        },
+        {
+          "filename": "7-Transcept-jumping-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/7-Transcept-jumping-1.png"
+        },
+        {
+          "filename": "7-Transcept-jumping-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/7-Transcept-jumping-2.png"
+        },
+        {
+          "filename": "7-Transcept-jumping-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/7-Transcept-jumping-3.png"
+        },
+        {
+          "filename": "7-Transcept-jumping-3a.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/7-Transcept-jumping-3a.png"
+        },
+        {
+          "filename": "7-Transcept-jumping-4.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/7-Transcept-jumping-4.png"
+        },
+        {
+          "filename": "8-Daughter-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Daughter-roles-1.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-0.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-0.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-1.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-2.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-3.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-5.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-5.png"
+        },
+        {
+          "filename": "8-Threshold-Daughters-map-6.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/8-Threshold-Daughters-map-6.png"
+        },
+        {
+          "filename": "9-Oryx-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/9-Oryx-roles-1.png"
+        },
+        {
+          "filename": "9-Threshold-Oryx-map-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/9-Threshold-Oryx-map-1.png"
+        },
+        {
+          "filename": "9-Threshold-Oryx-map-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/9-Threshold-Oryx-map-2.png"
+        },
+        {
+          "filename": "9-Threshold-Oryx-map-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/King%27s-Fall/9-Threshold-Oryx-map-3.png"
+        }
+      ]
+    },
+    "root-of-nightmares": {
+      "name": "Root-of-Nightmares",
+      "github_folder": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares",
+      "images": [
+        {
+          "filename": "1-Cataclysm-fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/1-Cataclysm-fireteam-roles-1.png"
+        },
+        {
+          "filename": "1-Cataclysm-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/1-Cataclysm-mechanics-1.png"
+        },
+        {
+          "filename": "1-Cataclysm-mechanics-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/1-Cataclysm-mechanics-2.png"
+        },
+        {
+          "filename": "1-Gardener-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/1-Gardener-mechanics-1.png"
+        },
+        {
+          "filename": "3-1-Scission-mechanics-1-runner.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/3-1-Scission-mechanics-1-runner.png"
+        },
+        {
+          "filename": "3-2-Scission-mechanics-2-runner.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/3-2-Scission-mechanics-2-runner.png"
+        },
+        {
+          "filename": "3-3-Scission-mechanics-1-runner.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/3-3-Scission-mechanics-1-runner.png"
+        },
+        {
+          "filename": "5-1-Macrocosm-naming-clucker-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-1-Macrocosm-naming-clucker-1.png"
+        },
+        {
+          "filename": "5-1-Macrocosm-naming-clucker-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-1-Macrocosm-naming-clucker-2.png"
+        },
+        {
+          "filename": "5-1-Macrocosm-naming-numbers-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-1-Macrocosm-naming-numbers-1.png"
+        },
+        {
+          "filename": "5-1-Macrocosm-naming-numbers-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-1-Macrocosm-naming-numbers-2.png"
+        },
+        {
+          "filename": "5-2-Macrocosm-mechanics.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-2-Macrocosm-mechanics.png"
+        },
+        {
+          "filename": "5-3-Macrocosm-plates.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-3-Macrocosm-plates.png"
+        },
+        {
+          "filename": "5-Macrocosm-fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-Macrocosm-fireteam-roles-1.png"
+        },
+        {
+          "filename": "5-Macrocosm-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-Macrocosm-mechanics-1.png"
+        },
+        {
+          "filename": "5-Macrocosm-mechanics-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/5-Macrocosm-mechanics-2.png"
+        },
+        {
+          "filename": "7-Nezarec-fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Root-of-Nightmares/7-Nezarec-fireteam-roles-1.png"
+        }
+      ]
+    },
+    "crotas-end": {
+      "name": "Crota's-End",
+      "github_folder": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End",
+      "images": [
+        {
+          "filename": "Bridge-Chalice-recovery-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Chalice-recovery-1.png"
+        },
+        {
+          "filename": "Bridge-Fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Fireteam-roles-1.png"
+        },
+        {
+          "filename": "Bridge-Raid-rules-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Raid-rules-1.png"
+        },
+        {
+          "filename": "Bridge-Revive-recovery-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Revive-recovery-1.png"
+        },
+        {
+          "filename": "Bridge-Revive-recovery-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Revive-recovery-2.png"
+        },
+        {
+          "filename": "Bridge-Sword-recovery-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-Sword-recovery-1.png"
+        },
+        {
+          "filename": "Bridge-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Bridge-mechanics-1.png"
+        },
+        {
+          "filename": "Crota-Fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Fireteam-roles-1.png"
+        },
+        {
+          "filename": "Crota-Fireteam-roles-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Fireteam-roles-2.png"
+        },
+        {
+          "filename": "Crota-Recovery-dying-while-Enlightened.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Recovery-dying-while-Enlightened.png"
+        },
+        {
+          "filename": "Crota-Recovery-dying-with-the-Chalice.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Recovery-dying-with-the-Chalice.png"
+        },
+        {
+          "filename": "Crota-Recovery-extra-sword-for-shield.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Recovery-extra-sword-for-shield.png"
+        },
+        {
+          "filename": "Crota-Sword-combo-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-Sword-combo-1.png"
+        },
+        {
+          "filename": "Crota-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-mechanics-1.png"
+        },
+        {
+          "filename": "Crota-title.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Crota-title.png"
+        },
+        {
+          "filename": "Descent-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Descent-mechanics-1.png"
+        },
+        {
+          "filename": "Enlightened-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Enlightened-mechanics-1.png"
+        },
+        {
+          "filename": "Ir-Yut-Chalice-holder-recovery-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Chalice-holder-recovery-1.png"
+        },
+        {
+          "filename": "Ir-Yut-Enlightenment-recovery-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Enlightenment-recovery-1.png"
+        },
+        {
+          "filename": "Ir-Yut-Fireteam-roles-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Fireteam-roles-1.png"
+        },
+        {
+          "filename": "Ir-Yut-Fireteam-roles-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Fireteam-roles-2.png"
+        },
+        {
+          "filename": "Ir-Yut-Fireteam-roles-3.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Fireteam-roles-3.png"
+        },
+        {
+          "filename": "Ir-Yut-Fireteam-roles-4.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Fireteam-roles-4.png"
+        },
+        {
+          "filename": "Ir-Yut-Fireteam-roles-5.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Fireteam-roles-5.png"
+        },
+        {
+          "filename": "Ir-Yut-Shrieker-radar-possibilities.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-Shrieker-radar-possibilities.png"
+        },
+        {
+          "filename": "Ir-Yut-map-callouts-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-map-callouts-1.png"
+        },
+        {
+          "filename": "Ir-Yut-map-callouts-2.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-map-callouts-2.png"
+        },
+        {
+          "filename": "Ir-Yut-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-mechanics-1.png"
+        },
+        {
+          "filename": "Ir-Yut-title.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Ir-Yut-title.png"
+        },
+        {
+          "filename": "Stills-mechanics-1.png",
+          "url": "https://raw.githubusercontent.com/Adamsdown-Boy/Destiny-Raids/main/Crota%27s-End/Stills-mechanics-1.png"
+        }
+      ]
+    }
+  }
+}

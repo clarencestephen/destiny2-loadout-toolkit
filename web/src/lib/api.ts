@@ -19,12 +19,51 @@ export interface UserProfile {
   primary_class: "hunter" | "titan" | "warlock";
   power: number;
   build_focus?: {
-    archetype: string;
+    /** Armor 3.0 piece archetype (Edge of Fate, 2025). Each governs
+     *  which 2 stats roll primary + secondary on a piece. See
+     *  https://www.bungie.net for Bungie's reference. */
+    archetype: ArmorArchetype;
     goals: string[];
     target_stats: string[];
   };
   characters?: CharacterSummary[];
 }
+
+/** Armor 3.0 piece archetypes (Edge of Fate, 2025). Each governs
+ *  which two of the six stats roll as primary (+30 max) and secondary
+ *  (+25 max), plus a random tertiary (+20 max) from the remaining four. */
+export type ArmorArchetype =
+  | "Paragon"      // Super primary + Melee secondary
+  | "Grenadier"    // Grenade primary + Super secondary
+  | "Specialist"   // Class primary + Weapons secondary
+  | "Brawler"      // Melee primary + Health secondary
+  | "Bulwark"      // Health primary + Class secondary
+  | "Gunner";      // Weapons primary + Grenade secondary
+
+/** The six armor stats — Armor 3.0 names (Edge of Fate, 2025).
+ *  Pre-EoF: Mobility/Resilience/Recovery/Discipline/Intellect/Strength.
+ *  Hashes unchanged; only the names + semantics changed.
+ *  Stat hashes map to these keys in the Worker.
+ */
+export interface ArmorStats {
+  weapons: number;
+  health:  number;
+  class:   number;
+  grenade: number;
+  super:   number;
+  melee:   number;
+}
+export const STAT_KEYS: (keyof ArmorStats)[] = [
+  "weapons", "health", "class", "grenade", "super", "melee",
+];
+export const STAT_LABEL: Record<keyof ArmorStats, string> = {
+  weapons: "Weapons",
+  health:  "Health",
+  class:   "Class",
+  grenade: "Grenade",
+  super:   "Super",
+  melee:   "Melee",
+};
 
 /** Lean shape returned by /api/inventory — Worker no longer decorates */
 export interface LeanItem {
@@ -33,6 +72,8 @@ export interface LeanItem {
   power: number;
   location: string;
   tag?: "favorite" | "keep" | "infuse" | "junk" | "archive";
+  /** Per-armor base stats. Present only for armor pieces with non-zero stats. */
+  stats?: ArmorStats;
 }
 
 /** Decorated shape — Worker hash → manifest lookup → fully populated client-side */
@@ -48,6 +89,22 @@ export interface Item extends LeanItem {
   /** Full https URL to the item thumbnail on Bungie's CDN. Empty if missing. */
   iconUrl: string;
 }
+
+/** Sum of two ArmorStats objects (or null-safe). */
+export function sumStats(a?: ArmorStats, b?: ArmorStats): ArmorStats {
+  return {
+    weapons: (a?.weapons ?? 0) + (b?.weapons ?? 0),
+    health:  (a?.health  ?? 0) + (b?.health  ?? 0),
+    class:   (a?.class   ?? 0) + (b?.class   ?? 0),
+    grenade: (a?.grenade ?? 0) + (b?.grenade ?? 0),
+    super:   (a?.super   ?? 0) + (b?.super   ?? 0),
+    melee:   (a?.melee   ?? 0) + (b?.melee   ?? 0),
+  };
+}
+
+/** Is this slot one of the 5 armor slots used by the optimizer? */
+export const ARMOR_SLOTS = ["Helmet", "Gauntlets", "Chest", "Legs", "Class"] as const;
+export type ArmorSlot = typeof ARMOR_SLOTS[number];
 
 /** Slim manifest entry — keys mirror bake-slim-manifest.mjs */
 export interface ManifestEntry {

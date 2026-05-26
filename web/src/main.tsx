@@ -6,6 +6,8 @@ import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Chat from "./pages/Chat";
 import Link from "./pages/Link";
+import Builds from "./pages/Builds";
+import Optimizer from "./pages/Optimizer";
 import "./styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -17,6 +19,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="app" element={<Dashboard />} />
           <Route path="chat" element={<Chat />} />
           <Route path="link" element={<Link />} />
+          <Route path="builds" element={<Builds />} />
+          <Route path="optimizer" element={<Optimizer />} />
         </Route>
       </Routes>
     </BrowserRouter>

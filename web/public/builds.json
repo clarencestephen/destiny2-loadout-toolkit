@@ -1,0 +1,629 @@
+{
+  "version": "1.0",
+  "generated": "2026-05-26",
+  "_notes": "Starter build templates. Match is name-based (case-insensitive) against the user's decorated inventory. Each weapon slot lists options in priority order; the fitter takes the first one the user owns. Missing items show as 'NEED \u2014 drops from X' hints rather than blocking the rest of the build. Edit this file freely; the frontend hot-reloads on refresh.",
+  "builds": [
+    {
+      "id": "warlock-solar-well",
+      "name": "Well of Radiance \u2014 Solar Warlock support",
+      "class": "Warlock",
+      "subclass": "Solar",
+      "super": "Well of Radiance",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "endgame",
+        "support"
+      ],
+      "exotic_armor": {
+        "slot": "Chest",
+        "options": [
+          "Phoenix Protocol",
+          "Sanguine Alchemy"
+        ],
+        "drops_from": "Phoenix Protocol: Lost Sector exotic rotator (chest day). Sanguine Alchemy: Lost Sector rotator or Xur."
+      },
+      "weapons": {
+        "kinetic": [
+          "Conditional Finality",
+          "Outbreak Perfected",
+          "No Time to Explain"
+        ],
+        "energy": [
+          "Witherhoard",
+          "Trinity Ghoul",
+          "Polaris Lance"
+        ],
+        "heavy": [
+          "Gjallarhorn",
+          "Apex Predator",
+          "Hothead"
+        ]
+      },
+      "aspects": [
+        "Touch of Flame",
+        "Heat Rises"
+      ],
+      "fragments": [
+        "Ember of Solace",
+        "Ember of Empyrean",
+        "Ember of Searing",
+        "Ember of Singeing"
+      ],
+      "target_stats": {
+        "health": 100,
+        "class": 100,
+        "grenade": 100
+      },
+      "playstyle": "Plant Well of Radiance during DPS phases \u2014 your team stands in it for healing + Radiant. Phoenix Protocol kills inside Well refund Super energy. Heat Rises + Icarus Dash for air mobility on add-clear.",
+      "source": "Evergreen Solar Warlock support archetype.",
+      "_confidence": "high"
+    },
+    {
+      "id": "hunter-solar-nighthawk",
+      "name": "Golden Gun \u2014 Celestial Nighthawk one-shot",
+      "class": "Hunter",
+      "subclass": "Solar",
+      "super": "Golden Gun (Marksman)",
+      "focus": "PvE",
+      "tags": [
+        "dps",
+        "boss",
+        "raid"
+      ],
+      "exotic_armor": {
+        "slot": "Helmet",
+        "options": [
+          "Celestial Nighthawk"
+        ],
+        "drops_from": "Lost Sector exotic rotator (helmet day) or Xur."
+      },
+      "weapons": {
+        "kinetic": [
+          "Still Hunt",
+          "Outbreak Perfected",
+          "Conditional Finality"
+        ],
+        "energy": [
+          "Witherhoard",
+          "Trinity Ghoul"
+        ],
+        "heavy": [
+          "Apex Predator",
+          "Hothead",
+          "Gjallarhorn"
+        ]
+      },
+      "aspects": [
+        "On Your Mark",
+        "Knock 'Em Down"
+      ],
+      "fragments": [
+        "Ember of Singeing",
+        "Ember of Torches",
+        "Ember of Empyrean",
+        "Ember of Solace"
+      ],
+      "target_stats": {
+        "class": 100,
+        "grenade": 100,
+        "super": 100
+      },
+      "playstyle": "Pop Golden Gun, line up a Celestial Nighthawk headshot for ~600k+ crit. Still Hunt synergizes \u2014 its Golden Gun rounds also benefit from Nighthawk. Save Super for damage phases, use grenades + Knock 'Em Down sustain in between.",
+      "source": "Hunter boss-DPS archetype since D1.",
+      "_confidence": "high"
+    },
+    {
+      "id": "titan-solar-loreley",
+      "name": "Loreley Healing Wall \u2014 Solar Titan survivability",
+      "class": "Titan",
+      "subclass": "Solar",
+      "super": "Burning Maul",
+      "focus": "PvE",
+      "tags": [
+        "gm",
+        "endgame",
+        "survivability"
+      ],
+      "exotic_armor": {
+        "slot": "Helmet",
+        "options": [
+          "Loreley Splendor Helm"
+        ],
+        "drops_from": "Lost Sector exotic rotator (helmet day) or Xur."
+      },
+      "weapons": {
+        "kinetic": [
+          "Conditional Finality",
+          "Outbreak Perfected",
+          "Heritage"
+        ],
+        "energy": [
+          "Riskrunner",
+          "Witherhoard",
+          "Polaris Lance"
+        ],
+        "heavy": [
+          "Gjallarhorn",
+          "Cataclysmic",
+          "Apex Predator"
+        ]
+      },
+      "aspects": [
+        "Sol Invictus",
+        "Roaring Flames"
+      ],
+      "fragments": [
+        "Ember of Empyrean",
+        "Ember of Solace",
+        "Ember of Torches",
+        "Ember of Mercy"
+      ],
+      "target_stats": {
+        "health": 100,
+        "class": 100,
+        "grenade": 100
+      },
+      "playstyle": "Drop the Throwing Hammer for Sunspots and Roaring Flames stacks. Loreley triggers when low-HP \u2014 your barricade becomes a healing Sunspot. Stack Restoration via Ember of Empyrean to chain Sunspot kills indefinitely.",
+      "source": "Classic Solar 3.0 Titan tankiness build.",
+      "_confidence": "high"
+    },
+    {
+      "id": "warlock-stasis-osmio",
+      "name": "Osmiomancy Tracking Grenades \u2014 Stasis Warlock control",
+      "class": "Warlock",
+      "subclass": "Stasis",
+      "super": "Winter's Wrath",
+      "focus": "PvE",
+      "tags": [
+        "add-clear",
+        "control"
+      ],
+      "exotic_armor": {
+        "slot": "Gauntlets",
+        "options": [
+          "Osmiomancy Gloves"
+        ],
+        "drops_from": "Lost Sector exotic rotator (gauntlets day)."
+      },
+      "weapons": {
+        "kinetic": [
+          "Conditional Finality",
+          "Outbreak Perfected",
+          "Wish-Ender"
+        ],
+        "energy": [
+          "Riskrunner",
+          "Witherhoard",
+          "Trinity Ghoul"
+        ],
+        "heavy": [
+          "Gjallarhorn",
+          "Hothead",
+          "Cataclysmic"
+        ]
+      },
+      "aspects": [
+        "Bleak Watcher",
+        "Iceflare Bolts"
+      ],
+      "fragments": [
+        "Whisper of Shards",
+        "Whisper of Chains",
+        "Whisper of Rime",
+        "Whisper of Conduction"
+      ],
+      "target_stats": {
+        "class": 100,
+        "grenade": 100,
+        "health": 100
+      },
+      "playstyle": "Bleak Watcher Turret + Coldsnap Grenade with Osmiomancy = two tracking freezes per cooldown. Iceflare Bolts on frozen target spawns more Coldsnaps. Self-sustaining freeze loop on any Champion + add wave.",
+      "source": "Established Stasis Warlock crowd-control archetype.",
+      "_confidence": "high"
+    },
+    {
+      "id": "hunter-arc-liars",
+      "name": "Liar's Handshake \u2014 Arc Hunter Brawler",
+      "class": "Hunter",
+      "subclass": "Arc",
+      "super": "Gathering Storm",
+      "focus": "PvE",
+      "tags": [
+        "add-clear",
+        "melee"
+      ],
+      "exotic_armor": {
+        "slot": "Gauntlets",
+        "options": [
+          "Liar's Handshake"
+        ],
+        "drops_from": "Lost Sector exotic rotator (gauntlets day)."
+      },
+      "weapons": {
+        "kinetic": [
+          "Conditional Finality",
+          "Outbreak Perfected"
+        ],
+        "energy": [
+          "Riskrunner",
+          "Trinity Ghoul"
+        ],
+        "heavy": [
+          "Gjallarhorn",
+          "Apex Predator"
+        ]
+      },
+      "aspects": [
+        "Lethal Current",
+        "Flow State"
+      ],
+      "fragments": [
+        "Spark of Resistance",
+        "Spark of Beacons",
+        "Spark of Recharge",
+        "Spark of Brilliance"
+      ],
+      "target_stats": {
+        "health": 100,
+        "grenade": 100,
+        "melee": 100
+      },
+      "playstyle": "Tap-melee to bait an enemy's melee, then Liar's Handshake counter-punch hits for massive damage + heals you. Flow State on melee final blow grants Amplified for chained dodging. Best on melee-heavy maps; less effective against ranged-only encounters.",
+      "source": "Arc 3.0 — Brawler archetype (melee primary + health secondary).",
+      "_confidence": "high"
+    },
+    {
+      "id": "titan-strand-synthoceps",
+      "name": "Banner of War \u2014 Strand Titan sustain",
+      "class": "Titan",
+      "subclass": "Strand",
+      "super": "Bladefury",
+      "focus": "PvE",
+      "tags": [
+        "gm",
+        "endgame",
+        "sustain",
+        "melee"
+      ],
+      "exotic_armor": {
+        "slot": "Gauntlets",
+        "options": [
+          "Synthoceps",
+          "Wormgod Caress"
+        ],
+        "drops_from": "Lost Sector exotic rotator (gauntlets day) or Xur."
+      },
+      "weapons": {
+        "kinetic": [
+          "Quicksilver Storm",
+          "Conditional Finality",
+          "Outbreak Perfected"
+        ],
+        "energy": [
+          "Witherhoard",
+          "Riskrunner"
+        ],
+        "heavy": [
+          "The Lament",
+          "Gjallarhorn",
+          "Apex Predator"
+        ]
+      },
+      "aspects": [
+        "Banner of War",
+        "Berserker's Fury"
+      ],
+      "fragments": [
+        "Thread of Warding",
+        "Thread of Ascent",
+        "Thread of Generation",
+        "Thread of Continuity"
+      ],
+      "target_stats": {
+        "health": 100,
+        "class": 100,
+        "melee": 100
+      },
+      "playstyle": "Frenzied Blade \u2192 Banner of War active \u2192 melee + sword kills extend the Banner timer and pulse-heal nearby teammates. Synthoceps multiplies melee damage when surrounded. Lament is the cleanest sword for Banner refresh under boss damage phases.",
+      "source": "Banner of War PvE archetype, post-Lightfall meta.",
+      "_confidence": "high"
+    },
+    {
+      "id": "personal-hunter-still-hunt-nighthawk-raid",
+      "name": "Still Hunt / Nighthawk Raid (personal)",
+      "class": "Hunter",
+      "subclass": "Prismatic Hunter",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Helmet",
+        "options": [
+          "Celestial Nighthawk"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Imminence"
+        ],
+        "energy": [
+          "Still Hunt"
+        ],
+        "heavy": [
+          "Refurbished A499"
+        ]
+      },
+      "aspects": [
+        "Threaded Specter",
+        "Ascension"
+      ],
+      "fragments": [
+        "Facet of Courage",
+        "Facet of Dominance",
+        "Facet of Solitude",
+        "Facet of Purpose",
+        "Facet of Dawn"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, Super Mod, Grenade Font, Grenade Font, Bolstering Detonation, +Grenade / -Health, Super Mod, Charged Up, Void Resistance, Charged Up, +Super / -Health, Minor Weapons Mod, Solar Weapon Surge, Solar Weapon Surge, Solar Weapon Surge, +Weapons / -Health, Weapons Mod, Time Dilation, Time Dilation, Powerful Attraction, +Super / -Health\nHelmet mods: Superblack, Vest of Optimacy\nGauntlet mods: Superblack, Eternal Vengeance Strides\nChest mods: Superblack, Efrideet's Iron Cloak\nLeg mods: Superblack, Hrafnagud\nClass item mods: Superblack, Vigilant Seraph Grips",
+      "source": "Personal DIM loadout: https://dim.gg/xrtgbva/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/xrtgbva/Raid"
+    },
+    {
+      "id": "personal-hunter-lucky-pants-raid",
+      "name": "Lucky Pants Raid (personal)",
+      "class": "Hunter",
+      "subclass": "Prismatic Hunter",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Legs",
+        "options": [
+          "Lucky Pants"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Crimson"
+        ],
+        "energy": [
+          "Uncivil Discourse"
+        ],
+        "heavy": [
+          "Refurbished A499"
+        ]
+      },
+      "aspects": [
+        "Threaded Specter",
+        "Ascension"
+      ],
+      "fragments": [
+        "Facet of Courage",
+        "Facet of Dominance",
+        "Facet of Solitude",
+        "Facet of Purpose",
+        "Facet of Dawn"
+      ],
+      "playstyle": "General mods: Weapons Mod, Special Ammo Finder, Special Ammo Finder, Kinetic Siphon, +Weapons / -Health, Minor Weapons Mod, Melee Font, Grenade Font, Kinetic Loader, Balanced Tuning, Weapons Mod, Charged Up, Void Resistance, Charged Up, +Grenade / -Health, Minor Weapons Mod, Arc Weapon Surge, Arc Weapon Surge, Kinetic Weapon Surge, Weapons Mod, Time Dilation, Time Dilation, Powerful Attraction, +Weapons / -Health\nHelmet mods: Superblack, Vest of Optimacy\nGauntlet mods: Superblack, Digital Variance\nChest mods: Superblack, Efrideet's Iron Cloak\nLeg mods: Superblack, Misthios Mask\nClass item mods: Superblack, Vigilant Seraph Grips",
+      "source": "Personal DIM loadout: https://dim.gg/cvxxe3i/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/cvxxe3i/Raid"
+    },
+    {
+      "id": "personal-hunter-void-crossbow-raid",
+      "name": "Void Crossbow Raid (personal)",
+      "class": "Hunter",
+      "subclass": "Nightstalker",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Legs",
+        "options": [
+          "Fortune's Favor"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Witherhoard"
+        ],
+        "energy": [
+          "Chronophage"
+        ],
+        "heavy": [
+          "A Good Shout"
+        ]
+      },
+      "aspects": [
+        "Stylish Executioner",
+        "Vanishing Step"
+      ],
+      "fragments": [
+        "Echo of Undermining",
+        "Echo of Starvation",
+        "Echo of Dilation",
+        "Echo of Vigilance"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, +Weapons / -Health, Weapons Mod, Harmonic Dexterity, Harmonic Dexterity, Harmonic Dexterity, +Melee / -Health, Weapons Mod, Charged Up, Void Resistance, Solar Resistance, +Weapons / -Health, Minor Weapons Mod, Void Weapon Surge, Void Weapon Surge, Void Weapon Surge, Weapons Mod, Time Dilation, Time Dilation, Powerful Attraction, +Melee / -Health\nHelmet mods: Carminica, Resonant Fury Vest\nGauntlet mods: Superblack, Fortunate Beast\nChest mods: Echoed Anger, Solstice Cloak (Rekindled)\nLeg mods: Superblack, Mask of the Taken King\nClass item mods: Whispered Sheen, Heretical Vambraces",
+      "source": "Personal DIM loadout: https://dim.gg/ct25wsi/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/ct25wsi/Raid"
+    },
+    {
+      "id": "personal-titan-wolfsbane-raid",
+      "name": "Wolfsbane Raid (personal)",
+      "class": "Titan",
+      "subclass": "Prismatic Titan",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Chest",
+        "options": [
+          "Cuirass of the Falling Star"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Mint Retrograde"
+        ],
+        "energy": [
+          "The Beacon"
+        ],
+        "heavy": [
+          "Wolfsbane"
+        ]
+      },
+      "aspects": [
+        "Knockout",
+        "Consecration"
+      ],
+      "fragments": [
+        "Facet of Protection",
+        "Facet of Courage",
+        "Facet of Ruin",
+        "Facet of Balance"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, +Weapons / -Health, Minor Weapons Mod, Grenade Font, Grenade Font, Solar Dexterity, +Super / -Health, Super Mod, Concussive Dampener, Void Resistance, Arc Resistance, Super Forged, Minor Weapons Mod, Solar Weapon Surge, Solar Weapon Surge, Solar Weapon Surge, +Super / -Health, Super Mod, Time Dilation, Time Dilation, Powerful Attraction, +Weapons / -Health\nHelmet mods: Ceramic Alloy, Rising Star\nGauntlet mods: Ceramic Alloy, Shock Enforcer Greaves\nChest mods: Ceramic Alloy, Shock Enforcer Mark\nLeg mods: Ceramic Alloy, Shock Enforcer Helm\nClass item mods: Ceramic Alloy, Shock Enforcer Gauntlets",
+      "source": "Personal DIM loadout: https://dim.gg/2ut2tfi/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/2ut2tfi/Raid"
+    },
+    {
+      "id": "personal-titan-sniper-whirling-raid",
+      "name": "Sniper / Whirling Raid (personal)",
+      "class": "Titan",
+      "subclass": "Prismatic Titan",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Chest",
+        "options": [
+          "Cuirass of the Falling Star"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Conspiracy Honed"
+        ],
+        "energy": [
+          "Omniscient Eye"
+        ],
+        "heavy": [
+          "Whirling Ovation"
+        ]
+      },
+      "aspects": [
+        "Knockout",
+        "Consecration"
+      ],
+      "fragments": [
+        "Facet of Protection",
+        "Facet of Courage",
+        "Facet of Ruin",
+        "Facet of Balance"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, +Weapons / -Health, Minor Weapons Mod, Stasis Dexterity, Strand Dexterity, Solar Loader, +Super / -Health, Super Mod, Concussive Dampener, Void Resistance, Arc Resistance, Super Forged, Minor Weapons Mod, Solar Weapon Surge, Stasis Weapon Surge, Stasis Weapon Surge, +Super / -Health, Super Mod, Time Dilation, Time Dilation, Powerful Attraction, +Weapons / -Health\nHelmet mods: Ceramic Alloy, Rising Star\nGauntlet mods: Ceramic Alloy, Shock Enforcer Greaves\nChest mods: Ceramic Alloy, Shock Enforcer Mark\nLeg mods: Ceramic Alloy, Shock Enforcer Helm\nClass item mods: Ceramic Alloy, Shock Enforcer Gauntlets",
+      "source": "Personal DIM loadout: https://dim.gg/w6vsuuq/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/w6vsuuq/Raid"
+    },
+    {
+      "id": "personal-warlock-finality-mint-raid",
+      "name": "Finality / Mint Raid (personal)",
+      "class": "Warlock",
+      "subclass": "Prismatic Warlock",
+      "focus": "PvE",
+      "tags": [
+        "raid",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Chest",
+        "options": [
+          "Sanguine Alchemy"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Mint Retrograde"
+        ],
+        "energy": [
+          "Psi Aeterna IV"
+        ],
+        "heavy": [
+          "Finality's Auger"
+        ]
+      },
+      "aspects": [
+        "Feed the Void",
+        "Hellion"
+      ],
+      "fragments": [
+        "Facet of Ruin",
+        "Facet of Protection",
+        "Facet of Hope",
+        "Facet of Dominance"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, +Super / -Health, Minor Weapons Mod, Grenade Font, Grenade Font, Grenade Font, +Grenade / -Health, Weapons Mod, Concussive Dampener, Solar Resistance, Void Resistance, Weapons Forged, Minor Weapons Mod, Strand Weapon Surge, Arc Weapon Surge, Solar Weapon Surge, +Weapons / -Health, Weapons Mod, Class Font, Time Dilation, Powerful Attraction, +Weapons / -Health\nHelmet mods: Solid Slate, Aeonian Emptiness\nGauntlet mods: Solid Slate, Boots of the Taken King\nChest mods: Primer, Shadow Broker Bond\nLeg mods: Solid Slate, Prismscatter Cover\nClass item mods: Solid Slate, Taken Knife Gloves",
+      "source": "Personal DIM loadout: https://dim.gg/rzy3dvy/Raid",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/rzy3dvy/Raid"
+    },
+    {
+      "id": "personal-warlock-heavy-sniper-prismatic",
+      "name": "Heavy Sniper Prismatic (personal)",
+      "class": "Warlock",
+      "subclass": "Prismatic Warlock",
+      "focus": "PvE",
+      "tags": [
+        "prismatic",
+        "personal"
+      ],
+      "exotic_armor": {
+        "slot": "Chest",
+        "options": [
+          "Sanguine Alchemy"
+        ]
+      },
+      "weapons": {
+        "kinetic": [
+          "Witherhoard"
+        ],
+        "energy": [
+          "Motif-41"
+        ],
+        "heavy": [
+          "Refurbished A499"
+        ]
+      },
+      "aspects": [
+        "Feed the Void",
+        "Hellion"
+      ],
+      "fragments": [
+        "Facet of Ruin",
+        "Facet of Protection",
+        "Facet of Hope",
+        "Facet of Dominance"
+      ],
+      "playstyle": "General mods: Minor Weapons Mod, Super Font, Super Font, Super Font, +Super / -Health, Minor Weapons Mod, Grenade Font, Grenade Font, Grenade Font, +Grenade / -Health, Weapons Mod, Concussive Dampener, Solar Resistance, Void Resistance, Weapons Forged, Minor Weapons Mod, Kinetic Weapon Surge, Kinetic Weapon Surge, Kinetic Weapon Surge, +Weapons / -Health, Weapons Mod, Class Font, Time Dilation, Powerful Attraction, +Weapons / -Health\nHelmet mods: Solid Slate, Aeonian Emptiness\nGauntlet mods: Solid Slate, Boots of the Taken King\nChest mods: Primer, Shadow Broker Bond\nLeg mods: Solid Slate, Prismscatter Cover\nClass item mods: Solid Slate, Taken Knife Gloves",
+      "source": "Personal DIM loadout: https://dim.gg/jhdlx4a/Prismatic",
+      "_confidence": "high",
+      "dim_url": "https://dim.gg/jhdlx4a/Prismatic"
+    }
+  ]
+}

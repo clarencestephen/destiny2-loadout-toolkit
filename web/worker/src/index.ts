@@ -244,13 +244,15 @@ app.get("/api/inventory", async (c) => {
     // 201 = CharacterInventories (per-char items)
     // 205 = CharacterEquipment (currently equipped)
     // 300 = ItemInstances (power, primaryStat)
+    // 304 = ItemStats (per-armor stat values — mob/res/rec/dis/int/str)
     const profile = await bungieGet(
       c.env,
-      `/Destiny2/${u.membership_type}/Profile/${u.membership_id}/?components=102,200,201,205,300`,
+      `/Destiny2/${u.membership_type}/Profile/${u.membership_id}/?components=102,200,201,205,300,304`,
       u.access_token,
     );
 
     const instances = profile?.itemComponents?.instances?.data ?? {};
+    const itemStats = profile?.itemComponents?.stats?.data ?? {};
     const chars = profile?.characters?.data ?? {};
     const charInv = profile?.characterInventories?.data ?? {};
     const equipped = profile?.characterEquipment?.data ?? {};
@@ -260,26 +262,66 @@ app.get("/api/inventory", async (c) => {
       0: "Titan", 1: "Hunter", 2: "Warlock",
     };
 
+    // Canonical armor stat hashes (Bungie manifest). Same six hashes
+    // since D2 launch — Edge of Fate (2025) renamed the stats and
+    // changed semantics (Mobility → Weapons, Resilience → Health,
+    // Recovery → Class, Discipline → Grenade, Intellect → Super,
+    // Strength → Melee) but the hashes themselves are unchanged.
+    const STAT_HASH = {
+      weapons: 2996146975,   // was: Mobility
+      health:  392767087,    // was: Resilience
+      class:   1943323491,   // was: Recovery
+      grenade: 1735777505,   // was: Discipline
+      super:   144602215,    // was: Intellect
+      melee:   4244567218,   // was: Strength
+    } as const;
+
+    type ArmorStats = {
+      weapons: number; health: number; class: number;
+      grenade: number; super: number; melee: number;
+    };
     type LeanItem = {
       instance_id: string;
       hash: number;
       power: number;
       location: string;
       tag?: string;
+      stats?: ArmorStats;  // present for armor pieces with component-304 data
     };
     const out: LeanItem[] = [];
     const tags = u.item_tags || {};
 
+    const extractStats = (instId: string): ArmorStats | undefined => {
+      const raw = itemStats[instId]?.stats;
+      if (!raw) return undefined;
+      const get = (h: number) => (raw[h]?.value ?? 0) as number;
+      const s: ArmorStats = {
+        weapons: get(STAT_HASH.weapons),
+        health:  get(STAT_HASH.health),
+        class:   get(STAT_HASH.class),
+        grenade: get(STAT_HASH.grenade),
+        super:   get(STAT_HASH.super),
+        melee:   get(STAT_HASH.melee),
+      };
+      // Only emit a stats block if at least one stat is non-zero —
+      // weapons, ghosts, etc. shouldn't carry the field.
+      const total = s.weapons + s.health + s.class + s.grenade + s.super + s.melee;
+      return total > 0 ? s : undefined;
+    };
+
     const push = (rawItem: any, location: string) => {
       const instId = rawItem.itemInstanceId ?? "";
       const inst = instances[instId];
-      out.push({
+      const stats = instId ? extractStats(String(instId)) : undefined;
+      const item: LeanItem = {
         instance_id: String(instId),
         hash: rawItem.itemHash,
         power: inst?.primaryStat?.value ?? 0,
         location,
         tag: tags[String(instId)],
-      });
+      };
+      if (stats) item.stats = stats;
+      out.push(item);
     };
 
     // Vault
