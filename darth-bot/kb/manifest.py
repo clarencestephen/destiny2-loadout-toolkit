@@ -23,7 +23,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
-from ..config import DESTINY_VOYAGER_MANIFEST, SCRAPE_DIR
+from config import DESTINY_VOYAGER_MANIFEST, SCRAPE_DIR
 
 
 _TABLE = "DestinyInventoryItemDefinition"
@@ -209,30 +209,133 @@ def _name_index() -> dict:
     return idx
 
 
+# Curated allowlists for verify_names. The manifest only covers items
+# (DestinyInventoryItemDefinition); activities, expansions, NPCs, and
+# locations are not in there and would otherwise be flagged as
+# "invented". Source of truth for the activity roster is
+# `darth-bot/kb/scrape_raid_sources.py` (ACTIVITIES tuple).
+KNOWN_ACTIVITIES: frozenset[str] = frozenset(n.lower() for n in [
+    # Raids — 10 currently playable in D2 (May 2026)
+    "Last Wish", "Garden of Salvation", "Deep Stone Crypt", "Vault of Glass",
+    "Vow of the Disciple", "King's Fall", "Kings Fall", "Root of Nightmares",
+    "Crota's End", "Crotas End", "Salvation's Edge", "Salvations Edge",
+    "Desert Perpetual",
+    # Dungeons — 10 currently playable
+    "Sundered Doctrine", "Warlord's Ruin", "Warlords Ruin", "Ghosts of the Deep",
+    "Spire of the Watcher", "Duality", "Grasp of Avarice", "Prophecy",
+    "Pit of Heresy", "Shattered Throne", "Equilibrium",
+    # Common shorthand
+    "Salvations Edge", "Kings Fall",
+])
+
+KNOWN_PROPER_NOUNS: frozenset[str] = frozenset(n.lower() for n in [
+    # Project / brand
+    "Destiny Voyager", "Darth Bot", "Order 66", "Bungie API", "Bungie",
+    "Destiny", "Destiny 2",
+    # Expansions & big content drops (current + recent + key historical references)
+    "Edge of Fate", "The Final Shape", "Final Shape", "Lightfall",
+    "The Witch Queen", "Witch Queen", "Beyond Light", "Shadowkeep",
+    "Forsaken", "Curse of Osiris", "Warmind", "Rise of Iron",
+    "The Taken King", "Taken King", "The Dark Below", "Dark Below",
+    "House of Wolves",
+    # Seasons & episodes
+    "Season of the Witch", "Season of Plunder", "Season of the Splicer",
+    "Season of the Deep", "Season of the Wish", "Season of Defiance",
+    "Season of the Lost", "Season of the Hunt", "Season of the Chosen",
+    "Season of the Worthy", "Season of Arrivals", "Season of the Splicer",
+    "Season of the Haunted", "Season of the Seraph",
+    "Episode Echoes", "Episode Revenant", "Episode Heresy", "Episode Renegades",
+    # PvP / ritual activities
+    "Iron Banner", "Trials of Osiris", "Crucible", "Vanguard Ops",
+    "Onslaught", "Solo Operation", "Solo Operations", "Crimson Days",
+    # Locations
+    "The Pale Heart", "Pale Heart", "Dreaming City", "Last City", "The Tower",
+    "Tower", "Cosmodrome", "EDZ", "Nessus", "Tangled Shore",
+    # Key NPCs / commanders / vendors
+    "Lord Shaxx", "Lord Saladin", "Master Rahool", "The Speaker", "The Drifter",
+    "Eris Morn", "Zavala", "Ikora Rey", "Cayde-6", "Cayde", "Saint-14",
+    "The Crow", "Mara Sov", "Uldren Sov", "Banshee-44", "Banshee",
+    "Ada-1", "Xur", "Petra Venj", "Amanda Holliday", "Tess Everis",
+    "The Stranger", "Osiris",
+    # Raid / dungeon bosses (often referenced in walkthroughs)
+    "Atheon", "Atheon, Time's Conflux", "Kalli", "Kalli, the Corrupted",
+    "Shuro Chi", "Shuro Chi, the Corrupted", "Morgeth",
+    "Morgeth, the Spirekeeper", "Riven", "Riven of a Thousand Voices",
+    "Crota", "Crota, Son of Oryx", "Ir Yut", "Ir Yut, the Deathsinger",
+    "Oryx", "Oryx, the Taken King", "Golgoroth", "Warpriest", "Rhulk",
+    "Rhulk, Disciple of the Witness", "Nezarec", "Taniks",
+    "Taniks, the Abomination", "Atraks-1", "Atraks", "Sanctified Mind",
+    "Consecrated Mind", "Undying Mind", "Templar", "The Witness",
+    "Caretaker", "Calus", "Calus Mini-Tool", "Calus Mini",
+    # Boss titles / sub-names (the regex extracts these as standalone
+    # title-case phrases even when the full "Boss, Title" is allowlisted)
+    "Son of Oryx", "Disciple of the Witness", "the Deathsinger",
+    "the Corrupted", "the Spirekeeper", "the Taken King",
+    "the Abomination", "the Witness", "Time's Conflux",
+    "of a Thousand Voices", "Daughters of Oryx", "Fallen Exo",
+    # Factions / species (often capitalized)
+    "Iron Lord", "Iron Lords", "Hive", "Vex", "Fallen", "Eliksni",
+    "Cabal", "Taken", "Scorn", "Dread", "Shadow Legion",
+    # Raid mechanic terms / buffs / debuffs that show up across the KB
+    # and should not be flagged as "invented" by verify_names.
+    "Chalice of Light", "Chalice", "Engulfed in Light", "Enlightened",
+    "Build the Bridge", "Dunking the Chalice", "Sword Logic",
+    "Oversoul", "Oversoul Throne", "Sword of Crota", "Cleaver", "Cleavers",
+    "Presence of Crota", "Liturgy of Ruin", "Dark Procession",
+    "Annihilator Totem", "Annihilator Totems", "Brand Claimer",
+    "Touch of Malice", "Sync Plate", "Sync Plates", "Wipe Timer",
+    "Unstoppable Ogre", "Unstoppable Ogres", "Revenant Knight",
+    "Revenant Knights", "Gatekeeper", "Gatekeepers", "Swordbearer",
+    "Swordbearers", "Hellmouth", "Tractor Cannon", "Divinity",
+    "Cenotaph Mask", "Aeon Gauntlets", "Aeon Swift",
+    # Crota's End — Ir Yût encounter
+    "Shield Singer", "Shield Singer Wizard", "Shield Singer Wizards",
+    "Shrieker", "Shriekers", "Hive Barrier", "Hive Barriers",
+    "Dark Procession", "Dark Precession",
+])
+
+
 def verify_names(text: str) -> dict:
     """
     Scan `text` for proper-noun-looking phrases that DON'T match any
     manifest item — these are likely hallucinated names. Returns
     {verified: [str], unverified_candidates: [str]}.
 
-    Conservative: only flags Title Case phrases of 2+ words. Random
-    title-case false positives are acceptable.
+    Conservative: only flags Title Case phrases of 2+ words. Real
+    activity / expansion / NPC names live in curated allowlists above
+    (the manifest itself only covers items).
     """
     import re as _re
-    # Title Case phrases: at least 2 words, each starting with caps
+    # Greedy title-case phrase: starts with a title-case word; can chain
+    # title-case words and lowercase connectors (of/the/and/…); then
+    # post-process to (a) trim trailing connectors and (b) require ≥2
+    # actual title-case words. This avoids false positives like
+    # "Season of" (no closing title) or "Check the".
+    _CONNECTORS = {"of", "the", "and", "in", "on", "to", "a", "an", "for"}
     phrases = _re.findall(
-        r"\b(?:[A-Z][a-zA-Z'’]+)(?:\s+(?:of|the|[A-Z][a-zA-Z'’]+))(?:\s+[A-Z][a-zA-Z'’]+)*\b",
+        r"\b[A-Z][a-zA-Z'’]+(?:\s+(?:of|the|and|in|on|to|a|an|for|[A-Z][a-zA-Z'’]+))+\b",
         text,
     )
     idx = _name_index()
     verified = []
     unverified = []
     seen = set()
-    for p in phrases:
+    for raw in phrases:
+        words = raw.split()
+        while words and words[-1].lower() in _CONNECTORS:
+            words.pop()
+        title_word_count = sum(1 for w in words if w and w[0].isupper())
+        if title_word_count < 2:
+            continue
+        p = " ".join(words)
         if p in seen:
             continue
         seen.add(p)
-        if p.lower() in idx:
+        # Normalize curly/typographic apostrophes so allowlist entries
+        # written with straight ' still match phrases the model emits
+        # with ’ (LLMs often render curly).
+        pl = p.lower().replace("’", "'").replace("‘", "'")
+        if pl in idx or pl in KNOWN_ACTIVITIES or pl in KNOWN_PROPER_NOUNS:
             verified.append(p)
         else:
             unverified.append(p)

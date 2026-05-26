@@ -80,6 +80,25 @@ BASELINE: dict[str, Any] = {
         "released_with": "Edge of Fate",
         "master_difficulty_delta": "+25 above world max — Master scales with world cap, not a fixed number.",
     },
+    "raids": {
+        "_notes": "All currently-playable D2 raids. status: 'current' = newest, 'rotation' = legacy still active in weekly rotator.",
+        "playable": [
+            # Order: newest first. See data/meta_state.json for the
+            # full curated copy (encounter lists, origin dates, etc.).
+            # If this BASELINE is ever written out by --refresh, the JSON
+            # version supersedes it.
+            {"name": "Desert Perpetual",     "status": "current",  "released_with": "Edge of Fate",                                  "origin": "Edge of Fate (D2, 2025-07)"},
+            {"name": "Salvation's Edge",     "status": "rotation", "released_with": "The Final Shape",                               "origin": "The Final Shape (D2, 2024-06)"},
+            {"name": "Crota's End",          "status": "rotation", "released_with": "Season of the Witch (D2 reprise, 2023-09)",    "origin": "D1 The Dark Below (2014-12); D2 reprise 2023-09"},
+            {"name": "Root of Nightmares",   "status": "rotation", "released_with": "Lightfall",                                     "origin": "Lightfall (D2, 2023-03)"},
+            {"name": "King's Fall",          "status": "rotation", "released_with": "Season of Plunder (D2 reprise, 2022-08)",      "origin": "D1 The Taken King (2015-09); D2 reprise 2022-08"},
+            {"name": "Vow of the Disciple",  "status": "rotation", "released_with": "The Witch Queen",                               "origin": "The Witch Queen (D2, 2022-03)"},
+            {"name": "Vault of Glass",       "status": "rotation", "released_with": "Season of the Splicer (D2 reprise, 2021-05)",  "origin": "D1 vanilla (2014-09); D2 reprise 2021-05"},
+            {"name": "Deep Stone Crypt",     "status": "rotation", "released_with": "Beyond Light",                                  "origin": "Beyond Light (D2, 2020-11)"},
+            {"name": "Garden of Salvation",  "status": "rotation", "released_with": "Shadowkeep",                                    "origin": "Shadowkeep (D2, 2019-10)"},
+            {"name": "Last Wish",            "status": "rotation", "released_with": "Forsaken",                                      "origin": "Forsaken (D2, 2018-09)"},
+        ],
+    },
     "pvp_meta": {
         "_notes": "Update from light.gg meta + destinytracker usage stats. Refresh weekly.",
         "top_primaries": [],
@@ -160,6 +179,24 @@ def format_for_prompt() -> str:
         if cr.get("master_difficulty_delta"):
             lines.append(f"  Master: {cr['master_difficulty_delta']}")
 
+    raids = (s.get("raids") or {}).get("playable") or []
+    if raids:
+        lines.append("")
+        lines.append("Playable D2 raids (all in weekly rotator unless marked CURRENT):")
+        for r in raids:
+            origin = r.get("origin") or r.get("released_with") or ""
+            tag = "CURRENT" if r.get("status") == "current" else "rotation"
+            # One block per raid, name on its own line, attributes
+            # below — keeps the model from conflating rows.
+            lines.append(f"  Raid: {r['name']}")
+            lines.append(f"    status: {tag}")
+            lines.append(f"    origin: {origin}")
+            encs = r.get("encounters") or []
+            if encs:
+                lines.append(f"    encounters: {' → '.join(encs)}")
+            else:
+                lines.append("    encounters: (not in meta_state — defer to <knowledge>/<search>)")
+
     patches = s.get("recent_patches") or []
     if patches:
         lines.append("- Recent Bungie news (most-recent first):")
@@ -198,7 +235,7 @@ def _refresh_from_bungie(state: dict[str, Any]) -> None:
     """Pull current week's milestones from Bungie API. Requires a valid
     OAuth access token in the Destiny Voyager user_config.json."""
     try:
-        from .config import DESTINY_VOYAGER_CONFIG
+        from config import DESTINY_VOYAGER_CONFIG
     except Exception as e:
         print(f"  ! Can't import config: {e}")
         return

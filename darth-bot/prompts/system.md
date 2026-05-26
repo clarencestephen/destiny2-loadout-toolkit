@@ -49,7 +49,7 @@ If a section is empty, you don't have data for it.
 |---|---|
 | Exotic catalyst / quest | Step-by-step. Each step on its own line. Mention which activity drops it, any RNG, the perk it unlocks. |
 | Build recommendation | Subclass → exotic armor → weapons (primary/special/heavy) → key mods → why. Use `<inventory>` when present. |
-| Raid encounter rundown | List encounters in order. Name + mechanic in 1-2 sentences + key callout terms. Only encounters from the asked-about raid. |
+| Raid encounter rundown | List encounters in order. For each, cite specific mechanics named in `<knowledge>` for THAT raid — relics, swords, totems, plates, chalices, dunks, callouts. **For raid walkthrough questions, `<knowledge>` IS authoritative** (it stores hand-curated raid wiki + raidsecrets content) — quote terms verbatim from it. Do NOT invent generic mechanics ("dodge waves", "burst damage phase") to fill space; if you only have detail for some encounters, give detail for those and just name the others. |
 | Specific raid loot ("what drops from X") | ONLY cite items from `<knowledge>` chunks that mention raid X by name. If no chunk matches, say "I don't have the loot table for X yet." |
 | Cosmetic / shader lookup | Name + source. No fluff. |
 | Diagnostic ("why am I dying") | Ask 1-2 short clarifying questions instead of guessing. PvE or PvP? what subclass? what activity? |

@@ -115,13 +115,21 @@ def classify(question: str) -> Plan:
             use_search=True,  # quest paths change with seasons
         )
 
-    # Raid encounter
+    # Raid encounter — mechanics are stable but availability, reprise
+    # status, and seasonal modifiers shift. Search supplements the KB.
     if _KW["raid_name"].search(q) or _KW["encounter"].search(q):
-        return Plan(
+        plan = Plan(
             category="raid",
             use_kb=True,
-            use_search=False,  # raid mechanics are stable
+            use_search=True,
+            use_manifest=True,
         )
+        # Raid walkthroughs need more KB coverage than the default — a
+        # 6-chunk top_k bias toward the final boss name (the question
+        # usually contains the raid title) and starves the other
+        # encounters. Mark the plan so the orchestrator pulls more.
+        plan.notes.add("raid_walkthrough")
+        return plan
 
     # Build (personalized)
     if _KW["build"].search(q):
@@ -195,15 +203,61 @@ async def answer(question: str) -> str:
 
     if plan.use_inventory:
         try:
-            from .inventory import build_context
+            from inventory import build_context
             inventory_ctx = build_context(focus=plan.inventory_focus)
         except Exception as e:
             print(f"[router] inventory error: {e}")
 
     if plan.use_kb:
         try:
-            from .kb.retrieve import format_for_context
-            knowledge_ctx = format_for_context(question)
+            from kb.retrieve import format_for_context
+            if "raid_walkthrough" in plan.notes:
+                # Build a STRUCTURED per-encounter context. Token-overlap
+                # retrieval biases everything toward the final-boss name
+                # (the question contains the raid title), so we fan out
+                # one sub-query per encounter and label each section.
+                from meta_state import current_state
+                matched = None
+                for r in (current_state.get("raids") or {}).get("playable") or []:
+                    if r["name"].lower() in question.lower():
+                        matched = r
+                        break
+                if matched and matched.get("encounters"):
+                    sections: list[str] = []
+                    overview = format_for_context(
+                        f"{matched['name']} raid overview", top_k=2,
+                    )
+                    if overview:
+                        sections.append(f"## OVERVIEW — {matched['name']}\n{overview}")
+                    curated_map = matched.get("encounter_mechanics") or {}
+                    for enc in matched["encounters"]:
+                        # Hand-curated mechanics (when present) override
+                        # KB retrieval — used for encounters where the
+                        # vector search leaks content from other raids
+                        # (e.g. Ir Yût pulling King's Fall Deathsinger
+                        # material via the shared "Deathsinger" token).
+                        curated = curated_map.get(enc)
+                        if curated and not curated.startswith("_"):
+                            sections.append(
+                                f"## ENCOUNTER — {enc}\n"
+                                f"[curated authoritative mechanics — quote these verbatim]\n"
+                                f"{curated}"
+                            )
+                            continue
+                        enc_tokens = [t for t in enc.replace(",", "").split()
+                                      if len(t) > 3 and t[0].isupper()]
+                        enc_keyword = enc_tokens[0] if enc_tokens else enc.split()[0]
+                        chunks = format_for_context(
+                            f"{matched['name']} {enc} encounter mechanics callouts strategy",
+                            top_k=3, must_contain=enc_keyword,
+                        )
+                        if chunks:
+                            sections.append(f"## ENCOUNTER — {enc}\n{chunks}")
+                    knowledge_ctx = "\n\n".join(sections)
+                else:
+                    knowledge_ctx = format_for_context(question, top_k=12)
+            else:
+                knowledge_ctx = format_for_context(question)
         except Exception as e:
             print(f"[router] kb error: {e}")
 
@@ -213,7 +267,7 @@ async def answer(question: str) -> str:
     # the primary anti-hallucination grounding for item-specific queries.
     manifest_ctx_str = ""
     try:
-        from .kb.manifest import extract_named_items, _compact
+        from kb.manifest import extract_named_items, _compact
         hits = extract_named_items(question, max_results=8)
         if hits:
             lines = ["Authoritative item data (Bungie manifest):"]
@@ -230,38 +284,40 @@ async def answer(question: str) -> str:
 
     if plan.use_search:
         try:
-            from .search import search_context
+            from search import search_context
             search_ctx = await search_context(question)
         except Exception as e:
             print(f"[router] search error: {e}")
 
-    # Call LLM
-    from .llm import chat
-    response = await chat(
-        question,
-        inventory=inventory_ctx,
-        knowledge=knowledge_ctx,
-        search=search_ctx,
-        manifest=manifest_ctx_str,
-    )
+    # Call LLM. Raid walkthroughs use a specialized prompt that tells
+    # the model the KB IS the source of truth — the general chat() uses
+    # a prompt that frames KB as "reference, not truth" which kills
+    # mechanic extraction even when the chunks are great.
+    if "raid_walkthrough" in plan.notes and knowledge_ctx:
+        from llm import chat_walkthrough
+        response = await chat_walkthrough(question, knowledge=knowledge_ctx)
+    else:
+        from llm import chat
+        response = await chat(
+            question,
+            inventory=inventory_ctx,
+            knowledge=knowledge_ctx,
+            search=search_ctx,
+            manifest=manifest_ctx_str,
+        )
 
     # Fix 3: post-hoc fact check — scan response for title-case item
     # phrases that don't match the manifest. Append a soft caveat
     # rather than rewriting, so the user sees what's suspect.
     try:
-        from .kb.manifest import verify_names
+        from kb.manifest import verify_names
         check = verify_names(response)
+        # The activity / proper-noun allowlist lives in kb/manifest.py
+        # (KNOWN_ACTIVITIES, KNOWN_PROPER_NOUNS) so verify_names handles
+        # most filtering. Anything that slips through still has to clear
+        # the 2-4 word length guard before being flagged.
         suspects = [s for s in check["unverified_candidates"]
-                    if 2 <= len(s.split()) <= 4
-                    and s not in ("Destiny Voyager", "Darth Bot", "Order 66",
-                                  "Bungie API", "Edge of Fate", "Witch Queen",
-                                  "Final Shape", "The Final Shape",
-                                  "Iron Banner", "Solo Operation", "Solo Operations",
-                                  "Calus Mini", "Calus Mini-Tool", "The Empire",
-                                  "Crimson Days", "Iron Lord", "Iron Lords",
-                                  "Tower", "Bungie", "Destiny", "The Witness",
-                                  "Lord Shaxx", "Banshee", "Master Rahool",
-                                  "The Speaker", "The Drifter")]
+                    if 2 <= len(s.split()) <= 4]
         if suspects:
             response += (
                 "\n\n_⚠ Possibly invented names (not found in manifest): "
