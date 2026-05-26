@@ -13,7 +13,7 @@ All 20 activities authored at Pass-1 quality. Pending: multi-source synthesis (P
 
 | Activity | File | Pass 1 | Pass 2 | Images |
 |---|---|---|---|---|
-| Root of Nightmares | `root-of-nightmares.yaml` | ✅ | ⬜ | ⬜ |
+| Root of Nightmares | `root-of-nightmares.yaml` | ✅ | ✅ | ⬜ |
 | Salvation's Edge | `salvations-edge.yaml` | ✅ | ⬜ | ⬜ |
 | Desert Perpetual | `desert-perpetual.yaml` | ✅ | ⬜ | ⬜ |
 | Vow of the Disciple | `vow-of-the-disciple.yaml` | ✅ | ⬜ | ⬜ |
@@ -39,7 +39,12 @@ All 20 activities authored at Pass-1 quality. Pending: multi-source synthesis (P
 | Pit of Heresy | `dungeons/pit-of-heresy.yaml` | ✅ | ⬜ | ⬜ |
 | Shattered Throne | `dungeons/shattered-throne.yaml` | ✅ | ⬜ | ⬜ |
 
-**Pass 2 plan:** per-encounter WebFetch against Bungie help + Datto's notes + r/raidsecrets pinned posts. Flag contradictions as permutations, not silent picks. See [TODO.md](TODO.md).
+**Pass 2 plan:** per-encounter WebFetch against blueberries.gg (loot table
++ master challenges) + destinypedia (mechanics) + r/raidsecrets (cheese,
+secret chests). Real Pass-2 reality (discovered 2026-05-25): blueberries
+is loot/challenges only, not mechanics; Bungie help has 0 relevant raid
+articles; written-form Tier-1 mechanics is destinypedia alone. Mechanics
+depth beyond Pass-1 requires Pass-3 YouTube transcripts. See [TODO.md](TODO.md).
 
 ## Hard rules
 

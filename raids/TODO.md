@@ -39,12 +39,44 @@ and update the YAML in one pass without restructuring.
 
 ## 📝 Pass-2 synthesis re-pass (after Pass-1 destinypedia baseline)
 
-Per-encounter cross-reference using WebFetch against:
-- Bungie help articles (mechanic clarifications, known issues)
-- Datto / Esoterickk written-form guides
-- r/raidsecrets pinned megathreads (already scraped, supplemental tier)
+**Reality check from the Root of Nightmares Pass-2 pilot (2026-05-25):**
 
-Conflict on mechanics → document BOTH as `permutations:`, never pick a winner silently.
+The original Pass-2 plan assumed multiple Tier-1 *written* mechanics
+sources. After actually running it, the web source landscape is:
+
+| Source | What it actually has | Authority for |
+|---|---|---|
+| destinypedia | mechanics + lore (Pass-1 baseline) | mechanics (Tier 1) |
+| blueberries.gg | loot tables + master challenges | loot + challenges (Tier 1 for those) |
+| help.bungie.net | platform / account / known-issue | nothing raid-specific |
+| Datto / Esoterickk / Skarrow9 | YouTube only | unlocks via Pass-3 transcripts |
+| IGN / Polygon / KontrolFreek | edited gaming media | Tier 3 (general reference) |
+| r/raidsecrets | community megathreads | cheese + secret chests (Tier 2) |
+
+So **Pass-2 deliverable** is now:
+
+1. **Loot table fix** — cross-check `potential_drops` against
+   blueberries.gg. Pass-1 numbers were partial / wrong for several
+   encounters (caught in RoN: Cataclysm had Rufus's Fury listed; it's
+   actually Briar's Contempt + Koraxis + Nessa's).
+2. **Master Challenge data** — NEW `master_challenge:` block per
+   encounter, from blueberries challenges page.
+3. **Cheese + secret chests** — from r/raidsecrets megathreads (already
+   scraped to `darth-bot/data/scrape/reddit-raidsecrets/`).
+4. **Mechanics depth** → DEFERRED to Pass-3 (YouTube transcripts).
+
+Don't expect blueberries / Bungie help to corroborate mechanics —
+they don't have them in written form. Document Tier-1 mechanics
+disputes as `permutations:` ONLY when destinypedia is internally
+contradictory; for everything else, the destinypedia baseline holds
+until Pass-3 lands.
+
+**Activities pending Pass-2:**
+- ✅ Root of Nightmares (this pass)
+- ⬜ Salvation's Edge, Desert Perpetual, Vow of the Disciple, Deep Stone
+  Crypt, Garden of Salvation, Last Wish, King's Fall, Vault of Glass,
+  Crota's End
+- ⬜ All 10 dungeons
 
 ---
 

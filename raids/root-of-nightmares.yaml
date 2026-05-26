@@ -4,12 +4,22 @@
 # terminology throughout. No assumed knowledge — start from the beginning.
 # All loadout fields blank — to be filled via review.
 #
-# PASS 2 (multi-source synthesis, 2026-05): mechanics verified against
-# paracausality.com + screenrant + sportskeeda + mobalytics. Refuge rule
-# confirmed (shoot INACTIVE opposite-color node). Note that some guides
-# call inactive nodes "completed" — same thing, but the wording
-# confuses learners; see Nezarec common_mistakes.
-# Added: image slots per encounter (reserved for tomorrow's Discord upload).
+# PASS 2 SOURCES — what was actually used (2026-05-25):
+#   • destinypedia (Tier-1 mechanics) — Pass-1 baseline
+#   • blueberries.gg/weapons/root-of-nightmares-loot-table — canonical per-
+#     encounter loot table. Caught factual errors in Pass-1 potential_drops:
+#     Cataclysm did NOT drop Rufus's Fury / Mykel's Reverence; Scission did
+#     NOT drop Briar's Contempt. Corrected.
+#   • blueberries.gg/leveling/root-of-nightmares-challenges — canonical
+#     master_challenge names: Illuminated Torment / Crossfire / Cosmic
+#     Equilibrium / All Hands. NEW field this pass.
+#   • r/raidsecrets megathread + Skarrow9's red-border-chest writeup —
+#     secret chest landmarks + Deepsight room-connection mechanic.
+#   • help.bungie.net — 0 relevant RoN articles (search returned platform
+#     and known-issue posts only). Confirmed: Bungie help isn't a raid
+#     mechanics source.
+# DEFERRED to Pass-3 (YouTube transcripts): mechanic depth from Datto /
+# Esoterickk / Skarrow9 — written-form Tier-1 beyond destinypedia is thin.
 
 slug: root-of-nightmares
 name: Root of Nightmares
@@ -143,6 +153,7 @@ encounters:
   - order: 1
     slug: cataclysm
     name: Cataclysm
+    ingame_name: "Survive the Onslaught"
     difficulty: easy
     estimated_time: "8-12 min"
 
@@ -294,9 +305,18 @@ encounters:
         - "1× raid armor or weapon (encounter-specific drop pool)."
       hidden_chest: null
       potential_drops:
-        - "Rufus's Fury (auto rifle)"
-        - "Mykel's Reverence (sidearm)"
-        - "Nessa's Oblation (shotgun)"
+        - "Briar's Contempt (linear fusion rifle, Solar)"
+        - "Koraxis's Distress (heavy grenade launcher, Strand)"
+        - "Nessa's Oblation (shotgun, Void)"
+
+    master_challenge:
+      name: "Illuminated Torment"
+      requirement: |
+        All Tormentors (Cavum of Nezarec) must be killed by a player
+        currently holding the Field of Light buff. If anyone without
+        the buff lands the killing blow, the challenge fails for the
+        run.
+      enforced_on: "Master only"
 
     images:
       overview:     ""
@@ -315,6 +335,7 @@ encounters:
   - order: 2
     slug: scission
     name: Scission
+    ingame_name: "Enter the Root"
     difficulty: medium
     estimated_time: "10-15 min"
 
@@ -496,6 +517,14 @@ encounters:
           moment it lights up, fire and go. Cuts ~1s per crossing —
           adds up across 3 floors.
 
+      - title: "Colony soft-lock recovery"
+        detail: |
+          If the team is soft-locked at end-of-floor without buffs (all
+          buff sources used, shield enemies still up), use Colony. Run
+          into the shielded majors and shoot at your own feet — the
+          drones bypass the buff-gated shields and clear the lock.
+          Source: r/raidsecrets community megathread, Tier-2 cheese.
+
     common_mistakes:
       - "Shooting the launcher switch while floating above it → under-throw → fall."
       - "Letting a Redolence-shielded enemy live → it tanks damage and runs the clock."
@@ -516,9 +545,19 @@ encounters:
           - "Spoils of Conquest (×1)"
           - "First of 3 Deepsight puzzle seeds"
       potential_drops:
-        - "Acasia's Dejection (trace rifle)"
-        - "Koraxis's Distress (heavy GL)"
-        - "Briar's Contempt (linear fusion)"
+        - "Mykel's Reverence (sidearm, Strand)"
+        - "Koraxis's Distress (heavy grenade launcher, Strand)"
+        - "Acasia's Dejection (trace rifle, Solar)"
+        - "Nessa's Oblation (shotgun, Void)"
+
+    master_challenge:
+      name: "Crossfire"
+      requirement: |
+        Players can only shoot the launcher-activation crystals on the
+        OPPOSITE side of the chasm from where they're standing. Same-
+        side shots fail the challenge. Forces deliberate light/dark
+        side coordination.
+      enforced_on: "Master only"
 
     images:
       overview:     ""
@@ -537,6 +576,7 @@ encounters:
   - order: 3
     slug: macrocosm
     name: Macrocosm
+    ingame_name: "Zo'aurc, Explicator of Planets"
     difficulty: medium
     estimated_time: "12-18 min"
 
@@ -752,7 +792,19 @@ encounters:
           - "Spoils of Conquest (×1)"
           - "Second of 3 Deepsight puzzle seeds"
       potential_drops:
-        - "Nessa's Oblation (shotgun) — emphasized at this encounter."
+        - "Mykel's Reverence (sidearm, Strand)"
+        - "Rufus's Fury (auto rifle, Strand)"
+        - "Acasia's Dejection (trace rifle, Solar)"
+        - "Koraxis's Distress (heavy grenade launcher, Strand)"
+
+    master_challenge:
+      name: "Cosmic Equilibrium"
+      requirement: |
+        Every Dark-aura planet must end up on the LEFT side, every
+        Light-aura planet on the RIGHT (or whatever side convention
+        the team locked at pull). No mixed-polarity sides — pure
+        separation by the end of the encounter.
+      enforced_on: "Master only"
 
     images:
       overview:     ""
@@ -999,7 +1051,16 @@ encounters:
           - "Final Deepsight puzzle seed"
       potential_drops:
         - "**Conditional Finality** (exotic kinetic shotgun — Stasis + Solar barrels). Most-chased loot from this raid. RNG from final chest."
-        - "Acasia's Dejection, Briar's Contempt, Koraxis's Distress (boss-specific raid weapons)."
+        - "Any weapon from prior encounters (Briar's Contempt, Koraxis's Distress, Nessa's Oblation, Mykel's Reverence, Acasia's Dejection, Rufus's Fury)."
+
+    master_challenge:
+      name: "All Hands"
+      requirement: |
+        For each refuge-cycle, the Light-side node AND the Dark-side
+        node must be completed within ~the same beat — both sides
+        finishing together, not one cleaning up after the other. Forces
+        balanced runner load on both refuges.
+      enforced_on: "Master only"
 
     images:
       overview:     ""
@@ -1018,7 +1079,10 @@ encounters:
 overall_notes:
   - "Movement exotic in every encounter — Stompees, Lift, Heat Rises, Eager Edge."
   - "Anti-Barrier mandatory for encounters 1, 2, 4."
-  - "**Deepsight puzzle** spans the whole raid. 3 hidden rooms in 3 traversal sections. The connection ORDER is determined by 3 flowers near the raid start (left-to-right gives you the sequence). Each room has a seed you connect; the 3 seeds across the 3 rooms must match the flower order. Correct connection: 'Your actions take root…' message appears. Wrong: 'Your spoils have suffered irrecoverable damage.' All 3 correct → reward chest at end with guaranteed Deepsight Resonance weapon."
+  - "**Deepsight (red-border) chest** spans the whole raid. Per Skarrow9's writeup (r/raidsecrets): at the very start of the raid, BEFORE the first drop-down, veer LEFT to find 3 flowers with 3 glowing orbs each, color-coded dark or light — left-to-right gives you the connection sequence for the 3 secret rooms. Each secret room contains both dark and light orb pairs; connect the pair matching that position's flower color. Correct sequence → game feed says 'A great harvest awaits' → extra Deepsight Resonance chest at raid end."
+  - "  • Room 1: DIRECTLY before the root leading to encounter 1. DON'T take the stairs up — continue right, behind vines find a staircase leading DOWN."
+  - "  • Room 2: in the launcher jump puzzle after encounter 2. At the middle segment where a launcher flings you onto a platform, normally you'd go RIGHT toward the square staircase (by the 2nd secret chest); INSTEAD go LEFT to a broken piece of ship."
+  - "  • Room 3: DIRECTLY before the final boss. On the final shiny root, look bottom-right for a weird relic. Jump on it, look up, find the entrance."
   - "**Triumph: 'Opaline Shatter'** — full raid with no deaths → exclusive shader."
   - "**Triumph: 'Oxidized Lead'** — loot all 3 hidden chests → exclusive shader."
   - "All loadout: \"\" slots in this file intentionally blank — to be filled via guided review."

@@ -215,9 +215,11 @@ async def try_bungie_help(client, activity_slug: str, name: str) -> int:
     return seen
 
 
-async def main():
+async def main(only: str | None = None):
     async with httpx.AsyncClient(http2=True) as client:
         for slug, name, kind, bb_slug, query in ACTIVITIES:
+            if only and slug != only:
+                continue
             print(f"\n[{kind.upper()}] {name}")
             # AUTHORITATIVE sources first
             await try_blueberries(client, slug, bb_slug, name)
@@ -231,4 +233,8 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--activity", help="Only scrape this slug (e.g. root-of-nightmares)")
+    args = ap.parse_args()
+    asyncio.run(main(only=args.activity))

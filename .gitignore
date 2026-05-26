@@ -32,3 +32,4 @@ build/
 # Runtime data
 backend/data/
 darth-bot/*_test.png
+.firecrawl/

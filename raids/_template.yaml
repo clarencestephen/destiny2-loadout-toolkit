@@ -63,7 +63,8 @@ encounters:
 
   - order: 1
     slug: ""
-    name: ""
+    name: ""              # community / sherpa-circuit name
+    ingame_name: ""       # in-game UI title (optional; omit if same as `name`)
     difficulty: easy   # easy | medium | hard
     estimated_time: ""
 
@@ -118,6 +119,13 @@ encounters:
           - ""
       potential_drops:
         - ""                       # specific weapon/armor names if known
+
+    # Master-difficulty challenge for this encounter (one per encounter,
+    # rotates weekly). Constraint that, when satisfied, grants bonus loot.
+    master_challenge:
+      name: ""                     # e.g. "Illuminated Torment"
+      requirement: ""              # plain-language constraint
+      enforced_on: ""              # "Master only" | "Master + Normal bonus"
 
     # Suggested learner pathway through this encounter's roles
     learner_path:

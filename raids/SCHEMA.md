@@ -113,7 +113,8 @@ Each encounter is a structured object with the standard sections:
 ```yaml
 - order: 1
   slug: cataclysm
-  name: Cataclysm
+  name: Cataclysm                 # community / sherpa-circuit name
+  ingame_name: "Survive the Onslaught"  # in-game UI title (optional; only if different from `name`)
   difficulty: easy
   estimated_time: "8-12 min"
 
@@ -194,6 +195,15 @@ Each encounter is a structured object with the standard sections:
         - "Deepsight puzzle seed (see overall_notes)"
     potential_drops:
       - "Specific weapon name if known"
+
+  # Master-difficulty challenge for this encounter — adds a constraint that,
+  # when satisfied, awards bonus loot. Each raid has exactly N challenges
+  # (one per encounter), and only ONE is on rotation per week.
+  master_challenge:
+    name: "Illuminated Torment"
+    requirement: |
+      Plain-language description of the constraint.
+    enforced_on: "Master only (some carry to Normal for bonus loot — note here)"
 
   learner_path:
     - "1st clear: add-clear."
@@ -285,10 +295,19 @@ verified mechanics. Treat the hierarchy below as load-bearing.
 
 Cite at least TWO of these for any mechanics claim in a guide:
 
-- **destinypedia** — wiki-edited mechanics + lore; high accuracy, dense
-- **blueberries.gg** — structured encounter guides, role splits, loadouts
-- **help.bungie.net** — official mechanic clarifications + known issues
-- **Datto's written notes** — meta + role-split analysis (when available)
+- **destinypedia** — wiki-edited mechanics + lore; high accuracy, dense.
+  Realistically the ONLY broad-coverage Tier-1 written mechanics source.
+- **blueberries.gg** — Pass-2 reality check (2026-05): NOT a mechanics
+  source. They publish loot tables (per-encounter drops) and Master
+  Challenges, which IS authoritative for those slots. Don't expect
+  encounter callouts or role splits from them.
+- **help.bungie.net** — official mechanic clarifications. Rare hits for
+  raids — most articles are platform / account / known-issue. Search
+  per-activity; usually 0 relevant results.
+- **YouTube creator transcripts** — Datto, Esoterickk, Skarrow9 etc.
+  publish in video, not text. Pass-3 enrichment (youtube-transcript-api)
+  unlocks these as written corroboration; without it, mechanics depth
+  beyond destinypedia is genuinely hard to source.
 
 ### Tier 2 — SUPPLEMENTAL (cheese, edge cases, variation discovery)
 
