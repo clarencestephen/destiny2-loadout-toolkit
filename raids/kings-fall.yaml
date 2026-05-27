@@ -1,4 +1,15 @@
 # raids/kings-fall.yaml — Pass 1 (destinypedia baseline)
+#
+# PASS 2 (2026-05-27): loot tables verified against
+# blueberries.gg/weapons/kings-fall-loot-table.
+# Caught a major Pass-1 error: YAML listed "Anguish of Drystan" and
+# "Elulim's Frenzy" as KF drops. Those are D1-original KF weapon names
+# that did NOT come back in the D2 reprised raid (Witch Queen, 2022).
+# Replaced with the actual D2 KF weapon set (Doom of Chelchis, Smite of
+# Merain, Qullim's Terminus, Defiance of Yasmin, Midha's Reckoning,
+# Zaouli's Bane + Touch of Malice exotic).
+# Per-encounter master_challenge blocks deferred — blueberries doesn't
+# publish a KF challenges page; will revisit in Pass-2.5.
 
 slug: kings-fall
 name: King's Fall
@@ -361,10 +372,9 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Anguish of Drystan (auto)"
-        - "Doom of Chelchis (scout)"
-        - "Elulim's Frenzy (rocket)"
-        - "King's Fall armor"
+        - "Doom of Chelchis (scout rifle, Void)"
+        - "Qullim's Terminus (machine gun, Stasis)"
+        - "King's Fall armor (random slot)"
       # Deepsight Rune #3 in this area — see Overall Notes
 
     images:
@@ -509,9 +519,9 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Defiance of Yasmin (sniper)"
-        - "Midha's Reckoning (fusion)"
-        - "King's Fall armor"
+        - "Smite of Merain (pulse rifle, Kinetic)"
+        - "Defiance of Yasmin (sniper rifle, Kinetic)"
+        - "King's Fall armor (random slot)"
       # Deepsight Rune #4 in this area
 
     images:
@@ -633,9 +643,10 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Qullim's Terminus (LMG)"
-        - "Defiance of Yasmin (sniper)"
-        - "King's Fall armor"
+        - "Qullim's Terminus (machine gun, Stasis)"
+        - "Midha's Reckoning (fusion rifle, Arc)"
+        - "Zaouli's Bane (hand cannon, Solar)"
+        - "King's Fall armor (random slot)"
       # Deepsight Rune #5 in Golgoroth's Cellar exit
 
     images:
@@ -824,9 +835,10 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Smite of Merain (HC)"
-        - "Zaouli's Bane (HC)"
-        - "King's Fall armor"
+        - "Smite of Merain (pulse rifle, Kinetic)"
+        - "Defiance of Yasmin (sniper rifle, Kinetic)"
+        - "Zaouli's Bane (hand cannon, Solar)"
+        - "King's Fall armor (random slot)"
 
     images:
       overview: ""
@@ -987,11 +999,9 @@ encounters:
         - "Deepsight chest (if all 9 runes shot — see Overall Notes)"
       hidden_chest: null
       potential_drops:
-        - "Touch of Malice (exotic scout — random chance)"
-        - "Anguish of Drystan (auto)"
-        - "Doom of Chelchis (scout)"
-        - "Defiance of Yasmin (sniper)"
-        - "Elulim's Frenzy (rocket)"
+        - "**Touch of Malice** (exotic scout rifle, Kinetic) — RNG drop from Oryx chest."
+        - "Any Legendary weapon from previous encounters: Doom of Chelchis, Smite of Merain, Qullim's Terminus, Defiance of Yasmin, Midha's Reckoning, Zaouli's Bane."
+        - "King's Fall armor (random slot)."
         - "Midha's Reckoning (fusion)"
         - "Qullim's Terminus (LMG)"
         - "Smite of Merain (HC)"
