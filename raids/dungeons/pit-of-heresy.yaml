@@ -190,9 +190,10 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Premonition (pulse)"
-        - "Loud Lullaby (hand cannon)"
-        - "Dreambane armor"
+        - "Shared 'Any Encounter' pool — PoH does NOT have per-encounter loot pools. Every loot-bearing encounter rolls from the same set."
+        - "Pool: Every Waking Moment (SMG, Void), Loud Lullaby (HC, Kinetic), Love and Death (GL, Solar), Arc Logic (auto, Arc), A Fine Memorial (LMG, Arc), Dream Breaker (fusion, Solar), One Small Step (shotgun, Kinetic), Tranquility (sniper, Kinetic), **Premonition** (pulse, Void — only farmable from PoH), Night Terror (sword, Arc)."
+        - "Hymn of Desecration quest weapons (drop only after the quest): Apostate (sniper, Arc), Blasphemer (shotgun, Kinetic), Heretic (RL, Arc)."
+        - "Dreambane armor (any slot, source of high-stat armor farming)."
 
     images:
       overview:     ""
@@ -407,10 +408,7 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "A Fine Memorial (LMG)"
-        - "Arc Logic (auto)"
-        - "Tranquility (sniper)"
-        - "Dreambane armor"
+        - "Same shared 'Any Encounter' pool as the first loot encounter — see that block for the full weapon + armor list."
 
     images:
       overview:     ""
@@ -633,9 +631,9 @@ encounters:
         - "Final chest (Dreambane high-stat armor)"
       hidden_chest: null
       potential_drops:
-        - "Xenophage (exotic LMG — separate quest, NOT a random drop here)"
-        - "Premonition / Apostate / Blasphemer / Heretic (latter 3 from Hymn of Desecration quest)"
-        - "Dreambane armor (all classes)"
+        - "Final chest: Dreambane high-stat armor (any slot). Same shared 'Any Encounter' weapon pool as prior encounters."
+        - "Note: **Xenophage** (exotic LMG) is the SEPARATE 'The Journey' quest, NOT a final-chest RNG drop here."
+        - "Hymn of Desecration quest weapons (Apostate / Blasphemer / Heretic) drop here only after the quest is complete."
 
     images:
       overview:     ""

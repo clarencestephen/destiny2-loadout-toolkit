@@ -206,9 +206,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Trustee (scout)"
-        - "Judgment (hand cannon)"
-        - "Prophecy armor"
+        - "Relentless (pulse rifle, Strand)"
+        - "Prosecutor (auto rifle, Arc)"
+        - "Crushing armor — Greaves + Mark Judgment (Class Item)"
 
     images:
       overview:     ""
@@ -372,8 +372,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Trustee, Judgment, Adjudicator (SMG)"
-        - "Apex Predator (rocket — Spike Grenades farmable)"
+        - "A Sudden Death (shotgun, Void)"
+        - "Adjudicator (SMG, Kinetic)"
+        - "Crushing Guard (Arms)"
 
     images:
       overview:     ""
@@ -561,13 +562,9 @@ encounters:
         - "Final chest from the Emissary"
       hidden_chest: null
       potential_drops:
-        - "Trustee (scout)"
-        - "Judgment (hand cannon)"
-        - "Adjudicator (SMG)"
-        - "Darkest Before (pulse)"
-        - "Apex Predator (rocket — Spike Grenades farm)"
-        - "A Sudden Death (shotgun)"
-        - "Prophecy armor (all classes)"
+        - "Kell Echo (final boss): drops Moonfang-X7 armor — Helm + Gauntlets + Chassis + Greaves + Mark (the moon-themed exotic-looking armor set unique to Prophecy)."
+        - "The Emissary's Final Chest: Judgment (hand cannon, Stasis) + Darkest Before (pulse rifle, Solar) + Crushing armor (Helm + Plate + Mark Judgment Class Item)."
+        - "Note: 'Trustee' is a DSC weapon (not Prophecy). 'Apex Predator' is Last Wish (not Prophecy). Both removed from this pool."
 
     images:
       overview:     ""

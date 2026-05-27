@@ -221,11 +221,10 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Unloved (hand cannon)"
-        - "Unsworn (trace)"
-        - "Unworthy (scout)"
-        - "Unvoiced (shotgun)"
-        - "Flain armor"
+        - "Unworthy (scout rifle, Arc)"
+        - "Unloved (hand cannon, Strand)"
+        - "Unsworn (trace rifle, Strand)"
+        - "Talons of the Flain (Legs) + Reach of the Flain (Arms)"
 
     images:
       overview: ""
@@ -366,11 +365,10 @@ encounters:
         - "Boss CORE drop (carry to bowl near loot chest to open next area)"
       hidden_chest: null
       potential_drops:
-        - "Unloved (HC)"
-        - "Unsworn (trace)"
-        - "Unworthy (scout)"
-        - "Unvoiced (shotgun)"
-        - "Flain armor"
+        - "Unworthy (scout rifle, Arc)"
+        - "Unvoiced (shotgun, Void)"
+        - "Unsworn (trace rifle, Strand)"
+        - "Talons of the Flain (Legs) + Reach of the Flain (Arms)"
 
     images:
       overview: ""
@@ -527,11 +525,11 @@ encounters:
           - "Memory of Oryx (lore + collectable)"
           - "Bonus dungeon loot roll"
       potential_drops:
-        - "Finality's Auger (exotic linear fusion — quest, not random)"
-        - "Unloved (HC)"
-        - "Unsworn (trace)"
-        - "Unworthy (scout)"
-        - "Unvoiced (shotgun)"
+        - "**Finality's Auger** (linear fusion rifle, Solar) — primary boss drop. The YAML's 'exotic' / 'quest, not random' framing reflects the in-game craftable pattern unlock; the weapon itself drops here per blueberries."
+        - "Unvoiced (shotgun, Void)"
+        - "Unsworn (trace rifle, Strand)"
+        - "Unworthy (scout rifle, Arc)"
+        - "Talons of the Flain (Legs) + Reach of the Flain (Arms)"
         - "Flain armor"
         - "Future Proof sparrow"
 

@@ -270,9 +270,10 @@ encounters:
         rewards:
           - "Random roll of an already-obtained dungeon weapon"
       potential_drops:
-        - "Long Arm (scout)"
-        - "Wilderflight (GL)"
-        - "Hailing Confusion (pulse)"
+        - "Terminus Horizon (machine gun, Arc)"
+        - "Long Arm (scout rifle, Arc)"
+        - "Seventh Seraph Carbine (auto rifle, Kinetic)"
+        - "TM Cogburn armor — Gauntlets + Legguards + Cover"
 
     images:
       overview: ""
@@ -393,9 +394,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Long Arm (scout)"
-        - "Wilderflight (GL)"
-        - "Hailing Confusion (pulse)"
+        - "Terminus Horizon (machine gun, Arc)"
+        - "Seventh Seraph Officer Revolver (hand cannon, Kinetic)"
+        - "TM Cogburn armor — Gauntlets + Plate + Mark (Class Item)"
         - "Liminal Vigil (sidearm)"
         - "Seventh Seraph CQC-12 (shotgun)"
 
@@ -614,12 +615,11 @@ encounters:
         - "Final chest (extra roll)"
       hidden_chest: null
       potential_drops:
-        - "Hierarchy of Needs (exotic bow — quest, not random)"
-        - "Long Arm (scout)"
-        - "Wilderflight (GL)"
-        - "Hailing Confusion (pulse)"
-        - "Liminal Vigil (sidearm)"
-        - "Terminus Horizon (LMG)"
+        - "**Hierarchy of Needs** (exotic combat bow, Solar) — per blueberries, drops from Persys chest. YAML's 'quest, not random' framing reflects the in-game pattern path."
+        - "Liminal Vigil (sidearm, Stasis)"
+        - "Wilderflight (grenade launcher, Void)"
+        - "Any weapon from prior encounters (Terminus Horizon, Long Arm, Seventh Seraph Carbine, Seventh Seraph Officer Revolver)."
+        - "Any TM Cogburn armor piece."
         - "Seventh Seraph CQC-12 (shotgun)"
         - "Seraph armor"
 

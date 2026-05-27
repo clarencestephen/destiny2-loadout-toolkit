@@ -198,9 +198,10 @@ encounters:
         rewards:
           - "Wish-Ender quest token 1"
       potential_drops:
-        - "Tigerspite (auto rifle)"
-        - "Vouchsafe (scout)"
-        - "Reverie Dawn armor"
+        - "Shared 'Any Encounter' pool — Shattered Throne does NOT have per-encounter loot pools. Every encounter rolls from the same set."
+        - "Pool: Vouchsafe (scout, Void), Twilight Oath (sniper, Solar), Abide the Return (sword, Solar), Retold Tale (shotgun, Void), Sleepless (RL, Arc), Waking Vigil (HC, Arc), Tigerspite (auto, Kinetic)."
+        - "**Wish-Ender** (exotic combat bow, Kinetic) — quest reward from 'Hunter's Remembrance' (the secret quest in this dungeon), not a random RNG drop."
+        - "Reverie Dawn armor (any slot — source of high-stat armor farming)."
 
     images:
       overview:     ""
@@ -433,10 +434,7 @@ encounters:
         rewards:
           - "Wish-Ender quest token 3 (final)"
       potential_drops:
-        - "Twilight Oath (sniper)"
-        - "Waking Vigil (hand cannon)"
-        - "Retold Tale (shotgun)"
-        - "Reverie Dawn armor"
+        - "Same shared 'Any Encounter' pool as the first loot encounter — see that block for the full weapon + armor list."
 
     images:
       overview:     ""
@@ -586,11 +584,8 @@ encounters:
         - "Final chest (Dreaming City roll)"
       hidden_chest: null
       potential_drops:
-        - "Wish-Ender (exotic kinetic bow — from Hunter's Remembrance quest, not a random drop)"
-        - "Sleepless (rocket)"
-        - "Abide the Return (sword)"
-        - "Tigerspite (auto)"
-        - "Twilight Oath (sniper)"
+        - "Final chest: roll from the shared 'Any Encounter' pool + Dreaming City reward (Pinnacle gear at endgame)."
+        - "**Wish-Ender** (exotic combat bow, Kinetic) is the 'Hunter's Remembrance' secret quest reward, not a random drop."
         - "Waking Vigil (HC)"
         - "Reverie Dawn armor"
         - "Dreaming City Ship (Cursebreaker seal)"

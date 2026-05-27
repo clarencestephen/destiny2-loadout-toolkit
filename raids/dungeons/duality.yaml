@@ -215,10 +215,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Lingering Dread (GL)"
-        - "New Purpose (pulse)"
-        - "Unforgiven (SMG)"
-        - "Calus-themed armor"
+        - "Lingering Dread (grenade launcher, Stasis)"
+        - "The Epicurean (fusion rifle, Void)"
+        - "Calus-themed armor (random slot)"
 
     images:
       overview:     ""
@@ -406,9 +405,9 @@ encounters:
           - "Random roll of already-obtained dungeon weapon"
           - "Calus Memory collectable (lore)"
       potential_drops:
-        - "Fixed Odds (LMG)"
-        - "Stormchaser (LFR)"
-        - "The Epicurean (FR)"
+        - "Stormchaser (linear fusion rifle, Arc)"
+        - "Unforgiven (SMG, Void)"
+        - "Calus-themed armor (random slot)"
 
     images:
       overview:     ""
@@ -547,13 +546,11 @@ encounters:
         - "Final chest (extra roll)"
       hidden_chest: null
       potential_drops:
-        - "Heartshadow (exotic sword — quest, not random)"
-        - "Fixed Odds (LMG)"
-        - "Lingering Dread (GL)"
-        - "New Purpose (pulse)"
-        - "Stormchaser (LFR)"
-        - "The Epicurean (FR)"
-        - "Unforgiven (SMG)"
+        - "**Heartshadow** (exotic sword, Void) — per blueberries, drops from Caiatl chest. YAML's 'quest, not random' framing reflects the in-game pattern path."
+        - "New Purpose (pulse rifle, Stasis)"
+        - "Fixed Odds (machine gun, Solar)"
+        - "Any weapon from prior encounters (Lingering Dread, The Epicurean, Stormchaser, Unforgiven)."
+        - "Calus-themed armor — Caiatl drops 2× per kill (any slot)."
 
     images:
       overview:     ""

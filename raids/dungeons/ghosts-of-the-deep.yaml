@@ -197,10 +197,10 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "No Survivors (SMG)"
-        - "New Pacific Epitaph (GL)"
-        - "Greasy Luck (sidearm)"
-        - "Titan-themed armor"
+        - "No Survivors (SMG, Solar)"
+        - "New Pacific Epitaph (grenade launcher, Stasis)"
+        - "Cold Comfort (rocket launcher, Stasis)"
+        - "Taken King armor — Arms + Legs + Helm (encounter-specific slots; armor brand is 'Taken King', not 'Titan')"
 
     images:
       overview: ""
@@ -350,11 +350,10 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "No Survivors (SMG)"
-        - "New Pacific Epitaph (GL)"
-        - "Greasy Luck (sidearm)"
-        - "The Navigator (exotic trace rifle — quest, not random)"
-        - "Titan armor"
+        - "No Survivors (SMG, Solar)"
+        - "Greasy Luck (glaive, Solar) — note: YAML labeled this 'sidearm'; blueberries confirms glaive"
+        - "Cold Comfort (rocket launcher, Stasis)"
+        - "Taken King armor — Arms + Chest + Class Item (encounter-specific slots)"
 
     images:
       overview: ""
@@ -497,12 +496,10 @@ encounters:
         - "Final chest (extra roll)"
       hidden_chest: null
       potential_drops:
-        - "No Survivors (SMG)"
-        - "New Pacific Epitaph (GL)"
-        - "Greasy Luck (sidearm)"
-        - "The Navigator (exotic trace rifle — quest reward)"
-        - "Wicked Implement (exotic stasis scout — separate quest, not random)"
-        - "Titan armor"
+        - "**The Navigator** (exotic trace rifle, Strand) — per blueberries, drops here. YAML's 'quest reward' framing reflects the in-game pattern unlock."
+        - "Any weapon from previous encounters (No Survivors, New Pacific Epitaph, Cold Comfort, Greasy Luck)."
+        - "Any Taken King armor piece (final encounter rolls any slot)."
+        - "Note: Wicked Implement (exotic stasis scout) is the SEPARATE secret-room exotic quest, NOT a final-chest drop."
 
     images:
       overview: ""

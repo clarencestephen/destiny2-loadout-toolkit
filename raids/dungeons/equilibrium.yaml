@@ -223,11 +223,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Conspiracy Honed (sniper)"
-        - "High Tyrant (pulse)"
-        - "Voltaic Shade (scout)"
-        - "Zealous Ideal (auto)"
-        - "Sage Protector armor"
+        - "Zealous Ideal (auto rifle, Solar)"
+        - "Voltaic Shade (scout rifle, Arc)"
+        - "Equilibrium / Sage Protector armor — Legs + Arms + Chest"
 
     images:
       overview: ""
@@ -367,10 +365,10 @@ encounters:
         rewards:
           - "Random roll of already-obtained dungeon weapon"
       potential_drops:
-        - "Bitter End (LMG)"
-        - "Sullen Claw (sword)"
-        - "Conspiracy Honed (sniper)"
-        - "Sage Protector armor"
+        - "Bitter End (machine gun, Arc)"
+        - "Voltaic Shade (scout rifle, Arc)"
+        - "Conspiracy Honed (sniper rifle, Stasis)"
+        - "Equilibrium / Sage Protector armor — Class Item + Arms + Helmet"
 
     images:
       overview: ""
@@ -548,13 +546,11 @@ encounters:
         - "Imperium's Adversary emblem (first clear)"
       hidden_chest: null
       potential_drops:
-        - "Heirloom (exotic combat bow — quest, not random)"
-        - "Conspiracy Honed (sniper)"
-        - "Bitter End (LMG)"
-        - "High Tyrant (pulse)"
-        - "Sullen Claw (sword)"
-        - "Voltaic Shade (scout)"
-        - "Zealous Ideal (auto)"
+        - "**Heirloom** (exotic crossbow, Solar) — note blueberries lists it as a per-encounter drop; the YAML's 'quest, not random' framing reflects the in-game quest path 'The Way Between'. Verify in-game whether the final-chest pool also includes it as RNG."
+        - "High Tyrant (pulse rifle, Void)"
+        - "Sullen Claw (sword, Void)"
+        - "Any other Legendary weapon from prior encounters."
+        - "Equilibrium / Sage Protector armor — Class Item + Legs"
         - "Sage Protector armor (all classes)"
         - "Static Data Shell (exotic ghost)"
 

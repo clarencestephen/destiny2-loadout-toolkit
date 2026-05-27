@@ -28,16 +28,16 @@ All 20 activities authored at Pass-1 quality. Pending: multi-source synthesis (P
 
 | Activity | File | Pass 1 | Pass 2 | Images |
 |---|---|---|---|---|
-| Equilibrium | `dungeons/equilibrium.yaml` | ✅ | ⬜ | ⬜ |
-| Sundered Doctrine | `dungeons/sundered-doctrine.yaml` | ✅ | ⬜ | ⬜ |
-| Warlord's Ruin | `dungeons/warlords-ruin.yaml` | ✅ | ⬜ | ⬜ |
-| Ghosts of the Deep | `dungeons/ghosts-of-the-deep.yaml` | ✅ | ⬜ | ⬜ |
-| Spire of the Watcher | `dungeons/spire-of-the-watcher.yaml` | ✅ | ⬜ | ⬜ |
-| Duality | `dungeons/duality.yaml` | ✅ | ⬜ | ⬜ |
-| Grasp of Avarice | `dungeons/grasp-of-avarice.yaml` | ✅ | ⬜ | ⬜ |
-| Prophecy | `dungeons/prophecy.yaml` | ✅ | ⬜ | ⬜ |
-| Pit of Heresy | `dungeons/pit-of-heresy.yaml` | ✅ | ⬜ | ⬜ |
-| Shattered Throne | `dungeons/shattered-throne.yaml` | ✅ | ⬜ | ⬜ |
+| Equilibrium | `dungeons/equilibrium.yaml` | ✅ | ✅ | ⬜ |
+| Sundered Doctrine | `dungeons/sundered-doctrine.yaml` | ✅ | ✅ | ⬜ |
+| Warlord's Ruin | `dungeons/warlords-ruin.yaml` | ✅ | ✅ | ⬜ |
+| Ghosts of the Deep | `dungeons/ghosts-of-the-deep.yaml` | ✅ | ✅ | ⬜ |
+| Spire of the Watcher | `dungeons/spire-of-the-watcher.yaml` | ✅ | ✅ | ⬜ |
+| Duality | `dungeons/duality.yaml` | ✅ | ✅ | ⬜ |
+| Grasp of Avarice | `dungeons/grasp-of-avarice.yaml` | ✅ | ✅ | ⬜ |
+| Prophecy | `dungeons/prophecy.yaml` | ✅ | ✅ | ⬜ |
+| Pit of Heresy | `dungeons/pit-of-heresy.yaml` | ✅ | ✅ | ⬜ |
+| Shattered Throne | `dungeons/shattered-throne.yaml` | ✅ | ✅ | ⬜ |
 
 **Pass 2 plan:** per-encounter WebFetch against blueberries.gg (loot table
 + master challenges) + destinypedia (mechanics) + r/raidsecrets (cheese,

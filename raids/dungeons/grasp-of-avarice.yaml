@@ -312,9 +312,9 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "1000-Yard Stare (sniper)"
-        - "Eyasluna (hand cannon)"
-        - "Matador 64 (shotgun)"
+        - "Matador 64 (shotgun, Arc)"
+        - "Hero of Ages (sword, Arc)"
+        - "Descending Echo armor — Greaves + Mark (Class Item)"
 
     images:
       overview:     ""
@@ -659,12 +659,12 @@ encounters:
         - "Final boss chest (extra roll)"
       hidden_chest: null   # Gjallarhorn chest is in encounter 4
       potential_drops:
-        - "Gjallarhorn (exotic rocket launcher) — guaranteed on first clear via quest"
-        - "1000-Yard Stare (sniper)"
-        - "Eyasluna (hand cannon)"
-        - "Matador 64 (shotgun)"
-        - "Hero of Ages (sword)"
-        - "Echo armor (Twisting/Descending/Corrupting per class)"
+        - "Matador 64 (shotgun, Arc)"
+        - "Hero of Ages (sword, Arc)"
+        - "Eyasluna (hand cannon, Stasis)"
+        - "1000-Yard Stare (sniper rifle, Void)"
+        - "Descending Echo armor — Helm + Gauntlets (encounter-specific slots)"
+        - "Note: **Gjallarhorn** (exotic rocket launcher) is the quest reward from encounter 4's hidden chest sequence, not a final-boss RNG drop. Guaranteed on first clear via the quest path."
 
     images:
       overview:     ""

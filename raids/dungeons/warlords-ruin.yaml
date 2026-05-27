@@ -216,9 +216,10 @@ encounters:
         - "1× dungeon armor or weapon"
       hidden_chest: null
       potential_drops:
-        - "Naeem's Lance (sniper)"
-        - "Indebted Kindness (sidearm)"
-        - "Dark Age armor (Titan/Hunter/Warlock)"
+        - "Vengeful Whisper (combat bow, Kinetic)"
+        - "Dragoncult Sickle (sword, Strand)"
+        - "Indebted Kindness (sidearm, Arc)"
+        - "Dark Age armor — Mask + Fists + Strides"
 
     images:
       overview:     ""
@@ -455,9 +456,10 @@ encounters:
           - "Hidden quest item: Bone Fragment 2"
           - "Spoils of Conquest"
       potential_drops:
-        - "Dragoncult Sickle (sword)"
-        - "Vengeful Whisper (bow)"
-        - "Dark Age armor"
+        - "Vengeful Whisper (combat bow, Kinetic)"
+        - "Naeem's Lance (sniper rifle, Strand)"
+        - "Indebted Kindness (sidearm, Arc)"
+        - "Dark Age armor — Fists + Harness + Bond"
 
     images:
       overview:     ""
@@ -624,11 +626,11 @@ encounters:
           - "Bone Fragment 3 → Buried Bloodline exotic quest start"
           - "Spoils of Conquest"
       potential_drops:
-        - "Buried Bloodline (exotic sidearm — quest, not random drop)"
-        - "Dragoncult Sickle"
-        - "Naeem's Lance"
-        - "Indebted Kindness"
-        - "Vengeful Whisper"
+        - "**Buried Bloodline** (exotic sidearm, Void) — per blueberries, drops from Hefn's Vengeance chest. The YAML's 'quest, not random' framing reflects the in-game Bone Fragment exotic quest path; the weapon itself is gated on completing that quest, then drops here on subsequent runs."
+        - "Naeem's Lance (sniper rifle, Strand)"
+        - "Indebted Kindness (sidearm, Arc)"
+        - "Dragoncult Sickle (sword, Strand)"
+        - "Dark Age armor — Mask + Fists + Harness + Strides"
         - "Dark Age armor (chest piece guaranteed)"
 
     images:
