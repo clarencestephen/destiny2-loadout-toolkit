@@ -9,14 +9,13 @@ import { Button } from "@/components/ui/button";
 /**
  * /this-week — Kyber-Community-parity weekly rotation surface.
  *
- * Calls GET /api/this-week (which aggregates Xur / Ada-1 / Banshee /
- * Rahool / Eververse via the Bungie Vendor API, KV-cached per-user).
- * Decorates each vendor's items client-side using the slim manifest
- * already loaded by the rest of the app.
+ * Calls GET /api/this-week which aggregates:
+ *   • Vendors (Xur / Ada-1 / Banshee / Rahool / Eververse) — Phase 1+2
+ *   • Milestones (raid challenge / Trials / IB / Lost Sector / etc.) — Phase 3
+ *   • News (latest 5 Bungie RSS items — TWIDs / patches / season launches) — Phase 4
  *
- * Phase 1+2 scope: vendors only. Phase 3 will add Milestones (raid
- * challenge / Trials / IB / lost sector). Phase 4 will add TWID + a
- * multi-tab layout.
+ * Three-tab layout. Vendor items are decorated client-side using the
+ * slim manifest already loaded by the rest of the app.
  */
 
 // Shape returned by /api/this-week — mirrors VendorWeek + ThisWeekResponse
@@ -46,11 +45,22 @@ interface ActivityWeekRaw {
   notes?: string;
 }
 
+interface TWIDPostRaw {
+  title: string;
+  url: string;
+  pub_date: string;
+  category: "twid" | "patch" | "season" | "news";
+  summary: string;
+}
+
 interface ThisWeekResponseRaw {
   vendors: Record<string, VendorWeekRaw | null>;
   milestones: ActivityWeekRaw[];
+  news: TWIDPostRaw[];
   generated_at: string;
 }
+
+type Tab = "vendors" | "activities" | "news";
 
 interface DecoratedVendorItem extends Item {
   cost?: Array<{ currency_hash: number; quantity: number; currency_name: string }>;
@@ -93,6 +103,7 @@ export default function ThisWeek() {
   const [manifest, setManifest] = useState<SlimManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [tab, setTab] = useState<Tab>("vendors");
 
   useEffect(() => {
     let cancelled = false;
@@ -151,6 +162,27 @@ export default function ThisWeek() {
         </p>
       </header>
 
+      <nav className="flex items-center gap-2 mb-6 border-b border-void">
+        {(["vendors", "activities", "news"] as const).map((t) => (
+          <button
+            key={t}
+            onClick={() => setTab(t)}
+            className={
+              "px-4 py-2 text-xs uppercase tracking-[0.22em] transition-colors " +
+              (tab === t
+                ? "text-saber border-b-2 border-saber -mb-px"
+                : "text-muted hover:text-star")
+            }
+          >
+            {t}
+            {t === "vendors" && ` (${decorated.length})`}
+            {t === "activities" && ` (${(data.milestones || []).length})`}
+            {t === "news" && ` (${(data.news || []).length})`}
+          </button>
+        ))}
+      </nav>
+
+      {tab === "vendors" && (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {decorated.map((v) => (
           <Card key={v.vendor} className="p-6">
@@ -228,10 +260,11 @@ export default function ThisWeek() {
         ))}
       </div>
 
-      <section className="mt-10">
-        <h2 className="text-2xl font-display tracking-wider text-star mb-4">
-          Activities
-        </h2>
+      </div>
+      )}
+
+      {tab === "activities" && (
+      <section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {(data.milestones || []).map((a) => (
             <Card key={a.activity} className="p-4">
@@ -266,10 +299,42 @@ export default function ThisWeek() {
           ))}
         </div>
       </section>
+      )}
+
+      {tab === "news" && (
+      <section className="space-y-4">
+        {(data.news || []).length === 0 && (
+          <p className="text-sm text-muted">No news items loaded. Check back later.</p>
+        )}
+        {(data.news || []).map((post, i) => (
+          <Card key={i} className="p-4">
+            <div className="flex items-baseline justify-between mb-1">
+              <a
+                href={post.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-display text-saber hover:text-star"
+              >
+                {post.title} ↗
+              </a>
+              <span className="text-[10px] uppercase tracking-wider text-muted">
+                {post.category}
+              </span>
+            </div>
+            {post.pub_date && (
+              <p className="text-[11px] text-muted mb-2">
+                {new Date(post.pub_date).toLocaleDateString()}
+              </p>
+            )}
+            <p className="text-sm text-fg">{post.summary}</p>
+          </Card>
+        ))}
+      </section>
+      )}
 
       <footer className="mt-8 text-[11px] text-muted">
-        Phase 1+2+3 surface (vendors + activities). TWID + multi-tab UI
-        land in Phase 4 — see THIS_WEEK_PLAN.md.
+        Phase 1+2+3+4 surface: vendors (60min cache) · activities (15min) ·
+        news (6h). See THIS_WEEK_PLAN.md for the channel map.
       </footer>
     </div>
   );

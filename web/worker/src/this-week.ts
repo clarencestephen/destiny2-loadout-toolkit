@@ -108,11 +108,23 @@ export interface ActivityWeek {
   notes?: string;
 }
 
+// ============================================================
+// TWID / Bungie news (Phase 4)
+// ============================================================
+
+export interface TWIDPost {
+  title: string;
+  url: string;
+  pub_date: string;                  // ISO datetime
+  category: "twid" | "patch" | "season" | "news";
+  summary: string;                   // first ~280 chars of description
+}
+
 export interface ThisWeekResponse {
   vendors: Record<VendorKey, VendorWeek | null>;
   milestones: ActivityWeek[];        // Phase 3
+  news: TWIDPost[];                  // Phase 4 — latest 5 Bungie RSS posts
   generated_at: string;
-  // twid?: TWIDPost;                // Phase 4
 }
 
 // ============================================================
@@ -121,6 +133,7 @@ export interface ThisWeekResponse {
 
 const VENDOR_TTL_SECONDS = 60 * 60;       // 1h
 const MILESTONES_TTL_SECONDS = 15 * 60;   // 15min — milestone progress changes more often
+const NEWS_TTL_SECONDS = 6 * 60 * 60;     // 6h — new blog posts land at most once a day
 
 async function cachedVendor(
   env: Env,
@@ -295,6 +308,87 @@ function deriveMilestoneNotes(key: ActivityKey, _api: any, available: boolean): 
     return "Always-available in Neomuna once unlocked. ~30-min pulse cycle between sessions.";
   }
   return undefined;
+}
+
+// ============================================================
+// TWID / Bungie news (Phase 4)
+// ============================================================
+// Bungie publishes everything to https://www.bungie.net/en/Rss/News
+// (RSS 2.0, no auth). Each <item> has title / link / pubDate /
+// description. We categorize by title keyword and surface the 5
+// most-recent items.
+//
+// Cached GLOBALLY (not per-user) — the feed is the same for everyone.
+
+const BUNGIE_RSS = "https://www.bungie.net/en/Rss/News";
+
+async function cachedNews(env: Env, fetcher: () => Promise<TWIDPost[]>): Promise<TWIDPost[]> {
+  const cacheKey = `twk:news:bungie-rss`;
+  const cached = await env.DV_KV.get(cacheKey, "json");
+  if (cached) return cached as TWIDPost[];
+  const fresh = await fetcher();
+  await env.DV_KV.put(cacheKey, JSON.stringify(fresh), {
+    expirationTtl: NEWS_TTL_SECONDS,
+  });
+  return fresh;
+}
+
+/** Categorize a Bungie blog post by its title — same heuristic the
+ *  bot's twab_scraper.py uses (twid / patch / season / news). */
+function categorizePost(title: string): TWIDPost["category"] {
+  const t = title.toLowerCase();
+  if (t.includes("this week in destiny") || t.includes("twid") || t.includes("twab")) {
+    return "twid";
+  }
+  if (/update\s+\d|hotfix|patch/i.test(title)) return "patch";
+  if (/season\s+\d|episode\s+\w/i.test(title)) return "season";
+  return "news";
+}
+
+/** Minimal RSS 2.0 <item> extractor. Workers don't ship a DOMParser
+ *  big enough for a real XML library; the Bungie feed is well-formed
+ *  enough that string parsing on <item>...</item> blocks works. */
+function parseRssItems(xml: string): TWIDPost[] {
+  const items: TWIDPost[] = [];
+  const itemBlocks = xml.split(/<item\b[^>]*>/i).slice(1);
+  for (const block of itemBlocks) {
+    const end = block.indexOf("</item>");
+    if (end < 0) continue;
+    const body = block.slice(0, end);
+    const titleMatch = body.match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i);
+    const linkMatch  = body.match(/<link>\s*(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?\s*<\/link>/i);
+    const dateMatch  = body.match(/<pubDate>([\s\S]*?)<\/pubDate>/i);
+    const descMatch  = body.match(/<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/description>/i);
+    const title = (titleMatch?.[1] ?? "").trim();
+    const link  = (linkMatch?.[1] ?? "").trim();
+    const date  = (dateMatch?.[1] ?? "").trim();
+    let desc  = (descMatch?.[1] ?? "").trim();
+    // Strip HTML tags + collapse whitespace; trim to ~280 chars.
+    desc = desc.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    if (desc.length > 280) desc = desc.slice(0, 280).trimEnd() + "…";
+    if (!title) continue;
+    items.push({
+      title,
+      url: link,
+      pub_date: date ? new Date(date).toISOString() : "",
+      category: categorizePost(title),
+      summary: desc,
+    });
+  }
+  return items;
+}
+
+export async function getNews(env: Env): Promise<TWIDPost[]> {
+  try {
+    const r = await fetch(BUNGIE_RSS, {
+      headers: { "User-Agent": "destiny-voyager/0.1 (Cloudflare Worker)" },
+    });
+    if (!r.ok) return [];
+    const xml = await r.text();
+    return parseRssItems(xml).slice(0, 5);
+  } catch {
+    return [];
+  }
 }
 
 // ============================================================
@@ -474,17 +568,19 @@ function nextFridayInSeconds(): number {
 
 export async function getThisWeek(env: Env, user: StoredUser): Promise<ThisWeekResponse> {
   const userId = user.membership_id;
-  const [xur, ada1, banshee, rahool, eververse, milestones] = await Promise.all([
+  const [xur, ada1, banshee, rahool, eververse, milestones, news] = await Promise.all([
     cachedVendor(env, userId, "xur",       () => getXur(env, user)),
     cachedVendor(env, userId, "ada1",      () => getAda1(env, user)),
     cachedVendor(env, userId, "banshee",   () => getBanshee(env, user)),
     cachedVendor(env, userId, "rahool",    () => getRahool(env, user)),
     cachedVendor(env, userId, "eververse", () => getEververse(env, user)),
     cachedMilestones(env, userId, () => getMilestones(env, user)),
+    cachedNews(env, () => getNews(env)),
   ]);
   return {
     vendors: { xur, ada1, banshee, rahool, eververse },
     milestones,
+    news,
     generated_at: new Date().toISOString(),
   };
 }

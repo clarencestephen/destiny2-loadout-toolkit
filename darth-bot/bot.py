@@ -1079,10 +1079,28 @@ async def cmd_this_week(
             inline=False,
         )
 
+    # News (Phase 4 — latest 3 from Bungie RSS)
+    news = data.get("news", []) or []
+    if news:
+        news_lines = []
+        for n in news[:3]:
+            label = n.get("category", "news").upper()
+            title = n.get("title", "(untitled)")
+            url   = n.get("url", "")
+            if url:
+                news_lines.append(f"• [{label}] [{title}]({url})")
+            else:
+                news_lines.append(f"• [{label}] {title}")
+        emb.add_field(
+            name="📰 News",
+            value="\n".join(news_lines),
+            inline=False,
+        )
+
     emb.set_footer(
         text=(
-            "Vendors cached 60min · activities cached 15min · "
-            "Phase 1+2+3 (vendors + milestones). TWID lands in Phase 4."
+            "Vendors 60min · activities 15min · news 6h · "
+            "Phase 1+2+3+4 (vendors + milestones + news)."
         )
     )
     await interaction.followup.send(embed=emb)

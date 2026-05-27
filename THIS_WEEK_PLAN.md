@@ -93,7 +93,7 @@ type ActivityWeek = {
 };
 ```
 
-## Phase 4 (future session) — News + static + multi-tab UI
+## Phase 4 (✅ SHIPPED) — News + multi-tab UI
 
 - **twid**                — TWID scraper output (already in
                             `darth-bot/data/scrape/`). Parse latest post
@@ -182,4 +182,4 @@ twice in an hour costs 0 Bungie API calls.
 
 ---
 
-**Status:** Phase 1+2+3 shipped. Phase 4 (TWID + multi-tab UI) queued.
+**Status:** Phase 1+2+3+4 shipped — Kyber-parity feature complete for the channels currently covered (vendors, milestones, Bungie RSS). Open items: foundry channels (community-curated, no API), per-day Lost Sector slot (community fallback), Tuesday-reset push notifications. See "Open questions" above.
