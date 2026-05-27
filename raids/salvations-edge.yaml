@@ -486,7 +486,7 @@ encounters:
       - when: "Shape mismatch noticed"
         from: any
         to:   team
-        say:  '"WAIT — don't dunk!"'
+        say:  "\"WAIT — don't dunk!\""
         why:  "Last-chance call before a wipe. Player can override their last pickup by walking to the correct shape spawn."
 
       - when: "All conductors locked"
@@ -1291,3 +1291,34 @@ overall_notes:
   - "**Triumph: 'Resonant Cellweave'** — find both hidden chests."
   - "**Triumph: 'Diametric Crush'** — full raid no deaths + no orbiting."
   - "All loadout: \"\" slots blank — to be filled via guided review."
+
+# ========================================================================
+# Video walkthrough — community sherpa series ("Encounter #X / Boss #X").
+# Coherent 5-part guide, one video per encounter. Used by Pass-3 to feed
+# transcripts into the bot's KB (scrape_youtube.py reads this block).
+# ========================================================================
+walkthrough_videos:
+  source: "Community sherpa series — 'Encounter #X' / 'Boss #X' naming"
+  collected: "2026-05-27"
+  playlist: ""  # TODO: full playlist URL — videos found via title-pattern search
+  per_encounter:
+    - order: 1
+      slug: substratum
+      url: "https://youtu.be/Xawhq2shVBE"
+      label: "Encounter #1 — Gain Access to the Monolith (Substratum)"
+    - order: 2
+      slug: herald-of-finality
+      url: "https://youtu.be/Ea8QkoCP9G8"
+      label: "Boss #1 — Herald of Finality (Dissipation)"
+    - order: 3
+      slug: repository
+      url: "https://youtu.be/DNZBwkT26TY"
+      label: "Encounter #3 — Carve a Path (Repository)"
+    - order: 4
+      slug: verity
+      url: "https://youtu.be/nmexB_ydvkc"
+      label: "Encounter #4 — See Beyond (Verity)"
+    - order: 5
+      slug: the-witness
+      url: "https://youtu.be/sRhsBOSpjE4"
+      label: "Encounter #5 — The Witness"
