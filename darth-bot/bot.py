@@ -945,8 +945,10 @@ async def cmd_this_week(
     bungie_id = link.get("bungie_id")
 
     try:
-        data = await _bot_internal_post(
-            "/api/internal/this-week", {"bungie_id": bungie_id},
+        import asyncio
+        data, manifest = await asyncio.gather(
+            _bot_internal_post("/api/internal/this-week", {"bungie_id": bungie_id}),
+            _fetch_json("/manifest.json"),
         )
     except Exception as e:
         await interaction.followup.send(f"⚠️ This-week fetch failed: `{e}`", ephemeral=True)
@@ -954,6 +956,28 @@ async def cmd_this_week(
 
     vendors = data.get("vendors", {}) or {}
     vendor_key = vendor.strip().lower()
+
+    # Slim-manifest decorator — `n` (name), `t` (type), `r` (rarity/tier)
+    # keys mirror web/scripts/bake-slim-manifest.mjs. Falls back gracefully
+    # when a hash isn't in the slim set (e.g. some vendor decorative items).
+    def decorate_item(item: dict) -> dict:
+        m = manifest.get(str(item.get("hash"))) or {}
+        return {
+            **item,
+            "name": m.get("n") or f"#{item.get('hash', '?')}",
+            "type": m.get("t") or "",
+            "tier": m.get("r") or "",
+        }
+
+    def decorate_cost(cost: list) -> str:
+        if not cost:
+            return ""
+        parts = []
+        for c in cost:
+            ch = c.get("currency_hash")
+            name = (manifest.get(str(ch)) or {}).get("n") or f"hash:{ch}"
+            parts.append(f"{c.get('quantity', 0):,} {name}")
+        return " + ".join(parts)
 
     # ── Single-vendor deep dive ──────────────────────────────
     if vendor_key:
@@ -987,20 +1011,20 @@ async def cmd_this_week(
             )
         else:
             emb.description = v.get("notes", "")
-            items = v.get("items", []) or []
-            # The bot embed lists items by hash since the bot doesn't carry
-            # the slim manifest. The web /this-week page renders names.
-            lines = [
-                f"• `#{it.get('hash', '?')}`"
-                + (
-                    "  (" + " + ".join(
-                        f"{c.get('quantity', 0)}× hash:{c.get('currency_hash', '?')}"
-                        for c in (it.get("cost") or [])
-                    ) + ")"
-                    if it.get("cost") else ""
-                )
-                for it in items[:12]
-            ]
+            items_raw = v.get("items", []) or []
+            items = [decorate_item(it) for it in items_raw]
+            # Tier emoji prefix: exotic items get 🟡, legendaries 🟣.
+            def tier_prefix(tier: str) -> str:
+                return {"Exotic": "🟡 ", "Legendary": "🟣 ", "Rare": "🔵 "}.get(tier, "• ")
+            lines = []
+            for it in items[:12]:
+                head = f"{tier_prefix(it['tier'])}**{it['name']}**"
+                if it["type"]:
+                    head += f" — _{it['type']}_"
+                cost_line = decorate_cost(it.get("cost") or [])
+                if cost_line:
+                    head += f"\n   {cost_line}"
+                lines.append(head)
             if lines:
                 emb.add_field(
                     name=f"Inventory ({len(items)} items, showing first 12)",
@@ -1009,7 +1033,7 @@ async def cmd_this_week(
                 )
             if len(items) > 12:
                 emb.set_footer(
-                    text=f"+{len(items) - 12} more items. Full names visible at "
+                    text=f"+{len(items) - 12} more items. Full list at "
                     f"clarencestephen.com/this-week.",
                 )
         emb.add_field(
