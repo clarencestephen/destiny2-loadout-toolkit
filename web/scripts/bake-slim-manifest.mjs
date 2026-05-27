@@ -42,6 +42,10 @@ const SRC_CANDIDATES = [
   "/home/cs/workspace/Destiny 2/manifest_cache/DestinyInventoryItemDefinition.json",
   "/home/cs/workspace/Destiny 2/destiny2-loadout-toolkit/manifest_cache/DestinyInventoryItemDefinition.json",
 ];
+const SET_CANDIDATES = [
+  "/home/cs/workspace/Destiny 2/manifest_cache/DestinyEquipableItemSetDefinition.json",
+  "/home/cs/workspace/Destiny 2/destiny2-loadout-toolkit/manifest_cache/DestinyEquipableItemSetDefinition.json",
+];
 const OUT = path.resolve(__dirname, "../public/manifest.json");
 
 // Bucket hashes we recognise — every other bucket is left as "" (slot agnostic)
@@ -75,9 +79,29 @@ function findSrc() {
   process.exit(1);
 }
 
+function findSetDefs() {
+  for (const p of SET_CANDIDATES) if (fs.existsSync(p)) return p;
+  return null;  // optional — set names just won't be baked
+}
+
 const src = findSrc();
 const srcMB = (fs.statSync(src).size / 1024 / 1024).toFixed(1);
 console.log(`Reading ${src} (~${srcMB} MB)...`);
+
+// Load set definitions if available — maps equipableItemSetHash → name
+const setSrc = findSetDefs();
+let setNameByHash = {};
+if (setSrc) {
+  console.log(`Reading set definitions from ${setSrc}...`);
+  const setDefs = JSON.parse(fs.readFileSync(setSrc, "utf-8"));
+  for (const [h, d] of Object.entries(setDefs)) {
+    const name = (d.displayProperties?.name || "").trim();
+    if (name) setNameByHash[h] = name;
+  }
+  console.log(`  ${Object.keys(setNameByHash).length} set names indexed.`);
+} else {
+  console.log("(no DestinyEquipableItemSetDefinition.json found — set names will be skipped)");
+}
 const items = JSON.parse(fs.readFileSync(src, "utf8"));
 console.log(`  ${Object.keys(items).length.toLocaleString()} raw item definitions`);
 
@@ -118,6 +142,11 @@ for (const [hash, defn] of Object.entries(items)) {
   // we still keep it so the UI can fall back gracefully via onerror.
   const icon = (dp.icon || "").trim();
 
+  // Armor set / theme — link from item's equippingBlock to a set name.
+  // Only present on armor pieces that belong to a named set.
+  const setHash = defn.equippingBlock?.equipableItemSetHash;
+  const setName = setHash ? setNameByHash[String(setHash)] : "";
+
   slim[hash] = {
     n: name,
     t: defn.itemTypeDisplayName || "",
@@ -127,6 +156,7 @@ for (const [hash, defn] of Object.entries(items)) {
     c: CLS[defn.classType ?? 3] || "Any",
     x: tierType === 6,
     ...(icon ? { i: icon } : {}),
+    ...(setName ? { st: setName } : {}),
   };
   kept++;
 }
