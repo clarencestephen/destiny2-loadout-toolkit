@@ -1,4 +1,18 @@
 # raids/vault-of-glass.yaml — Pass 1 (destinypedia baseline)
+#
+# PASS 2 (2026-05-27): loot tables verified against
+# blueberries.gg/weapons/vault-of-glass-loot. blueberries treats
+# Conflux (E1) and Oracle (E2) as SEPARATE loot encounters; the YAML
+# combines them into one block called "confluxes". For accuracy without
+# restructuring, that block now lists the merged Conflux+Oracle drop
+# pool. If/when the YAML splits them, this combined entry should split
+# accordingly.
+# master_challenge: blueberries page returned 404 for VoG challenges —
+# blueberries appears to have a different URL pattern for VoG challenges
+# (referenced as 'destiny-2-vog-challenges' in the LW page). Deferred to
+# Pass-2.5; the canonical VoG challenges (e.g. Wait for It on Templar,
+# Out of Its Way on Gatekeeper, Ensemble's Refrain on Atheon) are
+# documented elsewhere but not pulled into a Tier-1 source here.
 
 slug: vault-of-glass
 name: Vault of Glass
@@ -296,11 +310,12 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Fatebringer (HC)"
-        - "Vision of Confluence (scout)"
-        - "Found Verdict (shotgun)"
-        - "Hezen Vengeance (rocket)"
-        - "VoG armor"
+        - "Combined Conflux + Oracle drop pool (blueberries treats these as 2 separate encounters; this YAML block covers both):"
+        - "Vision of Confluence (scout rifle, Solar)"
+        - "Found Verdict (shotgun, Arc)"
+        - "Praedyth's Revenge (sniper rifle, Kinetic)"
+        - "Corrective Measure (machine gun, Void)"
+        - "Vault of Glass armor (random slot)"
 
     images:
       overview: ""
@@ -440,10 +455,10 @@ encounters:
         rewards:
           - "Random raid loot drop"
       potential_drops:
-        - "Fatebringer (HC)"
-        - "Vision of Confluence (scout)"
-        - "Praedyth's Revenge (sniper)"
-        - "VoG armor"
+        - "Fatebringer (hand cannon, Kinetic)"
+        - "Vision of Confluence (scout rifle, Solar)"
+        - "Corrective Measure (machine gun, Void)"
+        - "Vault of Glass armor (random slot)"
 
     images:
       overview: ""
@@ -720,11 +735,10 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Vision of Confluence (scout)"
-        - "Found Verdict (shotgun)"
-        - "Praedyth's Revenge (sniper)"
-        - "Corrective Measure (LMG)"
-        - "VoG armor"
+        - "Fatebringer (hand cannon, Kinetic)"
+        - "Hezen Vengeance (rocket launcher, Solar)"
+        - "Found Verdict (shotgun, Arc)"
+        - "Vault of Glass armor (random slot)"
 
     images:
       overview: ""
@@ -877,12 +891,11 @@ encounters:
         - "Final boss chest (extra roll)"
       hidden_chest: null
       potential_drops:
-        - "Vex Mythoclast (exotic fusion rifle)"
-        - "Fatebringer (HC)"
-        - "Vision of Confluence (scout)"
-        - "Found Verdict (shotgun)"
-        - "Praedyth's Revenge (sniper)"
-        - "Hezen Vengeance (rocket)"
+        - "**Vex Mythoclast** (exotic fusion rifle, Solar) — RNG drop from Atheon chest. The OG raid exotic."
+        - "Praedyth's Revenge (sniper rifle, Kinetic)"
+        - "Corrective Measure (machine gun, Void)"
+        - "Hezen Vengeance (rocket launcher, Solar)"
+        - "Vault of Glass armor (random slot)."
         - "Corrective Measure (LMG)"
         - "VoG armor (full set)"
         - "Time-Worn Spire shader"
