@@ -1,4 +1,14 @@
 # raids/crotas-end.yaml — Pass 1 (destinypedia baseline)
+#
+# PASS 2 (2026-05-27): loot + master challenges verified against
+# blueberries.gg/weapons/crotas-end-loot and
+# blueberries.gg/leveling/crotas-end-challenges.
+# Canonical Master Challenge names: Conservation of Energy / Precarious
+# Balance / Equal Vessels / All for One.
+# Note: Necrochasm (exotic auto rifle) is NOT a final-chest RNG drop —
+# it's obtained via the Essence of the Oryx currency earned by completing
+# challenges. The original D2 reprised drop pool also drops Eidolon Ally
+# (auto, Kinetic) as an Adept weapon via the challenge double-drop.
 
 slug: crotas-end
 name: Crota's End
@@ -211,8 +221,22 @@ encounters:
           BEHIND the door directly ahead.
         rewards:
           - "Random raid loot"
-      potential_drops: []
+      potential_drops:
+        - "Song of Ir Yût (machine gun, Arc)"
+        - "Fang of Ir Yût (scout rifle, Strand)"
+        - "Abyss Defiant (auto rifle, Solar)"
+        - "Willbreaker's armor — Chest + Arms + Helmet (encounter-specific slots)"
       # Deepsight rune relevant per the secret puzzle
+
+    master_challenge:
+      name: "Conservation of Energy"
+      requirement: |
+        Fireteam must alternate between depositing the Chalice of Light
+        in a podium AND Enlightening a lamp — only one lamp Enlightenment
+        per podium of Light used. Most of the encounter is spent with
+        10 stacks of Weight of Darkness, so the Engulfed-in-Darkness
+        timer matters a lot more than a regular run.
+      enforced_on: "Master only (Normal grants double loot when active)"
 
     images:
       overview: ""
@@ -337,11 +361,19 @@ encounters:
         rewards:
           - "Random raid loot"
       potential_drops:
-        - "Oversoul Edict (pulse)"
-        - "Abyss Defiant (auto)"
-        - "Word of Crota (HC)"
-        - "Fang of Ir Yût (scout)"
-        - "Crota's End armor"
+        - "Swordbreaker (shotgun, Strand)"
+        - "Fang of Ir Yût (scout rifle, Strand)"
+        - "Oversoul Edict (pulse rifle, Arc)"
+        - "Willbreaker's armor — Chest + Arms + Legs (encounter-specific slots)"
+
+    master_challenge:
+      name: "Precarious Balance"
+      requirement: |
+        Guardians cannot step on the bridge while it is fully built.
+        Once the final piece locks in, everyone must already be on the
+        opposite side (or step OFF before the last piece slots). Builders
+        especially have to clear the bridge BEFORE finishing it.
+      enforced_on: "Master only (Normal grants double loot when active)"
 
     images:
       overview: ""
@@ -475,11 +507,20 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Oversoul Edict (pulse)"
-        - "Abyss Defiant (auto)"
-        - "Word of Crota (HC)"
-        - "Fang of Ir Yût (scout)"
-        - "Crota's End armor"
+        - "Word of Crota (hand cannon, Void)"
+        - "Song of Ir Yût (machine gun, Arc)"
+        - "Oversoul Edict (pulse rifle, Arc)"
+        - "Willbreaker's armor — Chest + Legs (encounter-specific slots)"
+        - "Mark of the Pit (Class Item)"
+
+    master_challenge:
+      name: "Equal Vessels"
+      requirement: |
+        All six players must rotate the Chalice of Light buff in the
+        same order throughout the entire encounter. A player cannot
+        hold the Chalice again until all five other players have held
+        it. Forces a strict 6-slot round-robin.
+      enforced_on: "Master only (Normal grants double loot when active)"
 
     images:
       overview: ""
@@ -647,12 +688,22 @@ encounters:
         - "Deepsight chest (if all 3 statue puzzle activations correct — see Overall Notes)"
       hidden_chest: null
       potential_drops:
-        - "Necrochasm (exotic auto rifle — Bottomless Pit quest)"
-        - "Oversoul Edict (pulse)"
-        - "Abyss Defiant (auto)"
-        - "Word of Crota (HC)"
-        - "Fang of Ir Yût (scout)"
-        - "Crota's End armor"
+        - "Word of Crota (hand cannon, Void)"
+        - "Abyss Defiant (auto rifle, Solar)"
+        - "Swordbreaker (shotgun, Strand)"
+        - "Willbreaker's Watch (Helmet) + Greaves (Legs)"
+        - "Mark of the Pit (Class Item)"
+        - "Note: **Necrochasm** (exotic auto rifle, Kinetic) is NOT a final-chest RNG drop — it's obtained via the 'Bottomless Pit' exotic quest, spending Essence of the Oryx earned from Crota's End Encounter Challenges. Adept (Enhanced) variants of the raid weapons also drop from Master mode."
+
+    master_challenge:
+      name: "All for One"
+      requirement: |
+        Crota's overshield must be destroyed in full within about
+        three seconds. Forces a coordinated burst — usually requires
+        all 6 players landing damage in the same window (linear
+        fusions, sniper crit lineups, Two-Tailed Fox + Wolfpack
+        Rounds, Touch of Malice synergy, etc.).
+      enforced_on: "Master only (Normal grants double loot when active)"
 
     images:
       overview: ""

@@ -22,7 +22,7 @@ All 20 activities authored at Pass-1 quality. Pending: multi-source synthesis (P
 | Last Wish | `last-wish.yaml` | ✅ | ✅ | ⬜ |
 | King's Fall | `kings-fall.yaml` | ✅ | ✅ | ⬜ |
 | Vault of Glass | `vault-of-glass.yaml` | ✅ | ✅ | ⬜ |
-| Crota's End | `crotas-end.yaml` | ✅ | ⬜ | ⬜ |
+| Crota's End | `crotas-end.yaml` | ✅ | ✅ | ⬜ |
 
 ### Dungeons (10)
 
