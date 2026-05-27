@@ -17,7 +17,7 @@ All 20 activities authored at Pass-1 quality. Pending: multi-source synthesis (P
 | Salvation's Edge | `salvations-edge.yaml` | ✅ | ✅ | ⬜ |
 | Desert Perpetual | `desert-perpetual.yaml` | ✅ | ✅ | ⬜ |
 | Vow of the Disciple | `vow-of-the-disciple.yaml` | ✅ | ✅ | ⬜ |
-| Deep Stone Crypt | `deep-stone-crypt.yaml` | ✅ | ⬜ | ⬜ |
+| Deep Stone Crypt | `deep-stone-crypt.yaml` | ✅ | ✅ | ⬜ |
 | Garden of Salvation | `garden-of-salvation.yaml` | ✅ | ⬜ | ⬜ |
 | Last Wish | `last-wish.yaml` | ✅ | ⬜ | ⬜ |
 | King's Fall | `kings-fall.yaml` | ✅ | ⬜ | ⬜ |

@@ -1,4 +1,10 @@
 # raids/deep-stone-crypt.yaml — Pass 1 (destinypedia baseline)
+#
+# PASS 2 (2026-05-27): loot tables verified against
+# blueberries.gg/weapons/destiny-2-deep-stone-crypt-loot.
+# Per-encounter master_challenge blocks deferred — blueberries doesn't
+# publish a DSC challenges page; will revisit in a Pass-2.5 sweep with
+# secondary sources.
 
 slug: deep-stone-crypt
 name: Deep Stone Crypt
@@ -287,9 +293,8 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Heritage (shotgun)"
-        - "Trustee (scout)"
-        - "Legacy's Oath armor"
+        - "Trustee (rapid-fire scout rifle, Solar)"
+        - "Legacy's Oath armor — Arms + Legs + Class Item (encounter-specific slots)"
 
     images:
       overview: ""
@@ -439,10 +444,9 @@ encounters:
           - "Random raid loot"
           - "Exo Stranger lore logs"
       potential_drops:
-        - "Heritage (shotgun)"
-        - "Posterity (HC)"
-        - "Trustee (scout)"
-        - "Legacy's Oath armor"
+        - "Succession (aggressive sniper rifle, Kinetic)"
+        - "Heritage (precision shotgun, Kinetic)"
+        - "Legacy's Oath armor — Arms + Legs + Class Item (encounter-specific slots)"
 
     images:
       overview: ""
@@ -575,8 +579,8 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Heritage, Succession, Trustee, Posterity"
-        - "Legacy's Oath armor"
+        - "Posterity (precision hand cannon, Arc)"
+        - "Legacy's Oath armor — Chest + Arms + Class Item (encounter-specific slots)"
 
     images:
       overview: ""
@@ -732,14 +736,10 @@ encounters:
         - "Final boss chest"
       hidden_chest: null
       potential_drops:
-        - "Eyes of Tomorrow (exotic rocket launcher — random chance, re-rollable)"
-        - "Heritage (shotgun)"
-        - "Succession (sniper)"
-        - "Posterity (HC)"
-        - "Trustee (scout)"
-        - "Bequest (sword)"
-        - "Commemoration (LMG)"
-        - "Legacy's Oath armor"
+        - "**Eyes of Tomorrow** (exotic rocket launcher, Solar) — RNG drop from final chest."
+        - "Bequest (adaptive sword, Arc)"
+        - "Commemoration (adaptive machine gun, Void)"
+        - "Legacy's Oath armor — Helm + Chest + Legs (encounter-specific slots)"
 
     images:
       overview: ""
