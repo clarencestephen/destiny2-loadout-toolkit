@@ -1130,6 +1130,24 @@ app.post("/api/internal/inventory", async (c) => {
   });
 });
 
+// Bot-side "this week" lookup — calls the same getThisWeek() aggregator
+// the session-authed /api/this-week uses, but authenticates via shared
+// secret + explicit bungie_id so Darth Bot can serve /this-week to
+// Discord users.
+app.post("/api/internal/this-week", async (c) => {
+  const auth = await requireBotSecret(c);
+  if (auth instanceof Response) return auth;
+  const body = await c.req.json<{ bungie_id: string }>();
+  const u = await loadUserByBungieId(c, body.bungie_id);
+  if (!u) return c.json({ error: "user not in KV (link expired?)" }, 404);
+  try {
+    const data = await getThisWeek(c.env, u);
+    return c.json(data);
+  } catch (e: any) {
+    return c.json({ error: `this-week fetch failed: ${e.message ?? e}` }, 500);
+  }
+});
+
 // Equip a set of items onto a character — same logic as /api/equip but
 // authenticated via shared secret + explicit bungie_id rather than session.
 app.post("/api/internal/equip", async (c) => {

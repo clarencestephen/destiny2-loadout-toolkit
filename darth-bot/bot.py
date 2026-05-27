@@ -894,6 +894,169 @@ async def on_message(message: discord.Message):
 
 
 # ============================================================
+# /this-week — Kyber-Community-parity vendor rotation feed.
+# Phase 1+2: vendors only (Xur / Ada-1 / Banshee / Rahool / Eververse).
+# Phase 3 (milestones) + Phase 4 (TWID) land in future updates — see
+# THIS_WEEK_PLAN.md at the repo root.
+# ============================================================
+
+_VENDOR_KEYS = ["xur", "ada1", "banshee", "rahool", "eververse"]
+
+_VENDOR_EMOJI = {
+    "xur":       "🛸",
+    "ada1":      "🛡️",
+    "banshee":   "🔧",
+    "rahool":    "🔮",
+    "eververse": "✨",
+}
+
+
+def _format_refresh(seconds: int) -> str:
+    if seconds <= 0:
+        return "any moment"
+    d, rem = divmod(seconds, 86400)
+    h, rem = divmod(rem, 3600)
+    m, _   = divmod(rem, 60)
+    if d > 0: return f"{d}d {h}h"
+    if h > 0: return f"{h}h {m}m"
+    return f"{m}m"
+
+
+@bot.tree.command(
+    name="this-week",
+    description="Weekly vendor rotations — Xur, Ada-1, Banshee, Rahool, Eververse",
+)
+@app_commands.describe(
+    vendor="Optional: focus one vendor (xur / ada1 / banshee / rahool / eververse)",
+)
+async def cmd_this_week(
+    interaction: discord.Interaction, vendor: str = "",
+):
+    await interaction.response.defer(ephemeral=False, thinking=True)
+    discord_id = str(interaction.user.id)
+
+    link = await _resolve_bungie_id(discord_id)
+    if not link:
+        await interaction.followup.send(
+            "⚠️ You haven't linked a Bungie account yet. Run `/link-bungie` first.",
+            ephemeral=True,
+        )
+        return
+    bungie_id = link.get("bungie_id")
+
+    try:
+        data = await _bot_internal_post(
+            "/api/internal/this-week", {"bungie_id": bungie_id},
+        )
+    except Exception as e:
+        await interaction.followup.send(f"⚠️ This-week fetch failed: `{e}`", ephemeral=True)
+        return
+
+    vendors = data.get("vendors", {}) or {}
+    vendor_key = vendor.strip().lower()
+
+    # ── Single-vendor deep dive ──────────────────────────────
+    if vendor_key:
+        if vendor_key not in _VENDOR_KEYS:
+            await interaction.followup.send(
+                f"Unknown vendor `{vendor_key}`. Try one of: {', '.join(_VENDOR_KEYS)}.",
+                ephemeral=True,
+            )
+            return
+        v = vendors.get(vendor_key)
+        if not v:
+            await interaction.followup.send(
+                f"{_VENDOR_EMOJI[vendor_key]} **{vendor_key}** — no data this week.",
+            )
+            return
+        emb = discord.Embed(
+            title=f"{_VENDOR_EMOJI[vendor_key]} {v.get('display_name', vendor_key)}",
+            color=0x6a3aa6,
+        )
+        if v.get("location"):
+            loc = v["location"]
+            emb.add_field(
+                name="📍 Location",
+                value=f"{loc.get('name', '?')} · {loc.get('planet', '?')}",
+                inline=False,
+            )
+        if not v.get("available", True):
+            emb.description = (
+                v.get("notes")
+                or f"Returns in {_format_refresh(v.get('refresh_in_seconds', 0))}."
+            )
+        else:
+            emb.description = v.get("notes", "")
+            items = v.get("items", []) or []
+            # The bot embed lists items by hash since the bot doesn't carry
+            # the slim manifest. The web /this-week page renders names.
+            lines = [
+                f"• `#{it.get('hash', '?')}`"
+                + (
+                    "  (" + " + ".join(
+                        f"{c.get('quantity', 0)}× hash:{c.get('currency_hash', '?')}"
+                        for c in (it.get("cost") or [])
+                    ) + ")"
+                    if it.get("cost") else ""
+                )
+                for it in items[:12]
+            ]
+            if lines:
+                emb.add_field(
+                    name=f"Inventory ({len(items)} items, showing first 12)",
+                    value="\n".join(lines) or "—",
+                    inline=False,
+                )
+            if len(items) > 12:
+                emb.set_footer(
+                    text=f"+{len(items) - 12} more items. Full names visible at "
+                    f"clarencestephen.com/this-week.",
+                )
+        emb.add_field(
+            name="Refresh",
+            value=_format_refresh(v.get("refresh_in_seconds", 0)),
+            inline=True,
+        )
+        await interaction.followup.send(embed=emb)
+        return
+
+    # ── All-vendor summary ───────────────────────────────────
+    emb = discord.Embed(
+        title="🗓️ This Week",
+        description=(
+            "Kyber-parity vendor rotation feed.\n"
+            "Use `/this-week vendor:<name>` for one vendor's full inventory."
+        ),
+        color=0x6a3aa6,
+    )
+    for key in _VENDOR_KEYS:
+        v = vendors.get(key)
+        emoji = _VENDOR_EMOJI[key]
+        if not v:
+            emb.add_field(
+                name=f"{emoji} {key}",
+                value="*(no data)*",
+                inline=False,
+            )
+            continue
+        avail = "✅ open" if v.get("available", True) else "❌ unavailable"
+        loc = ""
+        if v.get("location"):
+            loc = f" · 📍 {v['location'].get('name', '?')}"
+        line1 = f"**{v.get('display_name', key)}** — {avail}{loc}"
+        n_items = len(v.get("items", []) or [])
+        refresh = _format_refresh(v.get("refresh_in_seconds", 0))
+        line2 = f"{n_items} items · refresh {refresh}"
+        emb.add_field(
+            name=f"{emoji} {key}",
+            value=f"{line1}\n{line2}",
+            inline=False,
+        )
+    emb.set_footer(text="Data cached 60min · Phase 1+2 (vendors). Milestones + TWID coming soon.")
+    await interaction.followup.send(embed=emb)
+
+
+# ============================================================
 # Bootstrap
 # ============================================================
 
