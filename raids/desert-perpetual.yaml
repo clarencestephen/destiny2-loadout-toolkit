@@ -1,4 +1,21 @@
 # raids/desert-perpetual.yaml — Pass 1 (destinypedia baseline + Epic variant)
+#
+# PASS 2 (2026-05-27, blueberries authoritative for loot):
+#   • Loot table fixes: ALL 4 encounters had wrong potential_drops — the
+#     non-linear boss-select order in Nursery meant the YAML conflated
+#     encounters by player-chosen sequence, not by-boss. Each boss has a
+#     fixed per-boss drop pool; corrected against
+#     blueberries.gg/weapons/desert-perpetual-loot-table.
+#   • NO master_challenge: blocks for this raid. The Desert Perpetual
+#     uses Bungie's NEW "feats + Epic mode" system (introduced with
+#     Edge of Fate, July 2025), not the per-encounter Master Challenge
+#     names of legacy raids. Per-encounter feat names aren't published
+#     in the blueberries-style format yet. Document at the raid level
+#     once the feat taxonomy stabilizes.
+#   • blueberries.gg/leveling/desert-perpetual-challenges does NOT exist
+#     yet — DP is too new. Skycoach has Epic-mode encounter differences
+#     but no Master Challenge equivalents. Pass-3 (transcripts) will
+#     likely surface more.
 
 slug: desert-perpetual
 name: The Desert Perpetual
@@ -290,10 +307,8 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Opaque Hourglass (bow)"
-        - "Intercalary (auto)"
-        - "Antedate (SMG)"
-        - "Collective Psyche armor"
+        - "Opaque Hourglass (combat bow, Arc)"
+        - "Collective Psyche armor — Arms (encounter-specific slot)"
 
     images:
       overview: ""
@@ -440,9 +455,10 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "Finite Maybe (fusion)"
-        - "Lance Ephemeral (sniper)"
-        - "Collective Psyche armor"
+        - "Antedate (SMG, Arc)"
+        - "Lance Ephemeral (sniper rifle, Strand)"
+        - "Intercalary (auto rifle, Stasis)"
+        - "Collective Psyche armor — Legs (encounter-specific slot)"
 
     images:
       overview: ""
@@ -577,10 +593,9 @@ encounters:
         - "1× raid weapon or armor"
       hidden_chest: null
       potential_drops:
-        - "The When and Where (rocket)"
-        - "Opaque Hourglass (bow)"
-        - "Antedate (SMG)"
-        - "Collective Psyche armor"
+        - "Finite Maybe (fusion rifle, Solar)"
+        - "The When and Where (rocket launcher, Stasis)"
+        - "Collective Psyche armor — Chest + Helmet (encounter-specific slots)"
 
     images:
       overview: ""
@@ -762,15 +777,10 @@ encounters:
         - "Final boss chest (Conductor statue extra)"
       hidden_chest: null
       potential_drops:
-        - "Whirling Ovation (exotic rocket launcher — random chance, re-rollable)"
-        - "Opaque Hourglass (bow)"
-        - "Intercalary (auto)"
-        - "Antedate (SMG)"
-        - "Finite Maybe (fusion)"
-        - "Lance Ephemeral (sniper)"
-        - "The When and Where (rocket)"
-        - "Collective Psyche armor (Standard)"
-        - "Wayward Psyche armor (Epic)"
+        - "Whirling Ovation (rocket launcher, Strand) — primary boss-specific drop. Some sources/community label as exotic + re-rollable; verify in-game."
+        - "Any Desert Perpetual Legendary weapon (Antedate, Lance Ephemeral, Intercalary, Finite Maybe, The When and Where, Opaque Hourglass)."
+        - "Collective Psyche armor — Class Items (any slot) per blueberries final-encounter row."
+        - "Wayward Psyche armor (Epic variant — only drops from Epic difficulty per user notes; verify against Epic loot table when published)."
         - "Cusp Sempiternal / Starscape Null / The Ever-Present (Epic-only weapons)"
 
     images:
