@@ -121,6 +121,30 @@ async def cmd_ask(interaction: discord.Interaction, question: str):
     ch = getattr(interaction.channel, "name", "DM")
     log.info(f"/ask in #{ch}: {question[:80]}")
     await interaction.response.defer(thinking=True)
+
+    # ── Structured-data shortcut routing ────────────────────────
+    # Short, keyword-only questions like "xur" / "iron banner" /
+    # "hakke" route directly to the live structured-data cards
+    # rather than the LLM. Questions with analysis verbs ("what",
+    # "best", "build", etc.) or longer than 4 words fall through
+    # to the LLM as before.
+    route = _route_question_to_shortcut(question)
+    if route:
+        kind, key = route
+        log.info(f"/ask → shortcut: {kind}/{key}")
+        try:
+            if kind == "vendor":
+                await _send_vendor_card(interaction, key)
+            elif kind == "activity":
+                await _send_activity_card(interaction, key)
+            elif kind == "foundry":
+                await _send_foundry_card(interaction, key)
+            return
+        except Exception as e:
+            log.exception("ask-shortcut failed; falling through to LLM")
+            # fall through to the LLM if the structured fetch breaks
+
+    # ── LLM-orchestrated path ───────────────────────────────────
     try:
         text = await answer(question)
         log.info(f"/ask reply ({len(text)} chars): {text[:100]}")
@@ -1496,6 +1520,59 @@ async def cmd_suros(interaction: discord.Interaction):
 async def cmd_tex_mechanica(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=False, thinking=True)
     await _send_foundry_card(interaction, "tex-mechanica")
+
+
+# ============================================================
+# /ask routing — detect short vendor/activity/foundry queries
+# and bypass the LLM in favor of the structured-data shortcuts.
+# Called from cmd_ask BEFORE the LLM path.
+# ============================================================
+
+# Question words that signal "want analysis / advice", not a lookup.
+# When any of these appears, fall through to the LLM.
+_LLM_INTENT_WORDS = {
+    "what", "how", "why", "when", "where", "who",
+    "best", "good", "better", "compare", "vs", "versus",
+    "build", "loadout", "recommend", "should", "would",
+    "advice", "setup", "strategy", "tips", "guide",
+}
+
+
+def _route_question_to_shortcut(question: str) -> tuple[str, str] | None:
+    """If the question is a short keyword-only lookup (≤ 4 words,
+    no analysis verbs), return ('vendor'|'activity'|'foundry', key).
+    Otherwise return None so the LLM handles it.
+    """
+    import re
+    q = (question or "").strip().lower().replace("’", "'").replace("‘", "'")
+    if not q:
+        return None
+    words = re.findall(r"[a-z0-9\-]+", q)
+    if len(words) > 4:
+        return None
+    if any(w in _LLM_INTENT_WORDS for w in words):
+        return None
+
+    # Try whole-question first (handles "iron banner", "lost sector")
+    whole = q.replace(" ", "-")
+    if whole in _VENDOR_ALIASES:    return ("vendor",   _VENDOR_ALIASES[whole])
+    if whole in _ACTIVITY_ALIASES:  return ("activity", _ACTIVITY_ALIASES[whole])
+    if whole in _FOUNDRY_ALIASES:   return ("foundry",  _FOUNDRY_ALIASES[whole])
+
+    # 2-word pairings (in case the whole-question normalization missed)
+    for i in range(len(words) - 1):
+        pair = f"{words[i]}-{words[i+1]}"
+        if pair in _VENDOR_ALIASES:    return ("vendor",   _VENDOR_ALIASES[pair])
+        if pair in _ACTIVITY_ALIASES:  return ("activity", _ACTIVITY_ALIASES[pair])
+        if pair in _FOUNDRY_ALIASES:   return ("foundry",  _FOUNDRY_ALIASES[pair])
+
+    # Single words last so a multi-word match always wins
+    for w in words:
+        if w in _VENDOR_ALIASES:    return ("vendor",   _VENDOR_ALIASES[w])
+        if w in _ACTIVITY_ALIASES:  return ("activity", _ACTIVITY_ALIASES[w])
+        if w in _FOUNDRY_ALIASES:   return ("foundry",  _FOUNDRY_ALIASES[w])
+
+    return None
 
 
 # ============================================================
