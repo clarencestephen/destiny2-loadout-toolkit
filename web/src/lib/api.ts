@@ -74,6 +74,8 @@ export interface LeanItem {
   tag?: "favorite" | "keep" | "infuse" | "junk" | "archive";
   /** Per-armor base stats. Present only for armor pieces with non-zero stats. */
   stats?: ArmorStats;
+  /** Active plug hashes (component 305). For armor, plug[0] is the archetype perk. */
+  plug_hashes?: number[];
 }
 
 /** Decorated shape — Worker hash → manifest lookup → fully populated client-side */
@@ -88,6 +90,33 @@ export interface Item extends LeanItem {
   isExotic: boolean;
   /** Full https URL to the item thumbnail on Bungie's CDN. Empty if missing. */
   iconUrl: string;
+  /** Armor set / theme name (e.g. "Wild Anthem"). Empty for non-set pieces. */
+  set: string;
+  /** Post-EoF armor archetype derived from plug_hashes (Brawler / Bulwark / Grenadier / Gunner / Paragon / Specialist). Empty if none. */
+  archetype: string;
+}
+
+/** All known post-EoF armor archetypes — used for /optimizer's filter chips.
+ *  Mirrors the {@link ArmorArchetype} union above. */
+export const ARMOR_ARCHETYPES: ArmorArchetype[] = [
+  "Brawler", "Bulwark", "Grenadier", "Gunner", "Paragon", "Specialist",
+];
+
+/** Detect a post-EoF armor archetype from a piece's active plug names.
+ *  Looks for an exact match against the known six archetype names in any
+ *  of the plug `n` fields. Returns "" when nothing matches (pre-EoF or
+ *  non-armor). */
+export function detectArchetype(plug_hashes: number[] | undefined, manifest: SlimManifest): string {
+  if (!plug_hashes?.length) return "";
+  for (const h of plug_hashes) {
+    const e = manifest[String(h)];
+    if (!e?.n) continue;
+    const n = e.n.trim();
+    for (const a of ARMOR_ARCHETYPES) {
+      if (n === a || n.startsWith(`${a} `) || n.endsWith(` ${a}`)) return a;
+    }
+  }
+  return "";
 }
 
 /** Sum of two ArmorStats objects (or null-safe). */
@@ -108,14 +137,15 @@ export type ArmorSlot = typeof ARMOR_SLOTS[number];
 
 /** Slim manifest entry — keys mirror bake-slim-manifest.mjs */
 export interface ManifestEntry {
-  n: string;  // name
-  t: string;  // type
-  r: string;  // tier (rarity)
-  s: string;  // slot
-  e: string;  // element
-  c: string;  // class
-  x: boolean; // is exotic
-  i?: string; // icon path (relative — prepend bungie.net)
+  n: string;   // name
+  t: string;   // type
+  r: string;   // tier (rarity)
+  s: string;   // slot
+  e: string;   // element
+  c: string;   // class
+  x: boolean;  // is exotic
+  i?: string;  // icon path (relative — prepend bungie.net)
+  st?: string; // armor set name (e.g. "Wild Anthem")
 }
 
 export const BUNGIE_CDN = "https://www.bungie.net";
@@ -150,6 +180,8 @@ export function decorate(lean: LeanItem, manifest: SlimManifest): Item {
     class:    m?.c ?? "Any",
     isExotic: m?.x ?? false,
     iconUrl:  m?.i ? BUNGIE_CDN + m.i : "",
+    set:      m?.st ?? "",
+    archetype: detectArchetype(lean.plug_hashes, manifest),
   };
 }
 
@@ -213,6 +245,91 @@ export const api = {
     jsonFetch<{ ok: true }>("/api/tags", {
       method: "PUT",
       body: JSON.stringify({ instance_id, tag }),
+    }),
+
+  /** Equip a set of items onto a character. Worker handles vault → char
+   *  transfers automatically. Returns counts + per-item skip reasons.
+   *  Items currently equipped on a different character are skipped — the
+   *  user has to unequip those manually first (v1 limitation). */
+  equip: (character_id: string, item_instance_ids: string[]) =>
+    jsonFetch<{
+      ok: true;
+      equipped_count: number;
+      transferred_count: number;
+      skipped: Array<{ instance_id: string; reason: string }>;
+    }>("/api/equip", {
+      method: "POST",
+      body: JSON.stringify({ character_id, item_instance_ids }),
+    }),
+
+  /** Equip a loadout AND copy a mod plan socket-by-socket. Used by the
+   *  /fireteam "Load" button when the user wants to mirror an entire
+   *  loadout including armor mods. The mod_plan is a list of
+   *  {instance_id, sockets:[{socketIndex, plugItemHash}]} entries — one
+   *  per armor piece, with the leader's plug hashes at the socket
+   *  indices that hold mod-type plugs. */
+  equipWithMods: (
+    character_id: string,
+    item_instance_ids: string[],
+    mod_plan: Array<{
+      instance_id: string;
+      sockets: Array<{ socketIndex: number; plugItemHash: number }>;
+    }>,
+  ) =>
+    jsonFetch<{
+      ok: true;
+      equipped_count: number;
+      transferred_count: number;
+      skipped: Array<{ instance_id: string; reason: string }>;
+      mod_results: Array<{
+        instance_id: string;
+        socketIndex: number;
+        plugItemHash: number;
+        ok: boolean;
+        error?: string;
+      }>;
+      mods_inserted: number;
+      mods_failed: number;
+    }>("/api/equip-with-mods", {
+      method: "POST",
+      body: JSON.stringify({ character_id, item_instance_ids, mod_plan }),
+    }),
+
+  /** Look up multiple players by Bungie name (e.g. "Name#1234"). Public
+   *  Bungie API; no per-user OAuth required. */
+  fireteam: (bungie_names: string[]) =>
+    jsonFetch<{
+      members: Array<
+        | {
+            bungie_name: string;
+            display_name: string;
+            membership_id: string;
+            membership_type: number;
+            characters: Array<{
+              id: string;
+              class: "hunter" | "titan" | "warlock";
+              light: number;
+              emblem_path: string | null;
+              emblem_background_path: string | null;
+              date_last_played?: string;
+              equipped: Array<{
+                instance_id: string;
+                hash: number;
+                slot: string;
+                slot_bucket_hash: number;
+                power: number;
+                /** Active mod/perk plug hashes from the item's sockets (component 305). */
+                plug_hashes?: number[];
+                /** Per-instance stat sheet (component 304): statHash → value. */
+                item_stats?: Record<string, number>;
+              }>;
+            }>;
+          }
+        | { bungie_name: string; error: string }
+      >;
+    }>("/api/fireteam", {
+      method: "POST",
+      body: JSON.stringify({ bungie_names }),
     }),
 
   authUrl: () =>
