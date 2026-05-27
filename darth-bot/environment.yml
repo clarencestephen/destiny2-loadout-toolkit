@@ -34,6 +34,12 @@ dependencies:
       - lxml>=5.0
       - trafilatura>=1.12
 
+      # Pass-3: YouTube transcripts for raid walkthrough mechanics
+      # Source mechanics that aren't in destinypedia (most raid mechanic
+      # depth lives in video creators' content, not text).
+      - youtube-transcript-api>=0.6
+      - PyYAML>=6.0       # parse the walkthrough_videos blocks in raids/*.yaml
+
       # Utilities
       - python-dotenv>=1.0
       - pydantic>=2.0
