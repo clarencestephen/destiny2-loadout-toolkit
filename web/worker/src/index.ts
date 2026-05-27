@@ -28,6 +28,7 @@ import {
   type StoredUser,
 } from "./auth";
 import { bungieGet, bungiePost } from "./bungie";
+import { getThisWeek } from "./this-week";
 
 export interface Env {
   DV_KV: KVNamespace;
@@ -448,6 +449,7 @@ app.use("/api/me", requireSession);
 app.use("/api/inventory", requireSession);
 app.use("/api/tags", requireSession);
 app.use("/api/equip", requireSession);
+app.use("/api/this-week", requireSession);
 
 async function requireSession(c: any, next: any) {
   const sid = getCookie(c, "dv_sid");
@@ -684,6 +686,21 @@ app.put("/api/tags", async (c) => {
 //      transfer to vault, then transfer to target character.
 //   4. Batch-equip all items on target character via EquipItems.
 // Returns { equipped: string[], skipped: {instance_id, reason}[] }.
+// ============================================================
+// /api/this-week — Kyber-Community-parity weekly rotation feed
+// Returns a single aggregate JSON with every vendor section.
+// KV-cached per-user (60min TTL); see worker/src/this-week.ts.
+// ============================================================
+app.get("/api/this-week", async (c) => {
+  const u = c.get("user");
+  try {
+    const data = await getThisWeek(c.env, u);
+    return c.json(data);
+  } catch (e: any) {
+    return c.json({ error: `this-week fetch failed: ${e.message ?? e}` }, 500);
+  }
+});
+
 //
 // Bungie endpoints used:
 //   POST /Destiny2/Actions/Items/TransferItem/   (move between vault ↔ char)
