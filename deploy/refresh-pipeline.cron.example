@@ -1,0 +1,58 @@
+# Bungie manifest refresh pipeline — cron schedule
+# =================================================
+# Drop these lines into `crontab -e` (or systemd-timer equivalent) on
+# the machine hosting darth-bot to fully automate manifest +
+# foundries + KB refreshes.
+#
+# Bungie's reset schedule:
+#   • Weekly reset:        Tuesday 17:00 UTC
+#   • Trials starts:       Friday  17:00 UTC
+#   • Daily lost-sector:   17:00 UTC (every day)
+#
+# Schedule refreshes at 17:30 UTC on Tuesday + Friday so the bot's
+# data is fresh by the time players ask post-reset.
+#
+# Adjust PATH and the toolkit directory as needed.
+
+# Refresh after weekly reset (Tuesday) + Trials cut (Friday)
+30 17 * * 2,5  cd /home/cs/workspace/Destiny\ 2/destiny2-loadout-toolkit/darth-bot && PYTHONPATH=. /usr/bin/python3 -m kb.refresh_manifest_pipeline >> /home/cs/workspace/Destiny\ 2/destiny2-loadout-toolkit/darth-bot/data/refresh.log 2>&1
+
+# Optional: weekly --force re-bake at 03:00 UTC Sunday as a safety net
+# in case some downstream artifact got out of sync without a manifest
+# version bump. Comment out if not desired.
+0 3 * * 0  cd /home/cs/workspace/Destiny\ 2/destiny2-loadout-toolkit/darth-bot && PYTHONPATH=. /usr/bin/python3 -m kb.refresh_manifest_pipeline --force >> /home/cs/workspace/Destiny\ 2/destiny2-loadout-toolkit/darth-bot/data/refresh.log 2>&1
+
+
+# ─── systemd-timer alternative ───────────────────────────────────
+# If you prefer systemd over cron, create two units:
+#
+# /etc/systemd/system/destiny-manifest-refresh.service:
+#
+#   [Unit]
+#   Description=Destiny 2 manifest refresh pipeline
+#
+#   [Service]
+#   Type=oneshot
+#   User=cs
+#   WorkingDirectory=/home/cs/workspace/Destiny 2/destiny2-loadout-toolkit/darth-bot
+#   Environment=PYTHONPATH=.
+#   ExecStart=/usr/bin/python3 -m kb.refresh_manifest_pipeline
+#   StandardOutput=append:/home/cs/workspace/Destiny 2/destiny2-loadout-toolkit/darth-bot/data/refresh.log
+#   StandardError=inherit
+#
+# /etc/systemd/system/destiny-manifest-refresh.timer:
+#
+#   [Unit]
+#   Description=Refresh Destiny 2 manifest after weekly + Trials resets
+#
+#   [Timer]
+#   OnCalendar=Tue *-*-* 17:30:00 UTC
+#   OnCalendar=Fri *-*-* 17:30:00 UTC
+#   Persistent=true                  # run if missed (e.g. host was off)
+#
+#   [Install]
+#   WantedBy=timers.target
+#
+# Enable:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now destiny-manifest-refresh.timer
