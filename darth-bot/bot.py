@@ -1446,20 +1446,35 @@ _FOUNDRY_ALIASES = {
     "hakke":             "hakke",
     "häkke":             "hakke",
     "suros":             "suros",
-    "tex-mechanica":     "tex-mechanica",
-    "tex":               "tex-mechanica",
-    "texmechanica":      "tex-mechanica",
+    "tex-mechanica":     "tex_mechanica",
+    "tex_mechanica":     "tex_mechanica",
+    "tex":               "tex_mechanica",
+    "texmechanica":      "tex_mechanica",
+    "omolon":            "omolon",
+    "veist":             "veist",
+    "daito":             "daito",
+    "field-forged":      "field_forged",
+    "field_forged":      "field_forged",
+    "fotc":              "fotc",
 }
 
 _FOUNDRY_EMOJI = {
     "hakke":         "⚙️",
     "suros":         "🔴",
-    "tex-mechanica": "🤠",
+    "tex_mechanica": "🤠",
+    "omolon":        "💧",
+    "veist":         "🐍",
+    "daito":         "🗾",
+    "field_forged":  "🔨",
+    "fotc":          "🏛️",
 }
 
 
 async def _send_foundry_card(interaction: discord.Interaction, foundry_key: str):
-    """Render the hand-curated foundry-highlights card."""
+    """Render the auto-generated foundry weapons card.
+    Data comes from scrape_foundries.py which extracts every weapon
+    tagged `foundry.<name>` from the Bungie manifest.
+    """
     try:
         data = await _fetch_json("/foundries.json")
     except Exception as e:
@@ -1474,6 +1489,7 @@ async def _send_foundry_card(interaction: discord.Interaction, foundry_key: str)
             f"{emoji} **{foundry_key}** — not in foundries.json.",
         )
         return
+
     emb = discord.Embed(
         title=f"{emoji} {f.get('display_name', foundry_key)}",
         description=f.get("tagline", ""),
@@ -1482,25 +1498,47 @@ async def _send_foundry_card(interaction: discord.Interaction, foundry_key: str)
     )
     if f.get("weapon_style"):
         emb.add_field(name="Weapon Style", value=f["weapon_style"], inline=False)
-    weapons = f.get("featured_weapons", []) or []
-    if weapons:
-        lines = []
-        for w in weapons[:6]:
-            head = f"**{w.get('name', '?')}** — _{w.get('type', '')}_"
-            elem = w.get("element")
-            if elem:
-                head += f" · {elem}"
-            ctx = w.get("context")
-            if ctx:
-                head += f"\n   {ctx}"
-            lines.append(head)
+
+    counts = f.get("weapon_counts") or {}
+    if counts:
         emb.add_field(
-            name=f"Featured Weapons (curated {data.get('last_curated', '?')})",
-            value="\n\n".join(lines),
+            name="Catalog",
+            value=(
+                f"{counts.get('total', 0)} total · "
+                f"{counts.get('exotic', 0)} exotic · "
+                f"{counts.get('legendary', 0)} legendary"
+            ),
             inline=False,
         )
-    if f.get("external_link"):
-        emb.set_footer(text="See more god rolls at light.gg (link in title).")
+
+    def fmt_weapon(w: dict) -> str:
+        line = f"**{w.get('name', '?')}** — _{w.get('type', '')}_"
+        elem = w.get("element")
+        if elem and elem != "Kinetic":
+            line += f" · {elem}"
+        return line
+
+    exotics = f.get("exotics", []) or []
+    if exotics:
+        emb.add_field(
+            name=f"🟡 Exotics ({len(exotics)})",
+            value="\n".join(fmt_weapon(w) for w in exotics[:8]) or "—",
+            inline=False,
+        )
+
+    recent = f.get("recent_legendaries", []) or []
+    if recent:
+        emb.add_field(
+            name=f"🟣 Recent Legendaries (top {min(len(recent), 8)})",
+            value="\n".join(fmt_weapon(w) for w in recent[:8]) or "—",
+            inline=False,
+        )
+
+    last = data.get("last_curated", "?")
+    emb.set_footer(
+        text=f"Auto-extracted from Bungie manifest · refreshed {last} · "
+             f"see light.gg for current god rolls (link in title)."
+    )
     await interaction.followup.send(embed=emb)
 
 
@@ -1519,7 +1557,25 @@ async def cmd_suros(interaction: discord.Interaction):
 @bot.tree.command(name="tex-mechanica", description="Tex Mechanica foundry — featured weapons + god rolls")
 async def cmd_tex_mechanica(interaction: discord.Interaction):
     await interaction.response.defer(ephemeral=False, thinking=True)
-    await _send_foundry_card(interaction, "tex-mechanica")
+    await _send_foundry_card(interaction, "tex_mechanica")
+
+
+@bot.tree.command(name="omolon", description="Omolon foundry — fusion/sidearm specialists")
+async def cmd_omolon(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=False, thinking=True)
+    await _send_foundry_card(interaction, "omolon")
+
+
+@bot.tree.command(name="veist", description="Veist foundry — Stinger origin trait, bio-mechanical weapons")
+async def cmd_veist(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=False, thinking=True)
+    await _send_foundry_card(interaction, "veist")
+
+
+@bot.tree.command(name="daito", description="Daito foundry — sparse Eastern-styled catalog")
+async def cmd_daito(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=False, thinking=True)
+    await _send_foundry_card(interaction, "daito")
 
 
 # ============================================================
